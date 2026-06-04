@@ -66,7 +66,7 @@ export default function Datenschutz() {
               <ul className="list-disc pl-6 space-y-2 mt-3">
                 <li><strong>Auskunft:</strong> Welche Daten wir über dich speichern</li>
                 <li><strong>Berichtigung:</strong> Korrektur falscher Daten</li>
-                <li><strong>Löschung:</strong> Entfernung deiner Daten ("Recht auf Vergessenwerden")</li>
+                <li><strong>Löschung:</strong> Entfernung deiner Daten (&quot;Recht auf Vergessenwerden&quot;)</li>
                 <li><strong>Einschränkung:</strong> Einschränkung der Verarbeitung</li>
                 <li><strong>Beschwerde:</strong> Bei der zuständigen Datenschutzbehörde (Niedersächsischer Landesbeamte für Datenschutz)</li>
               </ul>
