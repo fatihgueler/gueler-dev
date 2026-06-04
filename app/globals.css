@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Güler.dev – Design-System
+   Premium Schwarz / Weiß / Gold
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Farben */
+  --color-background: #0a0a0b;
+  --color-surface: #131316;
+  --color-surface-2: #1a1a1e;
+  --color-border: #262629;
+  --color-border-strong: #34343a;
+  --color-foreground: #f4f3f1;
+  --color-muted: #9b9ba1;
+  --color-muted-2: #6c6c72;
+
+  --color-gold: #c9a24a;
+  --color-gold-bright: #e8ce8b;
+  --color-gold-deep: #9a7a33;
+
+  /* Schriften (werden via next/font gesetzt) */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-hanken), system-ui, sans-serif;
+
+  /* Radius */
+  --radius: 0.85rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  /* Eigene Keyframes */
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-shimmer: shimmer 3s linear infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────────────────────── */
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Scroll-Offset wegen sticky Header */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: #0a0a0b;
+  }
+
+  /* Dezenter, edler Scrollbar */
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 999px;
+    border: 3px solid var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Utilities & Komponenten-Klassen
+   ───────────────────────────────────────────────────────────── */
+
+@layer utilities {
+  /* Gold-Verlaufstext */
+  .text-gradient-gold {
+    background: linear-gradient(
+      120deg,
+      var(--color-gold-bright) 0%,
+      var(--color-gold) 45%,
+      var(--color-gold-deep) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Animierter Schimmer-Text (für Eyebrow-Labels) */
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-muted) 0%,
+      var(--color-gold-bright) 50%,
+      var(--color-muted) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: var(--animate-shimmer);
+  }
+
+  /* Feiner Film-Grain über allem */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Goldener Radial-Glow */
+  .gold-glow {
+    background: radial-gradient(
+      ellipse 50% 45% at 50% 40%,
+      rgba(201, 162, 74, 0.18) 0%,
+      rgba(201, 162, 74, 0.06) 35%,
+      transparent 70%
+    );
+  }
+
+  /* Hauchfeines Punkteraster */
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      var(--color-border) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Gold-Hairline-Trenner */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-border-strong) 20%,
+      var(--color-gold-deep) 50%,
+      var(--color-border-strong) 80%,
+      transparent
+    );
+  }
+
+  /* Reveal-on-scroll (von Reveal.tsx gesteuert) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Karten-Glow beim Hover */
+  .card-surface {
+    background:
+      linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
+    border: 1px solid var(--color-border);
+    transition:
+      border-color 0.4s ease,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease;
+  }
+  .card-surface:hover {
+    border-color: var(--color-gold-deep);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 50px -20px rgba(201, 162, 74, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
