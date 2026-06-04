@@ -124,16 +124,15 @@ export const projects = {
       repoUrl: "https://github.com/fatihgueler/smartKitchen",
       featured: false,
     },
-    {
-      // TODO: Kundenprojekt – Inhalte & Freigabe des Kunden prüfen, bevor es online geht.
-      title: "Kundenprojekt",
-      category: "Business-Website",
+  {
+      title: "ENOX",
+      category: "Mehrsprachige Website",
       description:
-        "{{ KURZBESCHREIBUNG_KUNDENPROJEKT_EINSETZEN — z. B. Branche, Ziel der Website, Ergebnis }}",
-      tags: ["Next.js", "TypeScript", "Tailwind"],
-      liveUrl: "",
-      repoUrl: "",
-      featured: false,
+        "Marketing-Website für internationale Energieberatung mit 5 Sprachen (DE, EN, ZH, ES, RU), animiertem Fördercheck-Funnel zur Lead-Generierung und integrierten Kontaktformularen.",
+      tags: ["Next.js 14", "TypeScript", "Tailwind", "i18n"],
+      liveUrl: "https://enox-rv4x.vercel.app/de",
+      repoUrl: "https://github.com/fatihgueler/Enox",
+      featured: true,
     },
   ],
 };
