@@ -249,7 +249,7 @@
     animation: var(--animate-shimmer);
   }
 
-  /* ── Outline-Display-Text (z. B. großes GÜLER) ───────────── */
+  /* ── Outline-Display-Text (z. B. grosses GÜLER) ───────────── */
   .text-outline {
     color: transparent;
     -webkit-text-stroke: 1px var(--color-border-strong);

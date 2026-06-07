@@ -31,14 +31,14 @@ export function MobileNav() {
 
       <div
         className={cn(
-          "fixed inset-0 z-[60] transition-opacity duration-300",
+          "fixed inset-0 z-[70] transition-opacity duration-300",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
         aria-hidden={!open}
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-background/85 backdrop-blur-sm"
+          className="absolute inset-0 bg-background/95 backdrop-blur-md"
           onClick={() => setOpen(false)}
         />
 

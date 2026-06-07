@@ -33,7 +33,7 @@ export const hero = {
   eyebrow: "Freelance Webentwickler · Hannover",
   // Das/die hervorgehobene(n) Wort(e) werden in Gold gesetzt.
   titleStart: "Websites & KI-Lösungen, die kleine Unternehmen ",
-  titleHighlight: "groß",
+  titleHighlight: "gross",
   titleEnd: " aussehen lassen.",
   subtitle:
     "Ich baue schnelle, moderne Websites und intelligente Web-Tools mit Next.js – sauber umgesetzt, DSGVO-konform und auf echte Ergebnisse ausgelegt.",
@@ -87,7 +87,7 @@ export const services = {
       icon: "Layers",
       title: "Web-Apps & Tools",
       description:
-        "Maßgeschneiderte Fullstack-Anwendungen: Buchungssysteme, Dashboards, interne Tools – sicher, wartbar und auf dich zugeschnitten.",
+        "Massgeschneiderte Fullstack-Anwendungen: Buchungssysteme, Dashboards, interne Tools – sicher, wartbar und auf dich zugeschnitten.",
       points: ["Fullstack-Entwicklung", "APIs & Datenbanken", "Auth & Sicherheit"],
     },
     {
@@ -154,13 +154,13 @@ export const process = {
       number: "02",
       title: "Konzept & Angebot",
       description:
-        "Ich entwerfe Struktur, Design-Richtung und einen klaren Festpreis. Du weißt vorher genau, was du bekommst.",
+        "Ich entwerfe Struktur, Design-Richtung und einen klaren Festpreis. Du weisst vorher genau, was du bekommst.",
     },
     {
       number: "03",
       title: "Entwicklung",
       description:
-        "Umsetzung mit modernem, sauberem Code. Du siehst regelmäßig Zwischenstände und kannst jederzeit Feedback geben.",
+        "Umsetzung mit modernem, sauberem Code. Du siehst regelmässig Zwischenstände und kannst jederzeit Feedback geben.",
     },
     {
       number: "04",
@@ -175,7 +175,7 @@ export const pakete = {
   eyebrow: "Pakete",
   title: "Klare Pakete, faire Preise",
   subtitle:
-    "Festpreise statt Stundenzettel – damit du von Anfang an weißt, woran du bist.",
+    "Festpreise statt Stundenzettel – damit du von Anfang an weisst, woran du bist.",
   items: [
     {
       title: "Onepager",
@@ -206,7 +206,7 @@ export const pakete = {
     {
       title: "KI & Web-App",
       price: "auf Anfrage",
-      description: "Maßgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
+      description: "Massgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
       features: [
         "Individuelle Konzeption & Architektur",
         "KI-Integration (Chatbots, Automatisierung, OCR)",
@@ -334,7 +334,7 @@ export const pages = {
     eyebrow: "Leistungen",
     title: "Alles für deinen digitalen Auftritt",
     subtitle:
-      "Von der schnellen Business-Website bis zur maßgeschneiderten KI-Anwendung – durchdacht, sauber umgesetzt und auf Ergebnisse ausgelegt.",
+      "Von der schnellen Business-Website bis zur massgeschneiderten KI-Anwendung – durchdacht, sauber umgesetzt und auf Ergebnisse ausgelegt.",
   },
   projekte: {
     eyebrow: "Projekte",
