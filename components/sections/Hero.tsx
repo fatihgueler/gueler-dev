@@ -4,6 +4,7 @@ import { ArrowRight, ArrowDown } from "lucide-react";
 
 import { hero } from "@/lib/content";
 import { Button } from "@/components/ui/button";
+import { HeroSceneLoader } from "@/components/sections/HeroSceneLoader";
 
 export function Hero() {
   return (
@@ -17,6 +18,7 @@ export function Hero() {
         className="bg-dot-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]"
         aria-hidden
       />
+      <HeroSceneLoader />
 
       <div className="relative mx-auto w-full max-w-6xl px-6">
         <div className="max-w-4xl">

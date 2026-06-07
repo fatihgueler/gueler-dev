@@ -25,7 +25,8 @@ export const site = {
 export const nav = [
   { label: "Leistungen", href: "#leistungen" },
   { label: "Projekte", href: "#projekte" },
-  { label: "Über mich", href: "#ueber-mich" },
+  { label: "Pakete", href: "#pakete" },
+  { label: "Über mich", href: "#ueber" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -39,11 +40,13 @@ export const hero = {
     "Ich baue schnelle, moderne Websites und intelligente Web-Tools mit Next.js – sauber umgesetzt, DSGVO-konform und auf echte Ergebnisse ausgelegt.",
   primaryCta: { label: "Projekt anfragen", href: "#kontakt" },
   secondaryCta: { label: "Projekte ansehen", href: "#projekte" },
-  // Kleine Vertrauens-Kennzahlen unter dem Hero
+  // Kleine Vertrauens-Kennzahlen unter dem Hero.
+  // `count`/`suffix` sind optional und steuern animierte Zähler (z. B. "90" + "+").
+  // Fehlen sie (Next.js 15), wird `value` einfach statisch angezeigt.
   stats: [
     { value: "Next.js 15", label: "Moderner Stack" },
-    { value: "90+", label: "Lighthouse-Score" },
-    { value: "100 %", label: "DSGVO-fokussiert" },
+    { value: "90+", label: "Lighthouse-Score", count: 90, suffix: "+" },
+    { value: "100 %", label: "DSGVO-fokussiert", count: 100, suffix: " %" },
   ],
 };
 
@@ -165,6 +168,81 @@ export const process = {
       title: "Launch & Support",
       description:
         "Wir gehen live, ich richte alles ein – und bin auch danach für Wartung und Weiterentwicklung an deiner Seite.",
+    },
+  ],
+};
+
+export const pakete = {
+  eyebrow: "Pakete",
+  title: "Klare Pakete, faire Preise",
+  subtitle:
+    "Festpreise statt Stundenzettel – damit du von Anfang an weißt, woran du bist.",
+  items: [
+    {
+      title: "Onepager",
+      price: "ab 500 €",
+      description: "Eine starke Seite, die dein Angebot auf den Punkt bringt.",
+      features: [
+        "Eine Seite mit allen wichtigen Infos",
+        "Responsives Design für alle Geräte",
+        "Kontaktformular inklusive",
+        "Grundlegende SEO-Einrichtung",
+      ],
+      featured: false,
+    },
+    {
+      title: "Business-Website",
+      price: "ab 1.500 €",
+      description: "Mehrseitiger Auftritt für Unternehmen, die online überzeugen wollen.",
+      features: [
+        "Bis zu 5 Unterseiten",
+        "Individuelles Premium-Design",
+        "SEO-Optimierung für lokale Sichtbarkeit",
+        "Kontaktformular & Anbindung an Google Maps",
+        "Performance-Check & Lighthouse-Report",
+      ],
+      badge: "Beliebt",
+      featured: true,
+    },
+    {
+      title: "KI & Web-App",
+      price: "auf Anfrage",
+      description: "Maßgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
+      features: [
+        "Individuelle Konzeption & Architektur",
+        "KI-Integration (Chatbots, Automatisierung, OCR)",
+        "Datenbank- & Backend-Anbindung",
+        "Laufende Betreuung nach dem Launch",
+      ],
+      featured: false,
+    },
+  ],
+  note: "Alle Preise verstehen sich als Richtwerte – das genaue Angebot richtet sich nach deinem Projekt und wird vorab gemeinsam festgelegt.",
+};
+
+export const trust = {
+  eyebrow: "Warum ich",
+  title: "Worauf du dich verlassen kannst",
+  items: [
+    {
+      icon: "Zap",
+      title: "Direkt erreichbar",
+      description: "Kein Callcenter, keine Warteschleifen – du sprichst direkt mit mir.",
+    },
+    {
+      icon: "FileCheck",
+      title: "Festpreis vorab",
+      description: "Du kennst die Kosten, bevor das Projekt startet – keine bösen Überraschungen.",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "DSGVO nach deutschem Recht",
+      description: "Datenschutz wird von Anfang an mitgedacht, nicht nachträglich aufgesetzt.",
+    },
+    {
+      icon: "Rocket",
+      title: "Auf Ergebnisse gebaut",
+      description: "Schnelle, saubere Websites, die wirklich Anfragen bringen sollen.",
     },
   ],
 };

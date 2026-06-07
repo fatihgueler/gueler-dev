@@ -8,7 +8,7 @@ import { Reveal } from "@/components/Reveal";
 
 export function About() {
   return (
-    <Section id="ueber-mich" className="bg-surface/30">
+    <Section id="ueber" className="bg-surface/30">
       <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.1fr]">
         {/* Visual: Monogramm-Karte (Platzhalter für echtes Foto) */}
         <Reveal className="order-2 lg:order-1">
