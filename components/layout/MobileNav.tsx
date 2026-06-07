@@ -24,7 +24,7 @@ export function MobileNav() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Menü öffnen"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-gold"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-teal"
       >
         <Menu className="size-6" />
       </button>
@@ -52,13 +52,13 @@ export function MobileNav() {
           <div className="flex items-center justify-between">
             <span className="font-display text-xl font-medium">
               {site.name.replace(".dev", "")}
-              <span className="text-gold">.dev</span>
+              <span className="text-teal">.dev</span>
             </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Menü schließen"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-gold"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-teal"
             >
               <X className="size-6" />
             </button>
@@ -70,7 +70,7 @@ export function MobileNav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-border py-4 font-display text-2xl text-foreground transition-colors hover:text-gold"
+                className="border-b border-border py-4 font-display text-2xl text-foreground transition-colors hover:text-teal"
               >
                 {item.label}
               </Link>
@@ -79,7 +79,7 @@ export function MobileNav() {
 
           <div className="mt-auto pt-8">
             <Button asChild size="lg" className="w-full">
-              <Link href="#kontakt" onClick={() => setOpen(false)}>
+              <Link href="/kontakt" onClick={() => setOpen(false)}>
                 Projekt anfragen
               </Link>
             </Button>

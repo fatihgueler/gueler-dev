@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
+import { Syne, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 
 import { site } from "@/lib/content";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Cursor } from "@/components/ui/Cursor";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-syne",
   display: "swap",
-  axes: ["opsz"],
 });
 
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-hanken",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -91,21 +99,28 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={`${fraunces.variable} ${hanken.variable}`}>
+    <html
+      lang="de"
+      className={`${syne.variable} ${hanken.variable} ${jetbrains.variable}`}
+    >
       <body className="grain min-h-screen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <a
-          href="#top"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-teal focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
         >
           Zum Inhalt springen
         </a>
+        <ScrollProgress />
+        <Cursor />
         <Header />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <main id="main">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

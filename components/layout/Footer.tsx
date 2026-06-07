@@ -14,11 +14,11 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link
-              href="#top"
+              href="/"
               className="font-display text-2xl font-medium tracking-tight"
             >
               {site.name.replace(".dev", "")}
-              <span className="text-gold">.dev</span>
+              <span className="text-teal">.dev</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               {site.tagline} aus {site.location.split(",")[0]}. Moderne Websites
@@ -36,7 +36,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted transition-colors hover:text-gold"
+                    className="text-sm text-muted transition-colors hover:text-teal"
                   >
                     {item.label}
                   </Link>
@@ -52,16 +52,16 @@ export function Footer() {
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2.5">
-                <Mail className="size-4 text-gold-deep" />
+                <Mail className="size-4 text-teal-deep" />
                 <a
                   href={`mailto:${site.email}`}
-                  className="transition-colors hover:text-gold"
+                  className="transition-colors hover:text-teal"
                 >
                   {site.email}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <MapPin className="size-4 text-gold-deep" />
+                <MapPin className="size-4 text-teal-deep" />
                 {site.location}
               </li>
             </ul>
@@ -71,7 +71,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-gold hover:text-gold"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
               >
                 <Github className="size-4" />
               </a>
@@ -81,7 +81,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-gold hover:text-gold"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
                 >
                   <Linkedin className="size-4" />
                 </a>
@@ -95,12 +95,12 @@ export function Footer() {
             © {year} {site.ownerName}. Alle Rechte vorbehalten.
           </p>
           <div className="flex gap-6">
-            <Link href="/impressum" className="transition-colors hover:text-gold">
+            <Link href="/impressum" className="transition-colors hover:text-teal">
               Impressum
             </Link>
             <Link
               href="/datenschutz"
-              className="transition-colors hover:text-gold"
+              className="transition-colors hover:text-teal"
             >
               Datenschutz
             </Link>

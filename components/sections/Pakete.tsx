@@ -56,7 +56,7 @@ export function Pakete() {
               </ul>
 
               <a
-                href="#kontakt"
+                href="/kontakt"
                 className={cn(
                   "mt-8 inline-flex items-center justify-center rounded-[var(--radius)] border px-6 py-3 text-sm font-medium transition-colors",
                   item.featured

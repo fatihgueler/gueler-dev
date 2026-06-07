@@ -22,8 +22,8 @@ export function Section({ id, className, children, ...props }: SectionProps) {
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-5 flex items-center gap-3">
-      <span className="h-px w-8 bg-gold-deep" aria-hidden />
-      <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+      <span className="h-px w-8 bg-teal-deep" aria-hidden />
+      <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-teal">
         {children}
       </span>
     </div>

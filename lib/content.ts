@@ -23,11 +23,10 @@ export const site = {
 };
 
 export const nav = [
-  { label: "Leistungen", href: "#leistungen" },
-  { label: "Projekte", href: "#projekte" },
-  { label: "Pakete", href: "#pakete" },
-  { label: "Über mich", href: "#ueber" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Leistungen", href: "/leistungen" },
+  { label: "Projekte", href: "/projekte" },
+  { label: "Über mich", href: "/ueber" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const hero = {
@@ -38,8 +37,8 @@ export const hero = {
   titleEnd: " aussehen lassen.",
   subtitle:
     "Ich baue schnelle, moderne Websites und intelligente Web-Tools mit Next.js – sauber umgesetzt, DSGVO-konform und auf echte Ergebnisse ausgelegt.",
-  primaryCta: { label: "Projekt anfragen", href: "#kontakt" },
-  secondaryCta: { label: "Projekte ansehen", href: "#projekte" },
+  primaryCta: { label: "Projekt anfragen", href: "/kontakt" },
+  secondaryCta: { label: "Projekte ansehen", href: "/projekte" },
   // Kleine Vertrauens-Kennzahlen unter dem Hero.
   // `count`/`suffix` sind optional und steuern animierte Zähler (z. B. "90" + "+").
   // Fehlen sie (Next.js 15), wird `value` einfach statisch angezeigt.
@@ -273,6 +272,97 @@ export const contact = {
     "Vielen Dank! Deine Nachricht ist angekommen. Ich melde mich schnellstmöglich bei dir.",
   errorMessage:
     "Da ist leider etwas schiefgelaufen. Bitte versuch es erneut oder schreib mir direkt per E-Mail.",
+};
+
+// ── Skills (Über-mich-Seite) ──────────────────────────────────
+export const skills = {
+  eyebrow: "Stack",
+  title: "Womit ich arbeite",
+  subtitle:
+    "Ein moderner, fokussierter Stack – ausgewählt nach Ergebnis, nicht nach Hype.",
+  groups: [
+    {
+      label: "Frontend",
+      items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP & Three.js"],
+    },
+    {
+      label: "Backend",
+      items: ["FastAPI", "Python", "Node.js", ".NET 8", "PostgreSQL"],
+    },
+    {
+      label: "KI & Infrastruktur",
+      items: ["Claude API", "OCR-Pipelines", "Docker", "Git & CI/CD", "Vercel / Hetzner"],
+    },
+  ],
+};
+
+// ── Werdegang / Timeline (Über-mich-Seite) ────────────────────
+export const timeline = {
+  eyebrow: "Werdegang",
+  title: "Der Weg bis hierher",
+  steps: [
+    {
+      period: "Seit 2024",
+      title: "Freelance Webentwickler",
+      description:
+        "Websites, Web-Apps und KI-Tools für kleine Unternehmen und Selbstständige – von der Idee bis zum Launch.",
+    },
+    {
+      period: "2023 – heute",
+      title: "Ausbildung zum Fachinformatiker (AE)",
+      description:
+        "Anwendungsentwicklung an der DAA Hannover mit Schwerpunkt auf moderner Webentwicklung und IT-Security.",
+    },
+    {
+      period: "2024",
+      title: "BüroBrücke",
+      description:
+        "Eigenes KI-Projekt, das deutsche Behördenbriefe analysiert und mehrsprachig erklärt – mit OCR, Fristerkennung und Antwort-Generator.",
+    },
+    {
+      period: "Laufend",
+      title: "Lernen & Weiterentwicklung",
+      description:
+        "Kontinuierlich neue Technologien rund um Next.js, KI-Integration und sauberen, wartbaren Code.",
+    },
+  ],
+};
+
+// ── Seiten-Intros (Hero-Köpfe der Unterseiten) ────────────────
+export const pages = {
+  leistungen: {
+    eyebrow: "Leistungen",
+    title: "Alles für deinen digitalen Auftritt",
+    subtitle:
+      "Von der schnellen Business-Website bis zur maßgeschneiderten KI-Anwendung – durchdacht, sauber umgesetzt und auf Ergebnisse ausgelegt.",
+  },
+  projekte: {
+    eyebrow: "Projekte",
+    title: "Ausgewählte Arbeiten",
+    subtitle:
+      "Echte Projekte, echter Code. Ein Einblick in das, was ich baue – live und auf GitHub einsehbar.",
+  },
+  ueber: {
+    eyebrow: "Über mich",
+    title: "Hinter Güler.dev steckt eine Person, kein Callcenter.",
+    subtitle:
+      "Ich bin Fatih – Webentwickler aus Hannover, der Technik nutzt, um echte Probleme zu lösen.",
+  },
+  kontakt: {
+    eyebrow: "Kontakt",
+    title: "Lass uns dein Projekt besprechen",
+    subtitle:
+      "Erzähl mir kurz, was du vorhast – ich melde mich in der Regel innerhalb von 24 Stunden zurück.",
+  },
+};
+
+// ── Wiederverwendbarer Call-to-Action-Block ───────────────────
+export const cta = {
+  title: "Bereit, online zu überzeugen?",
+  subtitle:
+    "Ob neue Website, KI-Tool oder Relaunch – erzähl mir von deinem Vorhaben. Erstgespräch kostenlos und unverbindlich.",
+  primary: { label: "Projekt anfragen", href: "/kontakt" },
+  secondary: { label: "Projekte ansehen", href: "/projekte" },
 };
 
 export const legal = {

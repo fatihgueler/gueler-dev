@@ -2,14 +2,17 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { nav, site } from "@/lib/content";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const [scrolled, setScrolled] = React.useState(false);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -29,34 +32,47 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
-          href="#top"
-          className="group font-display text-2xl font-medium tracking-tight"
+          href="/"
+          className="group font-display text-2xl font-semibold tracking-tight"
           aria-label="Güler.dev Startseite"
         >
           {site.name.replace(".dev", "")}
-          <span className="text-gold transition-colors group-hover:text-gold-bright">
+          <span className="text-teal transition-colors group-hover:text-teal-bright">
             .dev
           </span>
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group relative text-sm font-medium text-muted transition-colors hover:text-foreground"
-            >
-              {item.label}
-              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {nav.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "group relative text-sm font-medium transition-colors",
+                  active ? "text-foreground" : "text-muted hover:text-foreground",
+                )}
+              >
+                {item.label}
+                <span
+                  className={cn(
+                    "absolute -bottom-1.5 left-0 h-px bg-teal transition-all duration-300",
+                    active ? "w-full" : "w-0 group-hover:w-full",
+                  )}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
           <div className="hidden md:block">
-            <Button asChild size="sm">
-              <Link href="#kontakt">Projekt anfragen</Link>
-            </Button>
+            <Magnetic strength={0.4}>
+              <Button asChild size="sm">
+                <Link href="/kontakt">Projekt anfragen</Link>
+              </Button>
+            </Magnetic>
           </div>
           <MobileNav />
         </div>
