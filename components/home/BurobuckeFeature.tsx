@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/Reveal";
 
 export function BurobuckeFeature() {
   return (
@@ -12,7 +13,7 @@ export function BurobuckeFeature() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-12 items-center md:grid-cols-[1fr_1fr]">
           {/* Text 60% */}
-          <div className="space-y-6 reveal">
+          <Reveal className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/50 bg-gold/10 px-4 py-2">
               <span className="text-xs font-semibold tracking-wider text-gold">
                 FLAGGSCHIFF-PROJEKT
@@ -51,10 +52,10 @@ export function BurobuckeFeature() {
                 </a>
               </Button>
             </div>
-          </div>
+          </Reveal>
 
           {/* Animated Mockup 40% */}
-          <div className="relative reveal" style={{ animationDelay: "0.15s" }}>
+          <Reveal className="relative" delay={150}>
             <div className="relative aspect-[9/12] rounded-2xl border-8 border-ink-3 bg-gradient-to-b from-ink-2 to-ink overflow-hidden shadow-2xl">
               {/* Browser Frame */}
               <div className="absolute top-0 inset-x-0 h-10 bg-ink-2 border-b border-ink-3 flex items-center px-4 gap-2">
@@ -89,7 +90,7 @@ export function BurobuckeFeature() {
 
             {/* Floating accent */}
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
