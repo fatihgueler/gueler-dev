@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
@@ -80,14 +81,13 @@ export function BurobuckeFeature() {
                 <span className="font-mono text-[10px] text-paper-3/70">buerobruecke.up.railway.app</span>
               </div>
 
-              {/* Live-Embed */}
-              <iframe
-                src={LIVE_URL}
-                title="BüroBrücke Live-Vorschau"
-                loading="lazy"
-                className="absolute inset-x-0 bottom-0 h-[calc(100%-2.5rem)] w-full origin-top-left scale-[1.35] border-0"
-                aria-hidden="true"
-                tabIndex={-1}
+              {/* Screenshot der Live-App */}
+              <Image
+                src="/projects/buerobruecke-preview.png"
+                alt="Startseite der BüroBrücke-App"
+                fill
+                sizes="(min-width: 768px) 40vw, 90vw"
+                className="object-cover object-top pt-10"
               />
 
               {/* Hover-Overlay */}
