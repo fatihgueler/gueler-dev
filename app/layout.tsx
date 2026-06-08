@@ -73,26 +73,20 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: site.name,
-  description: `${site.tagline} – Freelance Webentwicklung aus Hannover.`,
+  "@type": "LocalBusiness",
+  name: "Güler.dev — Fatih Güler",
+  description: "Freelance Webentwickler aus Hannover. Next.js Websites und KI-Lösungen für kleine Unternehmen.",
   url: siteUrl,
   email: site.email,
-  founder: { "@type": "Person", name: site.ownerName },
-  areaServed: "DE",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Hannover",
+    addressRegion: "Niedersachsen",
     addressCountry: "DE",
   },
-  knowsAbout: [
-    "Webentwicklung",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "KI-Integration",
-    "IT-Security",
-  ],
+  areaServed: "DE",
+  serviceType: ["Webentwicklung", "KI-Integration", "Web-Apps"],
+  priceRange: "ab 500 €",
 };
 
 export default function RootLayout({

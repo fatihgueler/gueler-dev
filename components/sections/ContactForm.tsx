@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 const formSchema = z.object({
   name: z.string().min(2, "Bitte gib deinen Namen an."),
   email: z.string().email("Bitte gib eine gültige E-Mail-Adresse an."),
+  budget: z.string().optional(),
   message: z.string().min(10, "Bitte schreib eine etwas längere Nachricht."),
   company: z.string().optional(), // Honeypot
 });
@@ -112,6 +113,22 @@ export function ContactForm() {
             <p className="text-sm text-red-400">{errors.email.message}</p>
           )}
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="budget">Budget (optional)</Label>
+        <select
+          id="budget"
+          className="h-11 w-full rounded-full border border-border-strong bg-surface px-4 text-sm text-foreground placeholder:text-muted-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+          {...register("budget")}
+        >
+          <option value="">Wähle einen Budget-Bereich…</option>
+          {contact.budgetRanges.map((range) => (
+            <option key={range.value} value={range.value}>
+              {range.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="space-y-2">

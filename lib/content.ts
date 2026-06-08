@@ -11,11 +11,13 @@
 
 export const site = {
   name: "Güler.dev",
-  // Kurzer Claim für Logo/Untertitel
   tagline: "Webentwicklung & KI-Lösungen",
-  // Vollständiger Name (Impressum, SEO, JSON-LD)
   ownerName: "Fatih Güler",
   email: "fatih.gueler75@gmail.com",
+  phone: "015777688060",
+  whatsapp: "https://wa.me/015777688060",
+  calendly: "https://calendly.com/fatih-gueler75",
+  availability: "Juni 2026",
   location: "Hannover, Deutschland",
   url: "https://guler.dev",
   github: "https://github.com/fatihgueler",
@@ -111,10 +113,19 @@ export const projects = {
       description:
         "KI-gestützte App, die deutsche Behördenbriefe analysiert und in der Muttersprache erklärt – mit OCR, Fristerkennung und Antwort-Generator in fünf Sprachen.",
       tags: ["FastAPI", "React", "Claude API", "OCR", "JWT"],
-      // TODO: Falls die App live ist, hier die Live-URL eintragen
       liveUrl: "",
       repoUrl: "https://github.com/fatihgueler/deBueroBruecke",
       featured: true,
+    },
+    {
+      title: "ENOX",
+      category: "Mehrsprachige Website",
+      description:
+        "Marketing-Website für internationale Energieberatung mit 5 Sprachen (DE, EN, ZH, ES, RU), animiertem Fördercheck-Funnel zur Lead-Generierung und integrierten Kontaktformularen.",
+      tags: ["Next.js 14", "TypeScript", "Tailwind", "i18n"],
+      liveUrl: "https://enox-rv4x.vercel.app/de",
+      repoUrl: "https://github.com/fatihgueler/Enox",
+      featured: false,
     },
     {
       title: "SmartKitchen",
@@ -125,16 +136,6 @@ export const projects = {
       liveUrl: "",
       repoUrl: "https://github.com/fatihgueler/smartKitchen",
       featured: false,
-    },
-  {
-      title: "ENOX",
-      category: "Mehrsprachige Website",
-      description:
-        "Marketing-Website für internationale Energieberatung mit 5 Sprachen (DE, EN, ZH, ES, RU), animiertem Fördercheck-Funnel zur Lead-Generierung und integrierten Kontaktformularen.",
-      tags: ["Next.js 14", "TypeScript", "Tailwind", "i18n"],
-      liveUrl: "https://enox-rv4x.vercel.app/de",
-      repoUrl: "https://github.com/fatihgueler/Enox",
-      featured: true,
     },
   ],
 };
@@ -272,6 +273,13 @@ export const contact = {
     "Vielen Dank! Deine Nachricht ist angekommen. Ich melde mich schnellstmöglich bei dir.",
   errorMessage:
     "Da ist leider etwas schiefgelaufen. Bitte versuch es erneut oder schreib mir direkt per E-Mail.",
+  budgetRanges: [
+    { value: "500-1500", label: "500 € – 1.500 €" },
+    { value: "1500-5000", label: "1.500 € – 5.000 €" },
+    { value: "5000-10000", label: "5.000 € – 10.000 €" },
+    { value: "10000+", label: "10.000 € und mehr" },
+    { value: "unsure", label: "Bin mir unsicher" },
+  ],
 };
 
 // ── Skills (Über-mich-Seite) ──────────────────────────────────

@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   Güler.dev – Design-System 2.0
-   Deep Ink · Teal (primär) · Gold (Premium-Highlight)
+   Güler.dev – Design-System 3.0
+   Ink · Paper · Teal · Gold
+   Modern WebGL + Post-Processing
    ───────────────────────────────────────────────────────────── */
 
 @theme {
   /* ── Farben ──────────────────────────────────────────────── */
-  --color-background: #06070a;
-  --color-surface: #0c0e13;
-  --color-surface-2: #14171e;
-  --color-border: #1f242d;
-  --color-border-strong: #2d333e;
-  --color-foreground: #f2f5f8;
-  --color-muted: #9aa2af;
-  --color-muted-2: #646b79;
+  --color-ink: #07080a;
+  --color-ink-2: #0d1014;
+  --color-ink-3: #131720;
+  --color-paper: #e8edf4;
+  --color-paper-2: #b0bac8;
+  --color-paper-3: #8090a3;
 
-  /* Primär-Akzent: Teal */
+  /* Akzente */
   --color-teal: #2dd4bf;
-  --color-teal-bright: #5eead4;
-  --color-teal-deep: #0f9b8a;
-
-  /* Premium-Highlight: Gold */
+  --color-teal-2: #5eead4;
   --color-gold: #f0c060;
-  --color-gold-bright: #f7d98b;
-  --color-gold-deep: #b88a30;
+  --color-gold-2: #fada8c;
 
-  /* ── Schriften (via next/font gesetzt) ───────────────────── */
-  --font-display: var(--font-syne), "Hanken Grotesk", system-ui, sans-serif;
+  /* Legacy Aliases (Komponenten-Kompatibilität) */
+  --color-background: #07080a;
+  --color-surface: #0d1014;
+  --color-surface-2: #131720;
+  --color-foreground: #e8edf4;
+  --color-muted: #b0bac8;
+  --color-muted-2: #8090a3;
+  --color-border: #0d1014;
+  --color-border-strong: #131720;
+
+  /* ── Schriften (via next/font) ────────────────────────── */
+  --font-display: var(--font-syne), system-ui, sans-serif;
   --font-sans: var(--font-hanken), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
@@ -35,9 +40,8 @@
   --radius: 0.85rem;
   --radius-lg: 1.25rem;
   --radius-xl: 1.75rem;
-  --radius-2xl: 2.25rem;
 
-  /* ── Spacing-Scale (fluid) ───────────────────────────────── */
+  /* ── Spacing (fluid) ─────────────────────────────────────── */
   --space-section: clamp(5rem, 3.5rem + 7vw, 11rem);
   --space-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
 
@@ -52,16 +56,12 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
-  /* ── Eigene Keyframes (Tailwind-Utilities) ───────────────── */
+  /* ── Keyframes ────────────────────────────────────────────── */
   --animate-fade-up: fade-up 0.8s var(--ease-out-expo) forwards;
   --animate-shimmer: shimmer 3.2s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-aurora: aurora 22s ease-in-out infinite;
 }
-
-/* ─────────────────────────────────────────────────────────────
-   Keyframes
-   ───────────────────────────────────────────────────────────── */
 
 @keyframes fade-up {
   from {
@@ -93,16 +93,6 @@
   }
 }
 
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 0.85;
-  }
-}
-
 @keyframes aurora {
   0%,
   100% {
@@ -131,31 +121,33 @@
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--color-ink-2);
   }
 
   html {
     scroll-behavior: smooth;
-    /* Lenis verwaltet das Scrollen, wenn aktiv */
   }
 
   html.lenis,
   html.lenis body {
     height: auto;
   }
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
+
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
+
   .lenis.lenis-stopped {
     overflow: hidden;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--color-ink);
+    color: var(--color-paper);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -169,22 +161,25 @@
 
   ::selection {
     background-color: var(--color-teal);
-    color: #04231f;
+    color: var(--color-ink);
   }
 
   ::-webkit-scrollbar {
     width: 11px;
   }
+
   ::-webkit-scrollbar-track {
-    background: var(--color-background);
+    background: var(--color-ink);
   }
+
   ::-webkit-scrollbar-thumb {
-    background: var(--color-border-strong);
+    background: var(--color-ink-3);
     border-radius: 999px;
-    border: 3px solid var(--color-background);
+    border: 3px solid var(--color-ink);
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-teal-deep);
+    background: var(--color-teal);
   }
 
   :focus-visible {
@@ -193,7 +188,6 @@
     border-radius: 4px;
   }
 
-  /* Eigener Cursor: native Spitze ausblenden (nur feine Zeiger) */
   @media (hover: hover) and (pointer: fine) {
     html.has-cursor,
     html.has-cursor * {
@@ -203,18 +197,13 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Utilities & Komponenten-Klassen
+   Utilities
    ───────────────────────────────────────────────────────────── */
 
 @layer utilities {
   /* ── Verlaufs-Texte ──────────────────────────────────────── */
   .text-gradient-teal {
-    background: linear-gradient(
-      120deg,
-      var(--color-teal-bright) 0%,
-      var(--color-teal) 45%,
-      var(--color-teal-deep) 100%
-    );
+    background: linear-gradient(120deg, var(--color-teal-2) 0%, var(--color-teal) 45%, #0f9b8a 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -222,12 +211,7 @@
   }
 
   .text-gradient-gold {
-    background: linear-gradient(
-      120deg,
-      var(--color-gold-bright) 0%,
-      var(--color-gold) 45%,
-      var(--color-gold-deep) 100%
-    );
+    background: linear-gradient(120deg, var(--color-gold-2) 0%, var(--color-gold) 45%, #b88a30 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -235,12 +219,7 @@
   }
 
   .text-shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--color-muted) 0%,
-      var(--color-teal-bright) 50%,
-      var(--color-muted) 100%
-    );
+    background: linear-gradient(90deg, var(--color-paper-3) 0%, var(--color-teal-2) 50%, var(--color-paper-3) 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -249,13 +228,13 @@
     animation: var(--animate-shimmer);
   }
 
-  /* ── Outline-Display-Text (z. B. grosses GÜLER) ───────────── */
+  /* ── Outline-Text ────────────────────────────────────────── */
   .text-outline {
     color: transparent;
-    -webkit-text-stroke: 1px var(--color-border-strong);
+    -webkit-text-stroke: 1px var(--color-ink-3);
   }
 
-  /* ── Film-Grain über allem ───────────────────────────────── */
+  /* ── Grain ───────────────────────────────────────────────── */
   .grain::before {
     content: "";
     position: fixed;
@@ -285,41 +264,34 @@
     );
   }
 
-  /* ── Punkteraster ────────────────────────────────────────── */
+  /* ── Dot Grid ────────────────────────────────────────────── */
   .bg-dot-grid {
-    background-image: radial-gradient(
-      var(--color-border) 1px,
-      transparent 1px
-    );
+    background-image: radial-gradient(var(--color-ink-2) 1px, transparent 1px);
     background-size: 28px 28px;
   }
 
-  /* ── Hairline-Trenner ────────────────────────────────────── */
+  /* ── Hairline ────────────────────────────────────────────── */
   .hairline {
     height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      var(--color-border-strong) 20%,
-      var(--color-teal-deep) 50%,
-      var(--color-border-strong) 80%,
+      var(--color-ink-3) 20%,
+      var(--color-teal) 50%,
+      var(--color-ink-3) 80%,
       transparent
     );
   }
 
-  /* ── Glassmorphism ───────────────────────────────────────── */
+  /* ── Glass ───────────────────────────────────────────────── */
   .glass {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* ── Animierter Gradient-Mesh-Hintergrund ────────────────── */
+  /* ── Mesh Background ─────────────────────────────────────── */
   .mesh-bg {
     position: absolute;
     inset: -20%;
@@ -327,6 +299,7 @@
     filter: blur(70px);
     opacity: 0.5;
   }
+
   .mesh-bg::before,
   .mesh-bg::after {
     content: "";
@@ -336,11 +309,13 @@
     border-radius: 50%;
     animation: var(--animate-aurora);
   }
+
   .mesh-bg::before {
     top: 8%;
     left: 6%;
     background: radial-gradient(circle, rgba(45, 212, 191, 0.5), transparent 65%);
   }
+
   .mesh-bg::after {
     bottom: 6%;
     right: 8%;
@@ -348,33 +323,26 @@
     animation-delay: -8s;
   }
 
-  /* ── Karten ──────────────────────────────────────────────── */
+  /* ── Cards ───────────────────────────────────────────────── */
   .card-surface {
-    background: linear-gradient(
-      180deg,
-      var(--color-surface) 0%,
-      var(--color-background) 100%
-    );
-    border: 1px solid var(--color-border);
-    transition:
-      border-color 0.4s ease,
-      transform 0.4s var(--ease-out-expo),
-      box-shadow 0.4s ease;
-  }
-  .card-surface:hover {
-    border-color: var(--color-teal-deep);
-    transform: translateY(-4px);
-    box-shadow: 0 18px 50px -20px rgba(45, 212, 191, 0.28);
+    background: linear-gradient(180deg, var(--color-ink-2) 0%, var(--color-ink) 100%);
+    border: 1px solid var(--color-ink-2);
+    transition: border-color 0.4s ease, transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
   }
 
-  /* ── Reveal (CSS-Fallback, von Reveal.tsx gesteuert) ─────── */
+  .card-surface:hover {
+    border-color: var(--color-teal);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-teal);
+  }
+
+  /* ── Reveal ──────────────────────────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
-    transition:
-      opacity 0.8s var(--ease-out-expo),
-      transform 0.8s var(--ease-out-expo);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
   }
+
   .reveal[data-revealed="true"] {
     opacity: 1;
     transform: translateY(0);
@@ -385,34 +353,15 @@
     animation: marquee 38s linear infinite;
   }
 
-  /* ── Magnetic-Wrapper ────────────────────────────────────── */
+  /* ── Magnetic ────────────────────────────────────────────── */
   .magnetic {
     display: inline-flex;
     will-change: transform;
   }
-
-  /* ── CSS-Orb (Fallback für Mobile / Reduced-Motion) ──────── */
-  .orb-fallback {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: min(70%, 22rem);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 32% 30%, rgba(94, 234, 212, 0.95), transparent 45%),
-      radial-gradient(circle at 70% 72%, rgba(240, 192, 96, 0.55), transparent 50%),
-      radial-gradient(circle at 50% 50%, #0f9b8a, #06070a 72%);
-    filter: blur(2px);
-    box-shadow:
-      0 0 80px -10px rgba(45, 212, 191, 0.5),
-      inset 0 0 60px -10px rgba(4, 35, 31, 0.8);
-    animation: var(--animate-float);
-  }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Eigener Cursor
+   Custom Cursor
    ───────────────────────────────────────────────────────────── */
 
 .cursor-dot,
@@ -426,21 +375,21 @@
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
 }
+
 .cursor-dot {
   width: 7px;
   height: 7px;
-  background: var(--color-teal-bright);
+  background: var(--color-teal-2);
 }
+
 .cursor-ring {
   width: 38px;
   height: 38px;
   border: 1.5px solid var(--color-teal);
-  transition:
-    width 0.3s var(--ease-out-expo),
-    height 0.3s var(--ease-out-expo),
-    background-color 0.3s ease,
-    opacity 0.3s ease;
+  transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo),
+              background-color 0.3s ease, opacity 0.3s ease;
 }
+
 .cursor-ring[data-hovering="true"] {
   width: 64px;
   height: 64px;
@@ -448,7 +397,7 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Scroll-Progress-Bar
+   Scroll Progress
    ───────────────────────────────────────────────────────────── */
 
 .scroll-progress {
@@ -459,12 +408,7 @@
   height: 2px;
   z-index: 80;
   transform-origin: 0 50%;
-  background: linear-gradient(
-    90deg,
-    var(--color-teal),
-    var(--color-teal-bright),
-    var(--color-gold)
-  );
+  background: linear-gradient(90deg, var(--color-teal), var(--color-teal-2), var(--color-gold));
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -480,10 +424,12 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+
   .reveal {
     opacity: 1;
     transform: none;
   }
+
   .cursor-dot,
   .cursor-ring {
     display: none;

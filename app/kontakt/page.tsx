@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Github, Clock } from "lucide-react";
+import { Mail, MapPin, Github, Clock, MessageCircle, Calendar } from "lucide-react";
 
 import { pages, site } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
@@ -14,20 +14,34 @@ export const metadata: Metadata = {
 
 const channels = [
   {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: site.phone,
+    href: site.whatsapp,
+    external: true,
+  },
+  {
+    icon: Calendar,
+    label: "Calendly",
+    value: "15-Min Gespräch buchen",
+    href: site.calendly,
+    external: true,
+  },
+  {
     icon: Mail,
     label: "E-Mail",
     value: site.email,
     href: `mailto:${site.email}`,
   },
   {
+    icon: Clock,
+    label: "Verfügbarkeit",
+    value: site.availability,
+  },
+  {
     icon: MapPin,
     label: "Standort",
     value: site.location,
-  },
-  {
-    icon: Clock,
-    label: "Antwortzeit",
-    value: "meist innerhalb 24 Std.",
   },
   {
     icon: Github,
