@@ -113,7 +113,7 @@ export const projects = {
       description:
         "KI-gestützte App, die deutsche Behördenbriefe analysiert und in der Muttersprache erklärt – mit OCR, Fristerkennung und Antwort-Generator in fünf Sprachen.",
       tags: ["FastAPI", "React", "Claude API", "OCR", "JWT"],
-      liveUrl: "",
+      liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
       repoUrl: "https://github.com/fatihgueler/deBueroBruecke",
       featured: true,
     },

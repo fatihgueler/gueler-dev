@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
+
+const LIVE_URL = "https://stunning-vibrancy-production-df28.up.railway.app/";
 
 export function BurobuckeFeature() {
   return (
@@ -45,51 +47,60 @@ export function BurobuckeFeature() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button asChild size="lg" className="gap-2">
+                <a href={LIVE_URL} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="size-5" />
+                  Live ansehen
+                  <ArrowRight className="size-4" />
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="gap-2">
                 <a href="https://github.com/fatihgueler/deBueroBruecke" target="_blank" rel="noopener noreferrer">
                   <Github className="size-5" />
                   Code ansehen
-                  <ArrowRight className="size-4" />
                 </a>
               </Button>
             </div>
           </Reveal>
 
-          {/* Animated Mockup 40% */}
+          {/* Live-Vorschau 40% */}
           <Reveal className="relative" delay={150}>
-            <div className="relative aspect-[9/12] rounded-2xl border-8 border-ink-3 bg-gradient-to-b from-ink-2 to-ink overflow-hidden shadow-2xl">
+            <a
+              href={LIVE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block aspect-[9/12] overflow-hidden rounded-2xl border-8 border-ink-3 bg-gradient-to-b from-ink-2 to-ink shadow-2xl transition-transform duration-500 hover:-translate-y-1"
+            >
               {/* Browser Frame */}
-              <div className="absolute top-0 inset-x-0 h-10 bg-ink-2 border-b border-ink-3 flex items-center px-4 gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-gold/40" />
-                <div className="w-2.5 h-2.5 rounded-full bg-gold/30" />
-                <div className="w-2.5 h-2.5 rounded-full bg-gold/20" />
-              </div>
-
-              {/* Content */}
-              <div className="pt-14 px-6 pb-6 h-full flex flex-col justify-center">
-                <div className="space-y-4">
-                  <div className="h-3 w-3/4 bg-gradient-to-r from-gold/50 to-transparent rounded" />
-                  <div className="h-3 w-full bg-gradient-to-r from-paper/20 to-transparent rounded" />
-                  <div className="h-3 w-5/6 bg-gradient-to-r from-paper/20 to-transparent rounded" />
-
-                  <div className="py-4 space-y-3">
-                    <div className="h-2 w-full bg-gold/30 rounded" />
-                    <div className="h-2 w-5/6 bg-gold/20 rounded" />
-                    <div className="h-2 w-3/4 bg-gold/10 rounded" />
-                  </div>
-
-                  <button className="w-full h-9 bg-gradient-to-r from-gold to-gold-2 rounded-lg text-ink-3 font-semibold text-sm hover:shadow-lg hover:shadow-gold/30 transition-all" />
+              <div className="absolute top-0 inset-x-0 z-10 h-10 bg-ink-2 border-b border-ink-3 flex items-center justify-between px-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-gold/40" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-gold/30" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-gold/20" />
                 </div>
-
-                {/* Animated glow */}
-                <div
-                  className="absolute top-1/2 left-1/2 w-32 h-32 bg-gold/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"
-                  style={{ animation: "float 7s ease-in-out infinite" }}
-                />
+                <span className="font-mono text-[10px] text-paper-3/70">buerobruecke.up.railway.app</span>
               </div>
-            </div>
+
+              {/* Live-Embed */}
+              <iframe
+                src={LIVE_URL}
+                title="BüroBrücke Live-Vorschau"
+                loading="lazy"
+                className="absolute inset-x-0 bottom-0 h-[calc(100%-2.5rem)] w-full origin-top-left scale-[1.35] border-0"
+                aria-hidden="true"
+                tabIndex={-1}
+              />
+
+              {/* Hover-Overlay */}
+              <div className="absolute inset-0 top-10 flex items-center justify-center bg-ink/0 transition-colors duration-300 group-hover:bg-ink/60">
+                <span className="flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink-3 opacity-0 shadow-lg shadow-gold/30 transition-opacity duration-300 group-hover:opacity-100">
+                  <ExternalLink className="size-4" />
+                  Live-Demo öffnen
+                </span>
+              </div>
+            </a>
 
             {/* Floating accent */}
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-6 -right-6 -z-10 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
           </Reveal>
         </div>
       </div>
