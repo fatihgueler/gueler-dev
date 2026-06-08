@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { site } from "@/lib/content";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 
 export function WhatsappCta() {
@@ -14,7 +15,7 @@ export function WhatsappCta() {
       </div>
 
       <div className="mx-auto max-w-4xl px-6 text-center">
-        <div className="reveal">
+        <Reveal>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
             Lieber kurz schreiben?
           </h2>
@@ -42,7 +43,7 @@ export function WhatsappCta() {
           <p className="text-sm text-muted-2 mt-6">
             {site.phone}
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
