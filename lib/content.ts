@@ -19,7 +19,7 @@ export const site = {
   calendly: "https://calendly.com/fatih-gueler75",
   availability: "Juni 2026",
   location: "Hannover, Deutschland",
-  url: "https://guler.dev",
+  url: "https://guelerdev.de",
   github: "https://github.com/fatihgueler",
   linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler-0206a639a/",
 };
