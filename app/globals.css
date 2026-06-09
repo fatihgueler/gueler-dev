@@ -18,8 +18,12 @@
   /* Akzente */
   --color-teal: #2dd4bf;
   --color-teal-2: #5eead4;
+  --color-teal-bright: #5eead4;
+  --color-teal-deep: #0f9b8a;
   --color-gold: #f0c060;
   --color-gold-2: #fada8c;
+  --color-gold-bright: #fada8c;
+  --color-gold-deep: #c79a3f;
 
   /* Legacy Aliases (Komponenten-Kompatibilität) */
   --color-background: #07080a;
@@ -61,6 +65,52 @@
   --animate-shimmer: shimmer 3.2s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-aurora: aurora 22s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Light Mode
+   Alle Token werden hier überschrieben – die Tailwind-Utilities
+   referenzieren var(--color-*) und folgen automatisch.
+   Kontraste: Fließtext ≥ 7:1, Muted-Text ≥ 4.5:1 (WCAG AA).
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --color-ink: #f5f7fa;
+  --color-ink-2: #e7ecf3;
+  --color-ink-3: #d3dce7;
+  --color-paper: #11151b;
+  --color-paper-2: #414c5c;
+  --color-paper-3: #5a6675;
+
+  --color-teal: #0f766e;
+  --color-teal-2: #0d9488;
+  --color-teal-bright: #0d9488;
+  --color-teal-deep: #2aa79a;
+  --color-gold: #a16207;
+  --color-gold-2: #854d0e;
+  --color-gold-bright: #854d0e;
+  --color-gold-deep: #d9b35e;
+
+  --color-background: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef2f7;
+  --color-foreground: #11151b;
+  --color-muted: #414c5c;
+  --color-muted-2: #5a6675;
+  --color-border: #dde4ed;
+  --color-border-strong: #c5d0de;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 12px 30px -12px rgba(15, 23, 42, 0.16);
+  --shadow-lg: 0 30px 70px -30px rgba(15, 23, 42, 0.22);
+  --shadow-teal: 0 18px 60px -22px rgba(15, 118, 110, 0.3);
+  --shadow-gold: 0 18px 60px -22px rgba(161, 98, 7, 0.25);
 }
 
 @keyframes fade-up {
@@ -358,6 +408,86 @@
     display: inline-flex;
     will-change: transform;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Light-Mode-Feinschliff für Utilities mit festen Farbwerten
+   ───────────────────────────────────────────────────────────── */
+
+html[data-theme="light"] .glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.55) 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="light"] .card-surface {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-color: var(--color-border);
+}
+
+html[data-theme="light"] .card-surface:hover {
+  border-color: var(--color-teal-deep);
+}
+
+html[data-theme="light"] .mesh-bg {
+  opacity: 0.3;
+}
+
+html[data-theme="light"] .grain::before {
+  opacity: 0.025;
+}
+
+html[data-theme="light"] .teal-glow {
+  background: radial-gradient(
+    ellipse 50% 45% at 50% 40%,
+    rgba(13, 148, 136, 0.1) 0%,
+    rgba(13, 148, 136, 0.04) 35%,
+    transparent 70%
+  );
+}
+
+html[data-theme="light"] .gold-glow {
+  background: radial-gradient(
+    ellipse 50% 45% at 50% 40%,
+    rgba(161, 98, 7, 0.08) 0%,
+    rgba(161, 98, 7, 0.03) 35%,
+    transparent 70%
+  );
+}
+
+html[data-theme="light"] .hero-orb {
+  opacity: 0.55;
+  filter: saturate(1.15);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FAQ (native details/summary – ohne JS nutzbar)
+   ───────────────────────────────────────────────────────────── */
+
+/* Accordion-Karten sollen beim Hover nicht "abheben" wie normale Cards */
+.faq-item.card-surface:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item .faq-chevron {
+  transition: transform 0.35s var(--ease-out-expo);
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-item .faq-answer {
+  animation: fade-up 0.4s var(--ease-out-expo);
 }
 
 /* ─────────────────────────────────────────────────────────────

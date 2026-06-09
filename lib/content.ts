@@ -15,6 +15,9 @@ export const site = {
   phone: "015777688060",
   whatsapp: "https://wa.me/015777688060",
   calendly: "https://calendly.com/fatih-gueler75",
+  // Cal.com-Slug für die Terminbuchung (z.B. "fatih-gueler" oder "fatih-gueler/erstgespraech").
+  // TODO: Nach dem Anlegen des Cal.com-Accounts hier den echten Slug eintragen.
+  cal: "fatih-gueler",
   availability: "Juni 2026",
   location: "Hannover, Deutschland",
   url: "https://guelerdev.de",
@@ -40,6 +43,7 @@ export const siteConfig = {
 export const nav = [
   { label: "Projekte", href: "/#projekte" },
   { label: "Pakete", href: "/#pakete" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Über mich", href: "/ueber" },
   { label: "Kontakt", href: "/#kontakt" },
 ];
@@ -292,6 +296,62 @@ export const contact = {
     { value: "5000-10000", label: "5.000 € – 10.000 €" },
     { value: "10000+", label: "10.000 € und mehr" },
     { value: "unsure", label: "Bin mir unsicher" },
+  ],
+};
+
+export const booking = {
+  title: "Lieber direkt sprechen?",
+  subtitle:
+    "Buch dir ein kostenloses Erstgespräch – 30 Minuten, unverbindlich, ohne Verkaufsdruck.",
+  ctaLabel: "Kostenloses Erstgespräch buchen",
+};
+
+export const faq = {
+  eyebrow: "FAQ",
+  title: "Häufige Fragen",
+  subtitle:
+    "Die wichtigsten Antworten vorab – alles Weitere klären wir im kostenlosen Erstgespräch.",
+  items: [
+    {
+      question: "Was kostet eine Website bei dir?",
+      answer:
+        "Ein One Pager startet ab 500 €, eine mehrseitige Business-Website ab 1.500 €. Web-Apps und KI-Lösungen kalkuliere ich individuell. Du bekommst immer einen Festpreis vor Projektstart – keine versteckten Kosten, keine Stundenzettel.",
+    },
+    {
+      question: "Wie lange dauert es, bis meine Website online ist?",
+      answer:
+        "Ein One Pager ist in der Regel in 5–7 Tagen fertig, eine Business-Website in 2–3 Wochen. Der genaue Zeitplan hängt davon ab, wie schnell Inhalte wie Texte und Bilder vorliegen – dabei unterstütze ich dich auch gern.",
+    },
+    {
+      question: "Was brauchst du von mir, um zu starten?",
+      answer:
+        "Im Erstgespräch klären wir Ziele, Zielgruppe und Stil. Danach reichen Logo, Texte und Bilder – falls vorhanden. Wenn nicht, helfe ich bei Texten und nutze professionelles Bildmaterial. Du brauchst kein technisches Vorwissen.",
+    },
+    {
+      question: "Wem gehören Code und Website nach dem Projekt?",
+      answer:
+        "Dir. Nach vollständiger Bezahlung gehören Design, Inhalte und Code komplett dir – inklusive Zugang zum Code-Repository. Du bist nicht an mich gebunden und kannst die Website jederzeit von jemand anderem weiterpflegen lassen.",
+    },
+    {
+      question: "Was kostet Hosting und laufender Betrieb?",
+      answer:
+        "Moderne Next.js-Websites lassen sich oft schon ab 0–20 € im Monat hosten (z.B. Vercel oder Hetzner). Ich richte alles ein und berate dich zur günstigsten Variante für deinen Fall. Eine optionale Wartungspauschale für Updates und kleine Änderungen biete ich ebenfalls an.",
+    },
+    {
+      question: "Ist meine Website DSGVO-konform?",
+      answer:
+        "Ja – Datenschutz wird von Anfang an mitgedacht: datensparsame Tools, Server-Standort EU wo möglich, Impressum und Datenschutzerklärung inklusive. Hinweis: Eine Rechtsberatung ersetze ich nicht, aber die technische Umsetzung folgt deutschem Recht.",
+    },
+    {
+      question: "Lohnt sich KI für mein kleines Unternehmen überhaupt?",
+      answer:
+        "Oft ja – aber nicht immer. Sinnvolle Beispiele: ein Chatbot, der Kundenanfragen vorqualifiziert, automatische Dokumenten-Auswertung oder FAQ-Assistenten. Im Erstgespräch sage ich dir ehrlich, ob sich KI für deinen Fall rechnet – oder ob eine gute Website erstmal wichtiger ist.",
+    },
+    {
+      question: "Was passiert nach dem Launch, wenn ich Änderungen brauche?",
+      answer:
+        "Kleinere Anpassungen in den ersten zwei Wochen nach Launch sind inklusive. Danach kannst du Änderungen einzeln beauftragen oder eine monatliche Betreuung buchen – du erreichst mich direkt, ohne Ticketsystem und Warteschleife.",
+    },
   ],
 };
 

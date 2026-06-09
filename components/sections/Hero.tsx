@@ -76,7 +76,7 @@ export function Hero() {
       </span>
 
       {/* 3D-Orb (rechts, blendet nach links aus) */}
-      <OrbLoader className="pointer-events-none absolute right-0 top-0 h-full w-full opacity-90 [mask-image:radial-gradient(ellipse_60%_60%_at_70%_45%,black,transparent_75%)] lg:w-[58%]" />
+      <OrbLoader className="hero-orb pointer-events-none absolute right-0 top-0 h-full w-full opacity-90 [mask-image:radial-gradient(ellipse_60%_60%_at_70%_45%,black,transparent_75%)] lg:w-[58%]" />
 
       {/* Inhalt */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">

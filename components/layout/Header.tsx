@@ -8,6 +8,7 @@ import { nav, site } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -75,6 +76,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <div className="hidden md:block">
             <Magnetic strength={0.4}>
               <Button asChild size="sm">

@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
-import { contact, site } from "@/lib/content";
+import { booking, contact, site } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { CalButton } from "@/components/ui/CalButton";
 
 export function Contact() {
   return (
@@ -96,6 +97,19 @@ export function Contact() {
                 </span>
               </span>
             </a>
+          </div>
+
+          {/* Terminbuchung via Cal.com */}
+          <div className="card-surface mt-10 rounded-[var(--radius-lg)] p-7">
+            <h3 className="font-display text-xl font-semibold text-foreground">
+              {booking.title}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {booking.subtitle}
+            </p>
+            <CalButton className="mt-5 w-full sm:w-auto">
+              {booking.ctaLabel}
+            </CalButton>
           </div>
         </Reveal>
 
