@@ -6,20 +6,66 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? site.url;
   const now = new Date();
 
-  const routes = [
-    { path: "", priority: 1, changeFrequency: "monthly" as const },
-    { path: "/leistungen", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/projekte", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/ueber", priority: 0.6, changeFrequency: "yearly" as const },
-    { path: "/kontakt", priority: 0.7, changeFrequency: "yearly" as const },
-    { path: "/impressum", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/datenschutz", priority: 0.3, changeFrequency: "yearly" as const },
+  return [
+    {
+      url: baseUrl,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/#projekte`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/#pakete`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/#kontakt`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/leistungen`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/projekte`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/ueber`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/kontakt`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/impressum`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/datenschutz`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
-
-  return routes.map((route) => ({
-    url: `${baseUrl}${route.path}`,
-    lastModified: now,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
 }
