@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Mail, MapPin, Github, Clock } from "lucide-react";
+import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
 import { contact, site } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
@@ -25,7 +25,7 @@ export function Contact() {
               className="group flex items-center gap-4"
             >
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
-                <Mail className="size-5" />
+                <Mail className="size-5" aria-hidden />
               </span>
               <span>
                 <span className="block text-xs uppercase tracking-wider text-muted-2">
@@ -37,9 +37,26 @@ export function Contact() {
               </span>
             </a>
 
+            <a
+              href={`tel:${site.phone}`}
+              className="group flex items-center gap-4"
+            >
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
+                <Phone className="size-5" aria-hidden />
+              </span>
+              <span>
+                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                  Telefon
+                </span>
+                <span className="text-foreground transition-colors group-hover:text-gold">
+                  {site.phone}
+                </span>
+              </span>
+            </a>
+
             <div className="flex items-center gap-4">
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold">
-                <MapPin className="size-5" />
+                <MapPin className="size-5" aria-hidden />
               </span>
               <span>
                 <span className="block text-xs uppercase tracking-wider text-muted-2">
@@ -51,7 +68,7 @@ export function Contact() {
 
             <div className="flex items-center gap-4">
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold">
-                <Clock className="size-5" />
+                <Clock className="size-5" aria-hidden />
               </span>
               <span>
                 <span className="block text-xs uppercase tracking-wider text-muted-2">
@@ -68,7 +85,7 @@ export function Contact() {
               className="group flex items-center gap-4"
             >
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
-                <Github className="size-5" />
+                <Github className="size-5" aria-hidden />
               </span>
               <span>
                 <span className="block text-xs uppercase tracking-wider text-muted-2">

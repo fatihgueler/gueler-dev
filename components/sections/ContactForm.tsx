@@ -14,19 +14,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Bitte gib deinen Namen an."),
-  email: z.string().email("Bitte gib eine gültige E-Mail-Adresse an."),
-  budget: z.string().optional(),
-  message: z.string().min(10, "Bitte schreib eine etwas längere Nachricht."),
-  company: z.string().optional(), // Honeypot
+  name: z.string().min(2, "Bitte geben Sie Ihren Namen ein."),
+  company: z.string().max(100).optional(),
+  email: z.string().email("Bitte geben Sie eine gültige E-Mail ein."),
+  phone: z.string().max(50).optional(),
+  package: z.string().optional(),
+  message: z.string().min(10, "Bitte beschreiben Sie Ihr Anliegen kurz."),
+  privacy: z
+    .boolean()
+    .refine((v) => v === true, "Bitte akzeptieren Sie die Datenschutzerklärung."),
+  _trap: z.string().max(0).optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
-  const [status, setStatus] = React.useState<"idle" | "success" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = React.useState<"idle" | "success" | "error">("idle");
 
   const {
     register,
@@ -35,11 +38,20 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: { privacy: false },
   });
 
   async function onSubmit(values: FormValues) {
     setStatus("idle");
-    const result = await sendContactMessage(values);
+    const result = await sendContactMessage({
+      name: values.name,
+      email: values.email,
+      message: values.message,
+      company: values._trap, // pass honeypot as legacy honeypot field
+      phone: values.phone,
+      packageChoice: values.package,
+      firmName: values.company,
+    });
     if (result.status === "success") {
       setStatus("success");
       reset();
@@ -52,7 +64,7 @@ export function ContactForm() {
     return (
       <div className="card-surface flex flex-col items-center rounded-[var(--radius-lg)] p-10 text-center">
         <div className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gold/15 text-gold">
-          <CheckCircle2 className="size-8" />
+          <CheckCircle2 className="size-8" aria-hidden />
         </div>
         <h3 className="font-display text-2xl font-medium text-foreground">
           Nachricht gesendet
@@ -77,76 +89,135 @@ export function ContactForm() {
     >
       {/* Honeypot – für Menschen unsichtbar */}
       <div className="absolute -left-[9999px]" aria-hidden>
-        <label htmlFor="company">Firma (bitte leer lassen)</label>
+        <label htmlFor="_trap">Website (bitte leer lassen)</label>
         <input
-          id="company"
+          id="_trap"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          {...register("company")}
+          {...register("_trap")}
         />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="cf-name">Name *</Label>
           <Input
-            id="name"
-            placeholder="Dein Name"
+            id="cf-name"
+            placeholder="Ihr Name"
             aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "cf-name-error" : undefined}
             {...register("name")}
           />
           {errors.name && (
-            <p className="text-sm text-red-400">{errors.name.message}</p>
+            <p id="cf-name-error" className="text-sm text-red-400" role="alert">
+              {errors.name.message}
+            </p>
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email">E-Mail</Label>
+          <Label htmlFor="cf-company">
+            Firmenname <span className="text-muted-2">(optional)</span>
+          </Label>
           <Input
-            id="email"
+            id="cf-company"
+            placeholder="Ihr Unternehmen"
+            {...register("company")}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="cf-email">E-Mail *</Label>
+          <Input
+            id="cf-email"
             type="email"
             placeholder="name@beispiel.de"
             aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "cf-email-error" : undefined}
             {...register("email")}
           />
           {errors.email && (
-            <p className="text-sm text-red-400">{errors.email.message}</p>
+            <p id="cf-email-error" className="text-sm text-red-400" role="alert">
+              {errors.email.message}
+            </p>
           )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cf-phone">
+            Telefon <span className="text-muted-2">(optional)</span>
+          </Label>
+          <Input
+            id="cf-phone"
+            type="tel"
+            placeholder="+49 …"
+            {...register("phone")}
+          />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="budget">Budget (optional)</Label>
+        <Label htmlFor="cf-package">Paket auswählen</Label>
         <select
-          id="budget"
+          id="cf-package"
           className="h-11 w-full rounded-full border border-border-strong bg-surface px-4 text-sm text-foreground placeholder:text-muted-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
-          {...register("budget")}
+          {...register("package")}
         >
-          <option value="">Wähle einen Budget-Bereich…</option>
-          {contact.budgetRanges.map((range) => (
-            <option key={range.value} value={range.value}>
-              {range.label}
+          <option value="">Paket wählen…</option>
+          {contact.packageOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
             </option>
           ))}
         </select>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message">Nachricht</Label>
+        <Label htmlFor="cf-message">Nachricht *</Label>
         <Textarea
-          id="message"
-          placeholder="Worum geht es bei deinem Projekt?"
+          id="cf-message"
+          placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihr aktuelles Website-Problem…"
           aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "cf-message-error" : undefined}
           {...register("message")}
         />
         {errors.message && (
-          <p className="text-sm text-red-400">{errors.message.message}</p>
+          <p id="cf-message-error" className="text-sm text-red-400" role="alert">
+            {errors.message.message}
+          </p>
+        )}
+      </div>
+
+      {/* DSGVO-Checkbox */}
+      <div className="space-y-1">
+        <div className="flex items-start gap-3">
+          <input
+            id="cf-privacy"
+            type="checkbox"
+            className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border border-border-strong bg-surface accent-teal focus-visible:ring-2 focus-visible:ring-teal"
+            aria-describedby={errors.privacy ? "cf-privacy-error" : undefined}
+            {...register("privacy")}
+          />
+          <Label htmlFor="cf-privacy" className="cursor-pointer text-sm leading-relaxed">
+            Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
+            verarbeitet werden. Details in der{" "}
+            <a href="/datenschutz" className="text-gold underline-offset-2 hover:underline">
+              Datenschutzerklärung
+            </a>
+            . *
+          </Label>
+        </div>
+        {errors.privacy && (
+          <p id="cf-privacy-error" className="pl-7 text-sm text-red-400" role="alert">
+            {errors.privacy.message}
+          </p>
         )}
       </div>
 
       {status === "error" && (
-        <div className="flex items-center gap-2.5 rounded-[var(--radius)] border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
-          <AlertCircle className="size-4 shrink-0" />
+        <div className="flex items-center gap-2.5 rounded-[var(--radius)] border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300" role="alert">
+          <AlertCircle className="size-4 shrink-0" aria-hidden />
           {contact.errorMessage}
         </div>
       )}
@@ -159,25 +230,16 @@ export function ContactForm() {
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="animate-spin" />
+            <Loader2 className="animate-spin" aria-hidden />
             Wird gesendet…
           </>
         ) : (
           <>
-            Nachricht senden
-            <Send />
+            Kostenlose Analyse anfragen →
+            <Send aria-hidden />
           </>
         )}
       </Button>
-
-      <p className="text-center text-xs text-muted-2">
-        Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur
-        Bearbeitung deiner Anfrage zu. Details in der{" "}
-        <a href="/datenschutz" className="text-gold hover:underline">
-          Datenschutzerklärung
-        </a>
-        .
-      </p>
     </form>
   );
 }
