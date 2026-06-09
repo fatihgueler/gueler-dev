@@ -11,7 +11,7 @@
 
 export const site = {
   name: "Güler.dev",
-  tagline: "Webentwicklung & KI-Lösungen",
+  tagline: "Webdesign Hannover",
   ownerName: "Fatih Güler",
   email: "fatih.gueler75@gmail.com",
   phone: "015777688060",
@@ -24,26 +24,38 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler-0206a639a/",
 };
 
+export const siteConfig = {
+  name: site.ownerName,
+  title: "Webdesign Hannover | Fatih Güler – Websites die Kunden bringen",
+  description:
+    "Professionelle Websites für KMU in Hannover und deutschlandweit. Modern, schnell, conversion-optimiert. One Pager ab 500€.",
+  url: site.url,
+  email: site.email,
+  phone: site.phone,
+  location: site.location,
+  social: {
+    linkedin: site.linkedin,
+    github: site.github,
+  },
+};
+
 export const nav = [
-  { label: "Leistungen", href: "/leistungen" },
-  { label: "Projekte", href: "/projekte" },
+  { label: "Projekte", href: "/#projekte" },
+  { label: "Pakete", href: "/#pakete" },
   { label: "Über mich", href: "/ueber" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Kontakt", href: "/#kontakt" },
 ];
 
 export const hero = {
-  eyebrow: "Freelance Webentwickler · Hannover",
-  // Das/die hervorgehobene(n) Wort(e) werden in Gold gesetzt.
-  titleStart: "Websites & KI-Lösungen, die kleine Unternehmen ",
-  titleHighlight: "gross",
-  titleEnd: " aussehen lassen.",
+  eyebrow: "Webentwickler für KMU · Hannover",
+  titleStart: "Websites die ",
+  titleHighlight: "Kunden bringen",
+  titleEnd: ".",
   subtitle:
-    "Ich baue schnelle, moderne Websites und intelligente Web-Tools mit Next.js – sauber umgesetzt, DSGVO-konform und auf echte Ergebnisse ausgelegt.",
-  primaryCta: { label: "Projekt anfragen", href: "/kontakt" },
-  secondaryCta: { label: "Projekte ansehen", href: "/projekte" },
-  // Kleine Vertrauens-Kennzahlen unter dem Hero.
-  // `count`/`suffix` sind optional und steuern animierte Zähler (z. B. "90" + "+").
-  // Fehlen sie (Next.js 15), wird `value` einfach statisch angezeigt.
+    "Ich baue professionelle Websites für KMU in Hannover und deutschlandweit. Modern, schnell – und auf Conversions optimiert.",
+  primaryCta: { label: "Kostenlose Website-Analyse anfragen", href: "#kontakt" },
+  secondaryCta: { label: "Projekte ansehen", href: "#projekte" },
+  socialProof: "One Pager ab 500€ · Business Website ab 1.500€",
   stats: [
     { value: "Next.js 15", label: "Moderner Stack" },
     { value: "90+", label: "Lighthouse-Score", count: 90, suffix: "+" },
@@ -51,7 +63,6 @@ export const hero = {
   ],
 };
 
-// Technologien für das Logo-Band ("Tech Marquee")
 export const techStack = [
   "Next.js",
   "React",
@@ -249,7 +260,6 @@ export const trust = {
 
 export const about = {
   eyebrow: "Über mich",
-  // TODO: Diesen Text bitte gegenlesen und nach deinem Geschmack anpassen.
   title: "Hallo, ich bin Fatih.",
   paragraphs: [
     "Ich bin angehender Fachinformatiker für Anwendungsentwicklung aus Hannover und entwickle als Freelancer Websites und Web-Anwendungen für kleine Unternehmen und Selbstständige.",
@@ -266,13 +276,19 @@ export const about = {
 
 export const contact = {
   eyebrow: "Kontakt",
-  title: "Lass uns dein Projekt besprechen",
+  title: "Kostenlose Website-Analyse anfragen",
   subtitle:
-    "Erzähl mir kurz, was du vorhast – ich melde mich in der Regel innerhalb von 24 Stunden zurück.",
+    "Ich analysiere Ihre aktuelle Online-Präsenz kostenlos und zeige Ihnen, wie Sie mehr Kunden über Ihre Website gewinnen können.",
   successMessage:
-    "Vielen Dank! Deine Nachricht ist angekommen. Ich melde mich schnellstmöglich bei dir.",
+    "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
   errorMessage:
-    "Da ist leider etwas schiefgelaufen. Bitte versuch es erneut oder schreib mir direkt per E-Mail.",
+    `❌ Etwas hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie direkt an: ${"fatih.gueler75@gmail.com"}`,
+  packageOptions: [
+    { value: "one-pager", label: "One Pager (ab 500€)" },
+    { value: "business", label: "Business Website (ab 1.500€)" },
+    { value: "premium", label: "Premium / Custom" },
+    { value: "unsicher", label: "Bin noch unsicher" },
+  ],
   budgetRanges: [
     { value: "500-1500", label: "500 € – 1.500 €" },
     { value: "1500-5000", label: "1.500 € – 5.000 €" },
@@ -282,7 +298,6 @@ export const contact = {
   ],
 };
 
-// ── Skills (Über-mich-Seite) ──────────────────────────────────
 export const skills = {
   eyebrow: "Stack",
   title: "Womit ich arbeite",
@@ -304,7 +319,6 @@ export const skills = {
   ],
 };
 
-// ── Werdegang / Timeline (Über-mich-Seite) ────────────────────
 export const timeline = {
   eyebrow: "Werdegang",
   title: "Der Weg bis hierher",
@@ -336,7 +350,6 @@ export const timeline = {
   ],
 };
 
-// ── Seiten-Intros (Hero-Köpfe der Unterseiten) ────────────────
 export const pages = {
   leistungen: {
     eyebrow: "Leistungen",
@@ -364,24 +377,134 @@ export const pages = {
   },
 };
 
-// ── Wiederverwendbarer Call-to-Action-Block ───────────────────
 export const cta = {
   title: "Bereit, online zu überzeugen?",
   subtitle:
     "Ob neue Website, KI-Tool oder Relaunch – erzähl mir von deinem Vorhaben. Erstgespräch kostenlos und unverbindlich.",
-  primary: { label: "Projekt anfragen", href: "/kontakt" },
-  secondary: { label: "Projekte ansehen", href: "/projekte" },
+  primary: { label: "Projekt anfragen", href: "/#kontakt" },
+  secondary: { label: "Projekte ansehen", href: "/#projekte" },
 };
 
 export const legal = {
-  // TODO: Diese Felder mit deinen echten Daten füllen (siehe CONTENT.md).
   impressum: {
     name: "Fatih Güler",
     street: "{{ STRASSE_HAUSNUMMER }}",
     city: "{{ PLZ_ORT }}",
     phone: "{{ TELEFONNUMMER }}",
     email: "fatih.gueler75@gmail.com",
-    // Falls umsatzsteuerpflichtig: USt-IdNr. eintragen, sonst Hinweis auf Kleinunternehmer
     vatId: "{{ UST_IDNR_ODER_KLEINUNTERNEHMER_HINWEIS }}",
   },
 };
+
+// ── Portfolio-Upgrade v2.0 ─────────────────────────────────────
+
+export const packages = [
+  {
+    id: "one-pager",
+    name: "One Pager",
+    price: "ab 500€",
+    description: "Alles auf einer Seite – kompakt, modern, wirkungsvoll.",
+    features: [
+      "1 Landing Page",
+      "Responsive Design (Mobile First)",
+      "Kontaktformular",
+      "SEO Basis-Optimierung",
+      "Google Analytics Einrichtung",
+      "Lieferzeit: 5–7 Tage",
+    ],
+    highlighted: false,
+    badge: undefined as string | undefined,
+    cta: "Jetzt anfragen",
+  },
+  {
+    id: "business",
+    name: "Business Website",
+    price: "ab 1.500€",
+    description: "Der komplette professionelle Auftritt für Ihr Unternehmen.",
+    features: [
+      "Bis zu 6 Seiten",
+      "Premium Custom Design",
+      "Lead-optimierte Formulare",
+      "SEO vollständig optimiert",
+      "Google Analytics & Search Console",
+      "Impressum & Datenschutz",
+      "Lieferzeit: 2–3 Wochen",
+    ],
+    highlighted: true,
+    badge: "Beliebteste Wahl" as string | undefined,
+    cta: "Jetzt anfragen",
+  },
+  {
+    id: "premium",
+    name: "Premium / Custom",
+    price: "Auf Anfrage",
+    description: "Individuelle Lösungen ohne Kompromisse.",
+    features: [
+      "Unbegrenzte Seiten",
+      "Custom Animationen (Three.js, GSAP)",
+      "E-Commerce Integration",
+      "CMS für eigene Inhalte",
+      "Individuelle Features",
+      "Lieferzeit: nach Absprache",
+    ],
+    highlighted: false,
+    badge: undefined as string | undefined,
+    cta: "Projekt besprechen",
+  },
+];
+
+export type CaseStudyColor = "indigo" | "amber";
+
+export const caseStudies = [
+  {
+    id: "buerobuerke",
+    title: "BüroBrücke",
+    category: "KI-Tool / SaaS",
+    tagline: "Bürokratie einfach erklärt – für alle.",
+    challenge:
+      "Migranten in Deutschland scheitern oft an unverständlichen Behördenbriefen. Das kostet Zeit, Nerven und manchmal wichtige Fristen.",
+    solution:
+      "KI-gestütztes Tool, das Behördenbriefe in verständliches Deutsch übersetzt, erklärt was zu tun ist, und die nächsten Schritte aufzeigt.",
+    result:
+      "Barrierefreier Zugang zu deutschen Behördenprozessen. Einfaches, intuitives UI – für Menschen ohne IT-Kenntnisse.",
+    tags: ["Next.js", "TypeScript", "KI-Integration", "UX Design", "Accessibility"],
+    color: "indigo" as CaseStudyColor,
+    liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
+  },
+  {
+    id: "smart-kirchen",
+    title: "Smart Kirchen",
+    category: "Non-Profit / Gemeinde",
+    tagline: "Moderne Gemeinde, moderne Präsenz.",
+    challenge:
+      "Kirchengemeinden haben oft veraltete Websites, die weder auf Mobil funktionieren noch neue Mitglieder ansprechen.",
+    solution:
+      "Moderner, warmer Webauftritt mit Eventkalender, Predigten-Archiv und einfacher Kontaktmöglichkeit – zugänglich für alle Altersgruppen.",
+    result:
+      "Professionelle Online-Präsenz, die Vertrauen aufbaut und die Gemeinschaft digital verbindet.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive", "Accessibility"],
+    color: "amber" as CaseStudyColor,
+    liveUrl: "",
+  },
+];
+
+export const testimonials = [
+  {
+    quote: "{{ KUNDENZITAT_1_EINSETZEN }}",
+    name: "{{ NAME_1_EINSETZEN }}",
+    company: "{{ FIRMA_1_EINSETZEN }}",
+    rating: 5,
+  },
+  {
+    quote: "{{ KUNDENZITAT_2_EINSETZEN }}",
+    name: "{{ NAME_2_EINSETZEN }}",
+    company: "{{ FIRMA_2_EINSETZEN }}",
+    rating: 5,
+  },
+  {
+    quote: "{{ KUNDENZITAT_3_EINSETZEN }}",
+    name: "{{ NAME_3_EINSETZEN }}",
+    company: "{{ FIRMA_3_EINSETZEN }}",
+    rating: 5,
+  },
+];
