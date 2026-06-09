@@ -5,7 +5,7 @@ import { booking, contact, site } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
-import { CalButton } from "@/components/ui/CalButton";
+import { BookingButton } from "@/components/ui/BookingButton";
 
 export function Contact() {
   return (
@@ -107,9 +107,9 @@ export function Contact() {
             <p className="mt-2 text-sm leading-relaxed text-muted">
               {booking.subtitle}
             </p>
-            <CalButton className="mt-5 w-full sm:w-auto">
+            <BookingButton className="mt-5 w-full sm:w-auto">
               {booking.ctaLabel}
-            </CalButton>
+            </BookingButton>
           </div>
         </Reveal>
 

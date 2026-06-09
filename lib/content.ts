@@ -15,9 +15,6 @@ export const site = {
   phone: "015777688060",
   whatsapp: "https://wa.me/015777688060",
   calendly: "https://calendly.com/fatih-gueler75",
-  // Cal.com-Slug für die Terminbuchung (z.B. "fatih-gueler" oder "fatih-gueler/erstgespraech").
-  // TODO: Nach dem Anlegen des Cal.com-Accounts hier den echten Slug eintragen.
-  cal: "fatih-gueler",
   availability: "Juni 2026",
   location: "Hannover, Deutschland",
   url: "https://guelerdev.de",
