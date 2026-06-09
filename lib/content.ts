@@ -4,8 +4,6 @@
  *
  *  ALLE Texte, Daten und Links der Seite stehen hier.
  *  Zum Ändern von Inhalten musst du NUR diese Datei bearbeiten.
- *  Stellen, die du noch prüfen/ergänzen solltest, sind mit
- *  // TODO markiert (siehe auch CONTENT.md).
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -279,10 +277,9 @@ export const contact = {
   title: "Kostenlose Website-Analyse anfragen",
   subtitle:
     "Ich analysiere Ihre aktuelle Online-Präsenz kostenlos und zeige Ihnen, wie Sie mehr Kunden über Ihre Website gewinnen können.",
-  successMessage:
-    "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
+  successMessage: "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
   errorMessage:
-    `❌ Etwas hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie direkt an: ${"fatih.gueler75@gmail.com"}`,
+    "❌ Etwas hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
     { value: "one-pager", label: "One Pager (ab 500€)" },
     { value: "business", label: "Business Website (ab 1.500€)" },
@@ -383,17 +380,6 @@ export const cta = {
     "Ob neue Website, KI-Tool oder Relaunch – erzähl mir von deinem Vorhaben. Erstgespräch kostenlos und unverbindlich.",
   primary: { label: "Projekt anfragen", href: "/#kontakt" },
   secondary: { label: "Projekte ansehen", href: "/#projekte" },
-};
-
-export const legal = {
-  impressum: {
-    name: "Fatih Güler",
-    street: "{{ STRASSE_HAUSNUMMER }}",
-    city: "{{ PLZ_ORT }}",
-    phone: "{{ TELEFONNUMMER }}",
-    email: "fatih.gueler75@gmail.com",
-    vatId: "{{ UST_IDNR_ODER_KLEINUNTERNEHMER_HINWEIS }}",
-  },
 };
 
 // ── Portfolio-Upgrade v2.0 ─────────────────────────────────────
