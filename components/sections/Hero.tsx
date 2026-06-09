@@ -136,7 +136,7 @@ export function Hero() {
               data-hero-badge
               className="mt-5 flex items-center gap-2 text-sm text-muted"
             >
-              <span role="img" aria-label="Rakete">🚀</span>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-teal" aria-hidden />
               {hero.socialProof}
             </p>
           )}

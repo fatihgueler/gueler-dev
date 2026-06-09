@@ -458,17 +458,17 @@ export const caseStudies = [
     liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
   },
   {
-    id: "smart-kirchen",
-    title: "Smart Kirchen",
-    category: "Non-Profit / Gemeinde",
-    tagline: "Moderne Gemeinde, moderne Präsenz.",
+    id: "smartkitchen",
+    title: "SmartKitchen",
+    category: "Fullstack-App / .NET",
+    tagline: "Küchenverwaltung – digital, effizient, übersichtlich.",
     challenge:
-      "Kirchengemeinden haben oft veraltete Websites, die weder auf Mobil funktionieren noch neue Mitglieder ansprechen.",
+      "Rezepte, Lagerbestand, Bestellungen und Wochenplanung wurden manuell und verteilt auf Zettel und Excel geführt – zeitaufwändig und fehleranfällig.",
     solution:
-      "Moderner, warmer Webauftritt mit Eventkalender, Predigten-Archiv und einfacher Kontaktmöglichkeit – zugänglich für alle Altersgruppen.",
+      "Vollständige Fullstack-Anwendung in .NET 8 mit Blazor-Frontend: Rezeptverwaltung, Echtzeit-Inventar, Bestellwesen und automatisch generierte Einkaufslisten aus dem Wochenplan.",
     result:
-      "Professionelle Online-Präsenz, die Vertrauen aufbaut und die Gemeinschaft digital verbindet.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Responsive", "Accessibility"],
+      "Alle Küchenprozesse an einem Ort. Weniger manueller Aufwand, weniger Fehler – der gesamte Workflow digital abgebildet.",
+    tags: [".NET 8", "Blazor", "ASP.NET Core", "EF Core", "SQLite"],
     color: "amber" as CaseStudyColor,
     liveUrl: "",
   },
