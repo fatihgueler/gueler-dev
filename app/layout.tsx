@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     title: "Websites die Kunden bringen – Fatih Güler",
     description:
       "Freelance Webentwickler aus Hannover. KMU-Websites ab 500€. Modern, schnell, conversion-optimiert.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.ownerName} – Webdesign Hannover`,
     description: "Freelance Webentwickler. KMU-Websites ab 500€.",
-    images: ["/og-image.jpg"],
+    images: ["/og"],
   },
   robots: {
     index: true,
