@@ -40,9 +40,11 @@ export function MobileNav() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Menü öffnen"
+        aria-expanded={open}
+        aria-controls="mobile-nav-panel"
         className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-teal"
       >
-        <Menu className="size-6" />
+        <Menu className="size-6" aria-hidden />
       </button>
 
       <div
@@ -60,6 +62,8 @@ export function MobileNav() {
 
         {/* Panel */}
         <nav
+          id="mobile-nav-panel"
+          aria-label="Mobile Navigation"
           className={cn(
             "absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col border-l border-border bg-surface px-7 py-7 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
             open ? "translate-x-0" : "translate-x-full",
@@ -76,7 +80,7 @@ export function MobileNav() {
               aria-label="Menü schließen"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-teal"
             >
-              <X className="size-6" />
+              <X className="size-6" aria-hidden />
             </button>
           </div>
 
@@ -95,8 +99,8 @@ export function MobileNav() {
 
           <div className="mt-auto pt-8">
             <Button asChild size="lg" className="w-full">
-              <Link href="/kontakt" onClick={() => setOpen(false)}>
-                Projekt anfragen
+              <Link href="/#kontakt" onClick={() => setOpen(false)}>
+                Kostenlose Analyse anfragen
               </Link>
             </Button>
           </div>

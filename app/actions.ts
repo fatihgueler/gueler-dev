@@ -4,11 +4,13 @@ import { z } from "zod";
 import { Resend } from "resend";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Bitte gib deinen Namen an.").max(100),
-  email: z.string().email("Bitte gib eine gültige E-Mail-Adresse an."),
-  message: z.string().min(10, "Bitte schreib eine etwas längere Nachricht.").max(5000),
-  // Honeypot gegen Spam – muss leer bleiben
-  company: z.string().max(0).optional(),
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  message: z.string().min(10).max(5000),
+  company: z.string().max(0).optional(), // honeypot – muss leer bleiben
+  phone: z.string().max(50).optional(),
+  packageChoice: z.string().max(50).optional(),
+  firmName: z.string().max(100).optional(),
 });
 
 export type ContactState = {
@@ -34,7 +36,7 @@ export async function sendContactMessage(
     };
   }
 
-  // Honeypot ausgelöst → still als Erfolg behandeln (Bot abweisen)
+  // Honeypot ausgelöst → still als Erfolg behandeln
   if (parsed.data.company) {
     return { status: "success" };
   }
@@ -43,26 +45,37 @@ export async function sendContactMessage(
   const from = process.env.RESEND_FROM ?? "Güler.dev <onboarding@resend.dev>";
   const to = process.env.CONTACT_EMAIL ?? "fatih.gueler75@gmail.com";
 
-  // Ohne API-Key (z. B. lokal ohne Setup) sauberer Hinweis statt Crash
   if (!apiKey) {
     console.warn("[Kontaktformular] RESEND_API_KEY fehlt – E-Mail nicht versendet.");
     return {
       status: "error",
-      message:
-        "Der E-Mail-Versand ist noch nicht konfiguriert (RESEND_API_KEY fehlt).",
+      message: "Der E-Mail-Versand ist noch nicht konfiguriert (RESEND_API_KEY fehlt).",
     };
   }
 
   try {
     const resend = new Resend(apiKey);
-    const { name, email, message } = parsed.data;
+    const { name, email, message, phone, packageChoice, firmName } = parsed.data;
+
+    const lines = [
+      `Name: ${name}`,
+      firmName ? `Firma: ${firmName}` : null,
+      `E-Mail: ${email}`,
+      phone ? `Telefon: ${phone}` : null,
+      packageChoice ? `Paket: ${packageChoice}` : null,
+      ``,
+      `Nachricht:`,
+      message,
+    ]
+      .filter((l) => l !== null)
+      .join("\n");
 
     const { error } = await resend.emails.send({
       from,
       to,
       replyTo: email,
-      subject: `Neue Anfrage über guler.dev – ${name}`,
-      text: `Name: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
+      subject: `Neue Anfrage über guelerdev.de – ${name}`,
+      text: lines,
     });
 
     if (error) {

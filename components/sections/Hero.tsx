@@ -47,6 +47,7 @@ export function Hero() {
         )
         .from("[data-hero-sub]", { y: 24, opacity: 0, duration: 0.7 }, "-=0.45")
         .from("[data-hero-cta]", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
+        .from("[data-hero-badge]", { y: 16, opacity: 0, duration: 0.5 }, "-=0.3")
         .from("[data-hero-stats]", { y: 24, opacity: 0, duration: 0.7 }, "-=0.3");
     }, root);
 
@@ -130,6 +131,16 @@ export function Hero() {
             </Magnetic>
           </div>
 
+          {hero.socialProof && (
+            <p
+              data-hero-badge
+              className="mt-5 flex items-center gap-2 text-sm text-muted"
+            >
+              <span role="img" aria-label="Rakete">🚀</span>
+              {hero.socialProof}
+            </p>
+          )}
+
           <div
             data-hero-stats
             className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-8"
@@ -152,7 +163,7 @@ export function Hero() {
 
       {/* Scroll-Hinweis */}
       <Link
-        href="#leistungen-teaser"
+        href="#projekte"
         aria-label="Nach unten scrollen"
         className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-muted-2 transition-colors hover:text-teal md:block"
       >

@@ -42,23 +42,31 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-9 md:flex" aria-label="Hauptnavigation">
           {nav.map((item) => {
-            const active = pathname === item.href;
+            const isExternal = !item.href.startsWith("#") && !item.href.startsWith("/");
+            const isActive =
+              item.href === "/ueber" && pathname === "/ueber";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
                   "group relative text-sm font-medium transition-colors",
-                  active ? "text-foreground" : "text-muted hover:text-foreground",
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted hover:text-foreground",
                 )}
+                aria-current={isActive ? "page" : undefined}
+                {...(isExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
               >
                 {item.label}
                 <span
                   className={cn(
                     "absolute -bottom-1.5 left-0 h-px bg-teal transition-all duration-300",
-                    active ? "w-full" : "w-0 group-hover:w-full",
+                    isActive ? "w-full" : "w-0 group-hover:w-full",
                   )}
                 />
               </Link>
@@ -70,7 +78,7 @@ export function Header() {
           <div className="hidden md:block">
             <Magnetic strength={0.4}>
               <Button asChild size="sm">
-                <Link href="/kontakt">Projekt anfragen</Link>
+                <Link href="/#kontakt">Kostenlose Analyse</Link>
               </Button>
             </Magnetic>
           </div>
