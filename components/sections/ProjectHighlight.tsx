@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { projectHighlight } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { MotionReveal } from "@/components/anim/MotionReveal";
+import { TiltCard } from "@/components/anim/TiltCard";
 
 export function ProjectHighlight() {
   return (
@@ -12,7 +13,7 @@ export function ProjectHighlight() {
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
         {/* Visual */}
         <MotionReveal>
-          <div className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface">
+          <TiltCard className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface">
             <div className="mesh-bg" aria-hidden />
             <div className="relative aspect-[16/11] p-8 md:p-12">
               <div className="flex h-full flex-col justify-between">
@@ -35,7 +36,7 @@ export function ProjectHighlight() {
                 </div>
               </div>
             </div>
-          </div>
+          </TiltCard>
         </MotionReveal>
 
         {/* Text */}

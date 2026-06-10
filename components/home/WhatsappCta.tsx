@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { site } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
