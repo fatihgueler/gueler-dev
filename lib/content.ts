@@ -38,28 +38,16 @@ export const siteConfig = {
 };
 
 export const nav = [
-  { label: "Projekte", href: "/#projekte" },
-  { label: "Pakete", href: "/#pakete" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Projekte", href: "/projekte" },
+  { label: "Pakete", href: "/leistungen#pakete" },
   { label: "Über mich", href: "/ueber" },
-  { label: "Kontakt", href: "/#kontakt" },
 ];
 
 export const hero = {
-  eyebrow: "Webentwickler für KMU · Hannover",
-  titleStart: "Websites die ",
-  titleHighlight: "Kunden bringen",
-  titleEnd: ".",
+  lines: ["Websites die", "Kunden bringen."],
   subtitle:
-    "Ich baue professionelle Websites für KMU in Hannover und deutschlandweit. Modern, schnell – und auf Conversions optimiert.",
-  primaryCta: { label: "Kostenlose Website-Analyse anfragen", href: "#kontakt" },
-  secondaryCta: { label: "Projekte ansehen", href: "#projekte" },
-  socialProof: "One Pager ab 500€ · Business Website ab 1.500€",
-  stats: [
-    { value: "Next.js 15", label: "Moderner Stack" },
-    { value: "90+", label: "Lighthouse-Score", count: 90, suffix: "+" },
-    { value: "100 %", label: "DSGVO-fokussiert", count: 100, suffix: " %" },
-  ],
+    "Next.js · TypeScript · KI-Integration — für KMU in Hannover und deutschlandweit.",
+  scrollHint: "scroll to discover",
 };
 
 export const techStack = [
@@ -159,26 +147,67 @@ export const process = {
       number: "01",
       title: "Kennenlernen",
       description:
-        "Wir sprechen über dein Vorhaben, deine Ziele und dein Budget. Du bekommst eine ehrliche Einschätzung – kostenlos und unverbindlich.",
+        "Ein kurzes Gespräch über dein Vorhaben, deine Ziele und dein Budget. Du bekommst eine ehrliche Einschätzung — kostenlos und unverbindlich.",
     },
     {
       number: "02",
-      title: "Konzept & Angebot",
+      title: "Konzept & Festpreis",
       description:
-        "Ich entwerfe Struktur, Design-Richtung und einen klaren Festpreis. Du weisst vorher genau, was du bekommst.",
+        "Ich entwerfe Struktur, Design-Richtung und einen klaren Festpreis. Du weißt vorher genau, was du bekommst — keine versteckten Kosten.",
     },
     {
       number: "03",
       title: "Entwicklung",
       description:
-        "Umsetzung mit modernem, sauberem Code. Du siehst regelmässig Zwischenstände und kannst jederzeit Feedback geben.",
+        "Umsetzung mit modernem, sauberem Code. Next.js 15, TypeScript, Tailwind. Du siehst regelmäßig Zwischenstände und kannst jederzeit Feedback geben.",
     },
     {
       number: "04",
       title: "Launch & Support",
       description:
-        "Wir gehen live, ich richte alles ein – und bin auch danach für Wartung und Weiterentwicklung an deiner Seite.",
+        "Wir gehen live, ich richte alles ein — Domain, Hosting, Analytics. Und bin auch danach für Wartung und Weiterentwicklung an deiner Seite.",
     },
+  ],
+};
+
+export const features = {
+  title: "Gebaut für Ergebnisse — nicht für Ästhetik allein.",
+  items: [
+    {
+      icon: "Zap",
+      title: "Schnelle Lieferzeit",
+      description:
+        "One Pager in 5–7 Tagen. Business-Site in 2–3 Wochen. Weil dein Business nicht auf mich warten soll.",
+    },
+    {
+      icon: "Shield",
+      title: "DSGVO & Sicherheit",
+      description:
+        "Datenschutzkonforme Umsetzung nach deutschem Recht. SSL, sichere Formulare, Impressum — alles inklusive.",
+    },
+    {
+      icon: "Brain",
+      title: "KI-Integration",
+      description:
+        "Smarte Chatbots und Automatisierungen die wirklich funktionieren — kein Gimmick, sondern echter Mehrwert.",
+    },
+    {
+      icon: "TrendingUp",
+      title: "Conversion-Optimiert",
+      description:
+        "Jedes Element hat einen Zweck: Besucher in Anfragen verwandeln. Mobile-first, schnell, SEO-optimiert.",
+    },
+  ],
+};
+
+export const projectHighlight = {
+  title: "Award-Level Code. Messbare Ergebnisse.",
+  description:
+    "Von der Fahrschule bis zum KI-Tool: Jedes Projekt wird mit demselben Anspruch gebaut — technisch sauber, visuell stark, auf Conversions ausgerichtet.",
+  cta: { label: "Projekte ansehen", href: "/projekte" },
+  highlights: [
+    { name: "BüroBrücke", tag: "KI-Tool" },
+    { name: "SmartKitchen", tag: "Fullstack .NET" },
   ],
 };
 
@@ -310,44 +339,29 @@ export const faq = {
     "Die wichtigsten Antworten vorab – alles Weitere klären wir im kostenlosen Erstgespräch.",
   items: [
     {
-      question: "Was kostet eine Website bei dir?",
+      question: "Was kostet eine professionelle Website?",
       answer:
-        "Ein One Pager startet ab 500 €, eine mehrseitige Business-Website ab 1.500 €. Web-Apps und KI-Lösungen kalkuliere ich individuell. Du bekommst immer einen Festpreis vor Projektstart – keine versteckten Kosten, keine Stundenzettel.",
+        "One Pager ab 500 €, Business-Site ab 1.500 €, Premium auf Anfrage. Immer zum Festpreis – keine versteckten Kosten, keine Überraschungen.",
     },
     {
-      question: "Wie lange dauert es, bis meine Website online ist?",
+      question: "Wie lange dauert die Entwicklung?",
       answer:
-        "Ein One Pager ist in der Regel in 5–7 Tagen fertig, eine Business-Website in 2–3 Wochen. Der genaue Zeitplan hängt davon ab, wie schnell Inhalte wie Texte und Bilder vorliegen – dabei unterstütze ich dich auch gern.",
+        "One Pager: 5–7 Tage. Business-Site: 2–3 Wochen. Premium-Projekte: nach Absprache. Der genaue Zeitplan hängt davon ab, wie schnell Texte und Bilder vorliegen – dabei unterstütze ich dich gern.",
     },
     {
-      question: "Was brauchst du von mir, um zu starten?",
+      question: "Ich habe keine technischen Kenntnisse — ist das ein Problem?",
       answer:
-        "Im Erstgespräch klären wir Ziele, Zielgruppe und Stil. Danach reichen Logo, Texte und Bilder – falls vorhanden. Wenn nicht, helfe ich bei Texten und nutze professionelles Bildmaterial. Du brauchst kein technisches Vorwissen.",
+        "Nein. Ich übernehme alles: Konzept, Design, Entwicklung, Launch, Hosting. Du gibst Feedback, ich setze um – du brauchst kein technisches Vorwissen.",
     },
     {
-      question: "Wem gehören Code und Website nach dem Projekt?",
+      question: "Was unterscheidet dich von einer Agentur?",
       answer:
-        "Dir. Nach vollständiger Bezahlung gehören Design, Inhalte und Code komplett dir – inklusive Zugang zum Code-Repository. Du bist nicht an mich gebunden und kannst die Website jederzeit von jemand anderem weiterpflegen lassen.",
+        "Kein Agentur-Aufschlag. Direkte Kommunikation. Ein Ansprechpartner. Schnellere Umsetzung und ein persönlicheres Ergebnis – du sprichst immer mit der Person, die deine Website tatsächlich baut.",
     },
     {
-      question: "Was kostet Hosting und laufender Betrieb?",
+      question: "Bietest du auch KI-Funktionen an?",
       answer:
-        "Moderne Next.js-Websites lassen sich oft schon ab 0–20 € im Monat hosten (z.B. Vercel oder Hetzner). Ich richte alles ein und berate dich zur günstigsten Variante für deinen Fall. Eine optionale Wartungspauschale für Updates und kleine Änderungen biete ich ebenfalls an.",
-    },
-    {
-      question: "Ist meine Website DSGVO-konform?",
-      answer:
-        "Ja – Datenschutz wird von Anfang an mitgedacht: datensparsame Tools, Server-Standort EU wo möglich, Impressum und Datenschutzerklärung inklusive. Hinweis: Eine Rechtsberatung ersetze ich nicht, aber die technische Umsetzung folgt deutschem Recht.",
-    },
-    {
-      question: "Lohnt sich KI für mein kleines Unternehmen überhaupt?",
-      answer:
-        "Oft ja – aber nicht immer. Sinnvolle Beispiele: ein Chatbot, der Kundenanfragen vorqualifiziert, automatische Dokumenten-Auswertung oder FAQ-Assistenten. Im Erstgespräch sage ich dir ehrlich, ob sich KI für deinen Fall rechnet – oder ob eine gute Website erstmal wichtiger ist.",
-    },
-    {
-      question: "Was passiert nach dem Launch, wenn ich Änderungen brauche?",
-      answer:
-        "Kleinere Anpassungen in den ersten zwei Wochen nach Launch sind inklusive. Danach kannst du Änderungen einzeln beauftragen oder eine monatliche Betreuung buchen – du erreichst mich direkt, ohne Ticketsystem und Warteschleife.",
+        "Ja — KI-Chatbots, Dokumenten-Analyse, Automatisierungen. Skalierbar, datenschutzkonform und auf dein Business zugeschnitten. Im Erstgespräch sage ich dir ehrlich, ob sich KI für deinen Fall lohnt.",
     },
   ],
 };
@@ -433,10 +447,9 @@ export const pages = {
 
 export const cta = {
   title: "Bereit, online zu überzeugen?",
-  subtitle:
-    "Ob neue Website, KI-Tool oder Relaunch – erzähl mir von deinem Vorhaben. Erstgespräch kostenlos und unverbindlich.",
-  primary: { label: "Projekt anfragen", href: "/#kontakt" },
-  secondary: { label: "Projekte ansehen", href: "/#projekte" },
+  subtitle: "Erstgespräch kostenlos und unverbindlich.",
+  primary: { label: "Kostenlose Analyse anfragen", href: "/#kontakt" },
+  secondary: { label: "Projekte ansehen", href: "/projekte" },
 };
 
 // ── Portfolio-Upgrade v2.0 ─────────────────────────────────────

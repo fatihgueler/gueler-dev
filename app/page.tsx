@@ -1,25 +1,21 @@
 import { Hero } from "@/components/sections/Hero";
-import { TechMarquee } from "@/components/sections/TechMarquee";
-import { ServicesTeaser } from "@/components/home/ServicesTeaser";
-import { CaseStudies } from "@/components/sections/CaseStudies";
-import { Packages } from "@/components/sections/Packages";
-import { Process } from "@/components/sections/Process";
-import { Faq } from "@/components/sections/Faq";
+import { ProcessSteps } from "@/components/sections/ProcessSteps";
+import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
+import { ProjectHighlight } from "@/components/sections/ProjectHighlight";
+import { FaqAccordion } from "@/components/sections/FaqAccordion";
+import { FinalCta } from "@/components/sections/FinalCta";
 import { Contact } from "@/components/sections/Contact";
-import { CTA } from "@/components/sections/CTA";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <TechMarquee />
-      <ServicesTeaser />
-      <CaseStudies />
-      <Packages />
-      <Process />
-      <Faq />
+      <ProcessSteps />
+      <FeaturesGrid />
+      <ProjectHighlight />
+      <FaqAccordion />
+      <FinalCta />
       <Contact />
-      <CTA />
     </>
   );
 }

@@ -41,12 +41,11 @@ function loadCalendly() {
 }
 
 function themedCalendlyUrl(): string {
-  const isLight = document.documentElement.dataset.theme === "light";
   const params = new URLSearchParams({
     hide_gdpr_banner: "1",
-    background_color: isLight ? "ffffff" : "0d1014",
-    text_color: isLight ? "11151b" : "e8edf4",
-    primary_color: isLight ? "0f766e" : "2dd4bf",
+    background_color: "0d0d18",
+    text_color: "f1f5f9",
+    primary_color: "7c3aed",
   });
   return `${site.calendly}?${params.toString()}`;
 }

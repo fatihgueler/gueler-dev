@@ -5,6 +5,8 @@ import { site, siteConfig } from "@/lib/content";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { MotionProvider } from "@/components/providers/MotionProvider";
+import { ConsentBanner } from "@/components/ConsentBanner";
 import { Cursor } from "@/components/ui/Cursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
@@ -75,10 +77,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f7fa" },
-    { media: "(prefers-color-scheme: dark)", color: "#07080a" },
-  ],
+  themeColor: "#04040a",
 };
 
 const jsonLd = {
@@ -167,24 +166,15 @@ const jsonLd = {
   ],
 };
 
-/**
- * Setzt das Theme vor dem ersten Paint, damit kein Farb-Flackern (FOUC)
- * entsteht. Muss als Inline-Script ganz am Anfang von <body> stehen.
- */
-const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})()`;
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="de"
-      data-theme="dark"
-      suppressHydrationWarning
       className={`${syne.variable} ${hanken.variable} ${jetbrains.variable}`}
     >
       <body className="grain min-h-screen">
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -198,10 +188,13 @@ export default function RootLayout({
         <ScrollProgress />
         <Cursor />
         <Header />
-        <SmoothScroll>
-          <main id="main">{children}</main>
-          <Footer />
-        </SmoothScroll>
+        <MotionProvider>
+          <SmoothScroll>
+            <main id="main">{children}</main>
+            <Footer />
+          </SmoothScroll>
+          <ConsentBanner />
+        </MotionProvider>
       </body>
     </html>
   );

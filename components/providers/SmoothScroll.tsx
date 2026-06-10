@@ -7,6 +7,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/lib/motion";
 
+declare global {
+  interface Window {
+    /** Globale Lenis-Instanz für Anchor-Scrolls und Debugging.
+        (window.lenis ist bereits von Lenis' eigenen Typen belegt.) */
+    __lenis?: Lenis;
+  }
+}
+
 /**
  * Globaler Smooth-Scroll (Lenis) + GSAP-ScrollTrigger-Kopplung.
  * Bei „Bewegung reduzieren" wird natives Scrollen beibehalten.
@@ -18,12 +26,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
+
+    window.__lenis = lenis;
 
     const onTick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(onTick);
@@ -36,6 +46,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       window.removeEventListener("load", refresh);
       gsap.ticker.remove(onTick);
+      delete window.__lenis;
       lenis.destroy();
     };
   }, []);
