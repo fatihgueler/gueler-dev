@@ -42,7 +42,8 @@ export function Cursor() {
     const render = () => {
       ringPos.x = lerp(ringPos.x, mouse.x, 0.18);
       ringPos.y = lerp(ringPos.y, mouse.y, 0.18);
-      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
+      ring.style.setProperty("--cursor-x", `${ringPos.x}px`);
+      ring.style.setProperty("--cursor-y", `${ringPos.y}px`);
       raf = window.requestAnimationFrame(render);
     };
     raf = window.requestAnimationFrame(render);
