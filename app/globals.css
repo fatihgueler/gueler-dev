@@ -204,6 +204,16 @@
     border-radius: 4px;
   }
 
+  /* Entfernt das 300ms-Tap-Delay auf Touch-Geräten */
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     html.has-cursor,
     html.has-cursor * {

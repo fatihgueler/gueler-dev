@@ -38,7 +38,9 @@ export function Hero() {
                 {i === hero.lines.length - 1 ? (
                   <span className="text-gradient-teal">{line}</span>
                 ) : (
-                  line
+                  // Leerzeichen am Zeilenende hält den zusammengesetzten
+                  // H1-Text für Screenreader und SEO korrekt getrennt
+                  <>{line} </>
                 )}
               </m.span>
             </span>
