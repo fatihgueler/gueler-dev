@@ -37,21 +37,25 @@ function PitchWord({
   const opacity = useTransform(progress, [start, end], [0, 1]);
 
   return (
-    <span className="relative inline-block">
-      {/* Graue Basis-Ebene */}
-      <span className="text-foreground/15">{word.text}</span>
-      {/* Eingefärbte Ebene, scroll-linked */}
-      <m.span
-        className={cn(
-          "absolute inset-0",
-          word.accent ? "text-gradient-teal" : "text-foreground",
-        )}
-        style={{ opacity }}
-        aria-hidden
-      >
-        {word.text}
-      </m.span>{" "}
-    </span>
+    // Leerzeichen muss AUSSERHALB des inline-block stehen – innerhalb
+    // würde es als trailing whitespace vom Browser entfernt.
+    <>
+      <span className="relative inline-block">
+        {/* Graue Basis-Ebene */}
+        <span className="text-foreground/15">{word.text}</span>
+        {/* Eingefärbte Ebene, scroll-linked */}
+        <m.span
+          className={cn(
+            "absolute inset-0",
+            word.accent ? "text-gradient-teal" : "text-foreground",
+          )}
+          style={{ opacity }}
+          aria-hidden
+        >
+          {word.text}
+        </m.span>
+      </span>{" "}
+    </>
   );
 }
 
