@@ -23,6 +23,12 @@ export function Cursor() {
 
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const ringPos = { x: mouse.x, y: mouse.y };
+    // Skalierung ebenfalls im RAF-Loop lerpen statt per CSS-Transition –
+    // Transition + Frame-Updates kämpfen sonst gegeneinander (Ruckeln).
+    const RING_SCALE_IDLE = 0.59375;
+    const RING_SCALE_HOVER = 1;
+    let ringScale = RING_SCALE_IDLE;
+    let targetScale = RING_SCALE_IDLE;
     let raf = 0;
 
     const onMove = (event: MouseEvent) => {
@@ -37,13 +43,14 @@ export function Cursor() {
         "a, button, input, textarea, label, [data-cursor='hover']",
       );
       ring.dataset.hovering = interactive ? "true" : "false";
+      targetScale = interactive ? RING_SCALE_HOVER : RING_SCALE_IDLE;
     };
 
     const render = () => {
       ringPos.x = lerp(ringPos.x, mouse.x, 0.18);
       ringPos.y = lerp(ringPos.y, mouse.y, 0.18);
-      ring.style.setProperty("--cursor-x", `${ringPos.x}px`);
-      ring.style.setProperty("--cursor-y", `${ringPos.y}px`);
+      ringScale = lerp(ringScale, targetScale, 0.16);
+      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%) scale(${ringScale})`;
       raf = window.requestAnimationFrame(render);
     };
     raf = window.requestAnimationFrame(render);

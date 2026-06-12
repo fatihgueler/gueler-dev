@@ -10,8 +10,6 @@ import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PIN_DISTANCE = 200;
-
 export function ProcessSteps() {
   const rootRef = React.useRef<HTMLElement>(null);
 
@@ -25,16 +23,8 @@ export function ProcessSteps() {
         const number = step.querySelector<HTMLElement>("[data-step-number]");
         if (!number) return;
 
-        // Zahl "klebt" kurz auf der linken Seite, während der Text vorbeizieht
-        ScrollTrigger.create({
-          trigger: step,
-          start: "top center",
-          end: `+=${PIN_DISTANCE}`,
-          pin: number,
-          pinSpacing: false,
-        });
-
-        // Aktiven Step hervorheben
+        // Aktiven Step hervorheben (das frühere Pinnen der Zahl ließ sie
+        // am Pin-Ende sichtbar springen – Highlight allein läuft flüssig)
         ScrollTrigger.create({
           trigger: step,
           start: "top 60%",

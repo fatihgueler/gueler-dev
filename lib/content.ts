@@ -24,7 +24,7 @@ export const site = {
 
 export const siteConfig = {
   name: site.ownerName,
-  title: "Webdesign Hannover | Fatih Güler – Websites die Kunden bringen",
+  title: "Webdesign Hannover | Fatih Güler – Websites, die Kunden bringen",
   description:
     "Professionelle Websites für KMU in Hannover und deutschlandweit. Modern, schnell, conversion-optimiert. One Pager ab 500€.",
   url: site.url,
@@ -44,7 +44,7 @@ export const nav = [
 ];
 
 export const hero = {
-  lines: ["Websites die", "Kunden bringen."],
+  lines: ["Websites, die", "Kunden bringen."],
   subtitle:
     "Next.js · TypeScript · KI-Integration — für KMU in Hannover und deutschlandweit.",
   scrollHint: "scroll to discover",
@@ -87,7 +87,7 @@ export const services = {
       icon: "Layers",
       title: "Web-Apps & Tools",
       description:
-        "Massgeschneiderte Fullstack-Anwendungen: Buchungssysteme, Dashboards, interne Tools – sicher, wartbar und auf dich zugeschnitten.",
+        "Maßgeschneiderte Fullstack-Anwendungen: Buchungssysteme, Dashboards, interne Tools – sicher, wartbar und auf dich zugeschnitten.",
       points: ["Fullstack-Entwicklung", "APIs & Datenbanken", "Auth & Sicherheit"],
     },
     {
@@ -215,7 +215,7 @@ export const pakete = {
   eyebrow: "Pakete",
   title: "Klare Pakete, faire Preise",
   subtitle:
-    "Festpreise statt Stundenzettel – damit du von Anfang an weisst, woran du bist.",
+    "Festpreise statt Stundenzettel – damit du von Anfang an weißt, woran du bist.",
   items: [
     {
       title: "Onepager",
@@ -246,7 +246,7 @@ export const pakete = {
     {
       title: "KI & Web-App",
       price: "auf Anfrage",
-      description: "Massgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
+      description: "Maßgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
       features: [
         "Individuelle Konzeption & Architektur",
         "KI-Integration (Chatbots, Automatisierung, OCR)",

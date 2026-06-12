@@ -50,7 +50,8 @@ function Knot() {
     <group ref={groupRef}>
       <Float speed={1.4} rotationIntensity={0.3} floatIntensity={0.9}>
         <mesh scale={1.45}>
-          <torusKnotGeometry args={[1.15, 0.36, 260, 40]} />
+          {/* 200×28 Segmente reichen visuell – spart ~40% Vertices im Distort-Shader */}
+          <torusKnotGeometry args={[1.15, 0.36, 200, 28]} />
           <MeshDistortMaterial
             color="#6d28d9"
             emissive="#2e1065"
@@ -70,7 +71,7 @@ export function HeroScene() {
   return (
     <Canvas
       camera={{ position: [0, 0, 6.2], fov: 45 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
       gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
       style={{ width: "100%", height: "100%" }}
       aria-hidden
