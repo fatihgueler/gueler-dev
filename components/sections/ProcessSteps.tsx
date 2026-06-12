@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { process } from "@/lib/content";
-import { MotionReveal } from "@/components/anim/MotionReveal";
+import { Reveal, WordReveal } from "@/components/animation/Reveal";
 import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,14 +56,15 @@ export function ProcessSteps() {
   return (
     <section ref={rootRef} id="prozess" className="relative py-24 md:py-32">
       <div className="mx-auto w-full max-w-6xl px-6">
-        <MotionReveal>
+        <Reveal variant="fadeIn">
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
             {process.eyebrow}
           </p>
-          <h2 className="mt-5 max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
-            {process.title}
-          </h2>
-        </MotionReveal>
+        </Reveal>
+        <WordReveal
+          text={process.title}
+          className="mt-5 max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl"
+        />
 
         <div className="mt-20 space-y-24 md:space-y-36">
           {process.steps.map((step, i) => (
@@ -73,7 +74,7 @@ export function ProcessSteps() {
               className="grid gap-6 md:min-h-[18rem] md:grid-cols-[1fr_1.6fr] md:gap-16"
             >
               <div>
-                <MotionReveal delay={i * 0.05}>
+                <Reveal variant="scaleIn" delay={i * 0.05}>
                   <span
                     data-step-number
                     className="step-number block font-display text-7xl font-semibold opacity-35 md:text-8xl"
@@ -81,9 +82,9 @@ export function ProcessSteps() {
                   >
                     {step.number}
                   </span>
-                </MotionReveal>
+                </Reveal>
               </div>
-              <MotionReveal delay={0.1}>
+              <Reveal delay={0.1}>
                 <h3 className="font-display text-2xl font-semibold text-foreground md:text-3xl">
                   <span className="sr-only">{step.number} — </span>
                   {step.title}
@@ -91,7 +92,7 @@ export function ProcessSteps() {
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
                   {step.description}
                 </p>
-              </MotionReveal>
+              </Reveal>
             </div>
           ))}
         </div>

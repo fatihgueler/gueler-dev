@@ -3,7 +3,7 @@ import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
 import { booking, contact, site } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { BookingButton } from "@/components/ui/BookingButton";
 
@@ -114,7 +114,7 @@ export function Contact() {
         </Reveal>
 
         {/* Formular */}
-        <Reveal delay={120}>
+        <Reveal delay={0.12}>
           <ContactForm />
         </Reveal>
       </div>

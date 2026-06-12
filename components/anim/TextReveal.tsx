@@ -9,7 +9,6 @@ import { prefersReducedMotion } from "@/lib/motion";
 interface TextRevealProps {
   text: string;
   className?: string;
-  as?: React.ElementType;
   delay?: number;
   /** true = beim Hineinscrollen, false = direkt beim Mount (Hero). */
   onScroll?: boolean;
@@ -22,11 +21,10 @@ interface TextRevealProps {
 export function TextReveal({
   text,
   className,
-  as: Tag = "span",
   delay = 0,
   onScroll = false,
 }: TextRevealProps) {
-  const ref = React.useRef<HTMLElement>(null);
+  const ref = React.useRef<HTMLSpanElement>(null);
   const words = text.split(" ");
 
   React.useEffect(() => {
@@ -62,7 +60,7 @@ export function TextReveal({
   }, [delay, onScroll]);
 
   return (
-    <Tag ref={ref} className={className}>
+    <span ref={ref} className={className}>
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-hidden align-bottom">
           <span data-word className="inline-block" style={{ willChange: "transform" }}>
@@ -71,6 +69,6 @@ export function TextReveal({
           </span>
         </span>
       ))}
-    </Tag>
+    </span>
   );
 }
