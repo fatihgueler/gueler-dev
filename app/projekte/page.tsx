@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pages } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
 import { ProjectsFilter } from "@/components/sections/ProjectsFilter";
+import { CaseStudiesGrid } from "@/components/sections/CaseStudiesGrid";
 import { ParticleLoader } from "@/components/three/ParticleLoader";
 import { CTA } from "@/components/sections/CTA";
 
@@ -22,6 +23,7 @@ export default function ProjektePage() {
           subtitle={pages.projekte.subtitle}
         />
         <ProjectsFilter />
+        <CaseStudiesGrid />
         <CTA />
       </div>
     </>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 
 import { nav, site } from "@/lib/content";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -13,16 +14,12 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand */}
           <div>
-            <Link
-              href="/"
-              className="font-display text-2xl font-medium tracking-tight"
-            >
-              {site.name.replace(".dev", "")}
-              <span className="text-teal">.dev</span>
+            <Link href="/" aria-label="Güler.dev Startseite">
+              <Logo className="text-2xl" />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              {site.tagline} aus {site.location.split(",")[0]}. Moderne Websites
-              und KI-Tools für kleine Unternehmen.
+              Freelance Webentwickler aus {site.location.split(",")[0]} — moderne
+              Websites &amp; KI-Tools für kleine Unternehmen.
             </p>
           </div>
 

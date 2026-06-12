@@ -87,14 +87,14 @@ export function ContactForm() {
       className="card-surface space-y-5 rounded-[var(--radius-lg)] p-8 md:p-10"
       noValidate
     >
-      {/* Honeypot – für Menschen unsichtbar */}
-      <div className="absolute -left-[9999px]" aria-hidden>
-        <label htmlFor="_trap">Website (bitte leer lassen)</label>
+      {/* Honeypot – komplett unsichtbar, kein verräterisches Label/Placeholder.
+          Bots füllen das Feld aus → Submission wird serverseitig verworfen. */}
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
         <input
-          id="_trap"
           type="text"
           tabIndex={-1}
           autoComplete="off"
+          aria-hidden="true"
           {...register("_trap")}
         />
       </div>

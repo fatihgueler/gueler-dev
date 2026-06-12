@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { MotionProvider } from "@/components/providers/MotionProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Cursor } from "@/components/ui/Cursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -77,7 +78,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04040a",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#04040a" },
+    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+  ],
 };
 
 const jsonLd = {
@@ -173,28 +177,31 @@ export default function RootLayout({
     <html
       lang="de"
       className={`${syne.variable} ${hanken.variable} ${jetbrains.variable}`}
+      suppressHydrationWarning
     >
       <body className="grain min-h-screen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-teal focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
-        >
-          Zum Inhalt springen
-        </a>
-        <ScrollProgress />
-        <Cursor />
-        <Header />
-        <MotionProvider>
-          <SmoothScroll>
-            <main id="main">{children}</main>
-            <Footer />
-          </SmoothScroll>
-          <ConsentBanner />
-        </MotionProvider>
+        <ThemeProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-violet focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+          >
+            Zum Inhalt springen
+          </a>
+          <ScrollProgress />
+          <Cursor />
+          <Header />
+          <MotionProvider>
+            <SmoothScroll>
+              <main id="main">{children}</main>
+              <Footer />
+            </SmoothScroll>
+            <ConsentBanner />
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

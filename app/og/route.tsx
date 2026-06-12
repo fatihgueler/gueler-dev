@@ -25,7 +25,7 @@ export async function GET() {
             height: 700,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(201,162,74,0.18) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 65%)",
             display: "flex",
           }}
         />
@@ -63,13 +63,13 @@ export async function GET() {
                 width: 10,
                 height: 10,
                 borderRadius: "50%",
-                background: "#C9A24A",
+                background: "#7c3aed",
                 marginRight: 12,
               }}
             />
             <span
               style={{
-                color: "#C9A24A",
+                color: "#7c3aed",
                 fontSize: 22,
                 fontWeight: 700,
                 letterSpacing: 4,
@@ -98,7 +98,7 @@ export async function GET() {
                   width: 6,
                   height: 6,
                   borderRadius: "50%",
-                  background: "#C9A24A",
+                  background: "#7c3aed",
                   marginRight: 10,
                 }}
               />
@@ -122,12 +122,12 @@ export async function GET() {
                 letterSpacing: -2,
               }}
             >
-              Websites die
+              Websites, die
             </div>
             <div
               style={{
                 display: "flex",
-                color: "#C9A24A",
+                color: "#7c3aed",
                 fontSize: 80,
                 fontWeight: 800,
                 lineHeight: 1.05,
@@ -164,15 +164,15 @@ export async function GET() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                background: "rgba(201,162,74,0.12)",
-                border: "1px solid rgba(201,162,74,0.45)",
+                background: "rgba(124,58,237,0.12)",
+                border: "1px solid rgba(124,58,237,0.45)",
                 borderRadius: 100,
                 padding: "12px 30px",
               }}
             >
               <span
                 style={{
-                  color: "#C9A24A",
+                  color: "#7c3aed",
                   fontSize: 18,
                   fontWeight: 600,
                 }}

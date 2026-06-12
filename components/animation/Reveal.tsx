@@ -128,7 +128,14 @@ type WordRevealProps = {
   delay?: number;
 };
 
-/** Headline, deren Wörter einzeln (0.08s Versatz) nach oben einblenden. */
+/**
+ * Headline, deren Wörter einzeln (0.08s Versatz) nach oben einblenden.
+ *
+ * Der zugängliche Name kommt aus `aria-label` am Heading-Element – die
+ * sichtbaren Wort-Spans sind `aria-hidden`. Dadurch steht der Text als
+ * DOM-Textinhalt GENAU EINMAL da (keine zusätzliche sr-only-Kopie), was
+ * doppelten Vorlesetext und doppelten Crawl-Text verhindert.
+ */
 export function WordReveal({
   text,
   as: Tag = "h2",
@@ -137,8 +144,7 @@ export function WordReveal({
 }: WordRevealProps) {
   const words = text.split(" ");
   return (
-    <Tag className={cn(className)}>
-      <span className="sr-only">{text}</span>
+    <Tag className={cn(className)} aria-label={text}>
       <m.span
         aria-hidden
         initial="hidden"
