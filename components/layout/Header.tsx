@@ -4,11 +4,12 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { nav, site } from "@/lib/content";
+import { nav } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 
 const SCROLL_THRESHOLD = 50;
@@ -34,15 +35,8 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:h-20">
-        <Link
-          href="/"
-          className="group font-display text-2xl font-extrabold tracking-tight"
-          aria-label="Güler.dev Startseite"
-        >
-          {site.name.replace(".dev", "")}
-          <span className="text-violet-3 transition-colors group-hover:text-violet-2">
-            .dev
-          </span>
+        <Link href="/" aria-label="Güler.dev Startseite">
+          <Logo className="text-xl md:text-2xl" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex" aria-label="Hauptnavigation">
