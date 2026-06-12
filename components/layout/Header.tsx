@@ -8,6 +8,7 @@ import { nav, site } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const SCROLL_THRESHOLD = 50;
@@ -70,6 +71,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <div className="hidden items-center gap-3 md:flex">
             <Button asChild variant="outline" size="sm">
               <Link href="/kontakt">Kontakt anfragen</Link>
