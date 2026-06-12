@@ -366,12 +366,13 @@ html.light {
   .card-surface {
     background: linear-gradient(180deg, var(--color-ink-2) 0%, var(--color-ink) 100%);
     border: 1px solid var(--color-ink-2);
-    transition: border-color 0.4s ease, transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+    transition: border-color 0.25s ease, transform 0.25s var(--ease-out-expo),
+      box-shadow 0.25s ease;
   }
 
   .card-surface:hover {
     border-color: var(--color-teal);
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.01);
     box-shadow: var(--shadow-teal);
   }
 
@@ -478,7 +479,7 @@ html.light {
 
   html.light .card-surface:hover {
     border-color: var(--color-violet);
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.01);
     box-shadow: var(--shadow-teal);
   }
 
