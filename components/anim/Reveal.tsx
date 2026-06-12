@@ -13,20 +13,13 @@ interface RevealProps {
   y?: number;
   /** Verzögerung in Sekunden (für gestaffelte Effekte). */
   delay?: number;
-  as?: React.ElementType;
 }
 
 /**
  * GSAP-ScrollTrigger-Reveal: blendet ein Element ein, sobald es in den
  * Viewport scrollt. Bei Reduced-Motion sofort sichtbar.
  */
-export function Reveal({
-  children,
-  className,
-  y = 30,
-  delay = 0,
-  as: Tag = "div",
-}: RevealProps) {
+export function Reveal({ children, className, y = 30, delay = 0 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -59,8 +52,8 @@ export function Reveal({
   }, [y, delay]);
 
   return (
-    <Tag ref={ref} className={className}>
+    <div ref={ref} className={className}>
       {children}
-    </Tag>
+    </div>
   );
 }

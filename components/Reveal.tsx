@@ -9,15 +9,9 @@ interface RevealProps {
   className?: string;
   /** Verzögerung in ms für gestaffelte Effekte */
   delay?: number;
-  as?: React.ElementType;
 }
 
-export function Reveal({
-  children,
-  className,
-  delay = 0,
-  as: Tag = "div",
-}: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = React.useState(false);
 
@@ -40,13 +34,13 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag
+    <div
       ref={ref}
       className={cn("reveal", className)}
       data-revealed={revealed}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
-    </Tag>
+    </div>
   );
 }

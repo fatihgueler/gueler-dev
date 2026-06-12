@@ -5,7 +5,12 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 
 import { faq } from "@/lib/content";
-import { MotionReveal } from "@/components/anim/MotionReveal";
+import {
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  WordReveal,
+} from "@/components/animation/Reveal";
 import { cn } from "@/lib/utils";
 
 const faqJsonLd = {
@@ -88,32 +93,36 @@ export function FaqAccordion() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 lg:grid-cols-[1fr_1.6fr]">
-        <MotionReveal>
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
-            {faq.eyebrow}
-          </p>
-          <h2 className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
-            {faq.title}
-          </h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            {faq.subtitle}
-          </p>
-        </MotionReveal>
+        <div>
+          <Reveal variant="fadeIn">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
+              {faq.eyebrow}
+            </p>
+          </Reveal>
+          <WordReveal
+            text={faq.title}
+            className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl"
+          />
+          <Reveal delay={0.15}>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+              {faq.subtitle}
+            </p>
+          </Reveal>
+        </div>
 
-        <MotionReveal delay={0.1}>
-          <div className="border-t border-border">
-            {faq.items.map((item, i) => (
+        <RevealGroup className="border-t border-border" stagger={0.08}>
+          {faq.items.map((item, i) => (
+            <RevealItem key={item.question}>
               <FaqItem
-                key={item.question}
                 index={i}
                 question={item.question}
                 answer={item.answer}
                 isOpen={openIndex === i}
                 onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               />
-            ))}
-          </div>
-        </MotionReveal>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </div>
     </section>
   );

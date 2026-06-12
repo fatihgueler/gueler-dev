@@ -23,11 +23,9 @@ export function PageHero({ eyebrow, title, subtitle, children }: PageHeroProps) 
 
       <div className="relative mx-auto max-w-5xl">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <TextReveal
-          as="h1"
-          text={title}
-          className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
-        />
+        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          <TextReveal text={title} className="block" />
+        </h1>
         {subtitle && (
           <Reveal delay={0.25}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">

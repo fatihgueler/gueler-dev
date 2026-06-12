@@ -121,6 +121,15 @@
   }
 }
 
+@keyframes beam-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────
    Base
    ───────────────────────────────────────────────────────────── */
@@ -355,6 +364,55 @@
   .magnetic {
     display: inline-flex;
     will-change: transform;
+  }
+
+  /* ── Showcase: dunkle Premium-Sektion ───────────────────── */
+  .showcase-bg {
+    background-color: #0a0a0f;
+    background-image:
+      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(124, 58, 237, 0.22), transparent 70%),
+      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(6, 182, 212, 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(124, 58, 237, 0.1), transparent 70%);
+  }
+
+  /* Rotierender Lichtstrahl (conic-gradient) hinter den Cards */
+  .showcase-beam {
+    position: absolute;
+    inset: -35%;
+    pointer-events: none;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(124, 58, 237, 0.22) 55deg,
+      transparent 115deg,
+      transparent 175deg,
+      rgba(6, 182, 212, 0.16) 235deg,
+      transparent 300deg
+    );
+    filter: blur(64px);
+    animation: beam-spin 22s linear infinite;
+    will-change: transform;
+  }
+
+  /* Dunkle Glassmorphism-Card mit Glow-Ring */
+  .glow-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    box-shadow:
+      0 0 0 1px rgba(124, 58, 237, 0.06),
+      0 20px 50px -25px rgba(0, 0, 0, 0.8);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .glow-card:hover {
+    border-color: rgba(167, 139, 250, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.35),
+      0 0 45px -8px rgba(124, 58, 237, 0.5),
+      0 0 90px -20px rgba(6, 182, 212, 0.35),
+      0 30px 70px -25px rgba(0, 0, 0, 0.85);
   }
 }
 

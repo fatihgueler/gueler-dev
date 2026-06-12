@@ -445,6 +445,21 @@ export const pages = {
   },
 };
 
+/**
+ * Storytelling-Pitch: wird beim Scrollen Wort für Wort von grau
+ * zu weiß bzw. Akzentfarbe eingefärbt (StoryPitch-Section).
+ */
+export const storyPitch = {
+  segments: [
+    { text: "Ich baue keine Websites, die nur gut aussehen." },
+    { text: "Ich baue", },
+    { text: "digitale Vertriebsmitarbeiter", accent: true },
+    { text: "— schnell, präzise und" },
+    { text: "rund um die Uhr", accent: true },
+    { text: "im Einsatz für dein Unternehmen." },
+  ] as Array<{ text: string; accent?: boolean }>,
+};
+
 export const cta = {
   title: "Bereit, online zu überzeugen?",
   subtitle: "Erstgespräch kostenlos und unverbindlich.",

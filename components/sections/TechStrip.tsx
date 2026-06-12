@@ -4,6 +4,7 @@ import * as React from "react";
 import { m } from "framer-motion";
 
 import { techStack } from "@/lib/content";
+import { Reveal } from "@/components/animation/Reveal";
 
 /**
  * Horizontal ziehbare Tech-Stack-Leiste (Drag/Swipe).
@@ -26,6 +27,7 @@ export function TechStrip() {
         aria-hidden
       />
 
+      <Reveal variant="fadeIn">
       <div ref={constraintsRef} className="overflow-hidden">
         <m.ul
           drag="x"
@@ -43,6 +45,7 @@ export function TechStrip() {
           ))}
         </m.ul>
       </div>
+      </Reveal>
     </section>
   );
 }
