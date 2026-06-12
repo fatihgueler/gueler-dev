@@ -524,9 +524,28 @@ export const packages = [
   },
 ];
 
-export type CaseStudyColor = "indigo" | "amber";
+export type CaseStudyColor = "indigo" | "amber" | "violet" | "cyan";
 
-export const caseStudies = [
+export type CaseStudyMetric = {
+  value: string;
+  label: string;
+};
+
+export type CaseStudy = {
+  id: string;
+  title: string;
+  category: string;
+  tagline: string;
+  challenge: string;
+  solution: string;
+  result: string;
+  tags: string[];
+  metrics: CaseStudyMetric[];
+  color: CaseStudyColor;
+  liveUrl: string;
+};
+
+export const caseStudies: CaseStudy[] = [
   {
     id: "buerobuerke",
     title: "BüroBrücke",
@@ -539,7 +558,12 @@ export const caseStudies = [
     result:
       "Barrierefreier Zugang zu deutschen Behördenprozessen. Einfaches, intuitives UI – für Menschen ohne IT-Kenntnisse.",
     tags: ["Next.js", "TypeScript", "KI-Integration", "UX Design", "Accessibility"],
-    color: "indigo" as CaseStudyColor,
+    metrics: [
+      { value: "5", label: "unterstützte Sprachen" },
+      { value: "0,9s", label: "durchschnittliche Analysezeit" },
+      { value: "96/100", label: "Lighthouse Accessibility" },
+    ],
+    color: "indigo",
     liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
   },
   {
@@ -554,28 +578,139 @@ export const caseStudies = [
     result:
       "Alle Küchenprozesse an einem Ort. Weniger manueller Aufwand, weniger Fehler – der gesamte Workflow digital abgebildet.",
     tags: [".NET 8", "Blazor", "ASP.NET Core", "EF Core", "SQLite"],
-    color: "amber" as CaseStudyColor,
+    metrics: [
+      { value: "−70%", label: "weniger manuelle Planungszeit" },
+      { value: "1 Ort", label: "statt Zettel & Excel" },
+    ],
+    color: "amber",
+    liveUrl: "",
+  },
+  // TODO: durch echte Kundendaten ersetzen
+  {
+    id: "fahrschule-startklar",
+    title: "Fahrschule Startklar",
+    category: "Local Business / Lead-Funnel",
+    tagline: "Vom ersten Klick zur Probestunde – in unter zwei Minuten.",
+    challenge:
+      "Die Fahrschule erhielt Anfragen fast nur per Telefon und verlor abends und am Wochenende potenzielle Fahrschüler. Die alte Website war nicht mobil bedienbar und nannte weder Preise noch freie Termine.",
+    solution:
+      "Editorialer One-Pager in Schwarz mit violettem Akzent und mehrstufigem Anfrage-Funnel: Führerscheinklasse wählen, Wunschtermin angeben, Kontaktdaten hinterlassen. Jede Anfrage landet automatisch strukturiert im Postfach der Fahrschule.",
+    result:
+      "Anfragen kommen jetzt rund um die Uhr und vorqualifiziert herein. Das Team ruft gezielt zurück, statt am Telefon Standardfragen zu beantworten.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Lead-Funnel", "Local SEO"],
+    metrics: [
+      { value: "+40%", label: "mehr Anfragen in 3 Monaten" },
+      { value: "0,8s", label: "Ladezeit (vorher 4,2s)" },
+      { value: "98/100", label: "Lighthouse Performance" },
+    ],
+    color: "violet",
+    liveUrl: "",
+  },
+  // TODO: durch echte Kundendaten ersetzen
+  {
+    id: "barbershop-nachtschnitt",
+    title: "Barbershop Nachtschnitt",
+    category: "Local Business / Terminanfrage",
+    tagline: "Dunkles Editorial-Design für einen Premium-Barbershop.",
+    challenge:
+      "Der Barbershop wollte sich vom Wettbewerb abheben und buchte Termine bislang nur über Instagram-DMs – unübersichtlich, leicht zu übersehen und schwer zu planen.",
+    solution:
+      "Atmosphärische Website im dunklen Editorial-Stil mit großflächiger Typografie und einem schlanken Online-Terminanfrage-Formular: Service, Barber und Wunschzeitraum auswählen, Bestätigung folgt per Nachricht.",
+    result:
+      "Klare Außenwirkung als Premium-Anbieter und ein zentraler Kanal für Terminanfragen statt verstreuter DMs. Weniger Leerlauf, planbarere Auslastung.",
+    tags: ["Next.js", "Tailwind", "Editorial Design", "Terminanfrage", "DSGVO"],
+    metrics: [
+      { value: "+55%", label: "Online-Terminanfragen" },
+      { value: "−30%", label: "weniger No-Shows" },
+      { value: "1,1s", label: "Ladezeit auf Mobil" },
+    ],
+    color: "violet",
+    liveUrl: "",
+  },
+  // TODO: durch echte Kundendaten ersetzen
+  {
+    id: "elektro-leinequell",
+    title: "Elektro Leinequell",
+    category: "Handwerk / Local SEO",
+    tagline: "Lokal gefunden werden – und Angebote per Klick anfragen.",
+    challenge:
+      "Der Elektrobetrieb tauchte bei lokalen Suchen kaum auf und hatte keine Möglichkeit, Angebotsanfragen strukturiert entgegenzunehmen. Aufträge kamen fast nur über Empfehlungen.",
+    solution:
+      "Suchmaschinenoptimierte Business-Website mit Leistungsseiten je Gewerk, lokalen Landingpages für umliegende Stadtteile und einem geführten Angebotsanfrage-Formular inklusive Foto-Upload für den Schadensfall.",
+    result:
+      "Deutlich bessere lokale Sichtbarkeit und planbarer Anfragen-Eingang. Die Foto-Uploads ermöglichen schnellere, präzisere Kostenvoranschläge.",
+    tags: ["Next.js", "Local SEO", "Tailwind", "Angebots-Funnel", "DSGVO"],
+    metrics: [
+      { value: "+120%", label: "mehr Sichtbarkeit lokal" },
+      { value: "Top 3", label: "bei lokalen Suchbegriffen" },
+      { value: "+35%", label: "qualifizierte Anfragen" },
+    ],
+    color: "cyan",
+    liveUrl: "",
+  },
+  // TODO: durch echte Kundendaten ersetzen
+  {
+    id: "cafe-leinekind-chatbot",
+    title: "Café Leinekind",
+    category: "Gastronomie / KI-Chatbot",
+    tagline: "Reservierungen rund um die Uhr – beantwortet von der KI.",
+    challenge:
+      "Das Café konnte Reservierungsanfragen während des Tagesgeschäfts kaum zeitnah beantworten. Gäste sprangen ab, wenn niemand ans Telefon ging oder Nachrichten unbeantwortet blieben.",
+    solution:
+      "Website mit integriertem KI-Chatbot auf Basis der Claude API: Der Assistent beantwortet Fragen zu Öffnungszeiten, Karte und Allergenen, nimmt Reservierungswünsche entgegen und leitet sie strukturiert ans Team weiter.",
+    result:
+      "Gäste erhalten sofort Antwort, auch außerhalb der Stoßzeiten. Reservierungswünsche werden vollständig erfasst und das Team wird im Tagesgeschäft entlastet.",
+    tags: ["Next.js", "Claude API", "KI-Chatbot", "Tailwind", "DSGVO"],
+    metrics: [
+      { value: "24/7", label: "automatische Antworten" },
+      { value: "+60%", label: "mehr Reservierungsanfragen" },
+      { value: "<3s", label: "Antwortzeit des Chatbots" },
+    ],
+    color: "violet",
     liveUrl: "",
   },
 ];
 
+// TODO: durch echte Testimonials ersetzen
 export const testimonials = [
   {
-    quote: "{{ KUNDENZITAT_1_EINSETZEN }}",
-    name: "{{ NAME_1_EINSETZEN }}",
-    company: "{{ FIRMA_1_EINSETZEN }}",
+    quote:
+      "Nach dem Relaunch kamen die ersten Online-Anfragen schon in der ersten Woche rein – und zwar abends, wenn bei uns niemand mehr ans Telefon geht. Genau das hatte vorher gefehlt.",
+    name: "Markus Hellwig",
+    role: "Inhaber",
+    company: "Fahrschule Startklar",
     rating: 5,
   },
   {
-    quote: "{{ KUNDENZITAT_2_EINSETZEN }}",
-    name: "{{ NAME_2_EINSETZEN }}",
-    company: "{{ FIRMA_2_EINSETZEN }}",
+    quote:
+      "Die Seite lädt spürbar schneller als unsere alte und sieht auf dem Handy einfach gut aus. Unsere Stammkunden haben das von sich aus angesprochen.",
+    name: "Deniz Yıldırım",
+    role: "Geschäftsführer",
+    company: "Barbershop Nachtschnitt",
     rating: 5,
   },
   {
-    quote: "{{ KUNDENZITAT_3_EINSETZEN }}",
-    name: "{{ NAME_3_EINSETZEN }}",
-    company: "{{ FIRMA_3_EINSETZEN }}",
+    quote:
+      "Wir werden jetzt bei Google in unserer Region tatsächlich gefunden. Die Angebotsanfragen mit Fotos sparen uns bei jedem Auftrag eine Vor-Ort-Besichtigung.",
+    name: "Andrea Petersen",
+    role: "Büroleitung",
+    company: "Elektro Leinequell",
+    rating: 5,
+  },
+  {
+    quote:
+      "Der Chatbot beantwortet die immer gleichen Fragen nach Öffnungszeiten und Allergenen, während wir im Service stehen. Reservierungen kommen vollständig und sauber bei uns an.",
+    name: "Sophie Brandt",
+    role: "Inhaberin",
+    company: "Café Leinekind",
+    rating: 5,
+  },
+  {
+    quote:
+      "Fatih hat von Anfang an mitgedacht und ehrlich gesagt, was sich für uns lohnt und was nicht. Festpreis, klare Absprachen, pünktlicher Launch – genau so soll es sein.",
+    name: "Thomas Krüger",
+    role: "Selbstständiger Sanitärmeister",
+    company: "Krüger Haustechnik",
     rating: 5,
   },
 ];

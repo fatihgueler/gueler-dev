@@ -17,6 +17,16 @@ const colorMap: Record<CaseStudyColor, { accent: string; badge: string; dot: str
     badge: "border-amber-500/30 bg-amber-500/10 text-amber-300",
     dot: "bg-amber-400",
   },
+  violet: {
+    accent: "bg-violet",
+    badge: "border-violet-2/30 bg-violet/10 text-violet-3",
+    dot: "bg-violet-2",
+  },
+  cyan: {
+    accent: "bg-cyan",
+    badge: "border-cyan/30 bg-cyan/10 text-cyan-2",
+    dot: "bg-cyan",
+  },
 };
 
 const blockConfig = [
