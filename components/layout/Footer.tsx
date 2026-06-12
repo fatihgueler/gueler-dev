@@ -21,8 +21,8 @@ export function Footer() {
               <span className="text-teal">.dev</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              {site.tagline} aus {site.location.split(",")[0]}. Moderne Websites
-              und KI-Tools für kleine Unternehmen.
+              Freelance Webentwickler aus {site.location.split(",")[0]} — moderne
+              Websites &amp; KI-Tools für kleine Unternehmen.
             </p>
           </div>
 
