@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: siteUrl,
     siteName: `${site.ownerName} – Webdesign Hannover`,
-    title: "Websites die Kunden bringen – Fatih Güler",
+    title: "Websites, die Kunden bringen – Fatih Güler",
     description:
       "Freelance Webentwickler aus Hannover. KMU-Websites ab 500€. Modern, schnell, conversion-optimiert.",
     images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
