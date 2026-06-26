@@ -101,10 +101,7 @@ export function StickyStory() {
     return (
       <section aria-label={services.title} className="relative py-24 md:py-32">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
-            {services.eyebrow}
-          </p>
-          <h2 className="mt-5 max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
+          <h2 className="max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
             {services.title}
           </h2>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -141,9 +138,6 @@ export function StickyStory() {
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2 md:gap-20">
           {/* Sticky-Statement (bleibt stehen) */}
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
-              {services.eyebrow}
-            </p>
             <WordReveal
               text={services.title}
               className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl"

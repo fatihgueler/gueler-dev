@@ -52,13 +52,13 @@ export function Hero() {
           shouldReduceMotion ? undefined : { y: textY, opacity: textOpacity }
         }
       >
-        <h1 className="font-display font-semibold leading-[1.02] tracking-tight text-foreground">
+        <h1 className="font-display font-semibold leading-[1.02] tracking-tight text-foreground [text-wrap:balance]">
           {hero.lines.map((line, lineIndex) => {
             const isAccentLine = lineIndex === hero.lines.length - 1;
             return (
               <span
                 key={line}
-                className="block text-[clamp(2.75rem,9vw,6.5rem)]"
+                className="block text-[clamp(2.75rem,9vw,6rem)]"
               >
                 {line.split(" ").map((word) => {
                   const delay = wordIndex * WORD_STAGGER_SECONDS;
@@ -113,7 +113,7 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.6 }}
       >
-        <span className="font-mono text-xs uppercase tracking-[0.3em]">
+        <span className="font-mono text-xs">
           {hero.scrollHint}
         </span>
         <m.span

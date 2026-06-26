@@ -67,11 +67,6 @@ export function ProcessSteps() {
   return (
     <section id="prozess" className="relative py-24 md:py-32">
       <div className="mx-auto w-full max-w-6xl px-6">
-        <Reveal variant="fadeIn">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
-            {process.eyebrow}
-          </p>
-        </Reveal>
         <WordReveal
           text={process.title}
           className="mt-5 max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl"

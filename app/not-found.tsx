@@ -8,7 +8,7 @@ export default function NotFound() {
     <div className="relative flex min-h-[80svh] items-center justify-center overflow-hidden px-6">
       <div className="gold-glow pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative text-center">
-        <p className="font-display text-[8rem] font-medium leading-none text-gradient-gold md:text-[12rem]">
+        <p className="font-display text-[6rem] font-medium leading-none text-cyan">
           404
         </p>
         <h1 className="mt-2 font-display text-3xl font-medium text-foreground">

@@ -26,14 +26,13 @@ export function Testimonials() {
   return (
     <Section id="referenzen">
       <SectionHeading
-        eyebrow="Referenzen"
         title="Was meine Kunden sagen"
         subtitle="Echte Ergebnisse, echte Stimmen."
         centered
       />
 
       <RevealGroup
-        className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="mt-16 grid gap-6 sm:grid-cols-2"
         stagger={0.1}
       >
         {testimonials.map((t, i) => (

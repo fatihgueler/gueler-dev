@@ -41,11 +41,6 @@ export function ProjectHighlight() {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <div className="max-w-3xl">
-          <Reveal variant="fadeIn">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
-              {projects.eyebrow}
-            </p>
-          </Reveal>
           <WordReveal
             text={projectHighlight.title}
             className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-6xl"
@@ -62,7 +57,7 @@ export function ProjectHighlight() {
           stagger={0.12}
         >
           {projects.items.map((project, i) => (
-            <RevealItem key={project.title} variant="fadeUp" className="h-full">
+            <RevealItem key={project.title} variant="fadeUp" className={i === 0 ? "h-full md:col-span-2" : "h-full"}>
               <m.div
                 className="h-full"
                 style={
@@ -76,7 +71,7 @@ export function ProjectHighlight() {
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="glow-card flex h-full flex-col rounded-[var(--radius-xl)] p-7 md:p-8"
                 >
-                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+                  <p className="font-mono text-xs text-cyan">
                     {project.category}
                   </p>
                   <h3 className="mt-4 font-display text-2xl font-semibold text-foreground">

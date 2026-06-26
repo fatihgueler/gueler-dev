@@ -46,21 +46,17 @@ export const nav = [
 export const hero = {
   lines: ["Websites, die", "Kunden bringen."],
   subtitle:
-    "Next.js · TypeScript · KI-Integration — für KMU in Hannover und deutschlandweit.",
-  scrollHint: "scroll to discover",
+    "Mehr Anfragen. Mehr Kunden. Eine Website, die rund um die Uhr für dein Unternehmen arbeitet.",
+  scrollHint: "nach unten scrollen",
 };
 
 export const techStack = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "FastAPI",
-  "Python",
-  "Claude API",
-  "Docker",
-  "PostgreSQL",
-  ".NET",
+  "Lieferzeit unter 4 Wochen",
+  "Festpreis – keine versteckten Kosten",
+  "Mobile-first & blitzschnell",
+  "SEO von Anfang an",
+  "Direkte Kommunikation, kein Agentur-Umweg",
+  "Persönlicher Ansprechpartner",
 ];
 
 export const services = {

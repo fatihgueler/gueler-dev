@@ -25,7 +25,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-2">
+            <h3 className="text-xs font-semibold text-muted-2">
               Navigation
             </h3>
             <ul className="mt-5 space-y-3">
@@ -44,7 +44,7 @@ export function Footer() {
 
           {/* Kontakt */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-2">
+            <h3 className="text-xs font-semibold text-muted-2">
               Kontakt
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-muted">

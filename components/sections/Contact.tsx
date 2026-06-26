@@ -29,7 +29,7 @@ export function Contact() {
                 <Mail className="size-5" aria-hidden />
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                <span className="block text-xs font-medium text-muted-2">
                   E-Mail
                 </span>
                 <span className="text-foreground transition-colors group-hover:text-gold">
@@ -46,7 +46,7 @@ export function Contact() {
                 <Phone className="size-5" aria-hidden />
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                <span className="block text-xs font-medium text-muted-2">
                   Telefon
                 </span>
                 <span className="text-foreground transition-colors group-hover:text-gold">
@@ -60,7 +60,7 @@ export function Contact() {
                 <MapPin className="size-5" aria-hidden />
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                <span className="block text-xs font-medium text-muted-2">
                   Standort
                 </span>
                 <span className="text-foreground">{site.location}</span>
@@ -72,7 +72,7 @@ export function Contact() {
                 <Clock className="size-5" aria-hidden />
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                <span className="block text-xs font-medium text-muted-2">
                   Antwortzeit
                 </span>
                 <span className="text-foreground">meist innerhalb 24 Std.</span>
@@ -89,7 +89,7 @@ export function Contact() {
                 <Github className="size-5" aria-hidden />
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-wider text-muted-2">
+                <span className="block text-xs font-medium text-muted-2">
                   GitHub
                 </span>
                 <span className="text-foreground transition-colors group-hover:text-gold">

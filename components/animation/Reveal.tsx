@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { m, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -61,6 +61,10 @@ export function Reveal({
   delay = 0,
   className,
 }: RevealProps) {
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
   return (
     <m.div
       className={className}
@@ -88,6 +92,10 @@ export function RevealGroup({
   className,
   stagger = 0.1,
 }: RevealGroupProps) {
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
   return (
     <m.div
       className={className}
@@ -113,6 +121,10 @@ export function RevealItem({
   variant?: RevealVariant;
   className?: string;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
   return (
     <m.div className={className} variants={VARIANTS[variant]}>
       {children}
@@ -142,7 +154,11 @@ export function WordReveal({
   className,
   delay = 0,
 }: WordRevealProps) {
+  const shouldReduceMotion = useReducedMotion();
   const words = text.split(" ");
+  if (shouldReduceMotion) {
+    return <Tag className={cn(className)}>{text}</Tag>;
+  }
   return (
     <Tag className={cn(className)} aria-label={text}>
       <m.span

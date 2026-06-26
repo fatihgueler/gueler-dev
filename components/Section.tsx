@@ -23,7 +23,7 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-5 flex items-center gap-3">
       <span className="h-px w-8 bg-teal-deep" aria-hidden />
-      <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-teal">
+      <span className="font-mono text-xs font-semibold text-teal">
         {children}
       </span>
     </div>
@@ -31,7 +31,7 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 interface SectionHeadingProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   centered?: boolean;
@@ -45,9 +45,11 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("max-w-2xl", centered && "mx-auto text-center")}>
-      <div className={cn(centered && "flex justify-center")}>
-        <Eyebrow>{eyebrow}</Eyebrow>
-      </div>
+      {eyebrow && (
+        <div className={cn(centered && "flex justify-center")}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </div>
+      )}
       <h2 className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
         {title}
       </h2>
