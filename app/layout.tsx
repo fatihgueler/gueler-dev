@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 
 import { site, siteConfig } from "@/lib/content";
 import { Header } from "@/components/layout/Header";
@@ -12,10 +12,11 @@ import { Cursor } from "@/components/ui/Cursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
 
-const syne = Syne({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-syne",
+  variable: "--font-bricolage",
   display: "swap",
+  axes: ["opsz"],
 });
 
 const hanken = Hanken_Grotesk({
@@ -176,7 +177,7 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${syne.variable} ${hanken.variable} ${jetbrains.variable}`}
+      className={`${bricolage.variable} ${hanken.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <body className="grain min-h-screen">
