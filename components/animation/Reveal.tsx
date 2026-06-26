@@ -48,6 +48,10 @@ const VARIANTS: Record<RevealVariant, Variants> = {
   },
 };
 
+function StaticFallback({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={className}>{children}</div>;
+}
+
 type RevealProps = {
   children: React.ReactNode;
   variant?: RevealVariant;
@@ -62,9 +66,7 @@ export function Reveal({
   className,
 }: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div
       className={className}
@@ -93,9 +95,7 @@ export function RevealGroup({
   stagger = 0.1,
 }: RevealGroupProps) {
   const shouldReduceMotion = useReducedMotion();
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div
       className={className}
@@ -122,9 +122,7 @@ export function RevealItem({
   className?: string;
 }) {
   const shouldReduceMotion = useReducedMotion();
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div className={className} variants={VARIANTS[variant]}>
       {children}

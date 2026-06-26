@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
+import { cn } from "@/lib/utils";
 import { projectHighlight, projects } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +44,7 @@ export function ProjectHighlight() {
         <div className="max-w-3xl">
           <WordReveal
             text={projectHighlight.title}
-            className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-6xl"
+            className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-6xl"
           />
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
@@ -57,7 +58,7 @@ export function ProjectHighlight() {
           stagger={0.12}
         >
           {projects.items.map((project, i) => (
-            <RevealItem key={project.title} variant="fadeUp" className={i === 0 ? "h-full md:col-span-2" : "h-full"}>
+            <RevealItem key={project.title} variant="fadeUp" className={cn("h-full", i === 0 && "md:col-span-2")}>
               <m.div
                 className="h-full"
                 style={

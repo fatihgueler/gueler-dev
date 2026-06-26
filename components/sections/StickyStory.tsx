@@ -140,7 +140,7 @@ export function StickyStory() {
           <div>
             <WordReveal
               text={services.title}
-              className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl"
+              className="font-display text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl"
             />
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg">
               {services.subtitle}
