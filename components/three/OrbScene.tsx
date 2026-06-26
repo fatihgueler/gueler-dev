@@ -122,9 +122,9 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   const uniforms = {
     uTime: { value: 0 },
     uDisplacement: { value: 0.18 },
-    uColorA: { value: new THREE.Color("#0f9b8a") },
-    uColorB: { value: new THREE.Color("#5eead4") },
-    uColorC: { value: new THREE.Color("#f0c060") },
+    uColorA: { value: new THREE.Color("#0e0522") },
+    uColorB: { value: new THREE.Color("#7c3aed") },
+    uColorC: { value: new THREE.Color("#22d3ee") },
   };
   const material = new THREE.ShaderMaterial({
     uniforms,
@@ -137,10 +137,10 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   // Feiner Wireframe-Mantel für Tiefe
   const shellGeometry = new THREE.IcosahedronGeometry(2.05, 2);
   const shellMaterial = new THREE.MeshBasicMaterial({
-    color: new THREE.Color("#2dd4bf"),
+    color: new THREE.Color("#8b5cf6"),
     wireframe: true,
     transparent: true,
-    opacity: 0.12,
+    opacity: 0.08,
   });
   const shell = new THREE.Mesh(shellGeometry, shellMaterial);
   group.add(shell);

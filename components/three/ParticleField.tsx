@@ -5,7 +5,7 @@ import * as React from "react";
 const PARTICLE_COUNT = 1100;
 const FIELD_RADIUS = 8;
 
-const PALETTE = ["#2dd4bf", "#5eead4", "#0f9b8a", "#f0c060"];
+const PALETTE = ["#7c3aed", "#8b5cf6", "#06b6d4", "#22d3ee"];
 
 function buildPositions(): Float32Array {
   const positions = new Float32Array(PARTICLE_COUNT * 3);
