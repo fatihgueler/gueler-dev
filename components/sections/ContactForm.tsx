@@ -1,17 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 import { contact } from "@/lib/content";
 import { sendContactMessage } from "@/app/actions";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, "Bitte gib deinen Namen ein."),
@@ -33,6 +42,7 @@ export function ContactForm() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -159,18 +169,24 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <Label htmlFor="cf-package">Paket auswählen</Label>
-        <select
-          id="cf-package"
-          className="h-12 w-full border border-border bg-surface px-4 text-sm text-foreground placeholder:text-muted-2 transition-colors duration-300 focus-visible:border-violet-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2/40"
-          {...register("package")}
-        >
-          <option value="">Paket wählen…</option>
-          {contact.packageOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <Controller
+          name="package"
+          control={control}
+          render={({ field }) => (
+            <Select value={field.value ?? ""} onValueChange={field.onChange}>
+              <SelectTrigger id="cf-package" className="w-full">
+                <SelectValue placeholder="Paket wählen…" />
+              </SelectTrigger>
+              <SelectContent>
+                {contact.packageOptions.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
       </div>
 
       <div className="space-y-2">
@@ -192,12 +208,18 @@ export function ContactForm() {
       {/* DSGVO-Checkbox */}
       <div className="space-y-1">
         <div className="flex items-start gap-3">
-          <input
-            id="cf-privacy"
-            type="checkbox"
-            className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded-none border border-border-strong bg-surface accent-violet focus-visible:ring-2 focus-visible:ring-violet-2"
-            aria-describedby={errors.privacy ? "cf-privacy-error" : undefined}
-            {...register("privacy")}
+          <Controller
+            name="privacy"
+            control={control}
+            render={({ field }) => (
+              <Checkbox
+                id="cf-privacy"
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                className="mt-1 rounded-none"
+                aria-describedby={errors.privacy ? "cf-privacy-error" : undefined}
+              />
+            )}
           />
           <Label htmlFor="cf-privacy" className="cursor-pointer text-sm leading-relaxed">
             Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
@@ -216,10 +238,10 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <div className="flex items-center gap-2.5 rounded-[var(--radius)] border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300" role="alert">
-          <AlertCircle className="size-4 shrink-0" aria-hidden />
-          {contact.errorMessage}
-        </div>
+        <Alert variant="destructive">
+          <AlertCircle className="size-4" aria-hidden />
+          <AlertDescription>{contact.errorMessage}</AlertDescription>
+        </Alert>
       )}
 
       <Button

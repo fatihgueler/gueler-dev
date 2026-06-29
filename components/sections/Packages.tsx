@@ -3,6 +3,8 @@ import { Check, Star } from "lucide-react";
 
 import { packages } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -41,10 +43,10 @@ export function Packages() {
               )}
 
               {pkg.badge ? (
-                <span className="absolute -top-3 right-8 inline-flex items-center gap-1.5 rounded-full border border-gold-deep bg-background px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold">
+                <Badge className="absolute -top-3 right-8 gap-1.5 rounded-full border-gold-deep bg-background px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold hover:bg-background">
                   <Star className="size-3.5 fill-current" aria-hidden />
                   {pkg.badge}
-                </span>
+                </Badge>
               ) : null}
 
               <h3 className="font-display text-2xl font-medium text-foreground">
@@ -67,18 +69,18 @@ export function Packages() {
                 ))}
               </ul>
 
-              <a
-                href={`/#kontakt?paket=${pkg.id}`}
+              <Button
+                asChild
+                variant={pkg.highlighted ? "primary" : "outline"}
                 className={cn(
-                  "mt-8 inline-flex items-center justify-center rounded-[var(--radius)] border px-6 py-3 text-sm font-medium transition-all duration-150",
-                  "hover:-translate-y-px hover:shadow-md",
+                  "mt-8 w-full rounded-[var(--radius)] transition-all duration-150 hover:-translate-y-px hover:shadow-md",
                   pkg.highlighted
                     ? "border-gold-deep bg-gold text-background hover:bg-gold-bright"
                     : "border-border text-foreground hover:border-gold-deep hover:text-gold",
                 )}
               >
-                {pkg.cta}
-              </a>
+                <a href={`/#kontakt?paket=${pkg.id}`}>{pkg.cta}</a>
+              </Button>
             </article>
           </Reveal>
         ))}

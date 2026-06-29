@@ -7,6 +7,7 @@ import { m, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { projectHighlight, projects } from "@/lib/content";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { Reveal } from "@/components/animation/Reveal";
@@ -80,16 +81,13 @@ export function ProjectHighlight() {
                 {project.description}
               </p>
 
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologien">
+              <div className="mt-6 flex flex-wrap gap-2" aria-label="Technologien">
                 {project.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="border border-border px-2.5 py-1 font-mono text-[0.65rem] text-muted"
-                  >
+                  <Badge key={tag} variant="outline" className="font-mono text-[0.65rem] text-muted rounded-none">
                     {tag}
-                  </li>
+                  </Badge>
                 ))}
-              </ul>
+              </div>
 
               <div className="mt-7 flex items-center gap-5 border-t border-border pt-5">
                 {project.liveUrl && (

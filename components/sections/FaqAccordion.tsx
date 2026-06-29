@@ -1,78 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 import { faq } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
-import { cn } from "@/lib/utils";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // FAQPage-JSON-LD wird serverseitig in app/page.tsx ausgegeben (zuverlässig
 // für Crawler + KI-Antwortmaschinen / GEO), nicht hier im Client-Component.
 
-function FaqItem({
-  question,
-  answer,
-  isOpen,
-  onToggle,
-  index,
-}: {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
-  index: number;
-}) {
-  const panelId = `faq-panel-${index}`;
-  return (
-    <div className="border-b border-border">
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        aria-controls={panelId}
-        className={cn(
-          "flex w-full items-center justify-between gap-4 py-6 text-left font-display text-lg font-semibold transition-colors md:text-xl",
-          isOpen ? "text-foreground" : "text-foreground/80 hover:text-foreground",
-        )}
-      >
-        {question}
-        <m.span
-          aria-hidden
-          className={cn(
-            "inline-flex h-8 w-8 shrink-0 items-center justify-center border transition-colors",
-            isOpen ? "border-violet bg-violet/5 text-violet-3" : "border-border text-muted",
-          )}
-          animate={{ rotateZ: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <ChevronDown className="size-4" />
-        </m.span>
-      </button>
-
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <m.div
-            id={panelId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <p className="max-w-2xl pb-7 text-base leading-relaxed text-muted">
-              {answer}
-            </p>
-          </m.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export function FaqAccordion() {
-  const [openIndex, setOpenIndex] = React.useState<number | null>(0);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -106,7 +49,7 @@ export function FaqAccordion() {
           </Reveal>
         </div>
 
-        <div className="border-t border-border">
+        <Accordion type="single" collapsible defaultValue="faq-0" className="border-t border-border">
           {faq.items.map((item, i) => (
             <m.div
               key={item.question}
@@ -115,16 +58,17 @@ export function FaqAccordion() {
               viewport={{ once: true, margin: "-5%" }}
               transition={{ duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
             >
-              <FaqItem
-                index={i}
-                question={item.question}
-                answer={item.answer}
-                isOpen={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-              />
+              <AccordionItem value={`faq-${i}`}>
+                <AccordionTrigger className="py-6 text-left font-display text-lg font-semibold no-underline hover:no-underline md:text-xl [&[data-state=open]]:text-foreground [&[data-state=closed]]:text-foreground/80 [&[data-state=open]>svg]:text-violet-3">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="pb-7 text-base leading-relaxed text-muted">
+                  <p className="max-w-2xl">{item.answer}</p>
+                </AccordionContent>
+              </AccordionItem>
             </m.div>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   );

@@ -95,6 +95,8 @@
   --animate-fade-up: fade-up 0.8s var(--ease-out-expo) forwards;
   --animate-float: float 7s ease-in-out infinite;
   --animate-aurora: aurora 22s ease-in-out infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 :root {
@@ -201,6 +203,24 @@ html.light {
   50% {
     opacity: 1;
     box-shadow: 0 0 12px rgba(34, 211, 238, 0.95);
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
   }
 }
 

@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ConsentBanner } from "@/components/ConsentBanner";
+import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/ui/Cursor";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
@@ -207,6 +208,7 @@ export default function RootLayout({
               <Footer />
             </SmoothScroll>
             <ConsentBanner />
+            <Toaster />
           </MotionProvider>
         </ThemeProvider>
       </body>

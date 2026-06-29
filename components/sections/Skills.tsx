@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { skills } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
+import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/anim/Reveal";
 
 /** Skill-Gruppen als Mono-Tag-Wolken. */
@@ -22,16 +23,17 @@ export function Skills() {
               <h3 className="font-display text-lg font-semibold text-foreground">
                 {group.label}
               </h3>
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-5 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <li
+                  <Badge
                     key={item}
-                    className="rounded-full border border-border bg-background px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-teal hover:text-teal"
+                    variant="outline"
+                    className="rounded-full font-mono text-xs text-muted transition-colors hover:border-teal hover:text-teal"
                   >
                     {item}
-                  </li>
+                  </Badge>
                 ))}
-              </ul>
+              </div>
             </div>
           </Reveal>
         ))}

@@ -5,21 +5,19 @@ import * as React from "react";
 import { lerp } from "@/lib/motion";
 
 /**
- * "Das Signal findet sich" — cinematischer Partikel-Morph (Award-Niveau).
+ * "Das Signal nimmt Gestalt an" — cinematischer Partikel-Morph mit echtem
+ * Glas-Kern, Bloom und Snap-Choreografie (Award-Niveau).
  *
- * Hunderttausende Licht-Partikel = das Rauschen / der Traffic des Webs. Sie
- * schwärmen turbulent (Suche) und rasten beim Laden aus dem Chaos in eine
- * geordnete Signal-Form mit EINEM dominanten Leuchtkern ein (= „gefunden").
- * Der Cursor wird zum Suchstrahl, der die Partikel teilt.
+ * Hunderttausende Licht-Partikel (= Rauschen des Webs) schwärmen turbulent und
+ * rasten beim Laden aus dem Chaos in eine geordnete Form ein. Im Zentrum
+ * materialisiert ein echtes Glas-Kristall (Transmission + chromatische
+ * Dispersion + Env-Reflexionen) = das gefundene Signal, physisch. Beim
+ * Einrasten feuert eine Snap-Schockwelle + Bloom-Puls, die Kamera fährt hinein.
  *
- * Iridiszent/spektral; der Kern bleibt in Violett→Cyan verankert. Komplett
- * theme-aware: im Light lesen sich die Partikel als Graphit-Staub auf Papier
- * (Normal-Blending, kein Additive-Washout), im Dark glühen sie im Void
- * (Additive). Farben kommen aus den CSS-Tokens, Blending wird beim
- * Theme-Wechsel live getauscht.
- *
- * Morph-basiert (kein FBO): die ganze Simulation läuft im Vertex-Shader →
- * robuste 60fps bei 150k Partikeln. Läuft nur Desktop + ohne reduced-motion.
+ * Theme-aware (opakes Canvas in der Theme-Hintergrundfarbe → Bloom/Glas sauber):
+ * im Light ist der Schwarm Graphit-Staub auf Papier (kein Glow), im Dark glühen
+ * die Partikel im Void (Additive + Bloom). Farben aus den CSS-Tokens.
+ * Läuft nur Desktop + ohne reduced-motion.
  */
 
 const SIMPLEX = /* glsl */ `
@@ -77,6 +75,7 @@ const VERTEX = /* glsl */ `
 uniform float uTime;
 uniform float uMorph;
 uniform float uMode;
+uniform float uSnap;
 uniform float uCursorActive;
 uniform float uPixelRatio;
 uniform vec2 uCursor;
@@ -100,9 +99,10 @@ void main() {
   float m = smoothstep(0.0, 1.0, uMorph);
   vec3 pos = mix(chaosPos, aTarget, m);
 
-  // Kern + Halo atmen leicht, wenn aufgelöst
-  pos += normalize(pos - ${CORE_CENTER} + 0.001)
-       * sin(uTime * 1.5 + aRnd * 6.2831) * 0.02 * m;
+  vec3 outward = normalize(pos - ${CORE_CENTER} + 0.001);
+  // sanftes Atmen + Snap-Schockwelle nach außen beim Einrasten
+  pos += outward * sin(uTime * 1.5 + aRnd * 6.2831) * 0.02 * m;
+  pos += outward * uSnap * 1.2;
 
   // Cursor = Suchstrahl: teilt die Partikel
   vec2 d = pos.xy - uCursor;
@@ -140,18 +140,14 @@ void main() {
   float soft = smoothstep(0.5, 0.0, d);
 
   vec3 coreCol = mix(uViolet, uCyan, vHue);
-
-  // Dark: leuchtend spektral (Additive); Kern incandescent
   vec3 spectral = hsv2rgb(vec3(vHue, 0.85, 1.0));
   vec3 darkCol = (vCore > 0.5) ? coreCol * 1.6 : spectral;
 
-  // Light: Graphit-Staub auf Papier (Normal-Blending), dezenter Juwel-Schimmer
   vec3 jewel = hsv2rgb(vec3(vHue, 0.62, 0.4));
   vec3 lightCol = (vCore > 0.5) ? mix(coreCol, uInk, 0.05) : mix(uInk, jewel, 0.42);
 
   vec3 col = mix(darkCol, lightCol, uMode);
 
-  // Light: Staub muss auf Papier tragen → kräftigere Deckung als im Dark-Glow
   float baseA = (vCore > 0.5 ? 0.95 : mix(0.5, 0.72, uMode));
   float a = soft * baseA * uReveal * uFade;
 
@@ -174,70 +170,119 @@ function readTheme(): Theme {
   };
 }
 
+function makeHalo(THREE: typeof import("three")) {
+  const s = 128;
+  const cv = document.createElement("canvas");
+  cv.width = s;
+  cv.height = s;
+  const x = cv.getContext("2d")!;
+  const g = x.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+  g.addColorStop(0, "rgba(196,232,255,0.95)");
+  g.addColorStop(0.35, "rgba(124,148,255,0.4)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  x.fillStyle = g;
+  x.fillRect(0, 0, s, s);
+  return new THREE.CanvasTexture(cv);
+}
+
 async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   const THREE = await import("three");
+  const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
+
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    50,
-    canvas.clientWidth / Math.max(canvas.clientHeight, 1),
-    0.1,
-    100,
-  );
-  camera.position.set(0, 0, 8);
+  const camera = new THREE.PerspectiveCamera(50, w / Math.max(h, 1), 0.1, 100);
+  camera.position.set(0, 0, 10.5);
 
   const renderer = new THREE.WebGLRenderer({
     canvas,
-    antialias: false,
+    antialias: true,
     alpha: true,
     powerPreference: "high-performance",
   });
-  const pixelRatio = Math.min(window.devicePixelRatio, 2);
+  const pixelRatio = Math.min(window.devicePixelRatio, 1.75);
   renderer.setPixelRatio(pixelRatio);
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+  renderer.setSize(w, h, false);
   renderer.setClearAlpha(0);
 
-  // Partikelzahl an die Fläche koppeln (Perf)
-  const area = canvas.clientWidth * canvas.clientHeight;
-  const COUNT = area > 1_400_000 ? 150000 : area > 800_000 ? 110000 : 70000;
+  // Env-Map (Studio) für die Glas-Reflexionen
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envRT = pmrem.fromScene(new RoomEnvironment(), 0.04);
+  scene.environment = envRT.texture;
 
-  const positions = new Float32Array(COUNT * 3); // Chaos
-  const targets = new Float32Array(COUNT * 3); // Signal-Form
+  const coreCenter = new THREE.Vector3(2.4, 0.25, 0);
+
+  // ── Glas-Kristall (das gefundene Signal, physisch) ────────────
+  // Reflektierendes Iridiszenz-Kristall (Opal/Chrom-Glas) — Env-Reflexionen +
+  // Öl-Schimmer-Iridiszenz, OHNE teure Transmission-Neuberechnung pro Frame.
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    metalness: 0.0,
+    roughness: 0.02,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.08,
+    envMapIntensity: 2.0,
+    iridescence: 1.0,
+    iridescenceIOR: 1.6,
+    iridescenceThicknessRange: [140, 520],
+    color: new THREE.Color("#eef2ff"),
+  });
+  const glass = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 0), glassMat);
+  glass.position.copy(coreCenter);
+  glass.scale.setScalar(0.001);
+  scene.add(glass);
+
+  // Günstiger Glüh-Halo (ersetzt teures Bloom; nur Dark) — flasht beim Snap.
+  const haloTex = makeHalo(THREE);
+  const haloMat = new THREE.SpriteMaterial({
+    map: haloTex,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    opacity: 0,
+  });
+  const halo = new THREE.Sprite(haloMat);
+  halo.position.copy(coreCenter);
+  scene.add(halo);
+
+  // ── Partikel-Feld ─────────────────────────────────────────────
+  const area = w * h;
+  const COUNT = area > 1_400_000 ? 65000 : area > 800_000 ? 48000 : 32000;
+
+  const positions = new Float32Array(COUNT * 3);
+  const targets = new Float32Array(COUNT * 3);
   const rnd = new Float32Array(COUNT);
   const coreFlag = new Float32Array(COUNT);
   const hue = new Float32Array(COUNT);
 
-  const coreCenter = new THREE.Vector3(2.4, 0.25, 0);
   for (let i = 0; i < COUNT; i++) {
-    // Chaos: breit gestreut = Rauschen des Webs
     positions[i * 3] = (Math.random() * 2 - 1) * 9;
     positions[i * 3 + 1] = (Math.random() * 2 - 1) * 5;
     positions[i * 3 + 2] = -5 + Math.random() * 4;
 
-    const isCore = Math.random() < 0.62;
+    const isCore = Math.random() < 0.4; // Glas IST der Kern → weniger Kernpartikel
     coreFlag[i] = isCore ? 1 : 0;
 
-    // Zufalls-Einheitsvektor
     const u = Math.random() * 2 - 1;
     const t = Math.random() * Math.PI * 2;
     const s = Math.sqrt(1 - u * u);
     const dir = new THREE.Vector3(s * Math.cos(t), s * Math.sin(t), u);
 
     if (isCore) {
-      // dichter, dominanter Kern (weich zur Mitte verdichtet)
-      const r = Math.pow(Math.random(), 2.3) * 1.0;
+      // dichter Glüh-Halo eng um das Glas
+      const r = 1.0 + Math.pow(Math.random(), 1.6) * 0.8;
       targets[i * 3] = coreCenter.x + dir.x * r;
       targets[i * 3 + 1] = coreCenter.y + dir.y * r;
       targets[i * 3 + 2] = coreCenter.z + dir.z * r * 0.7;
-      hue[i] = Math.random(); // Kern → Violett→Cyan-Ramp über vHue
     } else {
-      // geordnete Schale (Aura) um den Kern
-      const r = 2.1 + Math.random() * 0.5;
+      // saubere, dünne Orbital-Schale (geordnete Form)
+      const r = 2.5 + (Math.random() - 0.5) * 0.25;
       targets[i * 3] = coreCenter.x + dir.x * r;
       targets[i * 3 + 1] = coreCenter.y + dir.y * r;
       targets[i * 3 + 2] = coreCenter.z + dir.z * r * 0.7;
-      hue[i] = Math.random();
     }
+    hue[i] = Math.random();
     rnd[i] = Math.random();
   }
 
@@ -253,6 +298,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     uTime: { value: 0 },
     uMorph: { value: 0 },
     uMode: { value: 0 },
+    uSnap: { value: 0 },
     uCursorActive: { value: 0 },
     uPixelRatio: { value: pixelRatio },
     uCursor: { value: new THREE.Vector2(-10, -10) },
@@ -262,38 +308,37 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     uCyan: { value: new THREE.Color("#22d3ee") },
     uInk: { value: new THREE.Color("#0e0e14") },
   };
-
   const material = new THREE.ShaderMaterial({
     uniforms,
     vertexShader: VERTEX,
     fragmentShader: FRAGMENT,
     transparent: true,
     depthWrite: false,
-    depthTest: false,
+    depthTest: true,
     blending: THREE.AdditiveBlending,
   });
-
   const points = new THREE.Points(geo, material);
   points.frustumCulled = false;
   scene.add(points);
 
+  // ── Theme ─────────────────────────────────────────────────────
+  let haloBase = 0.55;
   const applyTheme = (t: Theme) => {
+    haloBase = t.isLight ? 0.0 : 0.55; // kein Glüh-Halo auf Papier
     uniforms.uMode.value = t.isLight ? 1 : 0;
     uniforms.uViolet.value.set(t.violet);
     uniforms.uCyan.value.set(t.cyan);
     uniforms.uInk.value.set(t.fg);
-    // Blending tauschen: Light = Normal (kein Washout), Dark = Additive (Glow)
     material.blending = t.isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
     material.needsUpdate = true;
+    glassMat.color.set(t.isLight ? "#f0f2ff" : "#e7ecff");
+    glassMat.envMapIntensity = t.isLight ? 1.7 : 2.3;
   };
   applyTheme(readTheme());
   const themeObserver = new MutationObserver(() => applyTheme(readTheme()));
-  themeObserver.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
-  // Pointer
+  // ── Pointer ───────────────────────────────────────────────────
   const pointerNdc = { x: 0, y: 0 };
   let cursorActiveTarget = 0;
   const handlePointerMove = (e: PointerEvent) => {
@@ -303,40 +348,54 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   };
   window.addEventListener("pointermove", handlePointerMove);
 
-  let halfH = Math.tan((50 * Math.PI) / 360) * 8;
+  let halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
   let halfW = halfH * camera.aspect;
   const resizeObserver = new ResizeObserver(() => {
-    const { clientWidth, clientHeight } = canvas;
-    if (clientWidth === 0 || clientHeight === 0) return;
-    camera.aspect = clientWidth / clientHeight;
+    const cw = canvas.clientWidth;
+    const ch = canvas.clientHeight;
+    if (cw === 0 || ch === 0) return;
+    camera.aspect = cw / ch;
     camera.updateProjectionMatrix();
-    renderer.setSize(clientWidth, clientHeight, false);
+    renderer.setSize(cw, ch, false);
     halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
     halfW = halfH * camera.aspect;
   });
   resizeObserver.observe(canvas);
 
+  // ── Loop ──────────────────────────────────────────────────────
   let lastFound = false;
+  let snapTime = -1;
   let frameId = 0;
   let startTime = 0;
-  let lastTime = 0;
 
   const animate = (now: number) => {
-    if (startTime === 0) {
-      startTime = now;
-      lastTime = now;
-    }
+    if (startTime === 0) startTime = now;
     const elapsed = (now - startTime) / 1000;
-    lastTime = now;
-
     uniforms.uTime.value = elapsed;
 
-    // Auto-Load-Choreografie: kurz Chaos zeigen, dann ins Signal einrasten
-    const morphRaw = Math.max(0, Math.min(1, (elapsed - 0.6) / 2.4));
-    uniforms.uMorph.value = 1 - Math.pow(1 - morphRaw, 4); // easeOutQuart
+    // Auto-Load-Choreografie: kurz Chaos, dann ins Signal einrasten
+    const morphRaw = Math.max(0, Math.min(1, (elapsed - 0.7) / 2.6));
+    const morph = 1 - Math.pow(1 - morphRaw, 4);
+    uniforms.uMorph.value = morph;
     uniforms.uReveal.value = Math.min(elapsed / 0.8, 1);
 
+    // Snap beim Einrasten → Schockwelle + Bloom-Puls + „gefunden"
+    const nowFound = morph > 0.82;
+    if (nowFound !== lastFound) {
+      lastFound = nowFound;
+      if (nowFound) snapTime = elapsed;
+      window.dispatchEvent(new CustomEvent(nowFound ? "signal:found" : "signal:lost"));
+    }
+    let snap = 0;
+    if (snapTime >= 0) {
+      const st = (elapsed - snapTime) / 0.55;
+      if (st < 1) snap = Math.sin(st * Math.PI) * 0.45; // 0→Spitze→0
+    }
+    uniforms.uSnap.value = snap;
+
     // Cursor → Welt-XY
+    halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
+    halfW = halfH * camera.aspect;
     uniforms.uCursor.value.set(pointerNdc.x * halfW, pointerNdc.y * halfH);
     uniforms.uCursorActive.value = lerp(uniforms.uCursorActive.value, cursorActiveTarget, 0.05);
 
@@ -344,17 +403,25 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     const scrollFraction = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1);
     uniforms.uFade.value = lerp(uniforms.uFade.value, 1 - scrollFraction * 0.9, 0.1);
 
-    // sanfter Kamera-Parallax
-    camera.position.x = lerp(camera.position.x, pointerNdc.x * 0.5 + Math.sin(elapsed * 0.1) * 0.3, 0.04);
-    camera.position.y = lerp(camera.position.y, pointerNdc.y * 0.35, 0.04);
-    camera.lookAt(0.8, 0, 0);
+    // Glas wächst mit dem Morph + Pop beim Snap, dreht langsam
+    const gm = Math.min(1, morph * 1.12);
+    const glassScale = (1 - Math.pow(1 - gm, 3)) * (1 + snap * 0.45);
+    glass.scale.setScalar(Math.max(0.001, glassScale));
+    glass.rotation.y = elapsed * 0.25;
+    glass.rotation.x = Math.sin(elapsed * 0.2) * 0.25;
 
-    // "gefunden", sobald das Signal eingerastet ist
-    const nowFound = uniforms.uMorph.value > 0.82;
-    if (nowFound !== lastFound) {
-      lastFound = nowFound;
-      window.dispatchEvent(new CustomEvent(nowFound ? "signal:found" : "signal:lost"));
-    }
+    // Glüh-Halo: atmet + flasht beim Snap (der „Bloom-Puls")
+    halo.scale.setScalar((3.4 + snap * 5.0) * Math.max(0.001, gm));
+    haloMat.opacity = (haloBase + snap * 1.0) * uniforms.uFade.value * gm;
+
+    // Kamera: weite Fahrt → hinein (dolly), + Parallaxe
+    const px = cursorActiveTarget > 0 ? pointerNdc.x : 0;
+    const py = cursorActiveTarget > 0 ? pointerNdc.y : 0;
+    const targetZ = lerp(10.5, 7.2, morph) - scrollFraction * 1.5;
+    camera.position.z = lerp(camera.position.z, targetZ, 0.05);
+    camera.position.x = lerp(camera.position.x, px * 1.2 + Math.sin(elapsed * 0.1) * 0.3, 0.04);
+    camera.position.y = lerp(camera.position.y, py * 0.6 + Math.cos(elapsed * 0.08) * 0.25, 0.04);
+    camera.lookAt(0.8, 0, 0);
 
     renderer.render(scene, camera);
     if (active) frameId = window.requestAnimationFrame(animate);
@@ -398,6 +465,12 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
       if (lastFound) window.dispatchEvent(new CustomEvent("signal:lost"));
       geo.dispose();
       material.dispose();
+      glass.geometry.dispose();
+      glassMat.dispose();
+      haloTex.dispose();
+      haloMat.dispose();
+      envRT.texture.dispose();
+      pmrem.dispose();
       renderer.dispose();
     },
   };

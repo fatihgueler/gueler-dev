@@ -5,6 +5,7 @@ import { m, useReducedMotion } from "framer-motion";
 
 import { process } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
+import { Separator } from "@/components/ui/separator";
 
 type Step = (typeof process.steps)[number];
 
@@ -91,7 +92,7 @@ export function ProcessSteps() {
           {process.steps.map((step, i) => (
             <ProcessRow key={step.number} step={step} index={i} />
           ))}
-          <div className="h-px w-full bg-border" />
+          <Separator />
         </div>
       </div>
     </section>
