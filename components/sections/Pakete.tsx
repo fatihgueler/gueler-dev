@@ -23,11 +23,11 @@ export function Pakete() {
               className={cn(
                 "card-surface relative flex h-full flex-col rounded-[var(--radius-lg)] p-8",
                 item.featured &&
-                  "border-gold-deep shadow-[0_0_0_1px_rgba(201,162,74,0.35),0_24px_60px_-24px_rgba(201,162,74,0.45)]",
+                  "border-gold-deep shadow-[0_0_0_1px_rgba(6,182,212,0.35),0_24px_60px_-24px_rgba(6,182,212,0.45)]",
               )}
             >
               {item.badge ? (
-                <span className="absolute -top-3 right-8 inline-flex items-center gap-1.5 rounded-full border border-gold-deep bg-background px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold">
+                <span className="absolute -top-3 right-8 inline-flex items-center gap-1.5 rounded-none border border-gold-deep bg-background px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold">
                   <Star className="size-3.5 fill-current" />
                   {item.badge}
                 </span>

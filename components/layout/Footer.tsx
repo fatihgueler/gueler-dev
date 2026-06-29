@@ -2,7 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 
-import { nav, site } from "@/lib/content";
+import { nav, site, guides } from "@/lib/content";
 import { Logo } from "@/components/Logo";
 
 export function Footer() {
@@ -33,9 +33,23 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted transition-colors hover:text-teal"
+                    className="text-sm text-muted transition-colors hover:text-violet-3"
                   >
                     {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="mt-8 text-xs font-semibold text-muted-2">Ratgeber</h3>
+            <ul className="mt-5 space-y-3">
+              {guides.map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={`/${guide.slug}`}
+                    className="text-sm text-muted transition-colors hover:text-violet-3"
+                  >
+                    {guide.label}
                   </Link>
                 </li>
               ))}
@@ -49,16 +63,16 @@ export function Footer() {
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2.5">
-                <Mail className="size-4 text-teal-deep" />
+                <Mail className="size-4 text-violet" />
                 <a
                   href={`mailto:${site.email}`}
-                  className="transition-colors hover:text-teal"
+                  className="transition-colors hover:text-violet-3"
                 >
                   {site.email}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <MapPin className="size-4 text-teal-deep" />
+                <MapPin className="size-4 text-violet" />
                 {site.location}
               </li>
             </ul>
@@ -68,7 +82,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
               >
                 <Github className="size-4" />
               </a>
@@ -78,7 +92,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
                 >
                   <Linkedin className="size-4" />
                 </a>
@@ -92,12 +106,12 @@ export function Footer() {
             © {year} {site.ownerName}. Alle Rechte vorbehalten.
           </p>
           <div className="flex gap-6">
-            <Link href="/impressum" className="transition-colors hover:text-teal">
+            <Link href="/impressum" className="transition-colors hover:text-violet-3">
               Impressum
             </Link>
             <Link
               href="/datenschutz"
-              className="transition-colors hover:text-teal"
+              className="transition-colors hover:text-violet-3"
             >
               Datenschutz
             </Link>

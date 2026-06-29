@@ -72,7 +72,7 @@ export function Header() {
             </Button>
             <Magnetic strength={0.4}>
               <Button asChild size="sm">
-                <Link href="/#kontakt">Kostenlose Analyse</Link>
+                <Link href="/#kontakt">Erstgespräch</Link>
               </Button>
             </Magnetic>
           </div>

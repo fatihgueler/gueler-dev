@@ -1,7 +1,7 @@
 "use client";
 
-import { OrbScene } from "@/components/three/OrbScene";
+import { SignalField } from "@/components/three/SignalField";
 
 export function HeroScene() {
-  return <OrbScene className="h-full w-full" />;
+  return <SignalField className="h-full w-full" />;
 }

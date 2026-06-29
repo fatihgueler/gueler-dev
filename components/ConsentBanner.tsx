@@ -40,7 +40,7 @@ export function ConsentBanner() {
     <AnimatePresence>
       {visible && (
         <m.aside
-          role="dialog"
+          role="region"
           aria-label="Cookie-Hinweis"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

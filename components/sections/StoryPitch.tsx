@@ -75,11 +75,15 @@ export function StoryPitch() {
 
   return (
     <section
+      id="chapter-1"
       ref={sectionRef}
       aria-label="Mein Anspruch"
       className="relative py-28 md:py-44"
     >
       <div className="mx-auto w-full max-w-5xl px-6">
+        <p className="mb-10 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
+          Kapitel 01 — Dein Problem
+        </p>
         <p className="font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl md:leading-[1.2]">
           {shouldReduceMotion
             ? WORDS.map((word) => (

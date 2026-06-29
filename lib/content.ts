@@ -12,10 +12,10 @@ export const site = {
   tagline: "Webdesign Hannover",
   ownerName: "Fatih Güler",
   email: "fatih.gueler75@gmail.com",
-  phone: "015777688060",
+  phone: "+4915777688060",
   whatsapp: "https://wa.me/015777688060",
   calendly: "https://calendly.com/fatih-gueler75",
-  availability: "Juni 2026",
+  availability: "Frei für neue Projekte",
   location: "Hannover, Deutschland",
   url: "https://guelerdev.de",
   github: "https://github.com/fatihgueler",
@@ -24,9 +24,9 @@ export const site = {
 
 export const siteConfig = {
   name: site.ownerName,
-  title: "Webdesign Hannover | Fatih Güler – Websites, die Kunden bringen",
+  title: "Webdesign Hannover & deutschlandweit | Fatih Güler",
   description:
-    "Professionelle Websites für KMU in Hannover und deutschlandweit. Modern, schnell, conversion-optimiert. One Pager ab 500€.",
+    "Freelance Webentwickler aus Hannover – Websites für KMU in ganz Deutschland. Modern, schnell, conversion-optimiert. One Pager ab 500€.",
   url: site.url,
   email: site.email,
   phone: site.phone,
@@ -41,12 +41,25 @@ export const nav = [
   { label: "Projekte", href: "/projekte" },
   { label: "Pakete", href: "/leistungen#pakete" },
   { label: "Über mich", href: "/ueber" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+
+/**
+ * Ratgeber-/Content-Seiten (GEO). Footer und Sitemap iterieren hierüber –
+ * eine neue Seite hier eintragen reicht für Verlinkung + Indexierung.
+ */
+export const guides = [
+  { slug: "was-kostet-eine-website", label: "Was kostet eine Website?" },
+  { slug: "webentwickler-vs-agentur", label: "Webentwickler oder Agentur?" },
+  { slug: "wie-lange-dauert-eine-website", label: "Wie lange dauert eine Website?" },
+  { slug: "website-fuer-lokale-unternehmen", label: "Website für lokale Unternehmen" },
 ];
 
 export const hero = {
-  lines: ["Websites, die", "Kunden bringen."],
+  lines: ["Kunden suchen dich.", "Finden sie dich auch?"],
   subtitle:
-    "Mehr Anfragen. Mehr Kunden. Eine Website, die rund um die Uhr für dein Unternehmen arbeitet.",
+    "Aus Hannover für ganz Deutschland: moderne Websites zum Festpreis, in wenigen Wochen – ein fester Ansprechpartner statt Agentur.",
+  cta: { label: "Kostenloses Erstgespräch", href: "#kontakt" },
   scrollHint: "nach unten scrollen",
 };
 
@@ -63,7 +76,7 @@ export const services = {
   eyebrow: "Leistungen",
   title: "Was ich für dich baue",
   subtitle:
-    "Vom ersten Konzept bis zum Launch – alles aus einer Hand, ohne Agentur-Aufschlag.",
+    "Von der schnellen Business-Website bis zur KI-Integration – sauber gebaut und darauf ausgelegt, aus Besuchern Anfragen zu machen.",
   items: [
     {
       icon: "Globe",
@@ -112,23 +125,33 @@ export const projects = {
       featured: true,
     },
     {
-      title: "ENOX",
-      category: "Mehrsprachige Website",
+      title: "Weitblick",
+      category: "Marketing-Website",
       description:
-        "Marketing-Website für internationale Energieberatung mit 5 Sprachen (DE, EN, ZH, ES, RU), animiertem Fördercheck-Funnel zur Lead-Generierung und integrierten Kontaktformularen.",
-      tags: ["Next.js 14", "TypeScript", "Tailwind", "i18n"],
-      liveUrl: "https://enox-rv4x.vercel.app/de",
-      repoUrl: "https://github.com/fatihgueler/Enox",
+        "Marketing-Website für Energieberatung rund um energetische Sanierung, Förderung und Sanierungsplanung – mit geführtem Fördercheck-Funnel zur Lead-Generierung und durchdachter Kontaktstrecke.",
+      tags: ["Next.js 14", "TypeScript", "Tailwind", "Lead-Funnel"],
+      liveUrl: "https://weitblick-rv4x.vercel.app/",
+      repoUrl: "https://github.com/fatihgueler/Weitblick",
       featured: false,
     },
     {
-      title: "SmartKitchen",
-      category: "Fullstack-Anwendung",
+      title: "VoxNote",
+      category: "KI-SaaS",
       description:
-        "Komplette Küchenverwaltung in .NET 8: Rezepte, Inventar, Wochenplanung und automatisch generierte Einkaufslisten – mit Blazor-Frontend und Web-API.",
-      tags: [".NET 8", "Blazor", "ASP.NET Core", "EF Core", "SQLite"],
-      liveUrl: "",
-      repoUrl: "https://github.com/fatihgueler/smartKitchen",
+        "KI-Dokumentationstool für Therapie- und Arztpraxen: gesprochene oder getippte Notizen nach der Sitzung werden automatisch in strukturierte SOAP-Notizen überführt – datenschutzfreundlich mit Feldverschlüsselung, pseudonymen Kürzeln und ohne Audio-Speicherung.",
+      tags: ["KI-Strukturierung", "Spracheingabe", "SOAP", "DSGVO"],
+      liveUrl: "https://voxnote-production.up.railway.app/",
+      repoUrl: "https://github.com/fatihgueler/Voxnote",
+      featured: true,
+    },
+    {
+      title: "Lead-Finder",
+      category: "Web-App",
+      description:
+        "Web-App zur B2B-Lead-Recherche: findet kleine und mittlere Betriebe ohne eigene Website – filterbar nach Stadt, Umkreis und Branche, mit Telefonnummern-Abgleich, Kartenansicht und CSV-Export. Datenbasis: OpenStreetMap.",
+      tags: ["FastAPI", "Python", "React", "OpenStreetMap"],
+      liveUrl: "https://fatihgueler-production.up.railway.app/",
+      repoUrl: "https://github.com/fatihgueler/fatihgueler-",
       featured: false,
     },
   ],
@@ -136,7 +159,7 @@ export const projects = {
 
 export const process = {
   eyebrow: "Ablauf",
-  title: "So arbeiten wir zusammen",
+  title: "So kommst du ans Ziel",
   subtitle: "Transparent, planbar und ohne böse Überraschungen.",
   steps: [
     {
@@ -197,13 +220,13 @@ export const features = {
 };
 
 export const projectHighlight = {
-  title: "Award-Level Code. Messbare Ergebnisse.",
+  title: "Sauberer Code. Echte Projekte.",
   description:
-    "Von der Fahrschule bis zum KI-Tool: Jedes Projekt wird mit demselben Anspruch gebaut — technisch sauber, visuell stark, auf Conversions ausgerichtet.",
+    "Vom KI-Tool bis zur Fullstack-App: Jedes Projekt wird mit demselben Anspruch gebaut — technisch sauber, visuell stark, auf Conversions ausgerichtet. Live und auf GitHub einsehbar.",
   cta: { label: "Projekte ansehen", href: "/projekte" },
   highlights: [
     { name: "BüroBrücke", tag: "KI-Tool" },
-    { name: "SmartKitchen", tag: "Fullstack .NET" },
+    { name: "VoxNote", tag: "KI-SaaS" },
   ],
 };
 
@@ -286,12 +309,12 @@ export const about = {
   eyebrow: "Über mich",
   title: "Hallo, ich bin Fatih.",
   paragraphs: [
-    "Ich bin angehender Fachinformatiker für Anwendungsentwicklung aus Hannover und entwickle als Freelancer Websites und Web-Anwendungen für kleine Unternehmen und Selbstständige.",
+    "Ich bin Webentwickler aus Hannover und entwickle als Freelancer Websites und Web-Anwendungen für kleine Unternehmen und Selbstständige.",
     "Mein Fokus liegt auf moderner Webentwicklung mit Next.js und auf dem Einsatz von KI, um echte Probleme zu lösen – wie bei meinem Projekt BüroBrücke, das Menschen mit Sprachbarrieren bei deutschen Behördenbriefen hilft.",
     "Mir ist wichtig, dass Technik einen Zweck erfüllt: schnelle Seiten, ehrliche Beratung und Lösungen, die du verstehst und die dir wirklich Anfragen bringen.",
   ],
   highlights: [
-    "Fachinformatiker für Anwendungsentwicklung (in Ausbildung, DAA Hannover)",
+    "Freelance-Webentwickler aus Hannover – persönlich erreichbar",
     "Schwerpunkt Webentwicklung & IT-Security",
     "Spezialisiert auf Next.js, TypeScript & KI-Integration",
     "Persönlich, direkt erreichbar, ohne Agentur-Overhead",
@@ -300,12 +323,12 @@ export const about = {
 
 export const contact = {
   eyebrow: "Kontakt",
-  title: "Kostenlose Website-Analyse anfragen",
+  title: "Kostenloses Erstgespräch anfragen",
   subtitle:
-    "Ich analysiere Ihre aktuelle Online-Präsenz kostenlos und zeige Ihnen, wie Sie mehr Kunden über Ihre Website gewinnen können.",
+    "Erzähl mir kurz von deinem Vorhaben – egal ob du schon eine Website hast oder bei null startest. Du bekommst eine ehrliche Einschätzung, kostenlos und unverbindlich.",
   successMessage: "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
   errorMessage:
-    "❌ Etwas hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie direkt an: fatih.gueler75@gmail.com",
+    "❌ Etwas hat nicht geklappt. Bitte versuch es erneut oder schreib direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
     { value: "one-pager", label: "One Pager (ab 500€)" },
     { value: "business", label: "Business Website (ab 1.500€)" },
@@ -394,12 +417,6 @@ export const timeline = {
         "Websites, Web-Apps und KI-Tools für kleine Unternehmen und Selbstständige – von der Idee bis zum Launch.",
     },
     {
-      period: "2023 – heute",
-      title: "Ausbildung zum Fachinformatiker (AE)",
-      description:
-        "Anwendungsentwicklung an der DAA Hannover mit Schwerpunkt auf moderner Webentwicklung und IT-Security.",
-    },
-    {
       period: "2024",
       title: "BüroBrücke",
       description:
@@ -447,19 +464,19 @@ export const pages = {
  */
 export const storyPitch = {
   segments: [
-    { text: "Ich baue keine Websites, die nur gut aussehen." },
-    { text: "Ich baue", },
-    { text: "digitale Vertriebsmitarbeiter", accent: true },
-    { text: "— schnell, präzise und" },
-    { text: "rund um die Uhr", accent: true },
-    { text: "im Einsatz für dein Unternehmen." },
+    { text: "Du hast eine Website." },
+    { text: "Aber sie bringt dir" },
+    { text: "keine Anfragen.", accent: true },
+    { text: "Nicht weil dein Angebot schlecht ist." },
+    { text: "Sondern weil deine Website" },
+    { text: "nicht für dich arbeitet.", accent: true },
   ] as Array<{ text: string; accent?: boolean }>,
 };
 
 export const cta = {
   title: "Bereit, online zu überzeugen?",
   subtitle: "Erstgespräch kostenlos und unverbindlich.",
-  primary: { label: "Kostenlose Analyse anfragen", href: "/#kontakt" },
+  primary: { label: "Kostenloses Erstgespräch anfragen", href: "/#kontakt" },
   secondary: { label: "Projekte ansehen", href: "/projekte" },
 };
 
@@ -487,7 +504,7 @@ export const packages = [
     id: "business",
     name: "Business Website",
     price: "ab 1.500€",
-    description: "Der komplette professionelle Auftritt für Ihr Unternehmen.",
+    description: "Der komplette professionelle Auftritt für dein Unternehmen.",
     features: [
       "Bis zu 6 Seiten",
       "Premium Custom Design",
@@ -539,6 +556,8 @@ export type CaseStudy = {
   metrics: CaseStudyMetric[];
   color: CaseStudyColor;
   liveUrl: string;
+  /** Echter Screenshot unter /public; fehlt er, greift der Platzhalter. */
+  image?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -561,152 +580,111 @@ export const caseStudies: CaseStudy[] = [
     ],
     color: "indigo",
     liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
+    image: "/projects/buerobruecke-preview.png",
   },
   {
-    id: "smartkitchen",
-    title: "SmartKitchen",
-    category: "Fullstack-App / .NET",
-    tagline: "Küchenverwaltung – digital, effizient, übersichtlich.",
+    id: "voxnote",
+    title: "VoxNote",
+    category: "KI-SaaS / Praxis-Dokumentation",
+    tagline: "Diktieren statt tippen – strukturierte SOAP-Notizen in Sekunden.",
     challenge:
-      "Rezepte, Lagerbestand, Bestellungen und Wochenplanung wurden manuell und verteilt auf Zettel und Excel geführt – zeitaufwändig und fehleranfällig.",
+      "Dokumentation kostet Therapeut:innen und Ärzt:innen täglich Zeit: Nach jeder Sitzung müssen Beobachtungen, Befunde und Behandlungsplan sauber festgehalten werden – meist manuell, oft erst am Abend. Dabei gelten für Gesundheitsdaten strenge Datenschutzanforderungen.",
     solution:
-      "Vollständige Fullstack-Anwendung in .NET 8 mit Blazor-Frontend: Rezeptverwaltung, Echtzeit-Inventar, Bestellwesen und automatisch generierte Einkaufslisten aus dem Wochenplan.",
+      "SaaS-Tool, das gesprochene oder getippte Notizen direkt nach der Sitzung automatisch in das SOAP-Format (Subjektiv, Objektiv, Assessment, Plan) strukturiert. Datenschutz ist eingebaut: Feldverschlüsselung, pseudonyme Patientenkürzel und keine Speicherung von Audiodateien.",
     result:
-      "Alle Küchenprozesse an einem Ort. Weniger manueller Aufwand, weniger Fehler – der gesamte Workflow digital abgebildet.",
-    tags: [".NET 8", "Blazor", "ASP.NET Core", "EF Core", "SQLite"],
+      "Aus einem kurzen Diktat wird eine fertige, strukturierte Notiz – weniger Abendarbeit, konsistente Dokumentation und ein DSGVO-konformer Umgang mit sensiblen Gesundheitsdaten.",
+    tags: ["KI-Strukturierung", "Spracheingabe", "SOAP", "DSGVO", "Feldverschlüsselung"],
     metrics: [
-      { value: "−70%", label: "weniger manuelle Planungszeit" },
-      { value: "1 Ort", label: "statt Zettel & Excel" },
+      { value: "SOAP", label: "automatisch strukturiert" },
+      { value: "0", label: "Audiodateien auf dem Server" },
+      { value: "DSGVO", label: "konform mit Feldverschlüsselung" },
+    ],
+    color: "violet",
+    liveUrl: "https://voxnote-production.up.railway.app/",
+    image: "/projects/voxnote-preview.png",
+  },
+  {
+    id: "lead-finder",
+    title: "Lead-Finder",
+    category: "Web-App / Lead-Recherche",
+    tagline: "Betriebe ohne Website finden – die ideale Zielgruppe für Webentwickler.",
+    challenge:
+      "Wer Websites baut, sucht genau die Betriebe, die noch keine haben. Diese manuell zu finden – Branche für Branche, Ort für Ort – ist mühsam und kaum systematisch machbar.",
+    solution:
+      "Web-App, die kleine und mittlere Betriebe ohne eigene Website aufspürt: Suche nach Stadt und Umkreis, Filter nach Branche, Telefonnummern-Abgleich, Kartenansicht und CSV-Export. Die Datenbasis stammt aus OpenStreetMap, ergänzt um eine Web-Verifikation.",
+    result:
+      "Eine strukturierte, exportierbare Liste qualifizierter Leads statt stundenlanger Handarbeit – mit klarem Hinweis auf die rechtlichen Rahmenbedingungen (UWG §7, DSGVO) für die B2B-Ansprache.",
+    tags: ["FastAPI", "Python", "React", "OpenStreetMap", "CSV-Export"],
+    metrics: [
+      { value: "0 €", label: "kostenlos nutzbar" },
+      { value: "CSV", label: "Export der Treffer" },
+      { value: "OSM", label: "offene Datenbasis" },
     ],
     color: "amber",
-    liveUrl: "",
+    liveUrl: "https://fatihgueler-production.up.railway.app/",
+    image: "/projects/lead-finder-preview.png",
   },
-  // TODO: durch echte Kundendaten ersetzen
   {
-    id: "fahrschule-startklar",
-    title: "Fahrschule Startklar",
-    category: "Local Business / Lead-Funnel",
-    tagline: "Vom ersten Klick zur Probestunde – in unter zwei Minuten.",
+    id: "weitblick",
+    title: "Weitblick",
+    category: "Marketing-Website / Lead-Funnel",
+    tagline: "Energetische Sanierung verständlich machen – und Anfragen, die ankommen.",
     challenge:
-      "Die Fahrschule erhielt Anfragen fast nur per Telefon und verlor abends und am Wochenende potenzielle Fahrschüler. Die alte Website war nicht mobil bedienbar und nannte weder Preise noch freie Termine.",
+      "Energieberatung ist erklärungsbedürftig: Eigentümer, Vermieter und Käufer wissen oft nicht, welche Förderung und welche Maßnahme zu ihrem Wohngebäude passt. Diese Unsicherheit hält viele davon ab, überhaupt anzufragen.",
     solution:
-      "Editorialer One-Pager in Schwarz mit violettem Akzent und mehrstufigem Anfrage-Funnel: Führerscheinklasse wählen, Wunschtermin angeben, Kontaktdaten hinterlassen. Jede Anfrage landet automatisch strukturiert im Postfach der Fahrschule.",
+      "Marketing-Website mit einem geführten Fördercheck-Funnel: In drei Schritten – Gebäude auswählen, Maßnahme angeben, Rückmeldung erhalten – qualifiziert sich der Interessent in rund zwei Minuten selbst, mit klarer Leistungsdarstellung und durchdachter Kontaktstrecke.",
     result:
-      "Anfragen kommen jetzt rund um die Uhr und vorqualifiziert herein. Das Team ruft gezielt zurück, statt am Telefon Standardfragen zu beantworten.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Lead-Funnel", "Local SEO"],
+      "Ein niedrigschwelliger Einstieg statt einer abschreckenden Kontaktanfrage: Besucher werden strukturiert von der ersten Frage bis zur qualifizierten Anfrage geführt.",
+    tags: ["Next.js 14", "TypeScript", "Tailwind", "Lead-Funnel"],
     metrics: [
-      { value: "+40%", label: "mehr Anfragen in 3 Monaten" },
-      { value: "0,8s", label: "Ladezeit (vorher 4,2s)" },
-      { value: "98/100", label: "Lighthouse Performance" },
-    ],
-    color: "violet",
-    liveUrl: "",
-  },
-  // TODO: durch echte Kundendaten ersetzen
-  {
-    id: "barbershop-nachtschnitt",
-    title: "Barbershop Nachtschnitt",
-    category: "Local Business / Terminanfrage",
-    tagline: "Dunkles Editorial-Design für einen Premium-Barbershop.",
-    challenge:
-      "Der Barbershop wollte sich vom Wettbewerb abheben und buchte Termine bislang nur über Instagram-DMs – unübersichtlich, leicht zu übersehen und schwer zu planen.",
-    solution:
-      "Atmosphärische Website im dunklen Editorial-Stil mit großflächiger Typografie und einem schlanken Online-Terminanfrage-Formular: Service, Barber und Wunschzeitraum auswählen, Bestätigung folgt per Nachricht.",
-    result:
-      "Klare Außenwirkung als Premium-Anbieter und ein zentraler Kanal für Terminanfragen statt verstreuter DMs. Weniger Leerlauf, planbarere Auslastung.",
-    tags: ["Next.js", "Tailwind", "Editorial Design", "Terminanfrage", "DSGVO"],
-    metrics: [
-      { value: "+55%", label: "Online-Terminanfragen" },
-      { value: "−30%", label: "weniger No-Shows" },
-      { value: "1,1s", label: "Ladezeit auf Mobil" },
-    ],
-    color: "violet",
-    liveUrl: "",
-  },
-  // TODO: durch echte Kundendaten ersetzen
-  {
-    id: "elektro-leinequell",
-    title: "Elektro Leinequell",
-    category: "Handwerk / Local SEO",
-    tagline: "Lokal gefunden werden – und Angebote per Klick anfragen.",
-    challenge:
-      "Der Elektrobetrieb tauchte bei lokalen Suchen kaum auf und hatte keine Möglichkeit, Angebotsanfragen strukturiert entgegenzunehmen. Aufträge kamen fast nur über Empfehlungen.",
-    solution:
-      "Suchmaschinenoptimierte Business-Website mit Leistungsseiten je Gewerk, lokalen Landingpages für umliegende Stadtteile und einem geführten Angebotsanfrage-Formular inklusive Foto-Upload für den Schadensfall.",
-    result:
-      "Deutlich bessere lokale Sichtbarkeit und planbarer Anfragen-Eingang. Die Foto-Uploads ermöglichen schnellere, präzisere Kostenvoranschläge.",
-    tags: ["Next.js", "Local SEO", "Tailwind", "Angebots-Funnel", "DSGVO"],
-    metrics: [
-      { value: "+120%", label: "mehr Sichtbarkeit lokal" },
-      { value: "Top 3", label: "bei lokalen Suchbegriffen" },
-      { value: "+35%", label: "qualifizierte Anfragen" },
+      { value: "~2 Min", label: "geführter Fördercheck" },
+      { value: "3 Schritte", label: "bis zur qualifizierten Anfrage" },
     ],
     color: "cyan",
-    liveUrl: "",
-  },
-  // TODO: durch echte Kundendaten ersetzen
-  {
-    id: "cafe-leinekind-chatbot",
-    title: "Café Leinekind",
-    category: "Gastronomie / KI-Chatbot",
-    tagline: "Reservierungen rund um die Uhr – beantwortet von der KI.",
-    challenge:
-      "Das Café konnte Reservierungsanfragen während des Tagesgeschäfts kaum zeitnah beantworten. Gäste sprangen ab, wenn niemand ans Telefon ging oder Nachrichten unbeantwortet blieben.",
-    solution:
-      "Website mit integriertem KI-Chatbot auf Basis der Claude API: Der Assistent beantwortet Fragen zu Öffnungszeiten, Karte und Allergenen, nimmt Reservierungswünsche entgegen und leitet sie strukturiert ans Team weiter.",
-    result:
-      "Gäste erhalten sofort Antwort, auch außerhalb der Stoßzeiten. Reservierungswünsche werden vollständig erfasst und das Team wird im Tagesgeschäft entlastet.",
-    tags: ["Next.js", "Claude API", "KI-Chatbot", "Tailwind", "DSGVO"],
-    metrics: [
-      { value: "24/7", label: "automatische Antworten" },
-      { value: "+60%", label: "mehr Reservierungsanfragen" },
-      { value: "<3s", label: "Antwortzeit des Chatbots" },
-    ],
-    color: "violet",
-    liveUrl: "",
+    liveUrl: "https://weitblick-rv4x.vercel.app/",
+    image: "/projects/weitblick-preview.png",
   },
 ];
 
-// TODO: durch echte Testimonials ersetzen
-export const testimonials = [
-  {
-    quote:
-      "Nach dem Relaunch kamen die ersten Online-Anfragen schon in der ersten Woche rein – und zwar abends, wenn bei uns niemand mehr ans Telefon geht. Genau das hatte vorher gefehlt.",
-    name: "Markus Hellwig",
-    role: "Inhaber",
-    company: "Fahrschule Startklar",
-    rating: 5,
-  },
-  {
-    quote:
-      "Die Seite lädt spürbar schneller als unsere alte und sieht auf dem Handy einfach gut aus. Unsere Stammkunden haben das von sich aus angesprochen.",
-    name: "Deniz Yıldırım",
-    role: "Geschäftsführer",
-    company: "Barbershop Nachtschnitt",
-    rating: 5,
-  },
-  {
-    quote:
-      "Wir werden jetzt bei Google in unserer Region tatsächlich gefunden. Die Angebotsanfragen mit Fotos sparen uns bei jedem Auftrag eine Vor-Ort-Besichtigung.",
-    name: "Andrea Petersen",
-    role: "Büroleitung",
-    company: "Elektro Leinequell",
-    rating: 5,
-  },
-  {
-    quote:
-      "Der Chatbot beantwortet die immer gleichen Fragen nach Öffnungszeiten und Allergenen, während wir im Service stehen. Reservierungen kommen vollständig und sauber bei uns an.",
-    name: "Sophie Brandt",
-    role: "Inhaberin",
-    company: "Café Leinekind",
-    rating: 5,
-  },
-  {
-    quote:
-      "Fatih hat von Anfang an mitgedacht und ehrlich gesagt, was sich für uns lohnt und was nicht. Festpreis, klare Absprachen, pünktlicher Launch – genau so soll es sein.",
-    name: "Thomas Krüger",
-    role: "Selbstständiger Sanitärmeister",
-    company: "Krüger Haustechnik",
-    rating: 5,
-  },
-];
+/**
+ * Kapitel 04 — "Dein Erfolg" / Transformation.
+ * Ehrliche Outcome-Projektion (was sich für DICH ändert), keine fremden
+ * Erfolgszahlen. Beschreibt Fähigkeiten der gelieferten Website, nicht
+ * Ergebnisse erfundener Kunden.
+ */
+export const outcomes = {
+  eyebrow: "Was du bekommst",
+  title: "So verändert sich dein Geschäft",
+  items: [
+    {
+      title: "Anfragen rund um die Uhr",
+      description:
+        "Deine Website nimmt Kontaktanfragen auch dann entgegen, wenn niemand ans Telefon geht — abends, am Wochenende, im Urlaub.",
+    },
+    {
+      title: "Lokal gefunden werden",
+      description:
+        "Mit sauberer technischer SEO taucht dein Betrieb dort auf, wo deine Kunden suchen — in deiner Stadt, in deiner Branche.",
+    },
+    {
+      title: "Schnell auf jedem Gerät",
+      description:
+        "Ladezeiten im Sekundenbruchteil, besonders auf dem Handy — dort, wo die meisten deiner Besucher herkommen.",
+    },
+    {
+      title: "Du besitzt deinen Auftritt",
+      description:
+        "Eigener Code, eigene Domain, kein Baukasten-Abo. Die Seite gehört dir — heute und in fünf Jahren.",
+    },
+  ],
+};
+
+// Platzhalter, bis echte, freigegebene Kundenstimmen vorliegen.
+// NIEMALS erfundene Namen/Firmen eintragen (irreführende Werbung, § 5 UWG).
+export const testimonials: Array<{
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  rating: number;
+}> = [];

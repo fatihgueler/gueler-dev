@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { caseStudies } from "@/lib/content";
+import { caseStudies, type CaseStudy } from "@/lib/content";
 import { Section } from "@/components/Section";
 import { CTA } from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,86 @@ const NARRATIVE = [
   { label: "Lösung", key: "solution" as const, step: "02" },
   { label: "Ergebnis", key: "result" as const, step: "03" },
 ];
+
+/**
+ * Live-Vorschaufenster — rahmt den Screenshot wie ein echtes Browserfenster
+ * und macht ihn klickbar: ein Klick öffnet die Live-Website in neuem Tab.
+ * Ohne liveUrl bleibt es ein statischer Rahmen.
+ */
+function PreviewWindow({ study }: { study: CaseStudy }) {
+  const host = study.liveUrl ? new URL(study.liveUrl).host.replace(/^www\./, "") : null;
+  const hasLink = Boolean(study.liveUrl);
+
+  const figure = (
+    <figure className="group relative block overflow-hidden border border-border-strong bg-surface">
+      {/* Browser-Chrome-Leiste */}
+      <div className="flex items-center gap-3 border-b border-border-strong bg-background/60 px-4 py-3">
+        <span className="flex items-center gap-1.5" aria-hidden>
+          <span className="size-2.5 rounded-full bg-border-strong" />
+          <span className="size-2.5 rounded-full bg-border-strong" />
+          <span className="size-2.5 rounded-full bg-border-strong" />
+        </span>
+        {host && (
+          <span className="flex min-w-0 items-center gap-2 truncate font-mono text-xs text-muted">
+            <span
+              className="size-1.5 shrink-0 rounded-full bg-cyan motion-safe:animate-pulse"
+              aria-hidden
+            />
+            {host}
+          </span>
+        )}
+        {hasLink && (
+          <span className="ml-auto hidden shrink-0 items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-violet-3 transition-colors group-hover:text-violet-2 sm:flex">
+            Live ansehen
+            <ArrowUpRight className="size-3.5" aria-hidden />
+          </span>
+        )}
+      </div>
+
+      {/* Screenshot. object-top + 16:10 zeigt sauber den Hero – auch bei
+          sehr hohen Vollseiten-Captures. */}
+      <div className="relative overflow-hidden">
+        <Image
+          src={study.image ?? "/case-studies/placeholder.svg"}
+          alt={
+            study.image
+              ? `Screenshot der Website ${study.title} – ${study.category}`
+              : `Vorschau der Website von ${study.title}`
+          }
+          width={1200}
+          height={750}
+          className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.02]"
+          priority
+        />
+
+        {hasLink && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 opacity-0 transition-all duration-300 group-hover:bg-background/40 group-hover:opacity-100">
+            <span className="inline-flex items-center gap-2 border border-violet-2/60 bg-background/80 px-5 py-2.5 font-mono text-sm font-medium text-foreground backdrop-blur-sm">
+              Website öffnen
+              <ArrowUpRight className="size-4 text-violet-2" aria-hidden />
+            </span>
+          </div>
+        )}
+      </div>
+    </figure>
+  );
+
+  if (!hasLink) {
+    return figure;
+  }
+
+  return (
+    <a
+      href={study.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${study.title} live öffnen (neuer Tab)`}
+      className="block cursor-pointer transition-shadow duration-300 hover:shadow-[var(--shadow-teal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+    >
+      {figure}
+    </a>
+  );
+}
 
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
@@ -85,18 +165,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Screenshot placeholder */}
+      {/* Live-Vorschaufenster: klickbarer Screenshot, der die echte
+          Website in neuem Tab öffnet. */}
       <div className="px-6">
         <Reveal variant="scaleIn" className="mx-auto w-full max-w-5xl">
-          {/* TODO: echten Screenshot einsetzen */}
-          <Image
-            src="/case-studies/placeholder.svg"
-            alt={`Vorschau der Website von ${study.title}`}
-            width={1200}
-            height={750}
-            className="h-auto w-full rounded-[var(--radius-xl)] border border-border-strong"
-            priority
-          />
+          <PreviewWindow study={study} />
         </Reveal>
       </div>
 
@@ -155,7 +228,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               {study.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded-full border border-border bg-surface px-4 py-1.5 font-mono text-xs font-medium text-muted"
+                  className="rounded-none border border-border bg-surface px-4 py-1.5 font-mono text-xs font-medium text-muted"
                 >
                   {tag}
                 </li>

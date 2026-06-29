@@ -14,15 +14,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Bitte geben Sie Ihren Namen ein."),
+  name: z.string().min(2, "Bitte gib deinen Namen ein."),
   company: z.string().max(100).optional(),
-  email: z.string().email("Bitte geben Sie eine gültige E-Mail ein."),
+  email: z.string().email("Bitte gib eine gültige E-Mail ein."),
   phone: z.string().max(50).optional(),
   package: z.string().optional(),
-  message: z.string().min(10, "Bitte beschreiben Sie Ihr Anliegen kurz."),
+  message: z.string().min(10, "Bitte beschreib dein Anliegen kurz."),
   privacy: z
     .boolean()
-    .refine((v) => v === true, "Bitte akzeptieren Sie die Datenschutzerklärung."),
+    .refine((v) => v === true, "Bitte akzeptiere die Datenschutzerklärung."),
   _trap: z.string().max(0).optional(),
 });
 
@@ -63,7 +63,7 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="card-surface flex flex-col items-center rounded-[var(--radius-lg)] p-10 text-center">
-        <div className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gold/15 text-gold">
+        <div className="mb-5 inline-flex h-16 w-16 items-center justify-center border border-cyan/30 bg-cyan/10 text-cyan">
           <CheckCircle2 className="size-8" aria-hidden />
         </div>
         <h3 className="font-display text-2xl font-medium text-foreground">
@@ -104,7 +104,7 @@ export function ContactForm() {
           <Label htmlFor="cf-name">Name *</Label>
           <Input
             id="cf-name"
-            placeholder="Ihr Name"
+            placeholder="Dein Name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "cf-name-error" : undefined}
             {...register("name")}
@@ -121,7 +121,7 @@ export function ContactForm() {
           </Label>
           <Input
             id="cf-company"
-            placeholder="Ihr Unternehmen"
+            placeholder="Dein Unternehmen"
             {...register("company")}
           />
         </div>
@@ -161,7 +161,7 @@ export function ContactForm() {
         <Label htmlFor="cf-package">Paket auswählen</Label>
         <select
           id="cf-package"
-          className="h-11 w-full rounded-full border border-border-strong bg-surface px-4 text-sm text-foreground placeholder:text-muted-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+          className="h-12 w-full border border-border bg-surface px-4 text-sm text-foreground placeholder:text-muted-2 transition-colors duration-300 focus-visible:border-violet-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2/40"
           {...register("package")}
         >
           <option value="">Paket wählen…</option>
@@ -177,7 +177,7 @@ export function ContactForm() {
         <Label htmlFor="cf-message">Nachricht *</Label>
         <Textarea
           id="cf-message"
-          placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihr aktuelles Website-Problem…"
+          placeholder="Beschreib kurz dein Anliegen oder dein aktuelles Website-Problem…"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "cf-message-error" : undefined}
           {...register("message")}
@@ -195,14 +195,14 @@ export function ContactForm() {
           <input
             id="cf-privacy"
             type="checkbox"
-            className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border border-border-strong bg-surface accent-teal focus-visible:ring-2 focus-visible:ring-teal"
+            className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded-none border border-border-strong bg-surface accent-violet focus-visible:ring-2 focus-visible:ring-violet-2"
             aria-describedby={errors.privacy ? "cf-privacy-error" : undefined}
             {...register("privacy")}
           />
           <Label htmlFor="cf-privacy" className="cursor-pointer text-sm leading-relaxed">
             Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
             verarbeitet werden. Details in der{" "}
-            <a href="/datenschutz" className="text-gold underline-offset-2 hover:underline">
+            <a href="/datenschutz" className="text-cyan underline-offset-2 hover:underline">
               Datenschutzerklärung
             </a>
             . *
@@ -235,7 +235,7 @@ export function ContactForm() {
           </>
         ) : (
           <>
-            Kostenlose Analyse anfragen →
+            Erstgespräch anfragen →
             <Send aria-hidden />
           </>
         )}

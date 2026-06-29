@@ -1,13 +1,15 @@
+import type { Metadata } from 'next'
+
 import { Section, SectionHeading } from '@/components/Section'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Datenschutz | Güler.dev',
-  robots: 'noindex, nofollow',
+  robots: { index: false, follow: false },
 }
 
 export default function Datenschutz() {
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <div className="grain" />
       <Section className="py-32">
         <div className="max-w-2xl">
@@ -97,6 +99,6 @@ export default function Datenschutz() {
           </div>
         </div>
       </Section>
-    </main>
+    </div>
   )
 }

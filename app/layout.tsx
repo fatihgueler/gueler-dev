@@ -41,13 +41,19 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
+    // Lokaler Anker (Standort Hannover)
     "Webdesign Hannover",
+    "Webentwickler Hannover",
     "Website erstellen lassen Hannover",
-    "Freelancer Webentwickler Hannover",
+    // Deutschlandweiter Service
+    "Webdesign Deutschland",
+    "Webentwickler Deutschland",
+    "Website erstellen lassen",
+    "Freelance Webentwickler",
     "Website für kleine Unternehmen",
-    "Next.js Entwickler Hannover",
-    "KMU Website Hannover",
-    "Webentwicklung Hannover",
+    "Webdesign für Selbstständige",
+    "KMU Website",
+    "Next.js Entwickler",
     "One Pager Website",
   ],
   authors: [{ name: site.ownerName, url: siteUrl }],
@@ -105,7 +111,7 @@ const jsonLd = {
         addressRegion: "Niedersachsen",
         addressCountry: "DE",
       },
-      areaServed: "DE",
+      areaServed: { "@type": "Country", name: "Deutschland" },
       priceRange: "ab 500 €",
       serviceType: ["Webentwicklung", "Webdesign", "KI-Integration", "Web-Apps"],
       openingHoursSpecification: {
@@ -188,7 +194,7 @@ export default function RootLayout({
         <ThemeProvider>
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-violet focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-none focus:bg-violet focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
           >
             Zum Inhalt springen
           </a>

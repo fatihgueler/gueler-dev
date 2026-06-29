@@ -39,7 +39,8 @@
   --color-surface-2: #181826;
   --color-foreground: #f1f5f9;
   --color-muted: #94a3b8;
-  --color-muted-2: #64748b;
+  /* #64748b reißt 4.5:1 auf #04040a (a11y). Auf ~6:1 gehoben (= Light-Token). */
+  --color-muted-2: #8a8a9a;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.14);
 
@@ -49,9 +50,11 @@
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
   /* ── Radius ──────────────────────────────────────────────── */
-  --radius: 0.85rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
+  /* Eckig-editoriales System: scharfe Kanten global (matcht die Homepage).
+     Ein zentraler Hebel – alle rounded-[var(--radius*)]-Flächen werden eckig. */
+  --radius: 0rem;
+  --radius-lg: 0rem;
+  --radius-xl: 0rem;
 
   /* ── Spacing (fluid) ─────────────────────────────────────── */
   --space-section: clamp(5rem, 3.5rem + 7vw, 11rem);
@@ -130,6 +133,10 @@ html.light {
   --shadow-lg: 0 30px 70px -34px rgba(14, 14, 20, 0.22);
 }
 
+/* Die 3D-Signalfeld-Szene ist jetzt theme-aware (liest die CSS-Tokens, Fog in
+   der Hintergrundfarbe) und läuft in BEIDEN Modi auf voller Stärke – kein
+   Dimm-Hack mehr nötig. */
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -182,6 +189,21 @@ html.light {
   }
 }
 
+/* Signal-Herzschlag: das "Dein Signal ist live"-Pulsieren des Marken-Ticks.
+   Greift den pulsierenden Signal-Knoten aus dem Hero auf – ein roter Faden
+   durch die ganze Seite. Bewusst ruhig (nur Glow + Opazität, kein Skalieren). */
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    box-shadow: 0 0 5px rgba(34, 211, 238, 0.55);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.95);
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────
    Base
    ───────────────────────────────────────────────────────────── */
@@ -191,8 +213,10 @@ html.light {
     border-color: var(--color-border);
   }
 
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   html.lenis,
@@ -285,6 +309,79 @@ html.light {
 
   .text-gradient-gold {
     color: var(--color-cyan-2);
+  }
+
+  /* ── Signal-Zeile (Hero) ─────────────────────────────────────
+     Die Akzentzeile IST das Signal: solides Cyan, das aufglüht,
+     sobald der Such-Strahl in der 3D-Szene auf dem Signal einrastet
+     (data-found). Kein Verlauf – Betonung über Farbe + Glow. */
+  .signal-line {
+    color: var(--color-cyan-2);
+    /* Focus-Pull: rackt beim "Fund" optisch scharf (Bricolage opsz-Achse).
+       wght fest auf 600, damit das Gewicht nicht abfällt. */
+    font-variation-settings: "wght" 600, "opsz" 30;
+    transition:
+      text-shadow 0.45s var(--ease-out-expo, ease),
+      filter 0.45s var(--ease-out-expo, ease),
+      font-variation-settings 0.6s var(--ease-out-expo, ease);
+  }
+
+  .signal-line[data-found="true"] {
+    font-variation-settings: "wght" 600, "opsz" 48;
+    text-shadow:
+      0 0 26px rgba(34, 211, 238, 0.55),
+      0 0 64px rgba(34, 211, 238, 0.22);
+    filter: brightness(1.08);
+  }
+
+  /* Light-Mode: helles Cyan #22d3ee reißt auf Papier 4.5:1 – auf Cyan-Deep
+     wechseln und den Glow weglassen (würde auf Papier auswaschen). Der "Fund"
+     zeigt sich hier allein über den Focus-Pull. */
+  html.light .signal-line {
+    color: #0891b2;
+  }
+  html.light .signal-line[data-found="true"] {
+    text-shadow: none;
+    filter: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signal-line {
+      transition: none;
+    }
+  }
+
+  /* Theme-aware Lesbarkeits-Scrim hinter der Hero-Headline (nutzt die
+     Hintergrundfarbe des aktiven Themes – funktioniert in Light UND Dark). */
+  .hero-scrim {
+    background: radial-gradient(
+      ellipse 56% 46% at 50% 44%,
+      color-mix(in srgb, var(--color-background) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-background) 58%, transparent) 42%,
+      transparent 74%
+    );
+  }
+
+  /* Split-Scrim: links verankert, läuft nach rechts aus, damit der
+     Partikel-Effekt rechts atmet und die Headline links lesbar bleibt. */
+  .hero-scrim-split {
+    background: linear-gradient(
+      98deg,
+      color-mix(in srgb, var(--color-background) 92%, transparent) 0%,
+      color-mix(in srgb, var(--color-background) 72%, transparent) 42%,
+      transparent 66%
+    );
+  }
+
+  /* Statische Hero-Aura (nur als Fallback bei reduced-motion / Mobile, wenn
+     die WebGL-Szene nicht läuft). Dezent und in beiden Themes vertretbar. */
+  .hero-aura {
+    background: radial-gradient(
+      ellipse 58% 52% at 50% 42%,
+      color-mix(in srgb, var(--color-violet) 22%, transparent) 0%,
+      color-mix(in srgb, var(--color-cyan) 8%, transparent) 46%,
+      transparent 72%
+    );
   }
 
   /* ── Outline-Text ────────────────────────────────────────── */
@@ -408,6 +505,15 @@ html.light {
     transform: translateY(0);
   }
 
+  /* No-JS / Headless: Reveal darf Inhalt nicht verstecken, wenn der
+     IntersectionObserver nie feuert (a11y — Inhalt muss ohne JS sichtbar sein). */
+  @media (scripting: none) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* ── Marquee ─────────────────────────────────────────────── */
   .animate-marquee {
     animation: marquee 38s linear infinite;
@@ -517,6 +623,34 @@ html.light {
       rgba(14, 14, 20, 0.08) 1px,
       transparent 1px
     );
+  }
+
+  html.light .showcase-bg {
+    background-color: #f0eefa;
+    background-image:
+      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(124, 58, 237, 0.1), transparent 70%),
+      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(6, 182, 212, 0.08), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(124, 58, 237, 0.05), transparent 70%);
+  }
+
+  html.light .glow-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    border-color: rgba(124, 58, 237, 0.15);
+    box-shadow:
+      0 0 0 1px rgba(124, 58, 237, 0.06),
+      0 8px 30px -12px rgba(14, 14, 20, 0.14);
+  }
+
+  html.light .glow-card:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+
+  html.light .glow-card::after {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.25),
+      0 0 30px -8px rgba(124, 58, 237, 0.25),
+      0 0 60px -20px rgba(6, 182, 212, 0.2),
+      0 20px 50px -20px rgba(14, 14, 20, 0.18);
   }
 }
 

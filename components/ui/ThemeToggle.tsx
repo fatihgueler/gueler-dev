@@ -4,18 +4,14 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-
 /**
- * Barrierefreier Light/Dark-Umschalter.
- *
- * Vor dem Mounten ist `resolvedTheme` unbekannt – wir rendern dann einen
- * neutralen Platzhalter gleicher Größe (kein Layout-Shift, keine
- * Hydration-Mismatch-Warnung).
+ * ThemeToggle — wechselt zwischen dark (Default) und light.
+ * Mounted-Guard verhindert Hydration-Mismatch (next-themes kennt das
+ * aufgelöste Theme erst clientseitig).
  */
-export function ThemeToggle({ className }: { className?: string }) {
-  const [mounted, setMounted] = React.useState(false);
+export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -30,23 +26,20 @@ export function ThemeToggle({ className }: { className?: string }) {
           ? isDark
             ? "Zu hellem Design wechseln"
             : "Zu dunklem Design wechseln"
-          : "Design umschalten"
+          : "Design wechseln"
       }
-      className={cn(
-        "inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-violet-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2",
-        className,
-      )}
-      data-cursor="hover"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-none text-muted transition-colors hover:text-violet-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
-      {mounted ? (
-        isDark ? (
-          <Sun className="size-[18px]" aria-hidden />
-        ) : (
-          <Moon className="size-[18px]" aria-hidden />
-        )
-      ) : (
-        <span className="size-[18px]" aria-hidden />
-      )}
+      {/* Beide Icons gerendert; nur das passende ist sichtbar — verhindert
+          Layout-Shift und SSR/Client-Flacker vor dem Mount. */}
+      <Sun
+        className={mounted && !isDark ? "size-5" : "hidden"}
+        aria-hidden
+      />
+      <Moon
+        className={!mounted || isDark ? "size-5" : "hidden"}
+        aria-hidden
+      />
     </button>
   );
 }

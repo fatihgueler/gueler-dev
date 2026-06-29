@@ -6,11 +6,12 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 /**
  * Theme-Provider auf Basis von next-themes.
  *
- * - `attribute="class"` → setzt `class="light"`/`class="dark"` am <html>
- * - `defaultTheme="system"` + `enableSystem` → folgt der OS-Einstellung,
- *   bis der Nutzer manuell umschaltet (Override wird in localStorage gemerkt)
- * - `disableTransitionOnChange` → unterdrückt Farb-Transitions exakt während
- *   des Theme-Wechsels (kein Flackern auf Hover-Elementen)
+ * - `attribute="class"` → setzt `class="light"` bzw. `class="dark"` am <html>.
+ *   Das helle Theme hängt an `html.light` (globals.css), dark ist Default.
+ * - `defaultTheme="light"` + `enableSystem={false}` → Besucher betreten die
+ *   Seite zuerst im hellen Modus; kein Auto-Dark für Dunkel-OS.
+ *   Über den ThemeToggle kann jede:r bewusst auf Dark wechseln.
+ * - `disableTransitionOnChange` → unterdrückt Farb-Transitions (kein Flackern).
  *
  * Das Anti-FOUC-Script injiziert next-themes selbst vor der Hydration;
  * dafür trägt das <html> `suppressHydrationWarning`.
@@ -23,8 +24,8 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="light"
+      enableSystem={false}
       disableTransitionOnChange
     >
       {children}

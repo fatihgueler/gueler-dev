@@ -2,122 +2,138 @@ import * as React from "react";
 import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
 import { booking, contact, site } from "@/lib/content";
-import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/animation/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { BookingButton } from "@/components/ui/BookingButton";
 
 export function Contact() {
   return (
-    <Section id="kontakt" className="relative overflow-hidden">
-      <div className="gold-glow pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-      <div className="relative grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-        {/* Info-Spalte */}
-        <Reveal>
-          <SectionHeading
-            eyebrow={contact.eyebrow}
-            title={contact.title}
-            subtitle={contact.subtitle}
-          />
-
-          <div className="mt-10 space-y-5">
-            <a
-              href={`mailto:${site.email}`}
-              className="group flex items-center gap-4"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
-                <Mail className="size-5" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-2">
-                  E-Mail
-                </span>
-                <span className="text-foreground transition-colors group-hover:text-gold">
-                  {site.email}
-                </span>
-              </span>
-            </a>
-
-            <a
-              href={`tel:${site.phone}`}
-              className="group flex items-center gap-4"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
-                <Phone className="size-5" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-2">
-                  Telefon
-                </span>
-                <span className="text-foreground transition-colors group-hover:text-gold">
-                  {site.phone}
-                </span>
-              </span>
-            </a>
-
-            <div className="flex items-center gap-4">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold">
-                <MapPin className="size-5" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-2">
-                  Standort
-                </span>
-                <span className="text-foreground">{site.location}</span>
-              </span>
+    <section id="kontakt" className="relative py-24 md:py-36">
+      <div className="mx-auto w-full max-w-7xl px-6">
+        <div className="relative grid gap-16 lg:grid-cols-[1fr_1.1fr]">
+          {/* Info column */}
+          <Reveal>
+            <div className="mb-12">
+              <p
+                className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
+                style={{ textTransform: "uppercase" }}
+              >
+                {contact.eyebrow}
+              </p>
+              <h2
+                className="font-display font-black tracking-tighter text-foreground"
+                style={{
+                  fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                  lineHeight: 1.0,
+                  letterSpacing: "-0.03em",
+                  maxWidth: "16ch",
+                }}
+              >
+                {contact.title}
+              </h2>
+              <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted">
+                {contact.subtitle}
+              </p>
             </div>
 
-            <div className="flex items-center gap-4">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold">
-                <Clock className="size-5" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-2">
-                  Antwortzeit
+            <div className="border-t border-border">
+              <a
+                href={`mailto:${site.email}`}
+                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+              >
+                <Mail className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <span>
+                  <span
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    E-Mail
+                  </span>
+                  <span className="text-sm text-foreground">{site.email}</span>
                 </span>
-                <span className="text-foreground">meist innerhalb 24 Std.</span>
-              </span>
+              </a>
+
+              <a
+                href={`tel:${site.phone}`}
+                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+              >
+                <Phone className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <span>
+                  <span
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    Telefon
+                  </span>
+                  <span className="text-sm text-foreground">{site.phone}</span>
+                </span>
+              </a>
+
+              <div className="flex items-center gap-4 border-b border-border py-5">
+                <MapPin className="size-5 shrink-0 text-muted" aria-hidden />
+                <span>
+                  <span
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    Standort
+                  </span>
+                  <span className="text-sm text-foreground">{site.location}</span>
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4 border-b border-border py-5">
+                <Clock className="size-5 shrink-0 text-muted" aria-hidden />
+                <span>
+                  <span
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    Antwortzeit
+                  </span>
+                  <span className="text-sm text-foreground">meist innerhalb 24 Std.</span>
+                </span>
+              </div>
+
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+              >
+                <Github className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <span>
+                  <span
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    GitHub
+                  </span>
+                  <span className="text-sm text-foreground">@fatihgueler</span>
+                </span>
+              </a>
             </div>
 
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-gold transition-colors group-hover:border-gold-deep">
-                <Github className="size-5" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-2">
-                  GitHub
-                </span>
-                <span className="text-foreground transition-colors group-hover:text-gold">
-                  @fatihgueler
-                </span>
-              </span>
-            </a>
-          </div>
+            {/* Booking */}
+            <div className="mt-10 border border-border p-7">
+              <h3 className="font-display text-xl font-semibold text-foreground">
+                {booking.title}
+              </h3>
+              <p className="mt-2 font-mono text-sm leading-relaxed text-muted">
+                {booking.subtitle}
+              </p>
+              <BookingButton className="mt-5 w-full sm:w-auto">
+                {booking.ctaLabel}
+              </BookingButton>
+            </div>
+          </Reveal>
 
-          {/* Terminbuchung via Cal.com */}
-          <div className="card-surface mt-10 rounded-[var(--radius-lg)] p-7">
-            <h3 className="font-display text-xl font-semibold text-foreground">
-              {booking.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              {booking.subtitle}
-            </p>
-            <BookingButton className="mt-5 w-full sm:w-auto">
-              {booking.ctaLabel}
-            </BookingButton>
-          </div>
-        </Reveal>
-
-        {/* Formular */}
-        <Reveal delay={0.12}>
-          <ContactForm />
-        </Reveal>
+          {/* Form */}
+          <Reveal delay={0.12}>
+            <ContactForm />
+          </Reveal>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

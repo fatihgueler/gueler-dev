@@ -23,7 +23,7 @@ export function PageHero({ eyebrow, title, subtitle, children }: PageHeroProps) 
 
       <div className="relative mx-auto max-w-5xl">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground [text-wrap:balance] sm:text-5xl md:text-6xl">
           <TextReveal text={title} className="block" />
         </h1>
         {subtitle && (

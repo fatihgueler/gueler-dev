@@ -11,32 +11,34 @@ const HeroScene = dynamic(
 );
 
 export function HeroSceneLoader({ className }: { className?: string }) {
-  const [isDesktop, setIsDesktop] = React.useState(false);
+  // Die WebGL-Szene läuft nur auf Desktop UND ohne prefers-reduced-motion.
+  // Bei reduced-motion bleiben die statischen Cherenkov-Glows als Fallback
+  // (PRODUCT.md: jedes 3D-Element braucht eine reduced-motion-Alternative).
+  const [animate, setAnimate] = React.useState(false);
 
   React.useEffect(() => {
-    const query = window.matchMedia(`(min-width: ${DESKTOP_BREAKPOINT}px)`);
-    const update = () => setIsDesktop(query.matches);
+    const desktop = window.matchMedia(`(min-width: ${DESKTOP_BREAKPOINT}px)`);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setAnimate(desktop.matches && !reduce.matches);
     update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    desktop.addEventListener("change", update);
+    reduce.addEventListener("change", update);
+    return () => {
+      desktop.removeEventListener("change", update);
+      reduce.removeEventListener("change", update);
+    };
   }, []);
 
   return (
     <div className={className} aria-hidden>
-      {/* Cherenkov-Glow: tiefer Violett-Kern mit Cyan-Halo */}
-      <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_42%,rgba(124,58,237,0.50)_0%,rgba(139,92,246,0.22)_28%,rgba(6,182,212,0.10)_52%,transparent_72%)]"
-        aria-hidden
-      />
-      {/* Atmosphärischer Sekundär-Haze für Tiefenwirkung */}
-      <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_40%_35%_at_62%_55%,rgba(6,182,212,0.07)_0%,transparent_60%)]"
-        aria-hidden
-      />
-      {isDesktop && (
+      {animate ? (
+        // Theme-aware 3D-Szene; clear-alpha 0 → der Theme-Grund scheint durch.
         <div className="absolute inset-0">
           <HeroScene />
         </div>
+      ) : (
+        // Statischer, theme-tauglicher Fallback (reduced-motion / Mobile).
+        <div className="hero-aura absolute inset-0" aria-hidden />
       )}
     </div>
   );

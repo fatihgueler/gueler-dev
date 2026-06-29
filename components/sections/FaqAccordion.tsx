@@ -2,26 +2,14 @@
 
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 
 import { faq } from "@/lib/content";
-import {
-  Reveal,
-  RevealGroup,
-  RevealItem,
-  WordReveal,
-} from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { cn } from "@/lib/utils";
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.items.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer },
-  })),
-};
+// FAQPage-JSON-LD wird serverseitig in app/page.tsx ausgegeben (zuverlässig
+// für Crawler + KI-Antwortmaschinen / GEO), nicht hier im Client-Component.
 
 function FaqItem({
   question,
@@ -53,8 +41,8 @@ function FaqItem({
         <m.span
           aria-hidden
           className={cn(
-            "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors",
-            isOpen ? "border-violet text-violet-3" : "border-border text-muted",
+            "inline-flex h-8 w-8 shrink-0 items-center justify-center border transition-colors",
+            isOpen ? "border-violet bg-violet/5 text-violet-3" : "border-border text-muted",
           )}
           animate={{ rotateZ: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -85,34 +73,48 @@ function FaqItem({
 
 export function FaqAccordion() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
+  const reduceMotion = useReducedMotion();
 
   return (
     <section id="faq" className="relative py-24 md:py-32">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 lg:grid-cols-[1fr_1.6fr]">
         <div>
           <Reveal variant="fadeIn">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-cyan">
+            <p
+              className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
+              style={{ textTransform: "uppercase" }}
+            >
               {faq.eyebrow}
             </p>
           </Reveal>
-          <WordReveal
-            text={faq.title}
-            className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl"
-          />
+          <Reveal variant="fadeUp" delay={0.05}>
+            <h2
+              className="font-display font-black tracking-tighter text-foreground"
+              style={{
+                fontSize: "clamp(2.2rem, 5vw, 4rem)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              {faq.title}
+            </h2>
+          </Reveal>
           <Reveal delay={0.15}>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+            <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted">
               {faq.subtitle}
             </p>
           </Reveal>
         </div>
 
-        <RevealGroup className="border-t border-border" stagger={0.08}>
+        <div className="border-t border-border">
           {faq.items.map((item, i) => (
-            <RevealItem key={item.question}>
+            <m.div
+              key={item.question}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={{ duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            >
               <FaqItem
                 index={i}
                 question={item.question}
@@ -120,9 +122,9 @@ export function FaqAccordion() {
                 isOpen={openIndex === i}
                 onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               />
-            </RevealItem>
+            </m.div>
           ))}
-        </RevealGroup>
+        </div>
       </div>
     </section>
   );

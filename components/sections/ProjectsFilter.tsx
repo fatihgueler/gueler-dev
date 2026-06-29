@@ -35,7 +35,7 @@ export function ProjectsFilter() {
               type="button"
               onClick={() => setActive(category)}
               className={cn(
-                "relative rounded-full border border-transparent px-4 py-2 font-mono text-xs font-medium uppercase tracking-wide transition-colors",
+                "relative rounded-none border border-transparent px-4 py-2 font-mono text-xs font-medium uppercase tracking-wide transition-colors",
                 active === category
                   ? "text-teal"
                   : "border-border text-muted hover:border-teal-deep hover:text-foreground",
@@ -45,7 +45,7 @@ export function ProjectsFilter() {
                 <m.span
                   layoutId="active-category"
                   transition={REFLOW_SPRING}
-                  className="absolute inset-0 rounded-full border border-teal bg-teal/10"
+                  className="absolute inset-0 rounded-none border border-teal bg-teal/10"
                   aria-hidden
                 />
               )}
@@ -91,7 +91,7 @@ export function ProjectsFilter() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${project.title} auf GitHub`}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
                       >
                         <Github className="size-4" />
                       </a>
@@ -102,7 +102,7 @@ export function ProjectsFilter() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${project.title} live ansehen`}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
                       >
                         <ArrowUpRight className="size-4" />
                       </a>
@@ -123,7 +123,7 @@ export function ProjectsFilter() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-border bg-background px-3 py-1 font-mono text-xs font-medium text-muted"
+                      className="rounded-none border border-border bg-background px-3 py-1 font-mono text-xs font-medium text-muted"
                     >
                       {tag}
                     </span>

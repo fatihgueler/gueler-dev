@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Globe, Layers, Sparkles, type LucideIcon } from "lucide-react";
+import { Globe, Layers, Zap, type LucideIcon } from "lucide-react";
 import {
   m,
   useReducedMotion,
@@ -11,15 +11,14 @@ import {
 } from "framer-motion";
 
 import { services } from "@/lib/content";
-import { WordReveal } from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 const ICONS: Record<string, LucideIcon> = {
   Globe,
-  Sparkles,
+  Sparkles: Zap,
   Layers,
 };
 
-// Die ersten drei Leistungs-Säulen als durchwechselnde Story-Panels
 const PANELS = services.items.slice(0, 3);
 
 function StoryPanel({
@@ -37,7 +36,6 @@ function StoryPanel({
   const start = index * segment;
   const end = start + segment;
 
-  // Panel blendet in seinem Scroll-Abschnitt ein und wieder aus
   const opacity = useTransform(
     progress,
     index === 0
@@ -52,17 +50,28 @@ function StoryPanel({
   );
 
   const Icon = ICONS[item.icon] ?? Globe;
+  const panelNumber = String(index + 1).padStart(2, "0");
 
   return (
     <m.div
       style={{ opacity, y }}
       className="absolute inset-0 flex flex-col justify-center"
     >
-      <div className="glass rounded-[var(--radius-xl)] p-8 md:p-10">
-        <span className="inline-flex h-14 w-14 items-center justify-center rounded-[var(--radius)] border border-violet/40 bg-violet/10 text-violet-3">
-          <Icon className="size-6" aria-hidden />
-        </span>
-        <h3 className="mt-6 font-display text-2xl font-semibold text-foreground md:text-3xl">
+      <div className="border border-border bg-background p-8 md:p-10">
+        <div className="mb-6 flex items-center gap-4">
+          <span
+            className="font-mono text-xs tracking-[0.3em] text-muted"
+            style={{ textTransform: "uppercase" }}
+          >
+            {panelNumber}
+          </span>
+          <span className="h-px flex-1 bg-border" aria-hidden />
+          <Icon className="size-5 text-violet-3" aria-hidden />
+        </div>
+        <h3
+          className="font-display font-bold tracking-tight text-foreground"
+          style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
+        >
           {item.title}
         </h3>
         <p className="mt-4 text-base leading-relaxed text-muted">
@@ -70,8 +79,8 @@ function StoryPanel({
         </p>
         <ul className="mt-6 space-y-2.5">
           {item.points.map((point) => (
-            <li key={point} className="flex items-center gap-3 text-sm text-muted">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan" aria-hidden />
+            <li key={point} className="flex items-center gap-3 font-mono text-xs text-muted">
+              <span className="h-px w-4 shrink-0 bg-cyan" aria-hidden />
               {point}
             </li>
           ))}
@@ -81,11 +90,6 @@ function StoryPanel({
   );
 }
 
-/**
- * Sticky-Storytelling: Das große Statement bleibt beim Scrollen stehen,
- * während rechts die Leistungs-Panels nacheinander durchwechseln
- * (position: sticky + Framer-Motion-Scroll-Progress).
- */
 export function StickyStory() {
   const sectionRef = React.useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -96,23 +100,31 @@ export function StickyStory() {
   });
   const progressScaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  // Reduced Motion / einfaches Fallback: statische Liste statt Sticky-Scroll
   if (shouldReduceMotion) {
     return (
-      <section aria-label={services.title} className="relative py-24 md:py-32">
+      <section id="loesung" aria-label={services.title} className="relative py-24 md:py-32">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="max-w-2xl font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground md:text-5xl">
+          <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
+            Leistungen
+          </p>
+          <p
+            className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
+            style={{ textTransform: "uppercase" }}
+          >
+            Was ich anbiete
+          </p>
+          <h2
+            className="max-w-2xl font-display font-black tracking-tighter text-foreground"
+            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", lineHeight: 1.0, letterSpacing: "-0.03em" }}
+          >
             {services.title}
           </h2>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {PANELS.map((item) => {
               const Icon = ICONS[item.icon] ?? Globe;
               return (
-                <article
-                  key={item.title}
-                  className="glass rounded-[var(--radius-xl)] p-8"
-                >
-                  <Icon className="size-6 text-violet-3" aria-hidden />
+                <article key={item.title} className="border border-border bg-background p-8">
+                  <Icon className="size-5 text-violet-3" aria-hidden />
                   <h3 className="mt-5 font-display text-xl font-semibold text-foreground">
                     {item.title}
                   </h3>
@@ -130,31 +142,49 @@ export function StickyStory() {
 
   return (
     <section
+      id="loesung"
       ref={sectionRef}
       aria-label={services.title}
       className="relative h-[320vh]"
     >
       <div className="sticky top-0 flex min-h-screen items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2 md:gap-20">
-          {/* Sticky-Statement (bleibt stehen) */}
+          {/* Sticky statement */}
           <div>
-            <WordReveal
-              text={services.title}
-              className="font-display text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl"
-            />
-            <p className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg">
+            <Reveal variant="fadeIn">
+              <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
+                Leistungen
+              </p>
+              <p
+                className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
+                style={{ textTransform: "uppercase" }}
+              >
+                Was ich anbiete
+              </p>
+            </Reveal>
+            <h2
+              className="font-display font-black tracking-tighter text-foreground"
+              style={{
+                fontSize: "clamp(2.2rem, 5vw, 4.5rem)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              {services.title}
+            </h2>
+            <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted">
               {services.subtitle}
             </p>
-            {/* Scroll-Fortschritt */}
-            <div className="mt-10 h-1 w-48 overflow-hidden rounded-full bg-surface-2">
+            {/* Progress indicator */}
+            <div className="relative mt-10 h-px w-48 bg-border">
               <m.div
-                className="h-full origin-left rounded-full bg-gradient-to-r from-violet to-cyan"
+                className="absolute inset-y-0 left-0 origin-left bg-violet-3"
                 style={{ scaleX: progressScaleX }}
               />
             </div>
           </div>
 
-          {/* Durchwechselnde Panels */}
+          {/* Switching panels */}
           <div className="relative h-[26rem] md:h-[30rem]">
             {PANELS.map((item, i) => (
               <StoryPanel

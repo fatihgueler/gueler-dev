@@ -83,10 +83,10 @@ varying vec3 vNormal;
 varying vec3 vViewPosition;
 void main() {
   vec3 viewDir = normalize(vViewPosition);
-  float fresnel = pow(1.0 - clamp(dot(viewDir, normalize(vNormal)), 0.0, 1.0), 2.4);
+  float fresnel = pow(1.0 - clamp(dot(viewDir, normalize(vNormal)), 0.0, 1.0), 2.0);
   vec3 base = mix(uColorA, uColorB, smoothstep(-0.35, 0.55, vNoise));
-  vec3 color = mix(base, uColorC, fresnel * 0.75);
-  color += fresnel * 0.55 * uColorB;
+  vec3 color = mix(base, uColorC, fresnel * 0.9);
+  color += fresnel * 0.85 * uColorB;
   gl_FragColor = vec4(color, 1.0);
 }
 `;
@@ -103,7 +103,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     0.1,
     100,
   );
-  camera.position.set(0, 0, 5.2);
+  camera.position.set(0, 0, 4.6);
 
   const renderer = new THREE.WebGLRenderer({
     canvas,
@@ -118,12 +118,12 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   scene.add(group);
 
   // Organischer Orb mit Noise-Displacement + Fresnel
-  const geometry = new THREE.IcosahedronGeometry(1.5, 32);
+  const geometry = new THREE.IcosahedronGeometry(1.85, 32);
   const uniforms = {
     uTime: { value: 0 },
     uDisplacement: { value: 0.18 },
-    uColorA: { value: new THREE.Color("#0e0522") },
-    uColorB: { value: new THREE.Color("#7c3aed") },
+    uColorA: { value: new THREE.Color("#2d0f6e") },
+    uColorB: { value: new THREE.Color("#8b5cf6") },
     uColorC: { value: new THREE.Color("#22d3ee") },
   };
   const material = new THREE.ShaderMaterial({
@@ -135,12 +135,12 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   group.add(orb);
 
   // Feiner Wireframe-Mantel für Tiefe
-  const shellGeometry = new THREE.IcosahedronGeometry(2.05, 2);
+  const shellGeometry = new THREE.IcosahedronGeometry(2.6, 2);
   const shellMaterial = new THREE.MeshBasicMaterial({
-    color: new THREE.Color("#8b5cf6"),
+    color: new THREE.Color("#a78bfa"),
     wireframe: true,
     transparent: true,
-    opacity: 0.08,
+    opacity: 0.12,
   });
   const shell = new THREE.Mesh(shellGeometry, shellMaterial);
   group.add(shell);
@@ -186,6 +186,17 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
 
     shell.rotation.y = -elapsed * 0.05;
     shell.rotation.z = elapsed * 0.03;
+
+    // Scroll-Reaktion: Der Orb zieht sich in die Tiefe zurück und der
+    // Wireframe-Mantel verblasst, während der Leser ins Narrativ scrollt –
+    // das Instrument "fährt herunter", die Geschichte übernimmt.
+    const scrollFraction = Math.min(
+      window.scrollY / Math.max(window.innerHeight, 1),
+      1,
+    );
+    camera.position.z = lerp(camera.position.z, 4.6 + scrollFraction * 2.4, 0.06);
+    group.scale.setScalar(lerp(group.scale.x, 1 - scrollFraction * 0.14, 0.06));
+    shellMaterial.opacity = 0.12 * (1 - scrollFraction);
 
     renderer.render(scene, camera);
     frameId = window.requestAnimationFrame(animate);
