@@ -129,22 +129,20 @@ uniform vec3 uCyan;
 uniform vec3 uInk;
 varying float vCore;
 varying float vHue;
-vec3 hsv2rgb(vec3 c){
-  vec4 K = vec4(1.0, 2.0/3.0, 1.0/3.0, 3.0);
-  vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-  return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-}
 void main() {
   float d = length(gl_PointCoord - 0.5);
   if (d > 0.5) discard;
   float soft = smoothstep(0.5, 0.0, d);
 
   vec3 coreCol = mix(uViolet, uCyan, vHue);
-  vec3 spectral = hsv2rgb(vec3(vHue, 0.85, 1.0));
+  // Vereinzelte reine Lichtfunken statt Regenbogen-Konfetti: die meisten
+  // Staub-Partikel bleiben im Marken-Gradienten, nur ~8% blitzen weiß auf.
+  float sparkle = step(0.92, fract(vHue * 7.13));
+  vec3 spectral = mix(coreCol * 0.9, vec3(1.0), sparkle * 0.7);
   vec3 darkCol = (vCore > 0.5) ? coreCol * 1.6 : spectral;
 
-  vec3 jewel = hsv2rgb(vec3(vHue, 0.62, 0.4));
-  vec3 lightCol = (vCore > 0.5) ? mix(coreCol, uInk, 0.05) : mix(uInk, jewel, 0.42);
+  vec3 jewel = mix(coreCol, uInk, 0.25);
+  vec3 lightCol = (vCore > 0.5) ? mix(coreCol, uInk, 0.05) : mix(uInk, jewel, 0.5);
 
   vec3 col = mix(darkCol, lightCol, uMode);
 
@@ -170,6 +168,31 @@ function readTheme(): Theme {
   };
 }
 
+// Marken-Umgebung fürs Glas: statt eines neutral-grauen Studio-Raums
+// (der die Iridiszenz komplett aufzehrt) spiegelt der Kristall einen
+// weichen Violet→Ink→Cyan-Gradienten – dadurch verfärben sich die
+// Reflexionen sichtbar mit den Markenfarben statt flach weiß zu wirken.
+function makeGemEnvScene(THREE: typeof import("three")) {
+  const scene = new THREE.Scene();
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const gradient = ctx.createLinearGradient(0, 0, size, size);
+  gradient.addColorStop(0, "#8b5cf6");
+  gradient.addColorStop(0.35, "#1a1230");
+  gradient.addColorStop(0.65, "#0a0a14");
+  gradient.addColorStop(1, "#22d3ee");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene.background = texture;
+  scene.add(new THREE.HemisphereLight("#22d3ee", "#8b5cf6", 2.2));
+  return { scene, texture };
+}
+
 function makeHalo(THREE: typeof import("three")) {
   const s = 128;
   const cv = document.createElement("canvas");
@@ -187,7 +210,6 @@ function makeHalo(THREE: typeof import("three")) {
 
 async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   const THREE = await import("three");
-  const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
 
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
@@ -207,9 +229,10 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   renderer.setSize(w, h, false);
   renderer.setClearAlpha(0);
 
-  // Env-Map (Studio) für die Glas-Reflexionen
+  // Env-Map fürs Glas: Marken-Gradient statt neutral-grauem Studio
   const pmrem = new THREE.PMREMGenerator(renderer);
-  const envRT = pmrem.fromScene(new RoomEnvironment(), 0.04);
+  const gemEnv = makeGemEnvScene(THREE);
+  const envRT = pmrem.fromScene(gemEnv.scene, 0.04);
   scene.environment = envRT.texture;
 
   const coreCenter = new THREE.Vector3(2.4, 0.25, 0);
@@ -228,7 +251,9 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     iridescenceThicknessRange: [140, 520],
     color: new THREE.Color("#eef2ff"),
   });
-  const glass = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 0), glassMat);
+  // Detail 2 statt 0: der Kristall braucht sichtbare Facetten, sonst
+  // dominiert bei Kameranähe eine einzelne flache Dreiecksfläche das Bild.
+  const glass = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 2), glassMat);
   glass.position.copy(coreCenter);
   glass.scale.setScalar(0.001);
   scene.add(glass);
@@ -470,6 +495,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
       haloTex.dispose();
       haloMat.dispose();
       envRT.texture.dispose();
+      gemEnv.texture.dispose();
       pmrem.dispose();
       renderer.dispose();
     },
