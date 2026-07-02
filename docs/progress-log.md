@@ -7,6 +7,16 @@
 ## 2026-07-02 — Session 1
 
 ### Done
+- Phase 1 COMPLETE: all six audits persisted in `docs/audits/` (copy-seo,
+  code-health, performance, motion, design, a11y). Convergent verdicts:
+  hero H1 renders at body size (Tailwind extraction bug), LCP gated by
+  entrance animations, light default is the weak+non-AA theme, no visual
+  proof of work anywhere, subpages are the banned template lane, canonical
+  bug de-indexes 8 pages.
+- Phase 2 COMPLETE: `docs/plan.md` — creative direction „Das Signal"
+  (persistent WebGL scroll spine over the existing 5-chapter narrative,
+  dark default, evolved violet/cyan), six workstreams WS0–WS5, decisions
+  record (GSAP dropped, one Reveal, Cal.com/analytics behind env).
 - Phase 1 Copy/SEO audit COMPLETE → `docs/audits/copy-seo-audit.md`. Two
   critical findings: (1) root-layout canonical bug de-indexes 8 pages,
   (2) domain conflict guler.dev vs guelerdev.de in env vs content. Full
