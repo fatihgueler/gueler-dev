@@ -7,6 +7,15 @@
 ## 2026-07-02 — Session 1
 
 ### Done
+- Phase 1 Copy/SEO audit COMPLETE → `docs/audits/copy-seo-audit.md`. Two
+  critical findings: (1) root-layout canonical bug de-indexes 8 pages,
+  (2) domain conflict guler.dev vs guelerdev.de in env vs content. Full
+  Du→Sie scope (~170 edits/14 files), proof-cleanup inventory, dual
+  contradictory package systems found, missing KI landing page identified.
+- Phase 1: other five audits (design, motion, perf, a11y, code health) were
+  interrupted by a session limit at ~11:00 UTC with artifacts saved
+  (screenshots, axe/keyboard JSON, Lighthouse output in scratchpad); all five
+  resumed from transcript at 11:56 UTC and are running.
 - Phase 0 kickoff interview completed (4 rounds). All answers + implications in
   `docs/discovery-brief.md`. Headline decisions: full cinematic 3D direction,
   radical rethink allowed, palette fully open, Sie-form rewrite, placeholder
