@@ -46,16 +46,27 @@
 - Ops note: after any rebuild, kill the old next-server before `npm start` —
   a stale server on :3000 serves 400s for all static assets of the new build.
 
-### In flight (WS0 remainder → then WS1)
-- Reveal consolidation to components/animation/Reveal.tsx + GSAP drop
-  (port SmoothScroll bridge, anim/Reveal, anim/TextReveal to framer/lenis).
-- useSceneEnabled() shared gating hook with device-class probe.
+### Done (Phase 3 / WS0 remainder + WS3 + WS1)
+- Motion consolidation (0f48b04): one Reveal system, GSAP dropped, LCP-safe
+  WordReveal for subpage H1s. First-Load JS: /ueber 252→133 kB.
+- WS3 COMPLETE (fa8e15a): full Sie-form, proof cleanup (§5 UWG), ONE
+  canonical package source (paketeItems) with delivery times + KI price
+  anchor (owner to confirm 3.000 €), voice pass, llms.txt/OG/geo SEO.
+- WS1 COMPLETE (7fcc007): persistent „Das Signal" spine — five-chapter
+  scroll choreography (orbit→dispersal→lattice→clusters→calm+crystal at
+  CTA), adaptive quality via drawRange, DPR 1.5, useSceneEnabled() device
+  gating, mobile 2D-canvas variant (0 kB three.js on phones), DARK default,
+  light crystal env fixed, Sie chapter labels. All chapter positions
+  screenshot-verified against the production build.
 
-### Next
-- WS1 cinematic spine (persistent scroll-driven scene, dark default,
-  light-theme crystal art direction) — see docs/plan.md.
-- WS3 content/copy (Sie-form, proof cleanup, package unification) — can run
-  as parallel subagent once WS0 lands.
+### Next (per docs/plan.md)
+- WS2: subpages join the chapter design language (/leistungen template
+  kill, product frames on home+projekte, /ueber restaging, one header CTA,
+  page transitions).
+- WS4: booking (Cal.com env), cookieless analytics slot, contact-pipeline
+  hardening (rate limit, server errors rendered, German zod messages).
+- WS5: a11y light-token fixes (muted-2 contrast, ChapterProgress focus
+  labels, StoryPitch base /45), font axis trim, Phase 4 full verification.
 
 ### Blocked / owner input needed
 - Cal.com (or similar) account + event link for the booking embed.
