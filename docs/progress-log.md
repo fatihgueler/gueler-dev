@@ -34,14 +34,28 @@
 - (Pre-kickoff) Hero WebGL fix shipped: brand-colored particles + faceted gem
   core in `components/three/SignalField.tsx` (commit 560d8f2).
 
-### In flight
-- Phase 1: parallel audit (design critic, motion, performance, accessibility,
-  copy/SEO, code health) against a production build.
+### Done (Phase 3 / WS0 — foundation)
+- P0 fixes shipped & verified (commit c2d1d7e): hero H1 clamp class restored
+  (renders at display scale, screenshot-verified both themes), LCP un-gated
+  (words paint frame 1, transform-only entrance), per-page canonicals live on
+  all routes (curl-verified), domain corrected to guelerdev.de.
+- Dead-code purge (db9b6fa): 42 files, −4,387 lines, 9 deps removed; live
+  wa.me URL fixed; testimonials/EASE_OUT_EXPO exports removed. Build+lint+tsc clean.
+- Radix per-package imports (4fcb0d6): /ueber 252→179 kB First Load JS.
+  Sheet/accordion/select/checkbox browser-verified working.
+- Ops note: after any rebuild, kill the old next-server before `npm start` —
+  a stale server on :3000 serves 400s for all static assets of the new build.
+
+### In flight (WS0 remainder → then WS1)
+- Reveal consolidation to components/animation/Reveal.tsx + GSAP drop
+  (port SmoothScroll bridge, anim/Reveal, anim/TextReveal to framer/lenis).
+- useSceneEnabled() shared gating hook with device-class probe.
 
 ### Next
-- Phase 2: synthesize audits → `docs/plan.md`, ranked by visitor impact × craft
-  signal, weighted by discovery answers.
-- Phase 3: parallel execution workstreams.
+- WS1 cinematic spine (persistent scroll-driven scene, dark default,
+  light-theme crystal art direction) — see docs/plan.md.
+- WS3 content/copy (Sie-form, proof cleanup, package unification) — can run
+  as parallel subagent once WS0 lands.
 
 ### Blocked / owner input needed
 - Cal.com (or similar) account + event link for the booking embed.
