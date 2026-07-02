@@ -5,6 +5,7 @@ import { Section, SectionHeading } from '@/components/Section'
 export const metadata: Metadata = {
   title: 'Impressum | Güler.dev',
   robots: { index: false, follow: false },
+  alternates: { canonical: '/impressum' },
 }
 
 export default function Impressum() {

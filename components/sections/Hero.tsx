@@ -81,31 +81,35 @@ export function Hero() {
               <span
                 key={line}
                 data-found={isAccentLine && found ? "true" : undefined}
-                className={`block text-[clamp(2.5rem,7vw,5.5rem)]${
-                  isAccentLine ? " signal-line" : ""
-                }`}
+                // Größenklasse NIE per Template-Literal direkt an `${` kleben:
+                // `]${` zerstört Tailwinds Klassen-Extraktion und die Klasse
+                // fehlt im Build-CSS (H1 rendert dann in Body-Größe).
+                className={
+                  "block text-[clamp(2.5rem,7vw,5.5rem)]" +
+                  (isAccentLine ? " signal-line" : "")
+                }
               >
                 {line.split(" ").map((word, i) => {
                   const delay = wordIndex * WORD_STAGGER_SECONDS;
                   wordIndex += 1;
                   return (
-                    // Das Leerzeichen steht AUSSERHALB der overflow-hidden-Maske,
-                    // sonst kappt das Clipping den Wortabstand (Wörter kleben).
+                    // LCP-Vertrag: Die H1 ist das LCP-Element und muss ab dem
+                    // ersten Frame gemalt sein. Wörter starten sichtbar
+                    // (Opacity 1) mit reinem Transform-Versatz – keine
+                    // Opacity-0-Maske, die den LCP um Sekunden verschiebt.
                     <React.Fragment key={`${lineIndex}-${i}`}>
-                      <span className="inline-block overflow-hidden align-bottom">
-                        <m.span
-                          className="inline-block"
-                          initial={{ opacity: 0, y: 70 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.8,
-                            ease: [0.16, 1, 0.3, 1],
-                            delay,
-                          }}
-                        >
-                          {word}
-                        </m.span>
-                      </span>{" "}
+                      <m.span
+                        className="inline-block"
+                        initial={shouldReduceMotion ? false : { y: "0.55em" }}
+                        animate={{ y: 0 }}
+                        transition={{
+                          duration: 0.8,
+                          ease: [0.16, 1, 0.3, 1],
+                          delay,
+                        }}
+                      >
+                        {word}
+                      </m.span>{" "}
                     </React.Fragment>
                   );
                 })}

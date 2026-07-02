@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { faq } from "@/lib/content";
 import { ChapterProgress } from "@/components/ui/ChapterProgress";
 import { Hero } from "@/components/sections/Hero";
@@ -11,6 +13,10 @@ import { Outcomes } from "@/components/sections/Outcomes";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Contact } from "@/components/sections/Contact";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // FAQPage-Schema serverseitig (SSR) für Rich Results + GEO: KI-Antwort-
 // maschinen (ChatGPT, Perplexity, Google AI Overviews) extrahieren Q&A daraus.

@@ -10,6 +10,7 @@ import { Reveal } from "@/components/anim/Reveal";
 export const metadata: Metadata = {
   title: "Kontakt",
   description: pages.kontakt.subtitle,
+  alternates: { canonical: "/kontakt" },
 };
 
 const channels = [

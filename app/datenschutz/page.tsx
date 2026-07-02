@@ -5,6 +5,7 @@ import { Section, SectionHeading } from '@/components/Section'
 export const metadata: Metadata = {
   title: 'Datenschutz | Güler.dev',
   robots: { index: false, follow: false },
+  alternates: { canonical: '/datenschutz' },
 }
 
 export default function Datenschutz() {

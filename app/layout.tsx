@@ -80,9 +80,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: {
-    canonical: siteUrl,
-  },
+  // KEIN alternates.canonical im Root-Layout: Next vererbt Metadata an alle
+  // Seiten – ein globales Canonical erklärt jede Unterseite zur Kopie der
+  // Startseite und de-indexiert sie. Jede Seite setzt ihr eigenes Canonical.
 };
 
 export const viewport: Viewport = {

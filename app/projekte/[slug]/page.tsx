@@ -29,6 +29,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${study.title} – Case Study`,
     description: study.tagline,
+    alternates: { canonical: `/projekte/${study.id}` },
+    openGraph: {
+      title: `${study.title} – Case Study`,
+      description: study.tagline,
+      url: `/projekte/${study.id}`,
+      images: [{ url: "/og", width: 1200, height: 630, alt: study.title }],
+    },
   };
 }
 

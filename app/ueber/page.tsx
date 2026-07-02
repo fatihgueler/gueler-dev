@@ -11,6 +11,7 @@ import { CTA } from "@/components/sections/CTA";
 export const metadata: Metadata = {
   title: "Über mich",
   description: pages.ueber.subtitle,
+  alternates: { canonical: "/ueber" },
 };
 
 export default function UeberPage() {
