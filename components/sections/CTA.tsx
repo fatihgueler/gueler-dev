@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { cta } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
-import { Reveal } from "@/components/anim/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 /** Wiederverwendbarer Call-to-Action-Block mit animiertem Mesh-Hintergrund. */
 export function CTA() {

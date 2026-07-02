@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 
 import { trust } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 const iconMap: Record<string, LucideIcon> = {
   Zap,
@@ -26,7 +26,7 @@ export function Trust() {
         {trust.items.map((item, i) => {
           const Icon = iconMap[item.icon] ?? Zap;
           return (
-            <Reveal key={item.title} delay={i * 90} className="h-full">
+            <Reveal key={item.title} delay={i * 0.09} className="h-full">
               <article className="card-surface group flex h-full flex-col items-start rounded-[var(--radius-lg)] p-7">
                 <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] border border-border bg-background text-gold transition-colors group-hover:border-gold-deep">
                   <Icon className="size-5" />

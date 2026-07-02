@@ -136,6 +136,12 @@ type WordRevealProps = {
   className?: string;
   /** Zusätzliche Start-Verzögerung in Sekunden. */
   delay?: number;
+  /**
+   * LCP-Vertrag für Above-the-fold-Headlines (Seiten-H1): Wörter sind ab dem
+   * ersten Frame gemalt (Opacity 1, ohne Clip-Maske) und setzen nur per
+   * Transform ein. Animiert beim Mount statt whileInView.
+   */
+  lcp?: boolean;
 };
 
 /**
@@ -151,11 +157,49 @@ export function WordReveal({
   as: Tag = "h2",
   className,
   delay = 0,
+  lcp = false,
 }: WordRevealProps) {
   const shouldReduceMotion = useReducedMotion();
   const words = text.split(" ");
   if (shouldReduceMotion) {
     return <Tag className={cn(className)}>{text}</Tag>;
+  }
+  if (lcp) {
+    return (
+      <Tag className={cn(className)} aria-label={text}>
+        <m.span
+          aria-hidden
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: WORD_STAGGER_SECONDS,
+                delayChildren: delay,
+              },
+            },
+          }}
+        >
+          {words.map((word, i) => (
+            <React.Fragment key={`${word}-${i}`}>
+              <m.span
+                className="inline-block"
+                variants={{
+                  hidden: { y: "0.55em" },
+                  visible: {
+                    y: 0,
+                    transition: { duration: 0.8, ease: EASE_OUT_EXPO },
+                  },
+                }}
+              >
+                {word}
+              </m.span>{" "}
+            </React.Fragment>
+          ))}
+        </m.span>
+      </Tag>
+    );
   }
   return (
     <Tag className={cn(className)} aria-label={text}>

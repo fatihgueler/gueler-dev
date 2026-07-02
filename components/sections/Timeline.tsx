@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { timeline } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal } from "@/components/anim/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 /** Vertikaler Werdegang mit Teal-Verlaufslinie. */
 export function Timeline() {

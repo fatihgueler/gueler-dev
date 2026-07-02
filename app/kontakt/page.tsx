@@ -5,7 +5,7 @@ import { pages, site } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { ContactMap } from "@/components/sections/ContactMap";
-import { Reveal } from "@/components/anim/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 export const metadata: Metadata = {
   title: "Kontakt",

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { process } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 export function Process() {
   return (
@@ -15,7 +15,7 @@ export function Process() {
 
       <div className="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {process.steps.map((step, i) => (
-          <Reveal key={step.number} delay={i * 90}>
+          <Reveal key={step.number} delay={i * 0.09}>
             <div className="relative">
               <div className="flex items-center gap-4">
                 <span className="font-display text-5xl font-medium text-gradient-gold">

@@ -6,7 +6,7 @@ import { Sparkles } from "lucide-react";
 
 import { about, site } from "@/lib/content";
 import { WordReveal, Reveal } from "@/components/animation/Reveal";
-import { DrawnAccent } from "@/components/anim/DrawnAccent";
+import { DrawnAccent } from "@/components/animation/DrawnAccent";
 
 export function About() {
   const reduceMotion = useReducedMotion();

@@ -1,8 +1,7 @@
 import * as React from "react";
 
 import { Eyebrow } from "@/components/Section";
-import { TextReveal } from "@/components/anim/TextReveal";
-import { Reveal } from "@/components/anim/Reveal";
+import { Reveal, WordReveal } from "@/components/animation/Reveal";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -23,9 +22,13 @@ export function PageHero({ eyebrow, title, subtitle, children }: PageHeroProps) 
 
       <div className="relative mx-auto max-w-5xl">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground [text-wrap:balance] sm:text-5xl md:text-6xl">
-          <TextReveal text={title} className="block" />
-        </h1>
+        {/* lcp: Unterseiten-H1 ist das LCP-Element — muss ab Frame 1 gemalt sein */}
+        <WordReveal
+          as="h1"
+          lcp
+          text={title}
+          className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground [text-wrap:balance] sm:text-5xl md:text-6xl"
+        />
         {subtitle && (
           <Reveal delay={0.25}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">

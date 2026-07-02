@@ -3,7 +3,7 @@ import { Check, Star } from "lucide-react";
 
 import { pakete } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
-import { Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { cn } from "@/lib/utils";
 
 export function Pakete() {
@@ -18,7 +18,7 @@ export function Pakete() {
 
       <div className="mt-16 grid gap-6 lg:grid-cols-3">
         {pakete.items.map((item, i) => (
-          <Reveal key={item.title} delay={i * 90} className="h-full">
+          <Reveal key={item.title} delay={i * 0.09} className="h-full">
             <article
               className={cn(
                 "card-surface relative flex h-full flex-col rounded-[var(--radius-lg)] p-8",

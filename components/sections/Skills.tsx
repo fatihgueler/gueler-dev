@@ -3,7 +3,7 @@ import * as React from "react";
 import { skills } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
 import { Badge } from "@/components/ui/badge";
-import { Reveal } from "@/components/anim/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 /** Skill-Gruppen als Mono-Tag-Wolken. */
 export function Skills() {
