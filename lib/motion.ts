@@ -3,8 +3,6 @@
  * und kleine Mathe-Utilities, die mehrere Animationskomponenten teilen.
  */
 
-export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
-
 /** Respektiert die System-Einstellung „Bewegung reduzieren". */
 export function prefersReducedMotion(): boolean {
   if (typeof window === "undefined") return false;

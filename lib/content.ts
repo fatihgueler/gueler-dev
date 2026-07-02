@@ -13,7 +13,8 @@ export const site = {
   ownerName: "Fatih Güler",
   email: "fatih.gueler75@gmail.com",
   phone: "+4915777688060",
-  whatsapp: "https://wa.me/015777688060",
+  // wa.me verlangt internationales Format ohne führende Null
+  whatsapp: "https://wa.me/4915777688060",
   calendly: "https://calendly.com/fatih-gueler75",
   availability: "Frei für neue Projekte",
   location: "Hannover, Deutschland",
@@ -679,12 +680,5 @@ export const outcomes = {
   ],
 };
 
-// Platzhalter, bis echte, freigegebene Kundenstimmen vorliegen.
-// NIEMALS erfundene Namen/Firmen eintragen (irreführende Werbung, § 5 UWG).
-export const testimonials: Array<{
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-  rating: number;
-}> = [];
+// Kundenstimmen: erst wieder einführen, wenn echte, schriftlich freigegebene
+// Zitate vorliegen. NIEMALS erfundene Namen/Firmen (irreführende Werbung, § 5 UWG).
