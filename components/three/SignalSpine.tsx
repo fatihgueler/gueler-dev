@@ -3,21 +3,24 @@
 import * as React from "react";
 
 import { lerp } from "@/lib/motion";
+import { createChapterTracker } from "@/components/three/chapter";
 
 /**
- * "Das Signal nimmt Gestalt an" — cinematischer Partikel-Morph mit echtem
- * Glas-Kern, Bloom und Snap-Choreografie (Award-Niveau).
+ * „Das Signal" — die persistente Szene der Startseite (Kapitel-Spine).
  *
- * Hunderttausende Licht-Partikel (= Rauschen des Webs) schwärmen turbulent und
- * rasten beim Laden aus dem Chaos in eine geordnete Form ein. Im Zentrum
- * materialisiert ein echtes Glas-Kristall (Transmission + chromatische
- * Dispersion + Env-Reflexionen) = das gefundene Signal, physisch. Beim
- * Einrasten feuert eine Snap-Schockwelle + Bloom-Puls, die Kamera fährt hinein.
+ * Statt eines Hero-Splashes, der nach einem Viewport stirbt, erzählt EINE
+ * Szene die fünf Kapitel mit (Scroll-getrieben, Werte aus chapter.ts):
+ *   0 Hero        Rauschen rastet in Orbit + Kristall ein (das Signal)
+ *   1 Ihr Problem das Signal zerstreut sich wieder im Rauschen
+ *   2 Ihr Weg     Arbeit schafft Ordnung — ruhiges Gitter
+ *   3 Der Beweis  Verdichtung zu wenigen hellen Werk-Clustern
+ *   4 Ihr Erfolg  weite, ruhige Konstellation
+ *   5 Ihr Moment  fast still; der Kristall kehrt klein und stetig zurück
  *
- * Theme-aware (opakes Canvas in der Theme-Hintergrundfarbe → Bloom/Glas sauber):
- * im Light ist der Schwarm Graphit-Staub auf Papier (kein Glow), im Dark glühen
- * die Partikel im Void (Additive + Bloom). Farben aus den CSS-Tokens.
- * Läuft nur Desktop + ohne reduced-motion.
+ * Performance-Vertrag (Audit-Budget): Buffer einmal auf Maximum alloziert,
+ * aktive Partikelzahl adaptiv über drawRange (Start 16k, 8–48k je nach
+ * gemessener Frame-Zeit), DPR ≤ 1.5, Pause bei Sichtbarkeitsverlust.
+ * Theme-aware wie zuvor; Canvas ist aria-hidden, Inhalt lebt im HTML.
  */
 
 const SIMPLEX = /* glsl */ `
@@ -74,18 +77,25 @@ const CORE_CENTER = "vec3(2.4, 0.25, 0.0)";
 const VERTEX = /* glsl */ `
 uniform float uTime;
 uniform float uMorph;
-uniform float uMode;
 uniform float uSnap;
+uniform float uChapter;
 uniform float uCursorActive;
 uniform float uPixelRatio;
 uniform vec2 uCursor;
 attribute vec3 aTarget;
+attribute vec3 aGrid;
+attribute vec3 aCluster;
 attribute float aRnd;
 attribute float aCore;
 attribute float aHue;
 varying float vCore;
 varying float vHue;
+varying float vAlphaMul;
 ${SIMPLEX}
+
+// Dreiecksgewicht: 1 bei c == i, linear auf 0 bis |c-i| == 1
+float w(float c, float i) { return max(0.0, 1.0 - abs(c - i)); }
+
 void main() {
   vec3 chaos = position;
   float n = snoise(chaos * 0.25 + uTime * 0.15);
@@ -94,17 +104,46 @@ void main() {
     cos(chaos.z * 0.45 - uTime + n * 3.0),
     sin(chaos.x * 0.5 + uTime * 0.9 + n * 3.0)
   ) * 1.15;
+
+  // ── Zustand 0: Hero — Chaos rastet in den Orbit ein (zeitgetrieben)
   vec3 chaosPos = chaos + turb * (1.0 - uMorph);
-
   float m = smoothstep(0.0, 1.0, uMorph);
-  vec3 pos = mix(chaosPos, aTarget, m);
+  vec3 s0 = mix(chaosPos, aTarget, m);
+  vec3 outward = normalize(s0 - ${CORE_CENTER} + 0.001);
+  s0 += outward * sin(uTime * 1.5 + aRnd * 6.2831) * 0.02 * m;
+  s0 += outward * uSnap * 1.2;
 
-  vec3 outward = normalize(pos - ${CORE_CENTER} + 0.001);
-  // sanftes Atmen + Snap-Schockwelle nach außen beim Einrasten
-  pos += outward * sin(uTime * 1.5 + aRnd * 6.2831) * 0.02 * m;
-  pos += outward * uSnap * 1.2;
+  // ── Zustand 1: Zerstreuung — das Signal verliert sich im Rauschen
+  vec3 s1 = chaos * vec3(1.25, 1.1, 1.0) + turb * 0.9;
 
-  // Cursor = Suchstrahl: teilt die Partikel
+  // ── Zustand 2: Ordnung — ruhiges Gitter mit minimalem Atmen
+  vec3 s2 = aGrid + vec3(
+    snoise(aGrid * 0.6 + uTime * 0.06) * 0.08,
+    snoise(aGrid.yzx * 0.6 - uTime * 0.05) * 0.08,
+    0.0
+  );
+
+  // ── Zustand 3: Beweis — Verdichtung zu Werk-Clustern (leichtes Kreisen)
+  float orbitA = uTime * 0.12 + aRnd * 6.2831;
+  vec3 s3 = aCluster + vec3(cos(orbitA), sin(orbitA), 0.0) * (0.12 + aRnd * 0.25);
+
+  // ── Zustand 4/5: Konstellation → Stille (gleiche Lage, weiter + ruhiger)
+  vec3 s4 = aGrid * vec3(1.55, 1.45, 1.0) + vec3(
+    sin(uTime * 0.05 + aRnd * 6.2831) * 0.05,
+    cos(uTime * 0.04 + aRnd * 4.0) * 0.05,
+    0.0
+  );
+
+  float w0 = w(uChapter, 0.0);
+  float w1 = w(uChapter, 1.0);
+  float w2 = w(uChapter, 2.0);
+  float w3 = w(uChapter, 3.0);
+  float w4 = w(uChapter, 4.0);
+  float w5 = w(uChapter, 5.0);
+
+  vec3 pos = s0 * w0 + s1 * w1 + s2 * w2 + s3 * w3 + s4 * (w4 + w5);
+
+  // Cursor = Suchstrahl: teilt die Partikel lokal
   vec2 d = pos.xy - uCursor;
   float dist = length(d);
   float push = uCursorActive * smoothstep(2.2, 0.0, dist) * 0.9;
@@ -112,9 +151,12 @@ void main() {
 
   vCore = aCore;
   vHue = aHue;
+  // Lesbarkeits-Profil: Szene tritt in den textlastigen Kapiteln zurück
+  vAlphaMul = w0 * 1.0 + w1 * 0.55 + w2 * 0.5 + w3 * 0.75 + w4 * 0.55 + w5 * 0.4;
 
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
-  float size = (aCore > 0.5 ? 3.0 : 1.6) * (0.7 + 0.6 * aRnd);
+  float sizeProfile = w0 * 1.0 + w1 * 0.8 + w2 * 0.75 + w3 * 1.05 + w4 * 0.8 + w5 * 0.7;
+  float size = (aCore > 0.5 ? 3.0 : 1.6) * (0.7 + 0.6 * aRnd) * sizeProfile;
   gl_PointSize = size * uPixelRatio * (8.0 / -mv.z);
   gl_Position = projectionMatrix * mv;
 }
@@ -123,20 +165,19 @@ void main() {
 const FRAGMENT = /* glsl */ `
 uniform float uMode;
 uniform float uReveal;
-uniform float uFade;
 uniform vec3 uViolet;
 uniform vec3 uCyan;
 uniform vec3 uInk;
 varying float vCore;
 varying float vHue;
+varying float vAlphaMul;
 void main() {
   float d = length(gl_PointCoord - 0.5);
   if (d > 0.5) discard;
   float soft = smoothstep(0.5, 0.0, d);
 
   vec3 coreCol = mix(uViolet, uCyan, vHue);
-  // Vereinzelte reine Lichtfunken statt Regenbogen-Konfetti: die meisten
-  // Staub-Partikel bleiben im Marken-Gradienten, nur ~8% blitzen weiß auf.
+  // Marken-Gradient + vereinzelte weiße Funken statt Regenbogen-Konfetti
   float sparkle = step(0.92, fract(vHue * 7.13));
   vec3 spectral = mix(coreCol * 0.9, vec3(1.0), sparkle * 0.7);
   vec3 darkCol = (vCore > 0.5) ? coreCol * 1.6 : spectral;
@@ -147,7 +188,7 @@ void main() {
   vec3 col = mix(darkCol, lightCol, uMode);
 
   float baseA = (vCore > 0.5 ? 0.95 : mix(0.5, 0.72, uMode));
-  float a = soft * baseA * uReveal * uFade;
+  float a = soft * baseA * uReveal * vAlphaMul;
 
   gl_FragColor = vec4(col, a);
 }
@@ -155,42 +196,16 @@ void main() {
 
 type Runtime = { dispose: () => void };
 
-type Theme = { isLight: boolean; bg: string; fg: string; violet: string; cyan: string };
+type Theme = { isLight: boolean; fg: string; violet: string; cyan: string };
 
 function readTheme(): Theme {
   const isLight = document.documentElement.classList.contains("light");
   return {
     isLight,
-    bg: isLight ? "#fafaf8" : "#04040a",
     fg: isLight ? "#0e0e14" : "#f1f5f9",
     violet: isLight ? "#7c3aed" : "#8b5cf6",
     cyan: isLight ? "#0891b2" : "#22d3ee",
   };
-}
-
-// Marken-Umgebung fürs Glas: statt eines neutral-grauen Studio-Raums
-// (der die Iridiszenz komplett aufzehrt) spiegelt der Kristall einen
-// weichen Violet→Ink→Cyan-Gradienten – dadurch verfärben sich die
-// Reflexionen sichtbar mit den Markenfarben statt flach weiß zu wirken.
-function makeGemEnvScene(THREE: typeof import("three")) {
-  const scene = new THREE.Scene();
-  const size = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createLinearGradient(0, 0, size, size);
-  gradient.addColorStop(0, "#8b5cf6");
-  gradient.addColorStop(0.35, "#1a1230");
-  gradient.addColorStop(0.65, "#0a0a14");
-  gradient.addColorStop(1, "#22d3ee");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, size, size);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.mapping = THREE.EquirectangularReflectionMapping;
-  scene.background = texture;
-  scene.add(new THREE.HemisphereLight("#22d3ee", "#8b5cf6", 2.2));
-  return { scene, texture };
 }
 
 function makeHalo(THREE: typeof import("three")) {
@@ -208,7 +223,57 @@ function makeHalo(THREE: typeof import("three")) {
   return new THREE.CanvasTexture(cv);
 }
 
-async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
+/**
+ * Marken-Umgebung fürs Glas. Dark: Violet→Void→Cyan (glühende Reflexe).
+ * Light: helle Lavendel/Weiß-Umgebung, damit der Kristall auf Papier als
+ * Glas mit sichtbarer Iridiszenz liest statt als matte dunkle Kugel
+ * (Design-Audit: „muddy planet").
+ */
+function makeGemEnvScene(THREE: typeof import("three"), isLight: boolean) {
+  const scene = new THREE.Scene();
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const gradient = ctx.createLinearGradient(0, 0, size, size);
+  if (isLight) {
+    gradient.addColorStop(0, "#f6f3ff");
+    gradient.addColorStop(0.35, "#c4b5fd");
+    gradient.addColorStop(0.65, "#ffffff");
+    gradient.addColorStop(1, "#67e8f9");
+  } else {
+    gradient.addColorStop(0, "#8b5cf6");
+    gradient.addColorStop(0.35, "#1a1230");
+    gradient.addColorStop(0.65, "#0a0a14");
+    gradient.addColorStop(1, "#22d3ee");
+  }
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene.background = texture;
+  scene.add(
+    new THREE.HemisphereLight(isLight ? "#ffffff" : "#22d3ee", isLight ? "#c4b5fd" : "#8b5cf6", 2.2),
+  );
+  return { scene, texture };
+}
+
+/** Kristall-Choreografie: Ziel-Position/-Größe je Kapitelwert. */
+function crystalTargets(c: number, heroScale: number) {
+  // Kapitel 0: rechts neben dem Hero-Text, volle Größe (Morph-getrieben)
+  if (c <= 0.5) return { x: 2.4, y: 0.25, scale: heroScale };
+  // Kapitel 0.5–4: versinkt — die Geschichte gehört den Partikeln
+  if (c <= 4) {
+    const t = Math.min(1, (c - 0.5) / 0.6);
+    return { x: 2.4, y: 0.25 - t * 1.2, scale: Math.max(0.001, heroScale * (1 - t)) };
+  }
+  // Kapitel 4→5: kehrt klein, ruhig und mittig über dem CTA zurück
+  const t = Math.min(1, c - 4);
+  return { x: 0, y: 1.1, scale: 0.001 + t * 0.5 };
+}
+
+async function createScene(canvas: HTMLCanvasElement, lowTier: boolean): Promise<Runtime> {
   const THREE = await import("three");
 
   const w = canvas.clientWidth;
@@ -220,26 +285,24 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
 
   const renderer = new THREE.WebGLRenderer({
     canvas,
-    antialias: true,
+    antialias: !lowTier,
     alpha: true,
     powerPreference: "high-performance",
   });
-  const pixelRatio = Math.min(window.devicePixelRatio, 1.75);
+  // Audit-Budget: DPR-Kappe 1.5 (vorher 1.75)
+  const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
   renderer.setPixelRatio(pixelRatio);
   renderer.setSize(w, h, false);
   renderer.setClearAlpha(0);
 
-  // Env-Map fürs Glas: Marken-Gradient statt neutral-grauem Studio
+  let theme = readTheme();
   const pmrem = new THREE.PMREMGenerator(renderer);
-  const gemEnv = makeGemEnvScene(THREE);
-  const envRT = pmrem.fromScene(gemEnv.scene, 0.04);
+  let gemEnv = makeGemEnvScene(THREE, theme.isLight);
+  let envRT = pmrem.fromScene(gemEnv.scene, 0.04);
   scene.environment = envRT.texture;
 
   const coreCenter = new THREE.Vector3(2.4, 0.25, 0);
 
-  // ── Glas-Kristall (das gefundene Signal, physisch) ────────────
-  // Reflektierendes Iridiszenz-Kristall (Opal/Chrom-Glas) — Env-Reflexionen +
-  // Öl-Schimmer-Iridiszenz, OHNE teure Transmission-Neuberechnung pro Frame.
   const glassMat = new THREE.MeshPhysicalMaterial({
     metalness: 0.0,
     roughness: 0.02,
@@ -251,14 +314,11 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     iridescenceThicknessRange: [140, 520],
     color: new THREE.Color("#eef2ff"),
   });
-  // Detail 2 statt 0: der Kristall braucht sichtbare Facetten, sonst
-  // dominiert bei Kameranähe eine einzelne flache Dreiecksfläche das Bild.
   const glass = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 2), glassMat);
   glass.position.copy(coreCenter);
   glass.scale.setScalar(0.001);
   scene.add(glass);
 
-  // Günstiger Glüh-Halo (ersetzt teures Bloom; nur Dark) — flasht beim Snap.
   const haloTex = makeHalo(THREE);
   const haloMat = new THREE.SpriteMaterial({
     map: haloTex,
@@ -271,42 +331,70 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   halo.position.copy(coreCenter);
   scene.add(halo);
 
-  // ── Partikel-Feld ─────────────────────────────────────────────
-  const area = w * h;
-  const COUNT = area > 1_400_000 ? 65000 : area > 800_000 ? 48000 : 32000;
+  // ── Partikel: Buffer EINMAL auf Maximum, aktive Zahl über drawRange ──
+  const MAX_COUNT = lowTier ? 24000 : 48000;
+  const START_COUNT = lowTier ? 8000 : 16000;
+  const MIN_COUNT = 6000;
 
-  const positions = new Float32Array(COUNT * 3);
-  const targets = new Float32Array(COUNT * 3);
-  const rnd = new Float32Array(COUNT);
-  const coreFlag = new Float32Array(COUNT);
-  const hue = new Float32Array(COUNT);
+  const positions = new Float32Array(MAX_COUNT * 3);
+  const targets = new Float32Array(MAX_COUNT * 3);
+  const grid = new Float32Array(MAX_COUNT * 3);
+  const cluster = new Float32Array(MAX_COUNT * 3);
+  const rnd = new Float32Array(MAX_COUNT);
+  const coreFlag = new Float32Array(MAX_COUNT);
+  const hue = new Float32Array(MAX_COUNT);
 
-  for (let i = 0; i < COUNT; i++) {
+  // Werk-Cluster (Kapitel 3): vier helle Verdichtungen = die vier Projekte
+  const CLUSTERS = [
+    [-3.6, 1.3],
+    [3.4, 1.6],
+    [-2.4, -1.7],
+    [3.0, -1.4],
+  ];
+
+  const gridCols = Math.ceil(Math.sqrt(MAX_COUNT * 1.7));
+  const gridRows = Math.ceil(MAX_COUNT / gridCols);
+
+  for (let i = 0; i < MAX_COUNT; i++) {
     positions[i * 3] = (Math.random() * 2 - 1) * 9;
     positions[i * 3 + 1] = (Math.random() * 2 - 1) * 5;
     positions[i * 3 + 2] = -5 + Math.random() * 4;
 
-    const isCore = Math.random() < 0.4; // Glas IST der Kern → weniger Kernpartikel
+    const isCore = Math.random() < 0.4;
     coreFlag[i] = isCore ? 1 : 0;
 
     const u = Math.random() * 2 - 1;
     const t = Math.random() * Math.PI * 2;
     const s = Math.sqrt(1 - u * u);
-    const dir = new THREE.Vector3(s * Math.cos(t), s * Math.sin(t), u);
+    const dir = { x: s * Math.cos(t), y: s * Math.sin(t), z: u };
 
     if (isCore) {
-      // dichter Glüh-Halo eng um das Glas
       const r = 1.0 + Math.pow(Math.random(), 1.6) * 0.8;
       targets[i * 3] = coreCenter.x + dir.x * r;
       targets[i * 3 + 1] = coreCenter.y + dir.y * r;
       targets[i * 3 + 2] = coreCenter.z + dir.z * r * 0.7;
     } else {
-      // saubere, dünne Orbital-Schale (geordnete Form)
       const r = 2.5 + (Math.random() - 0.5) * 0.25;
       targets[i * 3] = coreCenter.x + dir.x * r;
       targets[i * 3 + 1] = coreCenter.y + dir.y * r;
       targets[i * 3 + 2] = coreCenter.z + dir.z * r * 0.7;
     }
+
+    // Gitter (Kapitel 2): jitterte Zellen über die volle Bühne
+    const col = i % gridCols;
+    const row = Math.floor(i / gridCols) % gridRows;
+    grid[i * 3] = (col / (gridCols - 1) - 0.5) * 13 + (Math.random() - 0.5) * 0.35;
+    grid[i * 3 + 1] = (row / (gridRows - 1) - 0.5) * 7.5 + (Math.random() - 0.5) * 0.35;
+    grid[i * 3 + 2] = (Math.random() - 0.5) * 1.2;
+
+    // Cluster (Kapitel 3): Zuordnung + gaußartiger Offset
+    const cl = CLUSTERS[i % CLUSTERS.length];
+    const cr = Math.pow(Math.random(), 1.8) * 0.9;
+    const ca = Math.random() * Math.PI * 2;
+    cluster[i * 3] = cl[0] + Math.cos(ca) * cr;
+    cluster[i * 3 + 1] = cl[1] + Math.sin(ca) * cr * 0.75;
+    cluster[i * 3 + 2] = (Math.random() - 0.5) * 0.8;
+
     hue[i] = Math.random();
     rnd[i] = Math.random();
   }
@@ -314,21 +402,24 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geo.setAttribute("aTarget", new THREE.BufferAttribute(targets, 3));
+  geo.setAttribute("aGrid", new THREE.BufferAttribute(grid, 3));
+  geo.setAttribute("aCluster", new THREE.BufferAttribute(cluster, 3));
   geo.setAttribute("aRnd", new THREE.BufferAttribute(rnd, 1));
   geo.setAttribute("aCore", new THREE.BufferAttribute(coreFlag, 1));
   geo.setAttribute("aHue", new THREE.BufferAttribute(hue, 1));
-  geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 20);
+  geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 30);
+  geo.setDrawRange(0, START_COUNT);
 
   const uniforms = {
     uTime: { value: 0 },
     uMorph: { value: 0 },
     uMode: { value: 0 },
     uSnap: { value: 0 },
+    uChapter: { value: 0 },
     uCursorActive: { value: 0 },
     uPixelRatio: { value: pixelRatio },
     uCursor: { value: new THREE.Vector2(-10, -10) },
     uReveal: { value: 0 },
-    uFade: { value: 1 },
     uViolet: { value: new THREE.Color("#8b5cf6") },
     uCyan: { value: new THREE.Color("#22d3ee") },
     uInk: { value: new THREE.Color("#0e0e14") },
@@ -349,7 +440,8 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   // ── Theme ─────────────────────────────────────────────────────
   let haloBase = 0.55;
   const applyTheme = (t: Theme) => {
-    haloBase = t.isLight ? 0.0 : 0.55; // kein Glüh-Halo auf Papier
+    theme = t;
+    haloBase = t.isLight ? 0.0 : 0.55;
     uniforms.uMode.value = t.isLight ? 1 : 0;
     uniforms.uViolet.value.set(t.violet);
     uniforms.uCyan.value.set(t.cyan);
@@ -357,11 +449,22 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     material.blending = t.isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
     material.needsUpdate = true;
     glassMat.color.set(t.isLight ? "#f0f2ff" : "#e7ecff");
-    glassMat.envMapIntensity = t.isLight ? 1.7 : 2.3;
+    glassMat.envMapIntensity = t.isLight ? 1.9 : 2.3;
+    // Umgebung passend zum Theme neu backen (heller Raum im Light-Mode)
+    gemEnv.texture.dispose();
+    envRT.texture.dispose();
+    gemEnv = makeGemEnvScene(THREE, t.isLight);
+    envRT = pmrem.fromScene(gemEnv.scene, 0.04);
+    scene.environment = envRT.texture;
   };
   applyTheme(readTheme());
   const themeObserver = new MutationObserver(() => applyTheme(readTheme()));
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+  // ── Kapitel-Tracking ──────────────────────────────────────────
+  const chapters = createChapterTracker();
+  chapters.measure();
+  let chapterSmooth = 0;
 
   // ── Pointer ───────────────────────────────────────────────────
   const pointerNdc = { x: 0, y: 0 };
@@ -373,8 +476,6 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   };
   window.addEventListener("pointermove", handlePointerMove);
 
-  let halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
-  let halfW = halfH * camera.aspect;
   const resizeObserver = new ResizeObserver(() => {
     const cw = canvas.clientWidth;
     const ch = canvas.clientHeight;
@@ -382,10 +483,33 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     camera.aspect = cw / ch;
     camera.updateProjectionMatrix();
     renderer.setSize(cw, ch, false);
-    halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
-    halfW = halfH * camera.aspect;
+    chapters.measure();
   });
   resizeObserver.observe(canvas);
+  // Anker verschieben sich, wenn Inhalte/Fonts nachladen
+  window.addEventListener("load", chapters.measure);
+
+  // ── Adaptive Qualität: Frame-Zeit-Messung steuert drawRange ──
+  let activeCount = START_COUNT;
+  let frameSamples = 0;
+  let frameAccum = 0;
+  let lastFrameStart = 0;
+
+  const adaptQuality = (frameMs: number) => {
+    frameAccum += frameMs;
+    frameSamples += 1;
+    if (frameSamples < 60) return;
+    const avg = frameAccum / frameSamples;
+    frameSamples = 0;
+    frameAccum = 0;
+    if (avg < 8 && activeCount < MAX_COUNT) {
+      activeCount = Math.min(MAX_COUNT, Math.round(activeCount * 1.5));
+      geo.setDrawRange(0, activeCount);
+    } else if (avg > 20 && activeCount > MIN_COUNT) {
+      activeCount = Math.max(MIN_COUNT, Math.round(activeCount * 0.6));
+      geo.setDrawRange(0, activeCount);
+    }
+  };
 
   // ── Loop ──────────────────────────────────────────────────────
   let lastFound = false;
@@ -395,16 +519,17 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
 
   const animate = (now: number) => {
     if (startTime === 0) startTime = now;
+    if (lastFrameStart > 0) adaptQuality(now - lastFrameStart);
+    lastFrameStart = now;
     const elapsed = (now - startTime) / 1000;
     uniforms.uTime.value = elapsed;
 
-    // Auto-Load-Choreografie: kurz Chaos, dann ins Signal einrasten
+    // Intro-Choreografie (nur relevant in Kapitel 0)
     const morphRaw = Math.max(0, Math.min(1, (elapsed - 0.7) / 2.6));
     const morph = 1 - Math.pow(1 - morphRaw, 4);
     uniforms.uMorph.value = morph;
     uniforms.uReveal.value = Math.min(elapsed / 0.8, 1);
 
-    // Snap beim Einrasten → Schockwelle + Bloom-Puls + „gefunden"
     const nowFound = morph > 0.82;
     if (nowFound !== lastFound) {
       lastFound = nowFound;
@@ -414,39 +539,45 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
     let snap = 0;
     if (snapTime >= 0) {
       const st = (elapsed - snapTime) / 0.55;
-      if (st < 1) snap = Math.sin(st * Math.PI) * 0.45; // 0→Spitze→0
+      if (st < 1) snap = Math.sin(st * Math.PI) * 0.45;
     }
     uniforms.uSnap.value = snap;
 
+    // Kapitelwert weich nachziehen (Scroll ist die Erzähl-Achse)
+    chapterSmooth = lerp(chapterSmooth, chapters.value(), 0.07);
+    uniforms.uChapter.value = chapterSmooth;
+
     // Cursor → Welt-XY
-    halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
-    halfW = halfH * camera.aspect;
+    const halfH = Math.tan((50 * Math.PI) / 360) * camera.position.z;
+    const halfW = halfH * camera.aspect;
     uniforms.uCursor.value.set(pointerNdc.x * halfW, pointerNdc.y * halfH);
     uniforms.uCursorActive.value = lerp(uniforms.uCursorActive.value, cursorActiveTarget, 0.05);
 
-    // Scroll-Rückzug
-    const scrollFraction = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1);
-    uniforms.uFade.value = lerp(uniforms.uFade.value, 1 - scrollFraction * 0.9, 0.1);
-
-    // Glas wächst mit dem Morph + Pop beim Snap, dreht langsam
+    // Kristall-Choreografie
     const gm = Math.min(1, morph * 1.12);
-    const glassScale = (1 - Math.pow(1 - gm, 3)) * (1 + snap * 0.45);
-    glass.scale.setScalar(Math.max(0.001, glassScale));
+    const heroScale = (1 - Math.pow(1 - gm, 3)) * (1 + snap * 0.45);
+    const ct = crystalTargets(chapterSmooth, Math.max(0.001, heroScale));
+    glass.position.x = lerp(glass.position.x, ct.x, 0.06);
+    glass.position.y = lerp(glass.position.y, ct.y, 0.06);
+    glass.scale.setScalar(lerp(glass.scale.x, ct.scale, 0.08));
     glass.rotation.y = elapsed * 0.25;
     glass.rotation.x = Math.sin(elapsed * 0.2) * 0.25;
 
-    // Glüh-Halo: atmet + flasht beim Snap (der „Bloom-Puls")
-    halo.scale.setScalar((3.4 + snap * 5.0) * Math.max(0.001, gm));
-    haloMat.opacity = (haloBase + snap * 1.0) * uniforms.uFade.value * gm;
+    halo.position.copy(glass.position);
+    const haloScale = (3.4 + snap * 5.0) * Math.min(1, glass.scale.x / 0.9 + 0.15);
+    halo.scale.setScalar(Math.max(0.001, haloScale));
+    haloMat.opacity = (haloBase + snap * 1.0) * Math.min(1, glass.scale.x * 1.4);
 
-    // Kamera: weite Fahrt → hinein (dolly), + Parallaxe
+    // Kamera: sanfte Cursor-Parallaxe; Blick wandert zur Mitte, je tiefer
+    // der Leser in der Geschichte ist
     const px = cursorActiveTarget > 0 ? pointerNdc.x : 0;
     const py = cursorActiveTarget > 0 ? pointerNdc.y : 0;
-    const targetZ = lerp(10.5, 7.2, morph) - scrollFraction * 1.5;
+    const targetZ = lerp(10.5, 8.6, morph);
     camera.position.z = lerp(camera.position.z, targetZ, 0.05);
     camera.position.x = lerp(camera.position.x, px * 1.2 + Math.sin(elapsed * 0.1) * 0.3, 0.04);
     camera.position.y = lerp(camera.position.y, py * 0.6 + Math.cos(elapsed * 0.08) * 0.25, 0.04);
-    camera.lookAt(0.8, 0, 0);
+    const lookX = lerp(0.8, 0, Math.min(1, chapterSmooth));
+    camera.lookAt(lookX, 0, 0);
 
     renderer.render(scene, camera);
     if (active) frameId = window.requestAnimationFrame(animate);
@@ -457,6 +588,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   const start = () => {
     if (active) return;
     active = true;
+    lastFrameStart = 0;
     frameId = window.requestAnimationFrame(animate);
   };
   const stop = () => {
@@ -486,6 +618,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
       themeObserver.disconnect();
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("load", chapters.measure);
       resizeObserver.disconnect();
       if (lastFound) window.dispatchEvent(new CustomEvent("signal:lost"));
       geo.dispose();
@@ -502,7 +635,7 @@ async function createScene(canvas: HTMLCanvasElement): Promise<Runtime> {
   };
 }
 
-export function SignalField({ className }: { className?: string }) {
+export function SignalSpine({ lowTier = false }: { lowTier?: boolean }) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
@@ -510,7 +643,7 @@ export function SignalField({ className }: { className?: string }) {
     if (!canvas) return;
     let runtime: Runtime | null = null;
     let cancelled = false;
-    createScene(canvas).then((created) => {
+    createScene(canvas, lowTier).then((created) => {
       if (cancelled) {
         created.dispose();
         return;
@@ -521,7 +654,7 @@ export function SignalField({ className }: { className?: string }) {
       cancelled = true;
       runtime?.dispose();
     };
-  }, []);
+  }, [lowTier]);
 
-  return <canvas ref={canvasRef} aria-hidden className={className} />;
+  return <canvas ref={canvasRef} aria-hidden className="h-full w-full" />;
 }

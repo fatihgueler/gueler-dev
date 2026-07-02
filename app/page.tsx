@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { faq } from "@/lib/content";
+import { SignalSpineLoader } from "@/components/three/SignalSpineLoader";
 import { ChapterProgress } from "@/components/ui/ChapterProgress";
 import { Hero } from "@/components/sections/Hero";
 import { StoryPitch } from "@/components/sections/StoryPitch";
@@ -37,18 +38,22 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      {/* Persistenter Szenen-Layer (fixed, z-0) — die Kapitel scrollen darüber */}
+      <SignalSpineLoader />
       <ChapterProgress />
-      <Hero />
-      <StoryPitch />
-      <ProcessSteps />
-      <FeaturesGrid />
-      <TechStrip />
-      <StickyStory />
-      <ProjectHighlight />
-      <Outcomes />
-      <FaqAccordion />
-      <FinalCta />
-      <Contact />
+      <div className="relative z-10">
+        <Hero />
+        <StoryPitch />
+        <ProcessSteps />
+        <FeaturesGrid />
+        <TechStrip />
+        <StickyStory />
+        <ProjectHighlight />
+        <Outcomes />
+        <FaqAccordion />
+        <FinalCta />
+        <Contact />
+      </div>
     </>
   );
 }

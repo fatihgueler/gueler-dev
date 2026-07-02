@@ -7,10 +7,10 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
  * Theme-Provider auf Basis von next-themes.
  *
  * - `attribute="class"` → setzt `class="light"` bzw. `class="dark"` am <html>.
- *   Das helle Theme hängt an `html.light` (globals.css), dark ist Default.
- * - `defaultTheme="light"` + `enableSystem={false}` → Besucher betreten die
- *   Seite zuerst im hellen Modus; kein Auto-Dark für Dunkel-OS.
- *   Über den ThemeToggle kann jede:r bewusst auf Dark wechseln.
+ *   Das helle Theme hängt an `html.light` (globals.css).
+ * - `defaultTheme="dark"` + `enableSystem={false}` → Besucher betreten die
+ *   Seite im dunklen Modus (die Marken-Szene); über den ThemeToggle kann
+ *   jede:r bewusst auf Light wechseln.
  * - `disableTransitionOnChange` → unterdrückt Farb-Transitions (kein Flackern).
  *
  * Das Anti-FOUC-Script injiziert next-themes selbst vor der Hydration;
@@ -24,7 +24,10 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="light"
+      // Dark ist der Standard: drei unabhängige Audits (Design, Motion, A11y)
+      // kamen zum selben Schluss — die dunkle Szene ist die starke, und die
+      // Kontraste sind dort AAA-sauber. Light bleibt als bewusste Option.
+      defaultTheme="dark"
       enableSystem={false}
       disableTransitionOnChange
     >

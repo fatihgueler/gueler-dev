@@ -5,11 +5,11 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const CHAPTERS = [
-  { id: "chapter-1", label: "Dein Problem" },
-  { id: "chapter-2", label: "Dein Weg" },
+  { id: "chapter-1", label: "Ihr Problem" },
+  { id: "chapter-2", label: "Ihr Weg" },
   { id: "projekte", label: "Der Beweis" },
-  { id: "chapter-4", label: "Dein Erfolg" },
-  { id: "chapter-5", label: "Dein Moment" },
+  { id: "chapter-4", label: "Ihr Erfolg" },
+  { id: "chapter-5", label: "Ihr Moment" },
 ];
 const LAST = CHAPTERS.length - 1;
 

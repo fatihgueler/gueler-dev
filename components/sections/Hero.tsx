@@ -5,7 +5,6 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 import { hero } from "@/lib/content";
-import { HeroSceneLoader } from "@/components/three/HeroSceneLoader";
 
 const WORD_STAGGER_SECONDS = 0.08;
 
@@ -46,13 +45,13 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden"
     >
-      {/* Hintergrund-Layer: 3D-Szene + Dot-Grid (Parallax-Faktor 0.3) */}
+      {/* Hintergrund-Layer: Dot-Grid mit Parallax — die Signal-Szene selbst
+          lebt als persistenter Fixed-Layer hinter der ganzen Seite */}
       <m.div
         className="pointer-events-none absolute inset-0"
         style={shouldReduceMotion ? undefined : { y: backgroundY }}
         aria-hidden
       >
-        <HeroSceneLoader className="hero-scene absolute inset-0" />
         <div
           className="bg-dot-grid absolute inset-0 opacity-30 [mask-image:radial-gradient(ellipse_55%_45%_at_50%_45%,black,transparent)]"
           aria-hidden
