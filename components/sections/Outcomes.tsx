@@ -2,9 +2,9 @@ import { outcomes } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
 
 /**
- * Kapitel 04 — "Dein Erfolg" / Transformation.
+ * Kapitel 04 — "Ihr Erfolg" / Transformation.
  *
- * Ehrliche Outcome-Projektion (was sich für DICH ändert) als eckig-editoriales
+ * Ehrliche Outcome-Projektion (was sich für SIE ändert) als eckig-editoriales
  * 2-Spalten-Raster mit Haarlinien-Trennern. Ersetzt die früheren, erfundenen
  * Testimonials – kein fremder Social Proof, nur belegbare Fähigkeiten.
  */
@@ -18,7 +18,7 @@ export function Outcomes() {
               className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3"
               style={{ textTransform: "uppercase" }}
             >
-              Kapitel 04 — Dein Erfolg
+              Kapitel 04 — Ihr Erfolg
             </p>
             <p
               className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"

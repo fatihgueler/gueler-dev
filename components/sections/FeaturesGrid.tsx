@@ -29,7 +29,7 @@ export function FeaturesGrid() {
           </Reveal>
           <Reveal variant="fadeIn" delay={0.1}>
             <p className="max-w-xs font-mono text-sm leading-relaxed text-muted md:text-right">
-              Was du bekommst — und warum es wichtig ist.
+              Was Sie bekommen — und warum es wichtig ist.
             </p>
           </Reveal>
         </div>

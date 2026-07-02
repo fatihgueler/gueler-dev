@@ -18,7 +18,7 @@ export function Pakete() {
 
       <div className="mt-16 grid gap-6 lg:grid-cols-3">
         {pakete.items.map((item, i) => (
-          <Reveal key={item.title} delay={i * 0.09} className="h-full">
+          <Reveal key={item.id} delay={i * 0.09} className="h-full">
             <article
               className={cn(
                 "card-surface relative flex h-full flex-col rounded-[var(--radius-lg)] p-8",
@@ -34,10 +34,13 @@ export function Pakete() {
               ) : null}
 
               <h3 className="font-display text-2xl font-medium text-foreground">
-                {item.title}
+                {item.name}
               </h3>
               <p className="mt-2 text-3xl font-semibold text-gradient-gold">
                 {item.price}
+              </p>
+              <p className="mt-1.5 font-mono text-xs uppercase tracking-[0.15em] text-muted-2">
+                Lieferzeit: {item.delivery}
               </p>
               <p className="mt-4 leading-relaxed text-muted">
                 {item.description}

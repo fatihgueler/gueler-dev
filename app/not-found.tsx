@@ -15,8 +15,8 @@ export default function NotFound() {
           Seite nicht gefunden
         </h1>
         <p className="mx-auto mt-4 max-w-md text-muted">
-          Diese Seite existiert nicht (mehr). Vielleicht findest du auf der
-          Startseite, was du suchst.
+          Diese Seite existiert nicht (mehr). Vielleicht finden Sie auf der
+          Startseite, was Sie suchen.
         </p>
         <Button asChild size="lg" className="mt-8">
           <Link href="/">

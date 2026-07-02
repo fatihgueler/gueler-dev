@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "article",
+    images: [{ url: "/og", width: 1200, height: 630 }],
     title: "Website für lokale Unternehmen: Das braucht sie wirklich",
     description:
       "Die Must-haves für lokale Geschäfts-Websites: klares Angebot, Kontakt, Mobile-first, lokale SEO und Vertrauen.",
@@ -25,10 +26,10 @@ export const metadata: Metadata = {
 };
 
 const MUST_HAVES = [
-  { title: "Klares Angebot in den ersten Sekunden", text: "Sofort erkennbar, was du anbietest und für wen – ohne Suchen." },
+  { title: "Klares Angebot in den ersten Sekunden", text: "Sofort erkennbar, was Sie anbieten und für wen – ohne Suchen." },
   { title: "Kontakt, Adresse & Öffnungszeiten", text: "Telefon, Standort und Erreichbarkeit gut sichtbar, idealderweise mit Karte." },
   { title: "Mobile-first & schnelle Ladezeit", text: "Die meisten lokalen Suchen passieren am Handy – unterwegs, mit wenig Geduld." },
-  { title: "Lokale Suchmaschinen-Optimierung", text: "Damit du bei „[Dienstleistung] + [Ort]\" überhaupt auftauchst." },
+  { title: "Lokale Suchmaschinen-Optimierung", text: "Damit Sie bei „[Dienstleistung] + [Ort]\" überhaupt auftauchen." },
   { title: "Vertrauen schaffen", text: "Echte Fotos, ein Gesicht zum Betrieb, ehrliche Inhalte – kein Stockfoto-Einerlei." },
   { title: "Ein klarer nächster Schritt", text: "Anrufen, Termin anfragen, Route starten – eine eindeutige Handlung pro Seite." },
 ];
@@ -51,7 +52,7 @@ const COMMON_MISTAKES = [
 const GUIDE_FAQ = [
   {
     q: "Was ist das Wichtigste an einer lokalen Unternehmens-Website?",
-    a: "Dass Besucher in Sekunden verstehen, was du anbietest, und sofort Kontaktdaten plus einen klaren nächsten Schritt finden. Direkt danach kommen Mobile-Tauglichkeit und lokale Auffindbarkeit.",
+    a: "Dass Besucher in Sekunden verstehen, was Sie anbieten, und sofort Kontaktdaten plus einen klaren nächsten Schritt finden. Direkt danach kommen Mobile-Tauglichkeit und lokale Auffindbarkeit.",
   },
   {
     q: "Wie wird mein Unternehmen lokal in Google gefunden?",
@@ -59,7 +60,7 @@ const GUIDE_FAQ = [
   },
   {
     q: "Reicht ein Google-Profil – oder brauche ich eine eigene Website?",
-    a: "Ein Profil hilft, ersetzt aber keine eigene Website. Die Website gehört dir, überzeugt mit Inhalten und Vertrauen und konvertiert Besucher zu Anfragen. Profil und Website wirken zusammen am besten.",
+    a: "Ein Profil hilft, ersetzt aber keine eigene Website. Die Website gehört Ihnen, überzeugt mit Inhalten und Vertrauen und macht aus Besuchern Anfragen. Profil und Website wirken zusammen am besten.",
   },
 ];
 
@@ -162,7 +163,7 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
       <Section className="!pt-0">
         <SectionHeading
           eyebrow="Lokale SEO"
-          title="So wirst du vor Ort gefunden"
+          title="So werden Sie vor Ort gefunden"
           subtitle="Die vier Hebel für lokale Sichtbarkeit."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-2">

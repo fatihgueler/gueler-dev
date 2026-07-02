@@ -30,7 +30,7 @@ export function FinalCta() {
             className="mb-8 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3"
             style={{ textTransform: "uppercase" }}
           >
-            Kapitel 05 — Dein Moment
+            Kapitel 05 — Ihr Moment
           </p>
         </Reveal>
 

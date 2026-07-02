@@ -14,10 +14,11 @@ const pageUrl = `${baseUrl}/webentwickler-vs-agentur`;
 export const metadata: Metadata = {
   title: { absolute: "Webentwickler oder Agentur? Der ehrliche Vergleich | Fatih Güler" },
   description:
-    "Freelance Webentwickler oder Agentur – was lohnt sich für dein Unternehmen? Ehrlicher Vergleich von Preis, Kommunikation, Tempo und Betreuung. Wann sich welche Option lohnt.",
+    "Freelance Webentwickler oder Agentur – was lohnt sich für Ihr Unternehmen? Ehrlicher Vergleich von Preis, Kommunikation, Tempo und Betreuung. Wann sich welche Option lohnt.",
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "article",
+    images: [{ url: "/og", width: 1200, height: 630 }],
     title: "Webentwickler oder Agentur? Der ehrliche Vergleich",
     description:
       "Was lohnt sich für KMU: Freelancer oder Agentur? Preis, Tempo, Kommunikation und Betreuung im Vergleich.",
@@ -26,10 +27,10 @@ export const metadata: Metadata = {
 };
 
 const COMPARISON = [
-  { aspect: "Preis", freelancer: "Kein Agentur-Aufschlag, oft 30–50 % günstiger", agency: "Höher durch Overhead (Büro, Management, mehrere Rollen)" },
+  { aspect: "Preis", freelancer: "Kein Agentur-Aufschlag – der Overhead entfällt", agency: "Höher durch Overhead (Büro, Management, mehrere Rollen)" },
   { aspect: "Ansprechpartner", freelancer: "Eine Person – die auch wirklich baut", agency: "Projektmanager als Mittelschicht, wechselnde Teams" },
   { aspect: "Tempo", freelancer: "Kurze Wege, schnelle Entscheidungen", agency: "Abstimmungsschleifen zwischen Abteilungen" },
-  { aspect: "Persönlicher Bezug", freelancer: "Du sprichst direkt mit dem Macher", agency: "Distanzierter, standardisierter Prozess" },
+  { aspect: "Persönlicher Bezug", freelancer: "Sie sprechen direkt mit dem Macher", agency: "Distanzierter, standardisierter Prozess" },
   { aspect: "Skalierung", freelancer: "Begrenzt – ein Mensch hat ein Zeitbudget", agency: "Viele parallele Gewerke gleichzeitig möglich" },
   { aspect: "Spezial-Disziplinen", freelancer: "Fokussiert; bei Bedarf Netzwerk", agency: "Eigene Spezialisten für Branding, Video, SEA …" },
 ];
@@ -37,7 +38,7 @@ const COMPARISON = [
 const GUIDE_FAQ = [
   {
     q: "Ist ein Freelancer günstiger als eine Agentur?",
-    a: "In der Regel ja. Bei einem Freelancer entfällt der Agentur-Overhead (Büro, Management, mehrere Zwischenrollen), wodurch dieselbe Website oft 30–50 % günstiger wird – bei gleicher oder höherer Qualität für KMU-Projekte.",
+    a: "In der Regel ja. Bei einem Freelancer entfällt der Agentur-Overhead (Büro, Management, mehrere Zwischenrollen) – dieselbe Website kostet dadurch meist spürbar weniger, bei gleicher oder höherer Qualität für KMU-Projekte.",
   },
   {
     q: "Wann lohnt sich eine Agentur mehr?",
@@ -45,7 +46,7 @@ const GUIDE_FAQ = [
   },
   {
     q: "Bekomme ich bei einem Freelancer dieselbe Qualität?",
-    a: "Für Websites und Web-Apps von kleinen und mittleren Unternehmen: ja. Moderne Tools und Frameworks ermöglichen Ergebnisse auf Agenturniveau – mit dem Vorteil, dass du direkt mit der Person sprichst, die deine Seite tatsächlich entwickelt.",
+    a: "Für Websites und Web-Apps von kleinen und mittleren Unternehmen: ja. Moderne Tools und Frameworks ermöglichen Ergebnisse auf Agenturniveau – mit dem Vorteil, dass Sie direkt mit der Person sprechen, die Ihre Seite tatsächlich entwickelt.",
   },
 ];
 
@@ -118,8 +119,8 @@ export default function WebentwicklerVsAgenturPage() {
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
             Für die meisten kleinen und mittleren Unternehmen ist ein{" "}
             <strong className="font-semibold">freier Webentwickler die bessere Wahl</strong>:
-            günstiger, schneller und persönlicher, weil du direkt mit der Person sprichst, die
-            deine Seite baut. Eine <strong className="font-semibold">Agentur</strong> lohnt sich,
+            günstiger, schneller und persönlicher, weil Sie direkt mit der Person sprechen, die
+            Ihre Seite baut. Eine <strong className="font-semibold">Agentur</strong> lohnt sich,
             wenn ein Projekt sehr groß ist und viele Disziplinen gleichzeitig braucht.
           </p>
         </div>
@@ -168,10 +169,10 @@ export default function WebentwicklerVsAgenturPage() {
               Wann ein Freelancer passt
             </h2>
             <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
-              <li>Du bist ein kleines oder mittleres Unternehmen oder selbstständig.</li>
-              <li>Du willst einen festen Ansprechpartner statt einer Telefon-Hotline.</li>
+              <li>Sie sind ein kleines oder mittleres Unternehmen oder selbstständig.</li>
+              <li>Sie wollen einen festen Ansprechpartner statt einer Telefon-Hotline.</li>
               <li>Das Projekt ist klar umrissen: Website, Landing Page, Web-App, KI-Tool.</li>
-              <li>Dir sind Tempo, Festpreis und direkte Kommunikation wichtig.</li>
+              <li>Ihnen sind Tempo, Festpreis und direkte Kommunikation wichtig.</li>
             </ul>
           </div>
           <div className="border border-border bg-surface p-7">
@@ -180,7 +181,7 @@ export default function WebentwicklerVsAgenturPage() {
             </h2>
             <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
               <li>Sehr großes Projekt mit vielen parallelen Gewerken.</li>
-              <li>Du brauchst Branding, Foto/Video, Kampagnen und Marketing aus einer Hand.</li>
+              <li>Sie brauchen Branding, Foto/Video, Kampagnen und Marketing aus einer Hand.</li>
               <li>Es muss ein großes Team gleichzeitig arbeiten.</li>
               <li>Langfristige, abteilungsübergreifende Betreuung steht im Vordergrund.</li>
             </ul>

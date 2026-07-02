@@ -58,7 +58,7 @@ export function ProcessSteps() {
         <div className="mb-16 md:mb-20">
           <Reveal variant="fadeIn">
             <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
-              Kapitel 02 — Dein Weg
+              Kapitel 02 — Ihr Weg
             </p>
             <p
               className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"

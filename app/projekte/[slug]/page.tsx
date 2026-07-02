@@ -153,8 +153,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </Reveal>
 
           <Reveal variant="fadeIn" className="mt-8">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
+            <p className="flex flex-wrap items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
               {study.category}
+              {/* Ehrliche Projekt-Einordnung — Showcase wird nie als Kundenauftrag ausgegeben */}
+              <span className="inline-flex items-center border border-border px-2.5 py-1 tracking-[0.15em] text-muted normal-case">
+                {study.status}
+              </span>
             </p>
           </Reveal>
 

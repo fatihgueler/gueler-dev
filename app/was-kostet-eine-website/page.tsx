@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "article",
+    images: [{ url: "/og", width: 1200, height: 630 }],
     title: "Was kostet eine Website? Ehrliche Preise zum Festpreis",
     description:
       "One-Pager ab 500 €, Business-Website ab 1.500 € – Festpreis statt Stundensatz. Was den Preis wirklich beeinflusst.",
@@ -48,7 +49,7 @@ const PRICE_FACTORS = [
   },
   {
     title: "Betreuung nach dem Launch",
-    text: "Einmalig erstellen oder laufend pflegen und weiterentwickeln – das entscheidest du.",
+    text: "Einmalig erstellen oder laufend pflegen und weiterentwickeln – das entscheiden Sie.",
   },
 ];
 
@@ -60,15 +61,15 @@ const GUIDE_FAQ = [
   },
   {
     q: "Was kostet eine mehrseitige Business-Website?",
-    a: "Eine Business-Website mit bis zu sechs Seiten, individuellem Design und vollständiger SEO beginnt bei 1.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
+    a: "Eine Business-Website mit bis zu fünf Unterseiten, individuellem Design und vollständiger SEO beginnt bei 1.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
   },
   {
     q: "Gibt es laufende Kosten?",
-    a: "Ja: eine Domain kostet rund 10–20 € pro Jahr, dazu kommt Hosting (je nach Anbieter und Umfang). Wartung ist optional. Ich berate dich, welche Variante zu deinem Projekt passt – ohne dich an teure Pakete zu binden.",
+    a: "Ja: eine Domain kostet rund 10–20 € pro Jahr, dazu kommt Hosting (je nach Anbieter und Umfang). Wartung ist optional. Ich berate Sie, welche Variante zu Ihrem Projekt passt – ohne Sie an teure Pakete zu binden.",
   },
   {
     q: "Warum ein Festpreis statt Stundensatz?",
-    a: "Damit du vorher genau weißt, was deine Website kostet – planbar, ohne laufenden Stundenzähler und ohne böse Überraschungen am Ende.",
+    a: "Damit Sie vorher genau wissen, was Ihre Website kostet – planbar, ohne laufenden Stundenzähler und ohne böse Überraschungen am Ende.",
   },
 ];
 
@@ -143,12 +144,12 @@ export default function WasKostetEineWebsitePage() {
             Die kurze Antwort
           </p>
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
-            Eine professionelle Website kostet bei mir zwischen{" "}
+            Eine Website kostet bei mir zwischen{" "}
             <strong className="font-semibold">500 €</strong> für einen One-Pager und{" "}
             <strong className="font-semibold">ab 1.500 €</strong> für eine mehrseitige
             Business-Website – jeweils zum <strong className="font-semibold">Festpreis</strong>.
-            Individuelle Web-Apps und KI-Lösungen rechne ich projektbezogen ab. Was du am Ende
-            zahlst, hängt vor allem vom Umfang und von individuellen Anforderungen ab – nicht
+            Individuelle Web-Apps und KI-Lösungen rechne ich projektbezogen ab. Was Sie am Ende
+            zahlen, hängt vor allem vom Umfang und von individuellen Anforderungen ab – nicht
             von einem laufenden Stundenzähler.
           </p>
         </div>
@@ -159,7 +160,7 @@ export default function WasKostetEineWebsitePage() {
         <SectionHeading
           eyebrow="Preise im Überblick"
           title="Drei Pakete, ein Festpreis"
-          subtitle="Du weißt vorher genau, was du bekommst – ohne versteckte Kosten."
+          subtitle="Sie wissen vorher genau, was Sie bekommen – ohne versteckte Kosten."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {packages.map((pkg) => (
@@ -172,6 +173,9 @@ export default function WasKostetEineWebsitePage() {
               </h3>
               <p className="mt-2 font-display text-3xl font-semibold text-violet-3">
                 {pkg.price}
+              </p>
+              <p className="mt-1.5 font-mono text-xs uppercase tracking-[0.15em] text-muted-2">
+                Lieferzeit: {pkg.delivery}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted">
                 {pkg.description}
@@ -197,7 +201,7 @@ export default function WasKostetEineWebsitePage() {
         <SectionHeading
           eyebrow="Preistreiber"
           title="Was den Preis beeinflusst"
-          subtitle="Diese Faktoren entscheiden, wo dein Projekt in der Spanne landet."
+          subtitle="Diese Faktoren entscheiden, wo Ihr Projekt in der Spanne landet."
         />
         <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
           {PRICE_FACTORS.map((factor) => (
@@ -225,10 +229,10 @@ export default function WasKostetEineWebsitePage() {
               vereinbaren.
             </p>
             <p>
-              <strong className="text-foreground">Laufend</strong> fallen nur deine Domain
+              <strong className="text-foreground">Laufend</strong> fallen nur Ihre Domain
               (rund 10–20 € pro Jahr) und das Hosting an – je nach Anbieter und Umfang. Einfache
               Seiten lassen sich auf modernen Plattformen sehr günstig betreiben. Wartung und
-              Weiterentwicklung sind optional und buchst du nur, wenn du sie brauchst.
+              Weiterentwicklung sind optional und buchen Sie nur, wenn Sie sie brauchen.
             </p>
           </div>
         </div>

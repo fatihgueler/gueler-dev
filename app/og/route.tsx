@@ -177,7 +177,7 @@ export async function GET() {
                   fontWeight: 600,
                 }}
               >
-                🚀 One Pager ab 500€ · Business ab 1.500€
+                One-Pager ab 500 € · Business-Website ab 1.500 €
               </span>
             </div>
           </div>

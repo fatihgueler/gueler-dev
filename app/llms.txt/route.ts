@@ -1,4 +1,4 @@
-import { site, services, packages, projects, faq } from "@/lib/content";
+import { site, services, packages, projects, faq, guides, caseStudies } from "@/lib/content";
 
 /**
  * /llms.txt — Generative Engine Optimization (GEO).
@@ -16,10 +16,10 @@ export function GET() {
   const lines: string[] = [
     `# ${site.ownerName} – Webdesign & Webentwicklung`,
     "",
-    "> Freelance Webentwickler aus Hannover. Entwickelt moderne, schnelle und " +
-      "conversion-optimierte Websites sowie Web-Apps für kleine und mittlere " +
-      "Unternehmen (KMU) und Selbstständige – deutschlandweit. Festpreis, ein " +
-      "fester Ansprechpartner, keine Agentur.",
+    "> Freelance Webentwickler aus Hannover. Entwickelt moderne, schnelle " +
+      "Websites sowie Web-Apps für kleine und mittlere Unternehmen (KMU) und " +
+      "Selbstständige – deutschlandweit, gebaut, um aus Besuchern Anfragen zu " +
+      "machen. Festpreis, ein fester Ansprechpartner, keine Agentur.",
     "",
     "## Eckdaten",
     `- Name: ${site.ownerName}`,
@@ -56,6 +56,14 @@ export function GET() {
     `- Projekte: ${baseUrl}/projekte`,
     `- Über mich: ${baseUrl}/ueber`,
     `- Kontakt: ${baseUrl}/kontakt`,
+    "",
+    "## Case Studies",
+    ...caseStudies.map(
+      (c) => `- ${c.title} (${c.category}; ${c.status}): ${baseUrl}/projekte/${c.id}`,
+    ),
+    "",
+    "## Ratgeber",
+    ...guides.map((g) => `- ${g.label}: ${baseUrl}/${g.slug}`),
     "",
   );
 

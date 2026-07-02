@@ -23,15 +23,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Bitte gib deinen Namen ein."),
+  name: z.string().min(2, "Bitte geben Sie Ihren Namen ein."),
   company: z.string().max(100).optional(),
-  email: z.string().email("Bitte gib eine gültige E-Mail ein."),
+  email: z.string().email("Bitte geben Sie eine gültige E-Mail-Adresse ein."),
   phone: z.string().max(50).optional(),
   package: z.string().optional(),
-  message: z.string().min(10, "Bitte beschreib dein Anliegen kurz."),
+  message: z.string().min(10, "Bitte beschreiben Sie Ihr Anliegen kurz."),
   privacy: z
     .boolean()
-    .refine((v) => v === true, "Bitte akzeptiere die Datenschutzerklärung."),
+    .refine((v) => v === true, "Bitte akzeptieren Sie die Datenschutzerklärung."),
   _trap: z.string().max(0).optional(),
 });
 
@@ -114,7 +114,7 @@ export function ContactForm() {
           <Label htmlFor="cf-name">Name *</Label>
           <Input
             id="cf-name"
-            placeholder="Dein Name"
+            placeholder="Ihr Name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "cf-name-error" : undefined}
             {...register("name")}
@@ -131,7 +131,7 @@ export function ContactForm() {
           </Label>
           <Input
             id="cf-company"
-            placeholder="Dein Unternehmen"
+            placeholder="Ihr Unternehmen"
             {...register("company")}
           />
         </div>
@@ -193,7 +193,7 @@ export function ContactForm() {
         <Label htmlFor="cf-message">Nachricht *</Label>
         <Textarea
           id="cf-message"
-          placeholder="Beschreib kurz dein Anliegen oder dein aktuelles Website-Problem…"
+          placeholder="Beschreiben Sie kurz Ihr Anliegen oder Ihr aktuelles Website-Problem…"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "cf-message-error" : undefined}
           {...register("message")}

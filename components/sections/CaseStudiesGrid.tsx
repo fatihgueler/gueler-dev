@@ -33,6 +33,9 @@ export function CaseStudiesGrid() {
               <div className="flex items-start justify-between gap-4">
                 <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-3">
                   {study.category}
+                  <span className="mt-1.5 block font-normal normal-case tracking-normal text-muted-2">
+                    {study.status}
+                  </span>
                 </span>
                 <ArrowUpRight
                   className="size-5 shrink-0 text-muted-2 transition-colors group-hover:text-violet-3"

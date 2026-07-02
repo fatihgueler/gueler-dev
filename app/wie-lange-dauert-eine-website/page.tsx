@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "article",
+    images: [{ url: "/og", width: 1200, height: 630 }],
     title: "Wie lange dauert eine Website? Realistische Zeiten",
     description:
       "One-Pager in 5–7 Tagen, Business-Website in 2–3 Wochen. Was den Zeitplan beeinflusst.",
@@ -31,7 +32,7 @@ const TIMELINES = [
 
 const TIMELINE_FACTORS = [
   { title: "Wie schnell Inhalte vorliegen", text: "Texte und Bilder sind der häufigste Engpass. Liegen sie bereit, geht es deutlich zügiger." },
-  { title: "Dein Feedback-Tempo", text: "Schnelle Rückmeldungen zu Zwischenständen halten das Projekt in Bewegung." },
+  { title: "Ihr Feedback-Tempo", text: "Schnelle Rückmeldungen zu Zwischenständen halten das Projekt in Bewegung." },
   { title: "Funktionsumfang", text: "Ein Kontaktformular ist schnell gebaut. Buchung, Shop oder KI-Chatbot brauchen länger." },
   { title: "Anzahl der Korrekturschleifen", text: "Klare Vorstellungen am Anfang sparen Runden am Ende." },
 ];
@@ -122,7 +123,7 @@ export default function WieLangeDauertEineWebsitePage() {
             <strong className="font-semibold">5–7 Tagen</strong> fertig, eine mehrseitige{" "}
             <strong className="font-semibold">Business-Website</strong> in{" "}
             <strong className="font-semibold">2–3 Wochen</strong>. Größere Web-Apps und
-            KI-Projekte laufen nach Absprache. Der wichtigste Faktor bist am Ende du: wie schnell
+            KI-Projekte laufen nach Absprache. Der wichtigste Faktor sind am Ende Sie: wie schnell
             Inhalte vorliegen und Feedback kommt.
           </p>
         </div>

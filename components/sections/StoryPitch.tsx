@@ -82,7 +82,7 @@ export function StoryPitch() {
     >
       <div className="mx-auto w-full max-w-5xl px-6">
         <p className="mb-10 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
-          Kapitel 01 — Dein Problem
+          Kapitel 01 — Ihr Problem
         </p>
         <p className="font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl md:leading-[1.2]">
           {shouldReduceMotion

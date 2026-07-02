@@ -50,7 +50,7 @@ export function ConsentBanner() {
         >
           <p className="text-sm leading-relaxed text-muted">
             Diese Website nutzt aktuell <strong className="text-foreground">keine Tracking-Cookies</strong>.
-            Optionale Statistik-Dienste werden erst nach deiner Zustimmung geladen.
+            Optionale Statistik-Dienste werden erst nach Ihrer Zustimmung geladen.
             Details in der{" "}
             <Link href="/datenschutz" className="text-violet-3 underline-offset-4 hover:underline">
               Datenschutzerklärung

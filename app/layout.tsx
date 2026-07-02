@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     "Webdesign für Selbstständige",
     "KMU Website",
     "Next.js Entwickler",
-    "One Pager Website",
+    "One-Pager Website",
   ],
   authors: [{ name: site.ownerName, url: siteUrl }],
   creator: site.ownerName,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     siteName: `${site.ownerName} – Webdesign Hannover`,
     title: "Websites, die Kunden bringen – Fatih Güler",
     description:
-      "Freelance Webentwickler aus Hannover. KMU-Websites ab 500€. Modern, schnell, conversion-optimiert.",
+      "Freelance Webentwickler aus Hannover. KMU-Websites ab 500 €. Modern, schnell, gebaut für Anfragen.",
     images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
   },
   twitter: {
@@ -112,7 +112,10 @@ const jsonLd = {
         addressRegion: "Niedersachsen",
         addressCountry: "DE",
       },
-      areaServed: { "@type": "Country", name: "Deutschland" },
+      areaServed: [
+        { "@type": "City", name: "Hannover" },
+        { "@type": "Country", name: "Deutschland" },
+      ],
       priceRange: "ab 500 €",
       serviceType: ["Webentwicklung", "Webdesign", "KI-Integration", "Web-Apps"],
       openingHoursSpecification: {
@@ -127,8 +130,8 @@ const jsonLd = {
         itemListElement: [
           {
             "@type": "Offer",
-            name: "One Pager",
-            description: "Landing Page mit Kontaktformular und SEO-Basis – ab 500 €.",
+            name: "One-Pager",
+            description: "Eine Seite mit Kontaktformular und SEO-Basis – ab 500 €, in 5–7 Tagen.",
             priceSpecification: {
               "@type": "PriceSpecification",
               price: 500,
@@ -138,8 +141,8 @@ const jsonLd = {
           },
           {
             "@type": "Offer",
-            name: "Business Website",
-            description: "Bis zu 6 Seiten, Premium-Design, vollständige SEO – ab 1.500 €.",
+            name: "Business-Website",
+            description: "Bis zu 5 Unterseiten, individuelles Design, lokale SEO – ab 1.500 €, in 2–3 Wochen.",
             priceSpecification: {
               "@type": "PriceSpecification",
               price: 1500,
@@ -149,8 +152,14 @@ const jsonLd = {
           },
           {
             "@type": "Offer",
-            name: "Premium / Custom",
-            description: "Individuelle Web-Apps und KI-Integrationen – Preis auf Anfrage.",
+            name: "KI & Automatisierung",
+            description: "Individuelle Web-Apps und KI-Integrationen – Projekte ab 3.000 €.",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              price: 3000,
+              priceCurrency: "EUR",
+              valueAddedTaxIncluded: false,
+            },
           },
         ],
       },
