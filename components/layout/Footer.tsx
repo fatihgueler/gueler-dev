@@ -101,9 +101,30 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-2 sm:flex-row">
-          <p>
-            © {year} {site.ownerName}. Alle Rechte vorbehalten.
+        {/* Riesige Outline-Wortmarke als unterster Abschluss — füllt sich
+            beim Hover und grinst (per-Letter-Kurve wie im Hero) */}
+        <div aria-hidden className="mt-16 select-none overflow-hidden">
+          <p
+            className="footer-wordmark whitespace-nowrap text-center font-display font-black leading-none tracking-tighter"
+            style={{ fontSize: "clamp(3.5rem, 14.5vw, 12rem)", letterSpacing: "-0.03em" }}
+          >
+            {Array.from("GÜLER.DEV").map((ch, i) => (
+              <span key={i} className="wm-l">
+                {ch}
+              </span>
+            ))}
+          </p>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-2 sm:flex-row">
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-start">
+            <span>
+              © {year} {site.ownerName}. Alle Rechte vorbehalten.
+            </span>
+            {/* Build-Stempel: echter Commit-Hash, zur Build-Zeit injiziert */}
+            <span className="font-mono text-xs text-muted-2/70" title="Build">
+              {process.env.NEXT_PUBLIC_BUILD_HASH} · {process.env.NEXT_PUBLIC_BUILD_DATE}
+            </span>
           </p>
           <div className="flex gap-6">
             <Link href="/impressum" className="transition-colors hover:text-violet-3">

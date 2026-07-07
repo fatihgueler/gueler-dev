@@ -95,6 +95,7 @@ export default function WebentwicklerVsAgenturPage() {
       <PageHero
         eyebrow="Ratgeber"
         title="Webentwickler oder Agentur?"
+        stamp="VS"
         subtitle="Der ehrliche Vergleich für kleine und mittlere Unternehmen – ohne die eigene Seite schönzureden."
       >
         <nav aria-label="Brotkrumen" className="mt-8">

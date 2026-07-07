@@ -20,6 +20,7 @@ export default function UeberPage() {
         eyebrow={pages.ueber.eyebrow}
         title={pages.ueber.title}
         subtitle={pages.ueber.subtitle}
+        stamp="03"
       />
       <About />
       <Timeline />

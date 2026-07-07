@@ -19,6 +19,7 @@ export default function LeistungenPage() {
         eyebrow={pages.leistungen.eyebrow}
         title={pages.leistungen.title}
         subtitle={pages.leistungen.subtitle}
+        stamp="02"
       />
       <ServiceCards3D />
       <Process />

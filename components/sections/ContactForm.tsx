@@ -94,7 +94,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="card-surface space-y-5 rounded-[var(--radius-lg)] p-8 md:p-10"
+      className="card-surface terminal-form space-y-5 rounded-[var(--radius-lg)] p-8 md:p-10"
       noValidate
     >
       {/* Honeypot – komplett unsichtbar, kein verräterisches Label/Placeholder.

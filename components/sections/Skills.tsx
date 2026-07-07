@@ -28,7 +28,7 @@ export function Skills() {
                   <Badge
                     key={item}
                     variant="outline"
-                    className="rounded-full font-mono text-xs text-muted transition-colors hover:border-teal hover:text-teal"
+                    className="rounded-none font-mono text-xs text-muted transition-colors duration-100 hover:border-foreground hover:bg-foreground hover:text-background"
                   >
                     {item}
                   </Badge>

@@ -151,10 +151,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
             </p>
           </Reveal>
 
+          {/* Riesige, kantige Case-Study-Headline (Brutalist-Sprache) */}
           <WordReveal
             as="h1"
             text={study.title}
-            className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+            className="mt-5 font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.95] tracking-[-0.03em] text-foreground"
           />
 
           <Reveal delay={0.2}>
@@ -183,10 +184,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
             {study.metrics.map((metric) => (
               <RevealItem key={metric.label} variant="fadeUp" className="h-full">
                 <div className="card-surface flex h-full flex-col items-center rounded-[var(--radius-lg)] p-8 text-center">
-                  <span className="font-display text-4xl font-semibold text-violet-2 md:text-5xl">
+                  <span className="font-display text-[clamp(2.75rem,5vw,4.5rem)] font-black leading-none tracking-tight text-violet-2">
                     {metric.value}
                   </span>
-                  <span className="mt-3 text-sm leading-relaxed text-muted">
+                  <span className="mt-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">
                     {metric.label}
                   </span>
                 </div>
@@ -201,14 +202,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
           {NARRATIVE.map((block, i) => (
             <Reveal key={block.key} delay={i * 0.1} className="h-full">
-              <div className="card-surface flex h-full flex-col rounded-[var(--radius-lg)] p-8">
+              <div className="card-surface relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] p-8">
+                {/* Narrative-Stufe als Riesenstempel in der Ecke */}
+                <span
+                  aria-hidden
+                  className="text-outline-strong pointer-events-none absolute -right-2 -top-5 select-none font-mono text-[clamp(4.5rem,7vw,6.5rem)] font-black leading-none"
+                >
+                  {block.step}
+                </span>
                 <span className="font-mono text-xs font-semibold tracking-[0.2em] text-violet-3">
                   {block.step}
                 </span>
-                <h2 className="mt-3 font-display text-xl font-semibold text-foreground">
+                <h2 className="mt-3 font-display text-xl font-bold text-foreground">
                   {block.label}
                 </h2>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                <p className="relative mt-4 flex-1 text-sm leading-relaxed text-muted">
                   {study[block.key]}
                 </p>
               </div>

@@ -27,7 +27,8 @@ export function CaseStudiesGrid() {
           <RevealItem key={study.id} variant="fadeUp" className="h-full">
             <Link
               href={`/projekte/${study.id}`}
-              className="card-surface group flex h-full flex-col rounded-[var(--radius-lg)] p-8 transition-colors hover:border-violet-2"
+              data-cursor="view"
+              className="card-surface group flex h-full flex-col rounded-[var(--radius-lg)] p-8 transition-[transform,box-shadow,border-color] duration-100 hover:-translate-x-1 hover:-translate-y-1 hover:border-border-strong hover:shadow-[8px_8px_0_0_var(--color-violet)]"
               aria-label={`Case Study ansehen: ${study.title}`}
             >
               <div className="flex items-start justify-between gap-4">

@@ -8,6 +8,7 @@ import { nav } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
@@ -39,7 +40,7 @@ export function Header() {
           <Logo className="text-xl md:text-2xl" />
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex" aria-label="Hauptnavigation">
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Hauptnavigation">
           {nav.map((item) => {
             const isActive = pathname === item.href.split("#")[0] && item.href.startsWith("/") && !item.href.startsWith("/#");
             return (
@@ -47,18 +48,22 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "group relative text-sm font-medium transition-colors",
-                  isActive ? "text-foreground" : "text-muted hover:text-foreground",
+                  "group relative text-sm font-medium transition-colors duration-100",
+                  // Aktive Route als harter Invert-Block statt Unterstrich
+                  isActive
+                    ? "bg-foreground px-2.5 py-1 text-background"
+                    : "text-muted hover:text-foreground",
                 )}
                 aria-current={isActive ? "page" : undefined}
               >
-                {item.label}
-                <span
-                  className={cn(
-                    "absolute -bottom-1.5 left-0 h-px bg-violet-2 transition-all duration-300",
-                    isActive ? "w-full" : "w-0 group-hover:w-full",
-                  )}
-                />
+                {/* Mono-Scramble beim Hover (Touch/Reduced-Motion: statisch) */}
+                <ScrambleText text={item.label} />
+                {!isActive && (
+                  <span
+                    className="absolute -bottom-1.5 left-0 h-px w-0 bg-violet-2 transition-all duration-300 group-hover:w-full"
+                    aria-hidden
+                  />
+                )}
               </Link>
             );
           })}

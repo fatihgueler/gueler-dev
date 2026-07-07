@@ -29,27 +29,20 @@ export function ProjectsFilter() {
       <div className="mx-auto max-w-6xl">
         {/* Filter */}
         <div className="flex flex-wrap gap-2.5">
+          {/* Gestempelte Filter-Tabs: aktiv = harter Invert-Block */}
           {categories.map((category) => (
             <button
               key={category}
               type="button"
               onClick={() => setActive(category)}
               className={cn(
-                "relative rounded-none border border-transparent px-4 py-2 font-mono text-xs font-medium uppercase tracking-wide transition-colors",
+                "border px-4 py-2 font-mono text-xs font-bold uppercase tracking-wide transition-colors duration-100",
                 active === category
-                  ? "text-teal"
-                  : "border-border text-muted hover:border-teal-deep hover:text-foreground",
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border text-muted hover:bg-foreground hover:text-background",
               )}
             >
-              {active === category && (
-                <m.span
-                  layoutId="active-category"
-                  transition={REFLOW_SPRING}
-                  className="absolute inset-0 rounded-none border border-teal bg-teal/10"
-                  aria-hidden
-                />
-              )}
-              <span className="relative z-10">{category}</span>
+              {category}
             </button>
           ))}
         </div>
@@ -66,7 +59,7 @@ export function ProjectsFilter() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={REFLOW_SPRING}
                 className={cn(
-                  "card-surface group relative flex h-full flex-col rounded-[var(--radius-lg)] p-8",
+                  "card-surface group relative flex h-full flex-col rounded-[var(--radius-lg)] p-8 transition-[transform,box-shadow,border-color] duration-100 hover:-translate-x-1 hover:-translate-y-1 hover:border-border-strong hover:shadow-[8px_8px_0_0_var(--color-violet)]",
                   project.featured && "md:col-span-2 md:p-10",
                 )}
               >

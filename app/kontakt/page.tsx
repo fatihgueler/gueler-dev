@@ -59,6 +59,7 @@ export default function KontaktPage() {
         eyebrow={pages.kontakt.eyebrow}
         title={pages.kontakt.title}
         subtitle={pages.kontakt.subtitle}
+        stamp="04"
       />
 
       <section className="px-6 pb-24 md:pb-32">
@@ -69,31 +70,32 @@ export default function KontaktPage() {
                 const Icon = channel.icon;
                 const inner = (
                   <>
-                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-teal transition-colors group-hover:border-teal-deep">
+                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-teal transition-colors duration-100 group-hover:border-transparent group-hover:bg-background/10 group-hover:text-background">
                       <Icon className="size-5" />
                     </span>
                     <span>
-                      <span className="block font-mono text-xs uppercase tracking-wider text-muted-2">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-muted-2 transition-colors duration-100 group-hover:text-background/60">
                         {channel.label}
                       </span>
-                      <span className="text-foreground transition-colors group-hover:text-teal">
+                      <span className="text-foreground transition-colors duration-100 group-hover:text-background">
                         {channel.value}
                       </span>
                     </span>
                   </>
                 );
                 return channel.href ? (
+                  // Datenblatt-Zeile: Hover invertiert hart
                   <a
                     key={channel.label}
                     href={channel.href}
                     target={channel.external ? "_blank" : undefined}
                     rel={channel.external ? "noopener noreferrer" : undefined}
-                    className="group flex items-center gap-4"
+                    className="group -mx-3 flex items-center gap-4 px-3 py-1.5 transition-colors duration-100 hover:bg-foreground"
                   >
                     {inner}
                   </a>
                 ) : (
-                  <div key={channel.label} className="group flex items-center gap-4">
+                  <div key={channel.label} className="flex items-center gap-4 px-0 py-1.5">
                     {inner}
                   </div>
                 );

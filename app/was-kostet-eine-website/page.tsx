@@ -118,6 +118,7 @@ export default function WasKostetEineWebsitePage() {
       <PageHero
         eyebrow="Ratgeber"
         title="Was kostet eine Website?"
+        stamp="€"
         subtitle="Ehrliche Preisorientierung für kleine Unternehmen und Selbstständige – konkrete Festpreise statt vager Stundensätze."
       >
         {/* Breadcrumb (matcht BreadcrumbList-Schema) */}

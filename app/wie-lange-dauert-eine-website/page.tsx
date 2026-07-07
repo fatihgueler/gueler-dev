@@ -97,6 +97,7 @@ export default function WieLangeDauertEineWebsitePage() {
       <PageHero
         eyebrow="Ratgeber"
         title="Wie lange dauert eine Website?"
+        stamp="5–7"
         subtitle="Realistische Zeitrahmen statt leerer Versprechen – und was die Dauer wirklich bestimmt."
       >
         <nav aria-label="Brotkrumen" className="mt-8">

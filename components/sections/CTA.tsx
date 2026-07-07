@@ -7,19 +7,25 @@ import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/anim/Reveal";
 
-/** Wiederverwendbarer Call-to-Action-Block mit animiertem Mesh-Hintergrund. */
+/**
+ * Wiederverwendbarer Call-to-Action-Block (alle Unterseiten) —
+ * Brutalist-Angleichung: Mesh-Glow raus, Haarlinie + riesige schwarze
+ * Headline + Mono-Subline. Gleiche Sprache wie FinalCta auf der Startseite.
+ */
 export function CTA() {
   return (
     <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="mesh-bg" aria-hidden />
       <div className="hairline absolute inset-x-0 top-0" aria-hidden />
 
       <div className="relative mx-auto max-w-3xl px-6 text-center">
         <Reveal>
-          <h2 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-5xl">
+          <h2
+            className="font-display font-black leading-[1.02] tracking-tighter text-foreground"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", letterSpacing: "-0.03em" }}
+          >
             {cta.title}
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mx-auto mt-6 max-w-xl font-mono text-sm leading-relaxed text-muted md:text-base">
             {cta.subtitle}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

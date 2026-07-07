@@ -4,35 +4,40 @@ import { timeline } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/Section";
 import { Reveal } from "@/components/anim/Reveal";
 
-/** Vertikaler Werdegang mit Teal-Verlaufslinie. */
+/**
+ * Werdegang — Brutalist-Ausbau: die Teal-Verlaufslinie ist raus.
+ * Jede Station ist eine Haarlinien-Zeile mit der Periode als riesiger
+ * Outline-Jahreszahl; Hover invertiert die Zeile hart.
+ */
 export function Timeline() {
   return (
     <Section id="werdegang" className="bg-surface/30">
       <SectionHeading eyebrow={timeline.eyebrow} title={timeline.title} />
 
-      <div className="relative mt-16 max-w-3xl">
-        <div
-          className="absolute bottom-2 left-2 top-2 w-px bg-gradient-to-b from-teal via-border-strong to-transparent"
-          aria-hidden
-        />
-        <div className="space-y-10">
-          {timeline.steps.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.08}>
-              <div className="relative pl-12">
-                <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full border border-teal bg-background">
-                  <span className="h-1.5 w-1.5 rounded-full bg-teal" />
-                </span>
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-teal">
+      <div className="mt-16 border-t border-border">
+        {timeline.steps.map((step, i) => (
+          <Reveal key={step.title} delay={i * 0.06}>
+            <div className="group border-b border-border">
+              <div className="-mx-4 grid grid-cols-1 gap-2 px-4 py-8 transition-colors duration-100 group-hover:bg-foreground md:-mx-6 md:grid-cols-[16rem_1fr] md:gap-10 md:px-6 md:py-10">
+                <span
+                  className="text-outline-strong timeline-year select-none font-mono text-[clamp(2rem,4.5vw,3.5rem)] font-black leading-none tracking-tight"
+                  aria-hidden
+                >
                   {step.period}
                 </span>
-                <h3 className="mt-1.5 font-display text-xl font-semibold text-foreground">
-                  {step.title}
-                </h3>
-                <p className="mt-2 leading-relaxed text-muted">{step.description}</p>
+                <div>
+                  <span className="sr-only">{step.period} — </span>
+                  <h3 className="font-display text-xl font-bold text-foreground transition-colors duration-100 group-hover:text-background md:text-2xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl leading-relaxed text-muted transition-colors duration-100 group-hover:text-background/70">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </Section>
   );
