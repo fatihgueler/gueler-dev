@@ -1,8 +1,27 @@
 import { ImageResponse } from "next/og";
 
+import { CODE_LINES } from "@/lib/hero-code";
+
 export const runtime = "edge";
 
+/**
+ * OG-Image im Brutalist-System der Seite: Zeilen aus echtem, kuratiertem
+ * Code (lib/hero-code.ts) als Hintergrund, darüber die Wortmarke + Gloss.
+ * Jeder geteilte Link trägt so das Signature-Piece nach draußen.
+ */
 export async function GET() {
+  // 14 Code-Zeilen, deterministisch versetzt — Akzente in Violett/Cyan
+  const rows = Array.from({ length: 14 }, (_, i) => {
+    const text = CODE_LINES[(i * 3) % CODE_LINES.length];
+    const color =
+      i % 9 === 3
+        ? "rgba(167,139,250,0.35)"
+        : i % 7 === 5
+          ? "rgba(34,211,238,0.28)"
+          : "rgba(241,245,249,0.13)";
+    return { text: `${text}  ${text}`, color, shift: -((i * 53) % 140) };
+  });
+
   return new ImageResponse(
     (
       <div
@@ -10,26 +29,13 @@ export async function GET() {
           height: "100%",
           width: "100%",
           display: "flex",
-          backgroundColor: "#0d0d0d",
+          flexDirection: "column",
+          backgroundColor: "#04040a",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {/* Glow */}
-        <div
-          style={{
-            position: "absolute",
-            top: -150,
-            left: -150,
-            width: 700,
-            height: 700,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 65%)",
-            display: "flex",
-          }}
-        />
-        {/* Dot grid */}
+        {/* Code-Zeilen-Hintergrund */}
         <div
           style={{
             position: "absolute",
@@ -37,119 +43,40 @@ export async function GET() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage:
-              "radial-gradient(circle, #2a2a2a 1.5px, transparent 1.5px)",
-            backgroundSize: "32px 32px",
-            opacity: 0.8,
             display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: "20px 0",
           }}
-        />
+        >
+          {rows.map((row, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                whiteSpace: "nowrap",
+                fontSize: 22,
+                color: row.color,
+                marginLeft: row.shift,
+              }}
+            >
+              {row.text}
+            </div>
+          ))}
+        </div>
+
         {/* Content */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "56px 80px",
             flex: 1,
             justifyContent: "space-between",
+            padding: "48px 72px",
             position: "relative",
           }}
         >
-          {/* Logo bar */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div
-              style={{
-                display: "flex",
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: "#7c3aed",
-                marginRight: 12,
-              }}
-            />
-            <span
-              style={{
-                color: "#7c3aed",
-                fontSize: 22,
-                fontWeight: 700,
-                letterSpacing: 4,
-                marginRight: 14,
-              }}
-            >
-              GÜLER.DEV
-            </span>
-            <span
-              style={{
-                color: "rgba(255,255,255,0.35)",
-                fontSize: 18,
-                letterSpacing: 1,
-              }}
-            >
-              · Webdesign Hannover
-            </span>
-          </div>
-
-          {/* Headline block */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", alignItems: "center", marginBottom: 16 }}>
-              <div
-                style={{
-                  display: "flex",
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "#7c3aed",
-                  marginRight: 10,
-                }}
-              />
-              <span
-                style={{
-                  color: "rgba(255,255,255,0.5)",
-                  fontSize: 20,
-                  letterSpacing: 2,
-                }}
-              >
-                Webentwickler für KMU · Hannover
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                color: "#ffffff",
-                fontSize: 80,
-                fontWeight: 800,
-                lineHeight: 1.05,
-                letterSpacing: -2,
-              }}
-            >
-              Websites, die
-            </div>
-            <div
-              style={{
-                display: "flex",
-                color: "#7c3aed",
-                fontSize: 80,
-                fontWeight: 800,
-                lineHeight: 1.05,
-                letterSpacing: -2,
-                marginBottom: 20,
-              }}
-            >
-              Kunden bringen.
-            </div>
-            <div
-              style={{
-                display: "flex",
-                color: "rgba(255,255,255,0.45)",
-                fontSize: 24,
-                fontWeight: 400,
-              }}
-            >
-              Modern, schnell & auf Wachstum ausgelegt.
-            </div>
-          </div>
-
-          {/* Footer bar */}
+          {/* Top bar */}
           <div
             style={{
               display: "flex",
@@ -157,28 +84,80 @@ export async function GET() {
               alignItems: "center",
             }}
           >
-            <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 18 }}>
-              fatih.gueler75@gmail.com · Hannover
+            <span
+              style={{
+                color: "rgba(241,245,249,0.6)",
+                fontSize: 22,
+                letterSpacing: 4,
+              }}
+            >
+              WEBDESIGN HANNOVER · DEUTSCHLANDWEIT
             </span>
+            <span
+              style={{
+                color: "#a78bfa",
+                fontSize: 22,
+                letterSpacing: 2,
+              }}
+            >
+              fatih.gueler75@gmail.com
+            </span>
+          </div>
+
+          {/* Wortmarke */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
-                background: "rgba(124,58,237,0.12)",
-                border: "1px solid rgba(124,58,237,0.45)",
-                borderRadius: 100,
-                padding: "12px 30px",
+                color: "#f1f5f9",
+                fontSize: 164,
+                fontWeight: 800,
+                letterSpacing: -8,
+                lineHeight: 1,
               }}
             >
-              <span
-                style={{
-                  color: "#7c3aed",
-                  fontSize: 18,
-                  fontWeight: 600,
-                }}
-              >
-                🚀 One Pager ab 500€ · Business ab 1.500€
-              </span>
+              GÜLER.DEV
+            </div>
+            <div
+              style={{
+                display: "flex",
+                color: "#a78bfa",
+                fontSize: 26,
+                marginTop: 14,
+                letterSpacing: 3,
+              }}
+            >
+              güler (tr.) — der/die lacht.
+            </div>
+          </div>
+
+          {/* Bottom bar: harter Invert-Block */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                background: "#f1f5f9",
+                color: "#04040a",
+                fontSize: 30,
+                fontWeight: 800,
+                padding: "14px 28px",
+                letterSpacing: 1,
+              }}
+            >
+              Websites, die Kunden bringen.
+            </div>
+            <div
+              style={{
+                display: "flex",
+                border: "2px solid rgba(241,245,249,0.4)",
+                color: "rgba(241,245,249,0.8)",
+                fontSize: 24,
+                fontWeight: 600,
+                padding: "14px 24px",
+                marginLeft: 16,
+              }}
+            >
+              One Pager ab 500€ · Business ab 1.500€
             </div>
           </div>
         </div>

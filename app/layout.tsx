@@ -10,6 +10,8 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/ui/Cursor";
+import { GrinFavicon } from "@/components/ui/GrinFavicon";
+import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
 
@@ -201,6 +203,8 @@ export default function RootLayout({
           </a>
           <ScrollProgress />
           <Cursor />
+          <GrinFavicon />
+          <ConsoleSignature />
           <Header />
           <MotionProvider>
             <SmoothScroll>
