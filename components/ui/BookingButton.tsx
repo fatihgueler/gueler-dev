@@ -55,20 +55,9 @@ interface BookingButtonProps extends Pick<ButtonProps, "variant" | "size" | "cla
 }
 
 export function BookingButton({ children, ...buttonProps }: BookingButtonProps) {
-  React.useEffect(() => {
-    const hasIdleCallback = typeof window.requestIdleCallback === "function";
-    const idle = hasIdleCallback
-      ? window.requestIdleCallback(loadCalendly, { timeout: 4000 })
-      : window.setTimeout(loadCalendly, 3000);
-    return () => {
-      if (hasIdleCallback) {
-        window.cancelIdleCallback(idle);
-      } else {
-        window.clearTimeout(idle);
-      }
-    };
-  }, []);
-
+  // KEIN Idle-Preload mehr: Calendly setzt Third-Party-Cookies (__cf_bm) —
+  // Assets laden erst bei echter Interaktions-Absicht (Hover/Focus).
+  // Kommt der Klick schneller als das Script, greift der Link-Fallback.
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!window.Calendly) return; // Fallback: Link öffnet Calendly im neuen Tab
     event.preventDefault();

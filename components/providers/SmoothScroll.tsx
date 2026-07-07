@@ -2,8 +2,6 @@
 
 import * as React from "react";
 import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/lib/motion";
 
@@ -16,14 +14,14 @@ declare global {
 }
 
 /**
- * Globaler Smooth-Scroll (Lenis) + GSAP-ScrollTrigger-Kopplung.
+ * Globaler Smooth-Scroll (Lenis) mit eigenem rAF-Loop.
+ * Die frühere GSAP-Ticker-/ScrollTrigger-Kopplung ist raus — nichts
+ * nutzt mehr ScrollTrigger, und ohne GSAP schrumpft das JS-Bundle.
  * Bei „Bewegung reduzieren" wird natives Scrollen beibehalten.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     if (prefersReducedMotion()) return;
-
-    gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -31,21 +29,17 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       smoothWheel: true,
     });
 
-    lenis.on("scroll", ScrollTrigger.update);
-
     window.__lenis = lenis;
 
-    const onTick = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(onTick);
-    gsap.ticker.lagSmoothing(0);
-
-    // Nach erstem Layout neu messen (Fonts, Bilder, dynamische Inhalte)
-    const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("load", refresh);
+    let raf = 0;
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = window.requestAnimationFrame(loop);
+    };
+    raf = window.requestAnimationFrame(loop);
 
     return () => {
-      window.removeEventListener("load", refresh);
-      gsap.ticker.remove(onTick);
+      window.cancelAnimationFrame(raf);
       delete window.__lenis;
       lenis.destroy();
     };

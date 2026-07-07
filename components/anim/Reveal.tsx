@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import { prefersReducedMotion } from "@/lib/motion";
+import { m, useReducedMotion } from "framer-motion";
 
 interface RevealProps {
   children: React.ReactNode;
@@ -16,44 +13,25 @@ interface RevealProps {
 }
 
 /**
- * GSAP-ScrollTrigger-Reveal: blendet ein Element ein, sobald es in den
- * Viewport scrollt. Bei Reduced-Motion sofort sichtbar.
+ * Scroll-Reveal (Framer Motion, whileInView). Ersetzt die frühere
+ * GSAP-ScrollTrigger-Variante — damit fliegt GSAP komplett aus dem
+ * Bundle (Framer trägt bereits alle übrigen Animationen).
+ * Bei Reduced-Motion sofort sichtbar.
  */
 export function Reveal({ children, className, y = 30, delay = 0 }: RevealProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (prefersReducedMotion()) {
-      gsap.set(el, { opacity: 1, y: 0 });
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          delay,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 86%", once: true },
-        },
-      );
-    });
-
-    return () => ctx.revert();
-  }, [y, delay]);
-
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
   return (
-    <div ref={ref} className={className}>
+    <m.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
       {children}
-    </div>
+    </m.div>
   );
 }
