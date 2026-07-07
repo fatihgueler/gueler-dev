@@ -33,8 +33,13 @@ function PitchWord({
   progress: MotionValue<number>;
 }) {
   const start = index / total;
-  const end = (index + 1) / total;
-  const opacity = useTransform(progress, [start, end], [0, 1]);
+  // Harter Stempel statt Fade: das Wort rastet in einem Frame ein,
+  // sobald der Scroll-Fortschritt seine Schwelle passiert.
+  const opacity = useTransform(
+    progress,
+    [start, Math.min(start + 0.002, 1)],
+    [0, 1],
+  );
 
   return (
     // Leerzeichen muss AUSSERHALB des inline-block stehen – innerhalb
@@ -43,11 +48,13 @@ function PitchWord({
       <span className="relative inline-block">
         {/* Graue Basis-Ebene */}
         <span className="text-foreground/15">{word.text}</span>
-        {/* Eingefärbte Ebene, scroll-linked */}
+        {/* Gestempelte Ebene: Akzentwörter als invertierter Block */}
         <m.span
           className={cn(
             "absolute inset-0",
-            word.accent ? "text-gradient-teal" : "text-foreground",
+            word.accent
+              ? "-mx-[0.06em] bg-violet px-[0.06em] text-white"
+              : "text-foreground",
           )}
           style={{ opacity }}
           aria-hidden
@@ -80,10 +87,8 @@ export function StoryPitch() {
       aria-label="Mein Anspruch"
       className="relative py-28 md:py-44"
     >
+      {/* Kapitel-Label steht jetzt im HardCut-Balken direkt über der Sektion */}
       <div className="mx-auto w-full max-w-5xl px-6">
-        <p className="mb-10 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3" style={{ textTransform: "uppercase" }}>
-          Kapitel 01 — Dein Problem
-        </p>
         <p className="font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl md:leading-[1.2]">
           {shouldReduceMotion
             ? WORDS.map((word) => (
@@ -91,7 +96,9 @@ export function StoryPitch() {
                   key={`${word.text}-static`}
                   className={cn(
                     "inline",
-                    word.accent ? "text-gradient-teal" : "text-foreground",
+                    word.accent
+                      ? "bg-violet px-[0.06em] text-white"
+                      : "text-foreground",
                   )}
                 >
                   {word.text}{" "}

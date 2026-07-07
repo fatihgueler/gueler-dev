@@ -1,14 +1,89 @@
 "use client";
 
 import * as React from "react";
-import { m, useReducedMotion } from "framer-motion";
 
 import { features } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
+import { isTouchDevice, prefersReducedMotion } from "@/lib/motion";
+
+type Feature = (typeof features.items)[number];
+
+/**
+ * Feature-Zeile: Hover invertiert die volle Zeile hart (kein weiches
+ * Easing), und ein Mono-Nummern-Sticker klebt am Cursor, solange er
+ * über der Zeile steht (nur Desktop, transform-only im mousemove).
+ */
+function FeatureRow({ item, index }: { item: Feature; index: number }) {
+  const rowRef = React.useRef<HTMLDivElement>(null);
+  const stickerRef = React.useRef<HTMLSpanElement>(null);
+
+  const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const row = rowRef.current;
+    const sticker = stickerRef.current;
+    if (!row || !sticker) return;
+    if (isTouchDevice() || prefersReducedMotion()) return;
+    const rect = row.getBoundingClientRect();
+    sticker.style.transform = `translate(${event.clientX - rect.left}px, ${
+      event.clientY - rect.top
+    }px) translate(16px, -50%)`;
+  };
+
+  return (
+    <div className="group relative">
+      <div
+        ref={rowRef}
+        onMouseMove={onMouseMove}
+        className="relative -mx-4 grid cursor-default grid-cols-[3rem_1fr] gap-6 px-4 py-8 transition-colors duration-100 group-hover:bg-foreground md:-mx-8 md:grid-cols-[5rem_1fr_2fr] md:gap-10 md:px-8 md:py-10"
+      >
+        {/* Nummern-Sticker am Cursor (dekorativ) */}
+        <span
+          ref={stickerRef}
+          aria-hidden
+          className="pointer-events-none absolute left-0 top-0 z-10 hidden select-none border border-foreground bg-background px-2 py-1 font-mono text-[0.6rem] font-bold tracking-[0.25em] text-foreground opacity-0 transition-opacity duration-100 group-hover:opacity-100 motion-reduce:hidden md:block"
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {/* Number */}
+        <div className="flex items-start pt-1">
+          <span
+            className="font-mono font-bold leading-none text-border transition-colors duration-100 group-hover:text-background/30"
+            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+            aria-hidden
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+
+        {/* Title */}
+        <div className="md:flex md:flex-col md:justify-center">
+          <h3
+            className="font-display font-semibold text-foreground transition-colors duration-100 group-hover:text-background"
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
+          >
+            {item.title}
+          </h3>
+          {/* Mobile description (shown below title on small screens) */}
+          <p className="mt-2 text-sm leading-relaxed text-muted transition-colors duration-100 group-hover:text-background/70 md:hidden">
+            {item.description}
+          </p>
+        </div>
+
+        {/* Description — desktop only */}
+        <div className="hidden items-center md:flex">
+          <p className="text-base leading-relaxed text-muted transition-colors duration-100 group-hover:text-background/70">
+            {item.description}
+          </p>
+        </div>
+      </div>
+
+      {/* Row divider */}
+      <div className="h-px w-full bg-border" />
+    </div>
+  );
+}
 
 export function FeaturesGrid() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section id="leistungen" className="relative py-24 md:py-32">
       <div className="mx-auto w-full max-w-7xl px-6">
@@ -40,56 +115,7 @@ export function FeaturesGrid() {
           <div className="h-px w-full bg-border" />
 
           {features.items.map((item, i) => (
-            <m.div
-              key={item.title}
-              className="group relative"
-              initial={false}
-            >
-              <m.div
-                className="grid cursor-default grid-cols-[3rem_1fr] gap-6 py-8 md:grid-cols-[5rem_1fr_2fr] md:gap-10 md:py-10"
-                whileHover={
-                  reduceMotion
-                    ? {}
-                    : { x: 4 }
-                }
-                transition={{ duration: 0.2, ease: "easeOut" }}
-              >
-                {/* Number */}
-                <div className="flex items-start pt-1">
-                  <span
-                    className="font-mono font-bold leading-none text-border transition-colors duration-300 group-hover:text-violet-500"
-                    style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
-                    aria-hidden
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <div className="md:flex md:flex-col md:justify-center">
-                  <h3
-                    className="font-display font-semibold text-foreground"
-                    style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
-                  >
-                    {item.title}
-                  </h3>
-                  {/* Mobile description (shown below title on small screens) */}
-                  <p className="mt-2 text-sm leading-relaxed text-muted md:hidden">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Description — desktop only */}
-                <div className="hidden items-center md:flex">
-                  <p className="text-base leading-relaxed text-muted">
-                    {item.description}
-                  </p>
-                </div>
-              </m.div>
-
-              {/* Row divider */}
-              <div className="h-px w-full bg-border" />
-            </m.div>
+            <FeatureRow key={item.title} item={item} index={i} />
           ))}
         </div>
       </div>

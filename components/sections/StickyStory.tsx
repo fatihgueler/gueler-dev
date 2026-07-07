@@ -36,17 +36,17 @@ function StoryPanel({
   const start = index * segment;
   const end = start + segment;
 
+  // Harter Cut statt Crossfade: Panel schaltet in einem Frame um,
+  // sobald der Scroll-Fortschritt die Segmentgrenze passiert.
+  const CUT = 0.002;
   const opacity = useTransform(
     progress,
     index === 0
-      ? [start, start + segment * 0.15, end - segment * 0.2, end]
-      : [start, start + segment * 0.25, end - segment * 0.2, end],
-    index === 0 ? [1, 1, 1, 0] : [0, 1, 1, index === total - 1 ? 1 : 0],
-  );
-  const y = useTransform(
-    progress,
-    [start, start + segment * 0.25],
-    index === 0 ? [0, 0] : [60, 0],
+      ? [end, end + CUT]
+      : [start, start + CUT, end, end + CUT],
+    index === 0
+      ? [1, 0]
+      : [0, 1, 1, index === total - 1 ? 1 : 0],
   );
 
   const Icon = ICONS[item.icon] ?? Globe;
@@ -54,10 +54,22 @@ function StoryPanel({
 
   return (
     <m.div
-      style={{ opacity, y }}
+      style={{ opacity }}
       className="absolute inset-0 flex flex-col justify-center"
     >
-      <div className="border border-border bg-background p-8 md:p-10">
+      {/* Riesenziffer als Hintergrund-Stempel, lugt hinter der Karte hervor */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-6 right-0 z-0 select-none font-mono font-black leading-none md:-top-14 md:-right-6"
+        style={{
+          fontSize: "clamp(7rem, 14vw, 12rem)",
+          color: "transparent",
+          WebkitTextStroke: "1.5px var(--color-border-strong)",
+        }}
+      >
+        {panelNumber}
+      </span>
+      <div className="relative z-10 border border-border bg-background p-8 md:p-10">
         <div className="mb-6 flex items-center gap-4">
           <span
             className="font-mono text-xs tracking-[0.3em] text-muted"

@@ -59,11 +59,14 @@ export function FaqAccordion() {
               transition={{ duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
             >
               <AccordionItem value={`faq-${i}`}>
-                <AccordionTrigger className="py-6 text-left font-display text-lg font-semibold no-underline hover:no-underline md:text-xl [&[data-state=open]]:text-foreground [&[data-state=closed]]:text-foreground/80 [&[data-state=open]>svg]:text-violet-3">
+                {/* Harter Zeilen-Invert beim Hover, kein weiches Easing */}
+                <AccordionTrigger className="-mx-4 px-4 py-6 text-left font-display text-xl font-bold no-underline transition-colors duration-100 hover:bg-foreground hover:text-background hover:no-underline md:-mx-6 md:px-6 md:text-2xl [&[data-state=open]]:text-foreground [&[data-state=closed]]:text-foreground/80 [&[data-state=open]>svg]:text-violet-3 [&:hover>svg]:text-background">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="pb-7 text-base leading-relaxed text-muted">
-                  <p className="max-w-2xl">{item.answer}</p>
+                  <p className="max-w-2xl border-l-2 border-violet pl-5">
+                    {item.answer}
+                  </p>
                 </AccordionContent>
               </AccordionItem>
             </m.div>

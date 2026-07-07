@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { projectHighlight, projects } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { TiltCard } from "@/components/ui/TiltCard";
 import { Reveal } from "@/components/animation/Reveal";
 
 export function ProjectHighlight() {
@@ -23,13 +22,8 @@ export function ProjectHighlight() {
       <div className="mx-auto w-full max-w-7xl px-6">
         {/* Header */}
         <div className="mb-16 max-w-3xl md:mb-20">
+          {/* Kapitel-Label steht im HardCut-Balken über der Sektion */}
           <Reveal variant="fadeIn">
-            <p
-              className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-violet-3"
-              style={{ textTransform: "uppercase" }}
-            >
-              Kapitel 03 — Der Beweis
-            </p>
             <p
               className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
               style={{ textTransform: "uppercase" }}
@@ -67,7 +61,9 @@ export function ProjectHighlight() {
               viewport={{ once: true, margin: "-6%" }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <TiltCard className="flex h-full flex-col border border-border bg-background p-7 md:p-8">
+              {/* Sticker-Hover: Karte springt hart nach oben-links,
+                  darunter erscheint ein solider Offset-Block (kein Soft-Shadow) */}
+              <div className="flex h-full flex-col border border-border bg-background p-7 transition-[transform,box-shadow,border-color] duration-100 hover:-translate-x-1 hover:-translate-y-1 hover:border-border-strong hover:shadow-[8px_8px_0_0_var(--color-violet)] md:p-8">
               <p
                 className="font-mono text-xs tracking-[0.2em] text-cyan"
                 style={{ textTransform: "uppercase" }}
@@ -111,7 +107,7 @@ export function ProjectHighlight() {
                   Code
                 </a>
               </div>
-              </TiltCard>
+              </div>
             </m.div>
           ))}
         </div>

@@ -3,7 +3,7 @@ import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
 import { booking, contact, site } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
-import { ContactForm } from "@/components/sections/ContactForm";
+import { ContactFormLazy } from "@/components/sections/ContactFormLazy";
 import { BookingButton } from "@/components/ui/BookingButton";
 
 export function Contact() {
@@ -39,33 +39,33 @@ export function Contact() {
             <div className="border-t border-border">
               <a
                 href={`mailto:${site.email}`}
-                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
               >
-                <Mail className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <Mail className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
                 <span>
                   <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
                     style={{ textTransform: "uppercase" }}
                   >
                     E-Mail
                   </span>
-                  <span className="text-sm text-foreground">{site.email}</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.email}</span>
                 </span>
               </a>
 
               <a
                 href={`tel:${site.phone}`}
-                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
               >
-                <Phone className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <Phone className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
                 <span>
                   <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
                     style={{ textTransform: "uppercase" }}
                   >
                     Telefon
                   </span>
-                  <span className="text-sm text-foreground">{site.phone}</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.phone}</span>
                 </span>
               </a>
 
@@ -73,12 +73,12 @@ export function Contact() {
                 <MapPin className="size-5 shrink-0 text-muted" aria-hidden />
                 <span>
                   <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
                     style={{ textTransform: "uppercase" }}
                   >
                     Standort
                   </span>
-                  <span className="text-sm text-foreground">{site.location}</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.location}</span>
                 </span>
               </div>
 
@@ -86,12 +86,12 @@ export function Contact() {
                 <Clock className="size-5 shrink-0 text-muted" aria-hidden />
                 <span>
                   <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
                     style={{ textTransform: "uppercase" }}
                   >
                     Antwortzeit
                   </span>
-                  <span className="text-sm text-foreground">meist innerhalb 24 Std.</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">meist innerhalb 24 Std.</span>
                 </span>
               </div>
 
@@ -99,17 +99,17 @@ export function Contact() {
                 href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 border-b border-border py-5 transition-colors hover:text-foreground"
+                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
               >
-                <Github className="size-5 shrink-0 text-muted transition-colors group-hover:text-violet-3" aria-hidden />
+                <Github className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
                 <span>
                   <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2"
+                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
                     style={{ textTransform: "uppercase" }}
                   >
                     GitHub
                   </span>
-                  <span className="text-sm text-foreground">@fatihgueler</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">@fatihgueler</span>
                 </span>
               </a>
             </div>
@@ -128,9 +128,9 @@ export function Contact() {
             </div>
           </Reveal>
 
-          {/* Form */}
+          {/* Form — lazy, lädt beim Heranscrollen */}
           <Reveal delay={0.12}>
-            <ContactForm />
+            <ContactFormLazy />
           </Reveal>
         </div>
       </div>
