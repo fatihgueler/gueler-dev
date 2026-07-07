@@ -331,83 +331,114 @@ html.light {
     color: var(--color-cyan-2);
   }
 
-  /* ── Signal-Zeile (Hero) ─────────────────────────────────────
-     Die Akzentzeile IST das Signal: solides Cyan, das aufglüht,
-     sobald der Such-Strahl in der 3D-Szene auf dem Signal einrastet
-     (data-found). Kein Verlauf – Betonung über Farbe + Glow. */
-  .signal-line {
-    color: var(--color-cyan-2);
-    /* Focus-Pull: rackt beim "Fund" optisch scharf (Bricolage opsz-Achse).
-       wght fest auf 600, damit das Gewicht nicht abfällt. */
-    font-variation-settings: "wght" 600, "opsz" 30;
-    transition:
-      text-shadow 0.45s var(--ease-out-expo, ease),
-      filter 0.45s var(--ease-out-expo, ease),
-      font-variation-settings 0.6s var(--ease-out-expo, ease);
-  }
-
-  .signal-line[data-found="true"] {
-    font-variation-settings: "wght" 600, "opsz" 48;
-    text-shadow:
-      0 0 26px rgba(34, 211, 238, 0.55),
-      0 0 64px rgba(34, 211, 238, 0.22);
-    filter: brightness(1.08);
-  }
-
-  /* Light-Mode: helles Cyan #22d3ee reißt auf Papier 4.5:1 – auf Cyan-Deep
-     wechseln und den Glow weglassen (würde auf Papier auswaschen). Der "Fund"
-     zeigt sich hier allein über den Focus-Pull. */
-  html.light .signal-line {
-    color: #0891b2;
-  }
-  html.light .signal-line[data-found="true"] {
-    text-shadow: none;
-    filter: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .signal-line {
-      transition: none;
-    }
-  }
-
-  /* Theme-aware Lesbarkeits-Scrim hinter der Hero-Headline (nutzt die
-     Hintergrundfarbe des aktiven Themes – funktioniert in Light UND Dark). */
-  .hero-scrim {
-    background: radial-gradient(
-      ellipse 56% 46% at 50% 44%,
-      color-mix(in srgb, var(--color-background) 88%, transparent) 0%,
-      color-mix(in srgb, var(--color-background) 58%, transparent) 42%,
-      transparent 74%
-    );
-  }
-
-  /* Split-Scrim: links verankert, läuft nach rechts aus, damit der
-     Partikel-Effekt rechts atmet und die Headline links lesbar bleibt. */
-  .hero-scrim-split {
-    background: linear-gradient(
-      98deg,
-      color-mix(in srgb, var(--color-background) 92%, transparent) 0%,
-      color-mix(in srgb, var(--color-background) 72%, transparent) 42%,
-      transparent 66%
-    );
-  }
-
-  /* Statische Hero-Aura (nur als Fallback bei reduced-motion / Mobile, wenn
-     die WebGL-Szene nicht läuft). Dezent und in beiden Themes vertretbar. */
-  .hero-aura {
-    background: radial-gradient(
-      ellipse 58% 52% at 50% 42%,
-      color-mix(in srgb, var(--color-violet) 22%, transparent) 0%,
-      color-mix(in srgb, var(--color-cyan) 8%, transparent) 46%,
-      transparent 72%
-    );
-  }
-
   /* ── Outline-Text ────────────────────────────────────────── */
   .text-outline {
     color: transparent;
     -webkit-text-stroke: 1px var(--color-ink-3);
+  }
+
+  /* ── Kräftigere Outline (Stempel auf Unterseiten) ─────────── */
+  .text-outline-strong {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-border-strong);
+  }
+
+  /* ── Harter Slice-Reveal für Headlines (CSS-only, on load) ── */
+  .hard-reveal {
+    animation: hard-reveal-wipe 0.45s steps(6, end) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hard-reveal {
+      animation: none;
+      clip-path: none;
+    }
+  }
+
+  /* ── Marquee-Begriffe (TechStrip): Outline, füllt sich on hover ── */
+  .marquee-term {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-border-strong);
+    transition: color 0.1s linear;
+  }
+  .marquee-term:hover {
+    color: var(--color-foreground);
+    -webkit-text-stroke-color: transparent;
+  }
+
+  /* ── Terminal-Form (Kontakt): Mono-Prompts, Mono-Eingaben ── */
+  .terminal-form .space-y-2 > label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .terminal-form .space-y-2 > label::before {
+    content: "> ";
+    color: var(--color-violet-3);
+  }
+  .terminal-form input,
+  .terminal-form textarea {
+    font-family: var(--font-mono);
+    caret-color: var(--color-cyan);
+  }
+
+  /* ── Footer-Wortmarke: Outline, füllt sich beim Hover — und GRINST.
+        Per-Letter-Transforms auf derselben Mundwinkel-Kurve wie der Hero. */
+  .footer-wordmark {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-border-strong);
+    transition: color 0.15s linear;
+  }
+  .footer-wordmark:hover {
+    color: var(--color-foreground);
+    -webkit-text-stroke-color: transparent;
+  }
+  .footer-wordmark .wm-l {
+    display: inline-block;
+    transform-origin: 50% 100%;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Grin-Kurve: Ecken hoch + eingedreht, Mitte sackt ab (9 Buchstaben) */
+  .footer-wordmark:hover .wm-l:nth-child(1) { transform: translateY(-0.1em) rotate(-8deg); }
+  .footer-wordmark:hover .wm-l:nth-child(2) { transform: translateY(-0.05em) rotate(-5deg); }
+  .footer-wordmark:hover .wm-l:nth-child(3) { transform: translateY(0.01em) rotate(-2deg); }
+  .footer-wordmark:hover .wm-l:nth-child(4) { transform: translateY(0.05em); }
+  .footer-wordmark:hover .wm-l:nth-child(5) { transform: translateY(0.065em); }
+  .footer-wordmark:hover .wm-l:nth-child(6) { transform: translateY(0.05em); }
+  .footer-wordmark:hover .wm-l:nth-child(7) { transform: translateY(0.01em) rotate(2deg); }
+  .footer-wordmark:hover .wm-l:nth-child(8) { transform: translateY(-0.05em) rotate(5deg); }
+  .footer-wordmark:hover .wm-l:nth-child(9) { transform: translateY(-0.1em) rotate(8deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .footer-wordmark .wm-l {
+      transition: none;
+    }
+    .footer-wordmark:hover .wm-l {
+      transform: none;
+    }
+  }
+
+  /* ── Timeline-Jahreszahl: Outline invertiert mit der Zeile ── */
+  .group:hover .timeline-year {
+    -webkit-text-stroke-color: color-mix(
+      in srgb,
+      var(--color-background) 35%,
+      transparent
+    );
+  }
+
+  /* ── Outcome-Riesenindex: Outline, invertiert mit der Zelle ── */
+  .outcome-index {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-border-strong);
+    transition: -webkit-text-stroke-color 0.1s linear;
+  }
+  .group:hover .outcome-index {
+    -webkit-text-stroke-color: color-mix(
+      in srgb,
+      var(--color-background) 30%,
+      transparent
+    );
   }
 
   /* ── Grain ───────────────────────────────────────────────── */
@@ -467,50 +498,17 @@ html.light {
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* ── Mesh Background ─────────────────────────────────────── */
-  .mesh-bg {
-    position: absolute;
-    inset: -20%;
-    pointer-events: none;
-    filter: blur(70px);
-    opacity: 0.5;
-  }
-
-  .mesh-bg::before,
-  .mesh-bg::after {
-    content: "";
-    position: absolute;
-    width: 45%;
-    height: 45%;
-    border-radius: 50%;
-    animation: var(--animate-aurora);
-  }
-
-  .mesh-bg::before {
-    top: 8%;
-    left: 6%;
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.45), transparent 65%);
-  }
-
-  .mesh-bg::after {
-    bottom: 6%;
-    right: 8%;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent 65%);
-    animation-delay: -8s;
-  }
-
   /* ── Cards ───────────────────────────────────────────────── */
+  /* Brutalist: kein Soft-Lift, kein Glow — Hover-Verhalten definieren
+     die Komponenten selbst (harter Offset-Schatten o.ä.). */
   .card-surface {
     background: linear-gradient(180deg, var(--color-ink-2) 0%, var(--color-ink) 100%);
     border: 1px solid var(--color-ink-2);
-    transition: border-color 0.25s ease, transform 0.25s var(--ease-out-expo),
-      box-shadow 0.25s ease;
+    transition: border-color 0.1s linear;
   }
 
   .card-surface:hover {
-    border-color: var(--color-teal);
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: var(--shadow-teal);
+    border-color: var(--color-border-strong);
   }
 
   /* ── Reveal ──────────────────────────────────────────────── */
@@ -685,40 +683,196 @@ html.light {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Custom Cursor
+   Custom Cursor (Brutalist: Fadenkreuz + Rahmen, difference-Blend)
    ───────────────────────────────────────────────────────────── */
 
-.cursor-dot,
-.cursor-ring {
+.cursor-core,
+.cursor-frame {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 90;
   pointer-events: none;
-  border-radius: 50%;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
+  transition: opacity 0.2s ease;
 }
 
-.cursor-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--color-teal-2);
+/* Fadenkreuz: Punkt + zwei Haarlinien, weiß → invertiert den Untergrund */
+.cursor-core {
+  width: 5px;
+  height: 5px;
+  background: #fff;
+}
+.cursor-core::before,
+.cursor-core::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #fff;
+}
+.cursor-core::before {
+  width: 17px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+.cursor-core::after {
+  width: 1px;
+  height: 17px;
+  transform: translate(-50%, -50%);
 }
 
-.cursor-ring {
-  width: 64px;
-  height: 64px;
-  border: 1.5px solid var(--color-teal);
-  /* Position & Scale werden komplett im RAF-Loop gesetzt (Cursor.tsx) –
-     keine transform-Transition, sonst ruckelt der Ring. */
-  transform: translate(50vw, 50vh) translate(-50%, -50%) scale(0.59375);
-  transition: background-color 0.3s ease, opacity 0.3s ease;
-  will-change: transform;
+/* Rahmen: kantiges Quadrat, Größe/Position laufen im RAF-Loop (Cursor.tsx) */
+.cursor-frame {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #fff;
+  will-change: transform, width, height;
 }
 
-.cursor-ring[data-hovering="true"] {
-  background: rgba(45, 212, 191, 0.12);
+.cursor-core[data-hidden="true"],
+.cursor-frame[data-hidden="true"] {
+  opacity: 0;
+}
+
+/* Kontext-Label am Rahmen (VIEW / OPEN / DRAG …) */
+.cursor-label {
+  position: absolute;
+  left: calc(100% + 8px);
+  bottom: -4px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+.cursor-label:empty {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HardCut — harte Kapitel-Transition (invertierter Marquee-Balken)
+   ───────────────────────────────────────────────────────────── */
+
+.hardcut {
+  overflow: hidden;
+}
+
+.hardcut-bar {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  overflow: hidden;
+  /* Vor dem Cut unsichtbar — der Wipe schneidet den Balken hart auf */
+  clip-path: inset(0 100% 0 0);
+}
+@media (min-width: 768px) {
+  .hardcut-bar {
+    height: 5rem;
+  }
+}
+
+.hardcut-bar.is-cut {
+  /* steps() = absichtlich abgehackter Wipe, kein Easing */
+  animation: hardcut-wipe 0.4s steps(5, end) forwards;
+}
+
+@keyframes hardcut-wipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hardcut-track {
+  display: flex;
+  width: max-content;
+  animation: hardcut-marquee 22s linear infinite;
+}
+
+.hardcut-half {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.hardcut-item {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hardcut-sep {
+  margin: 0 1.75rem;
+  letter-spacing: 0;
+}
+
+@keyframes hardcut-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hard-reveal-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Route-Wipe — harter Schnitt beim Seitenwechsel (template.tsx)
+   ───────────────────────────────────────────────────────────── */
+
+.route-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  background: var(--color-foreground);
+  animation: route-wipe-out 0.45s steps(5, end) forwards;
+}
+
+@keyframes route-wipe-out {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-wipe {
+    display: none;
+  }
+}
+
+/* FinalCta-Headline-Marquee (nutzt dieselben Keyframes, langsamer) */
+.cta-track {
+  animation: hardcut-marquee 36s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hardcut-bar,
+  .hardcut-bar.is-cut {
+    clip-path: none;
+    animation: none;
+  }
+  .hardcut-track,
+  .cta-track {
+    animation: none;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -755,8 +909,8 @@ html.light {
     transform: none;
   }
 
-  .cursor-dot,
-  .cursor-ring {
+  .cursor-core,
+  .cursor-frame {
     display: none;
   }
 }

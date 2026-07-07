@@ -1,5 +1,6 @@
 import { faq } from "@/lib/content";
 import { ChapterProgress } from "@/components/ui/ChapterProgress";
+import { HardCut } from "@/components/ui/HardCut";
 import { Hero } from "@/components/sections/Hero";
 import { StoryPitch } from "@/components/sections/StoryPitch";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
@@ -33,14 +34,19 @@ export default function HomePage() {
       />
       <ChapterProgress />
       <Hero />
+      <HardCut chapter="01" title="Dein Problem" />
       <StoryPitch />
+      <HardCut chapter="02" title="Dein Weg" />
       <ProcessSteps />
       <FeaturesGrid />
       <TechStrip />
       <StickyStory />
+      <HardCut chapter="03" title="Der Beweis" />
       <ProjectHighlight />
+      <HardCut chapter="04" title="Dein Erfolg" />
       <Outcomes />
       <FaqAccordion />
+      <HardCut chapter="05" title="Dein Moment" />
       <FinalCta />
       <Contact />
     </>
