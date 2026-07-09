@@ -24,18 +24,22 @@ export function PageHero({ eyebrow, title, subtitle, stamp, children }: PageHero
         aria-hidden
       />
 
-      {/* Seiten-Index-Riesenstempel */}
-      {stamp && (
-        <span
-          aria-hidden
-          className="text-outline-strong pointer-events-none absolute -top-8 right-0 select-none font-mono font-black leading-none md:-top-14"
-          style={{ fontSize: "clamp(10rem, 24vw, 22rem)" }}
-        >
-          {stamp}
-        </span>
-      )}
-
       <div className="relative mx-auto max-w-6xl">
+        {/* Seiten-Index-Riesenstempel — verankert im Content-Wrapper (klar
+            unterhalb des fixed Headers) und bewusst klein genug, dass er nie
+            tiefer als die erste Titelzeile reicht, auch bei 3-zeiligen
+            Headlines. Ab sm sichtbar (auf sehr schmalen Screens würde er mit
+            den Header-Icons kollidieren). */}
+        {stamp && (
+          <span
+            aria-hidden
+            className="text-outline-strong pointer-events-none absolute right-0 top-0 hidden select-none font-mono font-black leading-none sm:block"
+            style={{ fontSize: "clamp(4rem, 9vw, 8rem)" }}
+          >
+            {stamp}
+          </span>
+        )}
+
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1
           className="hard-reveal font-display font-black leading-[0.95] tracking-tighter text-foreground [text-wrap:balance]"

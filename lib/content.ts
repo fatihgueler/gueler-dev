@@ -39,7 +39,7 @@ export const siteConfig = {
 
 export const nav = [
   { label: "Projekte", href: "/projekte" },
-  { label: "Pakete", href: "/leistungen#pakete" },
+  { label: "Pakete", href: "/leistungen" },
   { label: "Über mich", href: "/ueber" },
   { label: "Kontakt", href: "/kontakt" },
 ];
