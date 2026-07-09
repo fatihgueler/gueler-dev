@@ -37,6 +37,14 @@ export function Cursor() {
 
     document.documentElement.classList.add("has-cursor");
 
+    // Vor dem ersten echten mousemove kennen wir die Pointer-Position nicht —
+    // ohne Guard rastet der Cursor default in der Viewport-Mitte ein und
+    // liegt dort sichtbar auf dem Content (z.B. der Hero-Gloss-Zeile), bis
+    // sich die Maus zum ersten Mal bewegt. Bleibt bis dahin ausgeblendet.
+    let hasMoved = false;
+    core.dataset.hidden = "true";
+    frame.dataset.hidden = "true";
+
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const pos = { x: mouse.x, y: mouse.y };
     const size = { w: FRAME_BASE, h: FRAME_BASE };
@@ -47,6 +55,15 @@ export function Cursor() {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
       core.style.transform = `translate(${mouse.x}px, ${mouse.y}px) translate(-50%, -50%)`;
+      if (!hasMoved) {
+        hasMoved = true;
+        // Rahmen sofort an die echte Position springen lassen statt aus der
+        // Mitte "einzufliegen" (Lerp würde sonst über mehrere Frames ziehen).
+        pos.x = mouse.x;
+        pos.y = mouse.y;
+        delete core.dataset.hidden;
+        delete frame.dataset.hidden;
+      }
     };
 
     const onOver = (event: MouseEvent) => {
