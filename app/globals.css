@@ -378,9 +378,18 @@ html.light {
     color: var(--color-violet-3);
   }
   .terminal-form input,
-  .terminal-form textarea {
+  .terminal-form textarea,
+  .terminal-form button[role="combobox"] {
     font-family: var(--font-mono);
     caret-color: var(--color-cyan);
+    /* Die Basis-Komponente nutzt border-border (10% Deckkraft) — im
+       Rest des Brutalist-Systems sind Rahmen sonst durchgehend kräftig
+       (border-strong oder voll). Im Terminal-Kontext sonst zu zaghaft. */
+    border-color: var(--color-border-strong);
+  }
+  .terminal-form input:focus-visible,
+  .terminal-form textarea:focus-visible {
+    border-color: var(--color-violet-3);
   }
 
   /* ── Footer-Wortmarke: Outline, füllt sich beim Hover — und GRINST.
