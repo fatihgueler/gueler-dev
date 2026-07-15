@@ -4,10 +4,16 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 
+import { prefersReducedMotion } from "@/lib/motion";
+
 /**
  * ThemeToggle — wechselt zwischen dark (Default) und light.
  * Mounted-Guard verhindert Hydration-Mismatch (next-themes kennt das
  * aufgelöste Theme erst clientseitig).
+ *
+ * Der Wechsel wird per View-Transitions-API sanft übergeblendet (statt hart
+ * umzuspringen). Fällt sauber auf einen Direktwechsel zurück, wo die API fehlt
+ * oder „Bewegung reduzieren" aktiv ist.
  */
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -17,10 +23,32 @@ export function ThemeToggle() {
 
   const isDark = resolvedTheme === "dark";
 
+  const toggle = React.useCallback(() => {
+    const next = isDark ? "light" : "dark";
+    const applyClass = () => {
+      const root = document.documentElement;
+      root.classList.toggle("light", next === "light");
+      root.classList.toggle("dark", next === "dark");
+    };
+    const doc = document as Document & {
+      startViewTransition?: (cb: () => void) => void;
+    };
+    if (!doc.startViewTransition || prefersReducedMotion()) {
+      setTheme(next);
+      return;
+    }
+    // Klasse innerhalb der Transition setzen, damit der „nachher"-Snapshot
+    // das neue Theme zeigt; setTheme hält next-themes/localStorage synchron.
+    doc.startViewTransition(() => {
+      applyClass();
+      setTheme(next);
+    });
+  }, [isDark, setTheme]);
+
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={toggle}
       aria-label={
         mounted
           ? isDark

@@ -907,6 +907,86 @@ html.light {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Preloader — orchestrierter Load-Moment (Preloader.tsx)
+   ───────────────────────────────────────────────────────────── */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  will-change: clip-path;
+}
+
+.preloader.is-leaving {
+  /* Harter Steps-Wipe nach oben — gleiche Sprache wie HardCut/Route-Wipe */
+  animation: preloader-wipe 0.4s steps(6, end) forwards;
+}
+
+@keyframes preloader-wipe {
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+.preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.preloader-word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  color: var(--color-foreground);
+  opacity: 0;
+  animation: preloader-in 0.5s var(--ease-out-expo) 0.05s forwards;
+}
+
+.preloader-line {
+  display: block;
+  height: 2px;
+  width: min(240px, 60vw);
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-warm)
+  );
+  animation: preloader-fill 0.68s var(--ease-out-expo) 0.1s forwards;
+}
+
+@keyframes preloader-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preloader-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    Scroll Progress
    ───────────────────────────────────────────────────────────── */
 
@@ -922,10 +1002,26 @@ html.light {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Theme-Crossfade — View Transitions (ThemeToggle)
+   ───────────────────────────────────────────────────────────── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+/* ─────────────────────────────────────────────────────────────
    Reduced Motion
    ───────────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
   *,
   *::before,
   *::after {

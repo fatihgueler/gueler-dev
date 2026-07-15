@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/ui/Cursor";
+import { Preloader } from "@/components/ui/Preloader";
 import { GrinFavicon } from "@/components/ui/GrinFavicon";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -89,8 +90,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#04040a" },
-    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#060a08" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f7f3" },
   ],
 };
 
@@ -195,6 +196,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <ThemeProvider>
+          <Preloader />
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-none focus:bg-violet focus:px-5 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
