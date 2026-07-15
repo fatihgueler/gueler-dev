@@ -65,7 +65,7 @@ function HeroAssembly() {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
-    const apply = () => setCount(mq.matches ? 140 : 280);
+    const apply = () => setCount(mq.matches ? 1500 : 6000);
     apply();
     setMounted(true);
     mq.addEventListener("change", apply);
@@ -75,8 +75,11 @@ function HeroAssembly() {
   // Story-Beats: kurze, harte-ish Cross-Cuts (Brand: harte Schnitte).
   const beat1 = useTransform(progress, [0, 0.28, 0.34], [1, 1, 0]);
   const beat2 = useTransform(progress, [0.34, 0.4, 0.62, 0.68], [0, 1, 1, 0]);
-  const beat3 = useTransform(progress, [0.68, 0.76, 1], [0, 1, 1]);
-  const beat3PE = useTransform(progress, (v) => (v > 0.72 ? "auto" : "none"));
+  // Beat 3 (Wortmarke steht + CTA) im „Halte"-Fenster, blendet beim Zerfall aus.
+  const beat3 = useTransform(progress, [0.64, 0.7, 0.86, 0.98], [0, 1, 1, 0]);
+  const beat3PE = useTransform(progress, (v) =>
+    v > 0.68 && v < 0.94 ? "auto" : "none",
+  );
   const hintOpacity = useTransform(progress, [0, 0.08], [1, 0]);
 
   return (

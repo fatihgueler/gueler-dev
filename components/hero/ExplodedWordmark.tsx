@@ -31,8 +31,8 @@ const WORLD_WIDTH = 9;
 const STAGGER = 0.45;
 /** Maximale Gesamtrotation der Fragment-Gruppe (dezent, ≤ 0.35·π). */
 const MAX_GROUP_ROT = 0.3 * Math.PI;
-/** Ab diesem Fortschritt gilt die Wortmarke als „gesetzt" → Grin erlaubt. */
-const GRIN_READY = 0.55;
+/** Ab diesem Assembly-Grad gilt die Wortmarke als „gesetzt" → Grin erlaubt. */
+const GRIN_READY = 0.85;
 
 const smoothstep = (t: number) => {
   const c = Math.max(0, Math.min(1, t));
@@ -47,6 +47,19 @@ const easeOutBack = (t: number) => {
   const x = t - 1;
   return 1 + c3 * x * x * x + c1 * x * x;
 };
+
+/**
+ * Assembly-Kurve über den Scroll-Fortschritt:
+ * 0 → 0.55 zusammensetzen · 0.55 → 0.82 stehen bleiben · 0.82 → 1 wieder
+ * auseinanderfallen. So formt sich GÜLER.DEV, steht kurz und zerfällt beim
+ * Weiterscrollen zurück in Fragmente.
+ */
+function assembleAmount(p: number) {
+  if (p <= 0) return 0;
+  if (p < 0.55) return p / 0.55;
+  if (p < 0.82) return 1;
+  return clamp(1 - (p - 0.82) / 0.18, 0, 1);
+}
 
 function mulberry32(a: number) {
   return function () {
@@ -155,12 +168,13 @@ function Fragments({
     const mesh = meshRef.current;
     if (!mesh) return;
     const p = progress.get();
-    const assembled = smoothstep(p);
+    const amount = assembleAmount(p);
+    const assembled = smoothstep(amount);
 
     // Grin als unterdämpfte Feder (Overshoot → „Nachlachen"). Nur wenn die
     // Wortmarke steht und gehovert wird, sonst zieht es zurück auf 0.
     const a = anim.current;
-    const grinTarget = a.hover && p > GRIN_READY ? 1 : 0;
+    const grinTarget = a.hover && amount > GRIN_READY ? 1 : 0;
     a.vel += (grinTarget - a.grin) * 0.05;
     a.vel *= 0.86;
     a.grin += a.vel;
@@ -169,7 +183,7 @@ function Fragments({
 
     for (let i = 0; i < frags.length; i++) {
       const f = frags[i];
-      const raw = clamp((p - f.delay) / (1 - STAGGER), 0, 1);
+      const raw = clamp((amount - f.delay) / (1 - STAGGER), 0, 1);
       // Position mit Overshoot (Schwung), Rotation weich einschwingend.
       dummy.position.lerpVectors(f.scattered, f.target, easeOutBack(raw));
       q.copy(f.qScatter).slerp(f.qTarget, smoothstep(raw));
@@ -224,7 +238,9 @@ function CameraRig({ progress }: { progress: MotionValue<number> }) {
   const to = React.useMemo(() => new THREE.Vector3(0, 0, 10.5), []);
   const tmp = React.useMemo(() => new THREE.Vector3(), []);
   useFrame(() => {
-    const e = smoothstep(progress.get());
+    // Kamera folgt der Assembly-Kurve: fährt beim Formen heran, hält, zieht
+    // sich beim Zerfall wieder zurück.
+    const e = smoothstep(assembleAmount(progress.get()));
     tmp.lerpVectors(from, to, e);
     camera.position.copy(tmp);
     camera.lookAt(0, 0, 0);
@@ -258,7 +274,7 @@ function InvalidateBridge({ anim }: { anim: React.RefObject<GrinAnim> }) {
 
 export function ExplodedWordmark({
   progress,
-  count = 280,
+  count = 6000,
 }: {
   progress: MotionValue<number>;
   count?: number;

@@ -93,7 +93,8 @@ export function sampleTextTargets(
 
   if (typeof document === "undefined") return fallback();
 
-  const W = 320;
+  // Hohe Sampling-Auflösung → genug feine Rasterzellen für tausende Partikel.
+  const W = 720;
   const probe = 140;
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
