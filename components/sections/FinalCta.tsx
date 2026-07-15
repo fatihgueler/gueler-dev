@@ -42,8 +42,12 @@ export function FinalCta() {
                     (rep % 2 === 0 ? "text-foreground" : "marquee-term")
                   }
                   style={{
+                    // Einzeiliges Marquee: line-height trägt hier nur die
+                    // Boxhöhe (keine Zeilenabstände) — 1.15 gibt Umlaut-Punkten
+                    // und g-Unterlänge Platz, sonst clippt der overflow-hidden
+                    // Container "überzeugen". Optische Tightness bleibt identisch.
                     fontSize: "clamp(3rem, 9vw, 7.5rem)",
-                    lineHeight: 0.95,
+                    lineHeight: 1.15,
                     letterSpacing: "-0.03em",
                   }}
                 >
