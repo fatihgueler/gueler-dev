@@ -48,7 +48,14 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={(e) => {
+        // Maus-/Touch-Klick (detail ≥ 1): Fokus nach dem Toggle abgeben, sonst
+        // klebt der focus-visible-Ring (React re-rendert den fokussierten Button
+        // beim Theme-Wechsel und manche Browser re-triggern :focus-visible).
+        // Tastatur-Aktivierung (detail === 0) behält den Fokus + Ring.
+        if (e.detail !== 0) e.currentTarget.blur();
+        toggle();
+      }}
       aria-label={
         mounted
           ? isDark
