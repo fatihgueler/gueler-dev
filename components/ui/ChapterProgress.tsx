@@ -17,10 +17,10 @@ const LAST = CHAPTERS.length - 1;
 /**
  * ChapterProgress — die kalibrierte Kapitel-Anzeige der "Präzisionswerkstatt".
  *
- * Desktop (≥lg): vertikale Instrumenten-Schiene mit scroll-gescrubbtem Fill,
- * der bis zum aktiven Kapitel-Punkt wächst. Mobil (<lg): schlanke Lese-Leiste
- * unten ("0X / 05 — Label"), die sich am Conversion-Ende (Kapitel 5 / Kontakt)
- * ausblendet, damit sie nie den CTA verdeckt. Pointer-events bleiben frei.
+ * Nur ≥2xl (≥1536px, echte Gutter neben max-w-7xl): vertikale Instrumenten-
+ * Schiene mit scroll-gescrubbtem Fill — so überlappt das aktive Label nie den
+ * Content. Darunter (<2xl): schlanke Lese-Leiste unten ("0X / 06 — Label"), die
+ * sich am Conversion-Ende (Kontakt) ausblendet, damit sie nie den CTA verdeckt.
  */
 export function ChapterProgress() {
   const [active, setActive] = React.useState(-1);
@@ -67,7 +67,7 @@ export function ChapterProgress() {
       {/* Desktop: vertikale Instrumenten-Schiene (≥1024px) */}
       <nav
         aria-label="Kapitel-Navigation"
-        className="fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
+        className="fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 2xl:block"
       >
         <div className="relative flex flex-col gap-5">
           {/* Track + scroll-gescrubbter Fill */}
@@ -121,7 +121,7 @@ export function ChapterProgress() {
       <div
         aria-hidden
         className={cn(
-          "pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-opacity duration-300 lg:hidden",
+          "pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-opacity duration-300 2xl:hidden",
           showMobile ? "opacity-100" : "opacity-0",
         )}
       >

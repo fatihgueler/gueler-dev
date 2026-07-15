@@ -80,7 +80,8 @@
   /* ── Rhythmus ────────────────────────────────────────── */
   --leading-tight: 1.1;
   --leading-snug: 1.25;
-  --leading-body: 1.75;
+  /* Fließtext-Rhythmus: 1.6 (Audit-Zielbereich 1.5–1.6) statt vorher 1.75. */
+  --leading-body: 1.6;
   --tracking-display: -0.02em;
   --tracking-heading: -0.01em;
   --tracking-body: 0.01em;
