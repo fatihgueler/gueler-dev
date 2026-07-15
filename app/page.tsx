@@ -8,6 +8,7 @@ import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
 import { TechStrip } from "@/components/sections/TechStrip";
 import { StickyStory } from "@/components/sections/StickyStory";
 import { ProjectHighlight } from "@/components/sections/ProjectHighlight";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { Outcomes } from "@/components/sections/Outcomes";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { ScrollSequence } from "@/components/sections/ScrollSequence";
@@ -44,6 +45,7 @@ export default function HomePage() {
       <StickyStory />
       <HardCut chapter="03" title="Der Beweis" />
       <ProjectHighlight />
+      <Testimonials />
       <HardCut chapter="04" title="Dein Erfolg" />
       <Outcomes />
       <FaqAccordion />

@@ -681,10 +681,42 @@ export const outcomes = {
 
 // Platzhalter, bis echte, freigegebene Kundenstimmen vorliegen.
 // NIEMALS erfundene Namen/Firmen eintragen (irreführende Werbung, § 5 UWG).
+/**
+ * Kundenstimmen. Platzhalter mit [TESTIMONIAL_x] — die Testimonials-Sektion
+ * blendet sich automatisch aus, solange Zitate in eckigen Klammern stehen
+ * (kein Platzhalter-Text live). Einfach die Felder durch echte Stimmen
+ * ersetzen — optional `result` (Ergebniszahl) und `image` (Porträt-Pfad).
+ */
 export const testimonials: Array<{
   quote: string;
   name: string;
   role: string;
   company: string;
-  rating: number;
-}> = [];
+  rating?: number;
+  /** Optionale Ergebniszahl, z.B. "+38 % Anfragen". */
+  result?: string;
+  /** Optionaler Porträt-Pfad (WebP/AVIF), z.B. "/testimonials/name.webp". */
+  image?: string;
+}> = [
+  {
+    quote: "[TESTIMONIAL_1]",
+    name: "[NAME_1]",
+    role: "[ROLLE_1]",
+    company: "[FIRMA_1]",
+    result: "[ERGEBNIS_1]",
+  },
+  {
+    quote: "[TESTIMONIAL_2]",
+    name: "[NAME_2]",
+    role: "[ROLLE_2]",
+    company: "[FIRMA_2]",
+    result: "[ERGEBNIS_2]",
+  },
+  {
+    quote: "[TESTIMONIAL_3]",
+    name: "[NAME_3]",
+    role: "[ROLLE_3]",
+    company: "[FIRMA_3]",
+    result: "[ERGEBNIS_3]",
+  },
+];
