@@ -39,6 +39,14 @@ const smoothstep = (t: number) => {
   return c * c * (3 - 2 * c);
 };
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+/** Overshoot-Ease: schießt kurz über die Zielposition hinaus und rastet ein
+ *  → „Schwung" beim Zusammenfliegen. */
+const easeOutBack = (t: number) => {
+  const c1 = 1.7;
+  const c3 = c1 + 1;
+  const x = t - 1;
+  return 1 + c3 * x * x * x + c1 * x * x;
+};
 
 function mulberry32(a: number) {
   return function () {
@@ -101,8 +109,9 @@ function buildFragments(count: number, fontFamily: string): FragData[] {
     // Zielrotation: exakt frontal (Identität) → die Tiles kacheln die Glyphen
     // sauber, kein Kanten-Zerreißen. Kantigkeit kommt aus der Assembly-Bewegung.
     const qTarget = new THREE.Quaternion();
-    // Tile ≈ Rasterzelle (dünn in z): füllt die Buchstaben-Striche lückenlos.
-    const scale = new THREE.Vector3(cell * 0.98, cell * 0.98, cell * 0.34);
+    // Feine Tiles ≈ Rasterzelle mit Hairline-Lücke (dünn in z) → sauberes,
+    // fein aufgelöstes Pixel-Stencil.
+    const scale = new THREE.Vector3(cell * 0.9, cell * 0.9, cell * 0.4);
     frags.push({
       target,
       scattered,
@@ -160,9 +169,10 @@ function Fragments({
 
     for (let i = 0; i < frags.length; i++) {
       const f = frags[i];
-      const local = smoothstep((p - f.delay) / (1 - STAGGER));
-      dummy.position.lerpVectors(f.scattered, f.target, local);
-      q.copy(f.qScatter).slerp(f.qTarget, local);
+      const raw = clamp((p - f.delay) / (1 - STAGGER), 0, 1);
+      // Position mit Overshoot (Schwung), Rotation weich einschwingend.
+      dummy.position.lerpVectors(f.scattered, f.target, easeOutBack(raw));
+      q.copy(f.qScatter).slerp(f.qTarget, smoothstep(raw));
       dummy.quaternion.copy(q);
 
       if (grin > 0.0001) {
@@ -248,7 +258,7 @@ function InvalidateBridge({ anim }: { anim: React.RefObject<GrinAnim> }) {
 
 export function ExplodedWordmark({
   progress,
-  count = 140,
+  count = 280,
 }: {
   progress: MotionValue<number>;
   count?: number;
