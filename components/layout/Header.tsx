@@ -60,7 +60,7 @@ export function Header() {
                 <ScrambleText text={item.label} />
                 {!isActive && (
                   <span
-                    className="absolute -bottom-1.5 left-0 h-px w-0 bg-violet-2 transition-all duration-300 group-hover:w-full"
+                    className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-violet-3 transition-transform duration-300 ease-out group-hover:scale-x-100"
                     aria-hidden
                   />
                 )}

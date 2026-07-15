@@ -65,7 +65,15 @@ function HeroAssembly() {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
-    const apply = () => setCount(mq.matches ? 1500 : 6000);
+    // Partikelzahl an die Geräteleistung koppeln: schnelles Scrollen aktualisiert
+    // pro Frame N Instanz-Matrizen — auf schwachen CPUs (≤4 Kerne) / Mobile deutlich
+    // reduzieren, damit 60fps auch beim Fling gehalten werden.
+    const apply = () => {
+      const mobile = mq.matches;
+      const cores = navigator.hardwareConcurrency || 8;
+      const weak = cores <= 4;
+      setCount(mobile ? (weak ? 900 : 1500) : weak ? 2800 : 6000);
+    };
     apply();
     setMounted(true);
     mq.addEventListener("change", apply);
