@@ -9,6 +9,7 @@ const CHAPTERS = [
   { id: "chapter-2", label: "Dein Weg" },
   { id: "projekte", label: "Der Beweis" },
   { id: "chapter-4", label: "Dein Erfolg" },
+  { id: "prozess", label: "Der Prozess" },
   { id: "chapter-5", label: "Dein Moment" },
 ];
 const LAST = CHAPTERS.length - 1;
@@ -127,7 +128,7 @@ export function ChapterProgress() {
         <div className="mx-auto flex max-w-md items-center gap-3 px-5 pb-[calc(env(safe-area-inset-bottom)+0.55rem)] pt-2">
           <span className="font-mono text-[0.6rem] tabular-nums tracking-[0.2em] text-violet-3">
             {String(Math.max(active, 0) + 1).padStart(2, "0")}
-            <span className="text-muted-2"> / 05</span>
+            <span className="text-muted-2"> / 06</span>
           </span>
           <span className="relative h-px flex-1 bg-border">
             <span

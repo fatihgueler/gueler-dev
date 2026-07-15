@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import {
   m,
@@ -11,7 +12,17 @@ import {
 } from "framer-motion";
 
 import { hero } from "@/lib/content";
-import { ExplodedWordmark } from "@/components/hero/ExplodedWordmark";
+
+// Die r3f/three-Schwergewichte erst clientseitig nachladen (kein SSR, aus dem
+// initialen Bundle raus) — schützt LCP/Lighthouse. Unter reduced-motion wird
+// HeroStatic gerendert, three lädt dann gar nicht.
+const ExplodedWordmark = dynamic(
+  () =>
+    import("@/components/hero/ExplodedWordmark").then(
+      (mod) => mod.ExplodedWordmark,
+    ),
+  { ssr: false },
+);
 
 /**
  * Hero — Echtzeit-Assembly (Feature A / Technik 2).
