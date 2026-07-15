@@ -10,6 +10,8 @@ import { Reveal } from "@/components/anim/Reveal";
 export const metadata: Metadata = {
   title: "Kontakt",
   description: pages.kontakt.subtitle,
+  // Selbstreferenzierender Canonical statt geerbtem Startseiten-Canonical.
+  alternates: { canonical: "/kontakt" },
 };
 
 const channels = [

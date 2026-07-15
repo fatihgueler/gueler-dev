@@ -11,6 +11,9 @@ import { CTA } from "@/components/sections/CTA";
 export const metadata: Metadata = {
   title: "Über mich",
   description: pages.ueber.subtitle,
+  // Selbstreferenzierender Canonical (relativ → gegen metadataBase aufgelöst);
+  // sonst erbt die Seite den Startseiten-Canonical aus dem Root-Layout.
+  alternates: { canonical: "/ueber" },
 };
 
 export default function UeberPage() {

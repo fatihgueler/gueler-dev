@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
 
-import { Section, SectionHeading } from '@/components/Section'
+import { Section, Eyebrow } from '@/components/Section'
 
 export const metadata: Metadata = {
   title: 'Datenschutz | Güler.dev',
+  description:
+    'Datenschutzerklärung von Güler.dev – wie personenbezogene Daten auf dieser Website verarbeitet werden.',
+  alternates: { canonical: '/datenschutz' },
   robots: { index: false, follow: false },
 }
 
@@ -13,7 +16,10 @@ export default function Datenschutz() {
       <div className="grain" />
       <Section className="py-32">
         <div className="max-w-2xl">
-          <SectionHeading eyebrow="Rechtliches" title="Datenschutzerklärung" />
+          <Eyebrow>Rechtliches</Eyebrow>
+          <h1 className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground [text-wrap:balance] md:text-5xl">
+            Datenschutzerklärung
+          </h1>
 
           <div className="mt-12 space-y-8 text-foreground/80 leading-relaxed">
             <section>
