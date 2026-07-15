@@ -889,6 +889,74 @@ html.light {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Route-Loader — Ladebalken-Look beim Client-Seitenwechsel (template.tsx)
+   ───────────────────────────────────────────────────────────── */
+
+.route-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  will-change: clip-path;
+}
+
+.route-loader.is-leaving {
+  animation: preloader-wipe 0.4s steps(6, end) forwards;
+}
+
+.rl-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.rl-word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  color: var(--color-foreground);
+}
+
+.rl-track {
+  display: block;
+  height: 2px;
+  width: min(240px, 60vw);
+  overflow: hidden;
+  background: var(--color-border-strong);
+}
+
+.rl-line {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-warm)
+  );
+  animation: route-loader-fill 0.48s var(--ease-out-expo) forwards;
+}
+
+@keyframes route-loader-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loader {
+    display: none;
+  }
+}
+
 /* FinalCta-Headline-Marquee (nutzt dieselben Keyframes, langsamer) */
 .cta-track {
   animation: hardcut-marquee 36s linear infinite;
