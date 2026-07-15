@@ -13,7 +13,7 @@ import {
 /**
  * ScrollSequence — Kapitel "Der Prozess" (Feature B / Technik 1).
  *
- * Ein gepinnter 300vh-Abschnitt scrubbt eine Bildsequenz frame-genau am
+ * Ein gepinnter 260vh-Abschnitt scrubbt eine Bildsequenz frame-genau am
  * Scroll: ein Canvas zeichnet pro Frame ein WebP (drawImage, cover-Verhalten,
  * DPR-scharf). Kein Flackern, rückwärts identisch — jeder Frame ersetzt den
  * vorherigen vollflächig-opak.
@@ -190,7 +190,7 @@ function SequenceScrub({ size }: { size: "lg" | "sm" }) {
       id="prozess"
       ref={sectionRef}
       aria-label="Der Prozess"
-      className="relative h-[300vh]"
+      className="relative h-[260vh]"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-background">
         {/* Frame-0-Poster für LCP; Canvas legt sich opak darüber. */}

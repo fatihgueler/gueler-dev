@@ -27,7 +27,7 @@ const ExplodedWordmark = dynamic(
 /**
  * Hero — Echtzeit-Assembly (Feature A / Technik 2).
  *
- * Der gepinnte Hero (250vh) scrubbt eine 3D-Assembly: verstreute Fragmente
+ * Der gepinnte Hero (210vh) scrubbt eine 3D-Assembly: verstreute Fragmente
  * setzen sich beim Scrollen zum Schriftzug "GÜLER.DEV" zusammen (r3f,
  * prozedural). Auf DERSELBEN Scroll-Timeline laufen Kamerafahrt + Gesamt-
  * rotation (in ExplodedWordmark) und drei Story-Beats als Text-Overlays:
@@ -91,7 +91,7 @@ function HeroAssembly() {
   const hintOpacity = useTransform(progress, [0, 0.08], [1, 0]);
 
   return (
-    <section id="top" ref={sectionRef} className="relative h-[250vh]">
+    <section id="top" ref={sectionRef} className="relative h-[210vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         {/* Technischer Untergrund */}
         <div

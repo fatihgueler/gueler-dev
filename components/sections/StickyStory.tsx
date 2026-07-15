@@ -157,7 +157,7 @@ export function StickyStory() {
       id="loesung"
       ref={sectionRef}
       aria-label={services.title}
-      className="relative h-[320vh]"
+      className="relative h-[260vh]"
     >
       <div className="sticky top-0 flex min-h-screen items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2 md:gap-20">
