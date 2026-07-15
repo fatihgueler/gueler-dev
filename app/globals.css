@@ -919,14 +919,22 @@ html.light {
   justify-content: center;
   background: var(--color-ink);
   will-change: clip-path;
+  /* Rein CSS-gesteuertes Ausblenden: kann NICHT hängen, unabhängig von JS/
+     Hydration. Nach der Fill-Phase wischt der Balken hart nach oben weg und
+     bleibt (forwards) vollständig weggeclippt — wegge­clippte Fläche empfängt
+     keine Pointer-Events mehr, der Content darunter ist normal bedienbar. */
+  animation: preloader-wipe 0.42s steps(6, end) 0.95s forwards;
 }
 
-.preloader.is-leaving {
-  /* Harter Steps-Wipe nach oben — gleiche Sprache wie HardCut/Route-Wipe */
-  animation: preloader-wipe 0.4s steps(6, end) forwards;
+/* Wiederholter Besuch (Session-Flag am <html>) → kein Intro. */
+html.intro-seen .preloader {
+  display: none;
 }
 
 @keyframes preloader-wipe {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
   to {
     clip-path: inset(0 0 100% 0);
   }

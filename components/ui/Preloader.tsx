@@ -3,31 +3,29 @@ import * as React from "react";
 /**
  * Preloader — kurzer, orchestrierter Load-Moment (Awwwards-Intro).
  *
- * Bewusst als SSR-Markup + winziges Inline-Script (kein React-State): So ist der
- * Balken schon im ersten Frame da (nicht erst nach der Hydration) und verschwindet
- * garantiert wieder — unabhängig davon, wie schnell das JS lädt.
+ * WICHTIG (Hydration): Das Overlay-Element wird NIE per JS mutiert oder entfernt
+ * — sonst bricht die Hydration (React erwartet den SSR-Knoten). Es blendet sich
+ * REIN PER CSS aus (Animation mit `forwards`), also unabhängig von React/JS und
+ * ohne jede Hänge-Gefahr, selbst wenn die Hydration scheitert.
  *
- * Das Inline-Script läuft direkt hinter dem Element:
- * - prefers-reduced-motion ODER bereits gesehen (Session) → sofort entfernen
- *   (vor dem Paint), kein Overlay, kein Delay.
- * - sonst: Wortmarke + Akzent-Hairline, dann harter Steps-Wipe nach oben,
- *   danach entfernt sich der Balken selbst; Session-Flag wird gesetzt.
+ * Das Skript läuft vor dem Overlay und toggelt nur eine Klasse am <html>
+ * (`intro-seen`) — das <html> trägt `suppressHydrationWarning`, daher ist eine
+ * Klassen-Mutation vor der Hydration sicher (gleiches Prinzip wie next-themes).
+ * Es fasst den Overlay-Knoten selbst nicht an.
  *
+ * - Wiederholter Besuch (Session): `intro-seen` → CSS blendet das Overlay aus.
+ * - prefers-reduced-motion: CSS blendet das Overlay aus (kein Skript nötig).
  * Theme-aware über CSS-Tokens (var(--color-ink)/(--color-foreground)).
  */
-const INTRO_SCRIPT = `(function(){
-  var p=document.getElementById('gd-preloader');
-  if(!p)return;
-  var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
-  var seen=null;try{seen=sessionStorage.getItem('gd-intro')}catch(e){}
-  if(reduce||seen){p.remove();return;}
-  setTimeout(function(){p.classList.add('is-leaving')},720);
-  setTimeout(function(){if(p&&p.remove)p.remove();try{sessionStorage.setItem('gd-intro','1')}catch(e){}},1120);
-})();`;
+const SKIP_SCRIPT = `(function(){try{
+  if(sessionStorage.getItem('gd-intro')){document.documentElement.classList.add('intro-seen');}
+  else{sessionStorage.setItem('gd-intro','1');}
+}catch(e){}})();`;
 
 export function Preloader() {
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: SKIP_SCRIPT }} />
       <div
         id="gd-preloader"
         className="preloader"
@@ -39,7 +37,6 @@ export function Preloader() {
           <span className="preloader-line" />
         </div>
       </div>
-      <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
     </>
   );
 }
