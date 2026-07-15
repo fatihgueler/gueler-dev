@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-violet text-white font-semibold hover:bg-violet-2 hover:shadow-[0_10px_40px_-10px_rgba(124,58,237,0.6)] hover:-translate-y-0.5 active:translate-y-0",
+          "bg-violet text-white font-semibold hover:bg-violet-2 hover:shadow-[0_10px_40px_-10px_rgba(43,190,131,0.6)] hover:-translate-y-0.5 active:translate-y-0",
         gold:
-          "bg-cyan text-background font-semibold hover:bg-cyan-2 hover:shadow-[0_10px_40px_-10px_rgba(6,182,212,0.55)] hover:-translate-y-0.5 active:translate-y-0",
+          "bg-cyan text-background font-semibold hover:bg-cyan-2 hover:shadow-[0_10px_40px_-10px_rgba(233,169,59,0.55)] hover:-translate-y-0.5 active:translate-y-0",
         outline:
           "border border-[rgba(255,255,255,0.32)] text-foreground hover:border-violet-2 hover:text-violet-3 bg-transparent",
         ghost: "text-muted hover:text-foreground hover:bg-surface",

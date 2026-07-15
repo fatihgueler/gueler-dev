@@ -15,10 +15,10 @@ export async function GET() {
     const text = CODE_LINES[(i * 3) % CODE_LINES.length];
     const color =
       i % 9 === 3
-        ? "rgba(167,139,250,0.35)"
+        ? "rgba(72,209,154,0.35)"
         : i % 7 === 5
-          ? "rgba(34,211,238,0.28)"
-          : "rgba(241,245,249,0.13)";
+          ? "rgba(240,190,94,0.28)"
+          : "rgba(234,241,236,0.13)";
     return { text: `${text}  ${text}`, color, shift: -((i * 53) % 140) };
   });
 
@@ -30,7 +30,7 @@ export async function GET() {
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#04040a",
+          backgroundColor: "#060a08",
           position: "relative",
           overflow: "hidden",
         }}
@@ -86,7 +86,7 @@ export async function GET() {
           >
             <span
               style={{
-                color: "rgba(241,245,249,0.6)",
+                color: "rgba(234,241,236,0.6)",
                 fontSize: 22,
                 letterSpacing: 4,
               }}
@@ -95,7 +95,7 @@ export async function GET() {
             </span>
             <span
               style={{
-                color: "#a78bfa",
+                color: "#48d19a",
                 fontSize: 22,
                 letterSpacing: 2,
               }}
@@ -109,7 +109,7 @@ export async function GET() {
             <div
               style={{
                 display: "flex",
-                color: "#f1f5f9",
+                color: "#eaf1ec",
                 fontSize: 164,
                 fontWeight: 800,
                 letterSpacing: -8,
@@ -121,7 +121,7 @@ export async function GET() {
             <div
               style={{
                 display: "flex",
-                color: "#a78bfa",
+                color: "#48d19a",
                 fontSize: 26,
                 marginTop: 14,
                 letterSpacing: 3,
@@ -149,8 +149,8 @@ export async function GET() {
             <div
               style={{
                 display: "flex",
-                border: "2px solid rgba(241,245,249,0.4)",
-                color: "rgba(241,245,249,0.8)",
+                border: "2px solid rgba(234,241,236,0.4)",
+                color: "rgba(234,241,236,0.8)",
                 fontSize: 24,
                 fontWeight: 600,
                 padding: "14px 24px",

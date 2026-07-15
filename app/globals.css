@@ -1,48 +1,54 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   Güler.dev – Design-System 3.0
-   Ink · Paper · Teal · Gold
-   Modern WebGL + Post-Processing
+   Güler.dev – Design-System 4.0
+   Ink · Paper · Emerald · Bernstein
+   Palette-Richtung "Pine": tiefes Grün (primär) + Bernstein (Kontrast)
    ───────────────────────────────────────────────────────────── */
 
 @theme {
-  /* ── Farben ──────────────────────────────────────────────── */
-  --color-ink: #04040a;
-  --color-ink-2: #0d0d18;
-  --color-ink-3: #181826;
-  --color-paper: #f1f5f9;
-  --color-paper-2: #94a3b8;
-  --color-paper-3: #64748b;
+  /* ── Neutrale Flächen (grün-getönte Ink-Skala) ───────────── */
+  --color-ink: #060a08;
+  --color-ink-2: #0e1512;
+  --color-ink-3: #17201b;
+  --color-paper: #eaf1ec;
+  --color-paper-2: #90a497;
+  --color-paper-3: #6f8076;
 
-  /* Akzente: Violett (primär) + Cyan (sekundär) */
-  --color-violet: #7c3aed;
-  --color-violet-2: #8b5cf6;
-  --color-violet-3: #a78bfa;
-  --color-cyan: #06b6d4;
-  --color-cyan-2: #22d3ee;
+  /* ── Akzent-Rollen (semantisch) ──────────────────────────── */
+  --color-accent: #33c88a;        /* Emerald – Akzent-Text auf dunkel */
+  --color-accent-strong: #2bbe83; /* Fill-Fläche */
+  --color-accent-deep: #0e7a50;   /* dunkle Variante / Fill mit hellem Text */
+  --color-accent-ink: #04140d;    /* Text auf Accent-Fill */
+  --color-accent-warm: #e9a93b;   /* Bernstein – wärmerer Kontrastakzent */
+  --color-accent-warm-2: #f0be5e;
 
-  /* Legacy Aliases (Komponenten-Kompatibilität):
-     teal → Violett-Familie, gold → Cyan-Familie.
-     Dadurch übernehmen alle Unterseiten das neue Branding automatisch. */
-  --color-teal: #8b5cf6;
-  --color-teal-2: #a78bfa;
-  --color-teal-bright: #a78bfa;
-  --color-teal-deep: #6d28d9;
-  --color-gold: #22d3ee;
-  --color-gold-2: #67e8f9;
-  --color-gold-bright: #67e8f9;
-  --color-gold-deep: #0891b2;
+  /* Legacy-Aliase auf die neuen Rollen. Bestehende Komponenten mit den
+     Namen violet, cyan, teal, gold erben so automatisch die Pine-Palette,
+     ohne dass eine einzige Komponente umbenannt werden muss. */
+  --color-violet: #0e7a50;   /* primärer Fill mit hellem Text → deep emerald */
+  --color-violet-2: #16915f;
+  --color-violet-3: #48d19a; /* Label-/Akzenttext auf dunkel (AAA auf Ink) */
+  --color-cyan: #e9a93b;     /* sekundär → Bernstein */
+  --color-cyan-2: #f0be5e;
 
-  --color-background: #04040a;
-  --color-surface: #0d0d18;
-  --color-surface-2: #181826;
-  --color-foreground: #f1f5f9;
-  --color-muted: #94a3b8;
-  /* #64748b reißt 4.5:1 auf #04040a (a11y). Auf ~6:1 gehoben (= Light-Token). */
-  --color-muted-2: #8a8a9a;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-teal: #16915f;
+  --color-teal-2: #48d19a;
+  --color-teal-bright: #48d19a;
+  --color-teal-deep: #0b6a45;
+  --color-gold: #e9a93b;
+  --color-gold-2: #f0be5e;
+  --color-gold-bright: #f0be5e;
+  --color-gold-deep: #c7871f;
+
+  --color-background: #060a08;
+  --color-surface: #0e1512;
+  --color-surface-2: #17201b;
+  --color-foreground: #eaf1ec;
+  --color-muted: #90a497;
+  --color-muted-2: #a7b3ab;
+  --color-border: rgba(234, 241, 236, 0.09);
+  --color-border-strong: rgba(234, 241, 236, 0.16);
 
   /* ── Schriften (via next/font) ────────────────────────── */
   --font-display: var(--font-bricolage), system-ui, sans-serif;
@@ -84,8 +90,8 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 12px 30px -12px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, 0.7);
-  --shadow-teal: 0 18px 60px -22px rgba(124, 58, 237, 0.45);
-  --shadow-gold: 0 18px 60px -22px rgba(6, 182, 212, 0.4);
+  --shadow-teal: 0 18px 60px -22px rgba(43, 190, 131, 0.45);
+  --shadow-gold: 0 18px 60px -22px rgba(233, 169, 59, 0.4);
 
   /* ── Easing ──────────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -113,26 +119,41 @@
 html.light {
   color-scheme: light;
 
-  --color-background: #fafaf8;
+  --color-background: #f4f7f3;
   --color-surface: #ffffff;
-  --color-surface-2: #f4f4f2;
-  --color-foreground: #0e0e14;
-  --color-muted: #5a5a6e;
-  --color-muted-2: #8a8a9a;
-  --color-border: rgba(14, 14, 20, 0.1);
-  --color-border-strong: rgba(14, 14, 20, 0.16);
+  --color-surface-2: #eaefea;
+  --color-foreground: #0b120e;
+  --color-muted: #5c6a61;
+  --color-muted-2: #6f7a71;
+  --color-border: rgba(11, 18, 14, 0.1);
+  --color-border-strong: rgba(11, 18, 14, 0.16);
 
   /* ink/paper-Aliase fürs helle Theme spiegeln */
-  --color-ink: #fafaf8;
+  --color-ink: #f4f7f3;
   --color-ink-2: #ffffff;
-  --color-ink-3: #ececec;
-  --color-paper: #0e0e14;
-  --color-paper-2: #5a5a6e;
-  --color-paper-3: #8a8a9a;
+  --color-ink-3: #e4eae4;
+  --color-paper: #0b120e;
+  --color-paper-2: #5c6a61;
+  --color-paper-3: #6f7a71;
+
+  /* Akzent-TEXT muss auf hellem Grund dunkler sein (WCAG AA). Der Fill
+     (--color-violet = deep emerald) bleibt gleich, nur die Text-Varianten
+     kippen. Behebt den grenzwertigen Akzent-Fließtext aus dem Audit. */
+  --color-violet-2: #0e7a50;
+  --color-violet-3: #0b7a50; /* Kapitel-Labels auf hell → AA */
+  --color-teal: #0e7a50;
+  --color-teal-2: #0b7a50;
+  --color-teal-bright: #0b7a50;
+  --color-cyan: #8a5a0f; /* Bernstein-Text auf hell → AA */
+  --color-cyan-2: #8a5a0f;
+  --color-gold: #8a5a0f;
+  --color-gold-2: #8a5a0f;
+  --color-accent: #0b7a50;
+  --color-accent-warm: #8a5a0f;
 
   /* Etwas dezentere Schatten auf hellem Grund */
-  --shadow-md: 0 12px 30px -16px rgba(14, 14, 20, 0.18);
-  --shadow-lg: 0 30px 70px -34px rgba(14, 14, 20, 0.22);
+  --shadow-md: 0 12px 30px -16px rgba(11, 18, 14, 0.18);
+  --shadow-lg: 0 30px 70px -34px rgba(11, 18, 14, 0.22);
 }
 
 /* Die 3D-Signalfeld-Szene ist jetzt theme-aware (liest die CSS-Tokens, Fog in
@@ -198,11 +219,11 @@ html.light {
   0%,
   100% {
     opacity: 0.55;
-    box-shadow: 0 0 5px rgba(34, 211, 238, 0.55);
+    box-shadow: 0 0 5px rgba(240, 190, 94, 0.55);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 12px rgba(34, 211, 238, 0.95);
+    box-shadow: 0 0 12px rgba(240, 190, 94, 0.95);
   }
 }
 
@@ -465,8 +486,8 @@ html.light {
   .teal-glow {
     background: radial-gradient(
       ellipse 50% 45% at 50% 40%,
-      rgba(124, 58, 237, 0.18) 0%,
-      rgba(124, 58, 237, 0.06) 35%,
+      rgba(43, 190, 131, 0.18) 0%,
+      rgba(43, 190, 131, 0.06) 35%,
       transparent 70%
     );
   }
@@ -474,8 +495,8 @@ html.light {
   .gold-glow {
     background: radial-gradient(
       ellipse 50% 45% at 50% 40%,
-      rgba(6, 182, 212, 0.14) 0%,
-      rgba(6, 182, 212, 0.05) 35%,
+      rgba(233, 169, 59, 0.14) 0%,
+      rgba(233, 169, 59, 0.05) 35%,
       transparent 70%
     );
   }
@@ -554,11 +575,11 @@ html.light {
 
   /* ── Showcase: dunkle Premium-Sektion ───────────────────── */
   .showcase-bg {
-    background-color: #0a0a0f;
+    background-color: #070b09;
     background-image:
-      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(124, 58, 237, 0.22), transparent 70%),
-      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(6, 182, 212, 0.16), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(124, 58, 237, 0.1), transparent 70%);
+      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(43, 190, 131, 0.22), transparent 70%),
+      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(233, 169, 59, 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(43, 190, 131, 0.1), transparent 70%);
   }
 
   /* Rotierender Lichtstrahl (conic-gradient) hinter den Cards.
@@ -571,10 +592,10 @@ html.light {
     background: conic-gradient(
       from 0deg at 50% 50%,
       transparent 0deg,
-      rgba(124, 58, 237, 0.2) 55deg,
+      rgba(43, 190, 131, 0.2) 55deg,
       transparent 115deg,
       transparent 175deg,
-      rgba(6, 182, 212, 0.14) 235deg,
+      rgba(233, 169, 59, 0.14) 235deg,
       transparent 300deg
     );
     filter: blur(36px);
@@ -591,9 +612,9 @@ html.light {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(167, 139, 250, 0.18);
+    border: 1px solid rgba(72, 209, 154, 0.18);
     box-shadow:
-      0 0 0 1px rgba(124, 58, 237, 0.06),
+      0 0 0 1px rgba(43, 190, 131, 0.06),
       0 20px 50px -25px rgba(0, 0, 0, 0.8);
     transition: border-color 0.4s ease;
   }
@@ -607,14 +628,14 @@ html.light {
     opacity: 0;
     transition: opacity 0.4s ease;
     box-shadow:
-      0 0 0 1px rgba(139, 92, 246, 0.35),
-      0 0 45px -8px rgba(124, 58, 237, 0.5),
-      0 0 90px -20px rgba(6, 182, 212, 0.35),
+      0 0 0 1px rgba(51, 200, 138, 0.35),
+      0 0 45px -8px rgba(43, 190, 131, 0.5),
+      0 0 90px -20px rgba(233, 169, 59, 0.35),
       0 30px 70px -25px rgba(0, 0, 0, 0.85);
   }
 
   .glow-card:hover {
-    border-color: rgba(167, 139, 250, 0.55);
+    border-color: rgba(72, 209, 154, 0.55);
   }
 
   .glow-card:hover::after {
@@ -653,30 +674,30 @@ html.light {
   }
 
   html.light .showcase-bg {
-    background-color: #f0eefa;
+    background-color: #eef3ee;
     background-image:
-      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(124, 58, 237, 0.1), transparent 70%),
-      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(6, 182, 212, 0.08), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(124, 58, 237, 0.05), transparent 70%);
+      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(43, 190, 131, 0.1), transparent 70%),
+      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(233, 169, 59, 0.08), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(43, 190, 131, 0.05), transparent 70%);
   }
 
   html.light .glow-card {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-    border-color: rgba(124, 58, 237, 0.15);
+    border-color: rgba(43, 190, 131, 0.15);
     box-shadow:
-      0 0 0 1px rgba(124, 58, 237, 0.06),
+      0 0 0 1px rgba(43, 190, 131, 0.06),
       0 8px 30px -12px rgba(14, 14, 20, 0.14);
   }
 
   html.light .glow-card:hover {
-    border-color: rgba(124, 58, 237, 0.4);
+    border-color: rgba(43, 190, 131, 0.4);
   }
 
   html.light .glow-card::after {
     box-shadow:
-      0 0 0 1px rgba(139, 92, 246, 0.25),
-      0 0 30px -8px rgba(124, 58, 237, 0.25),
-      0 0 60px -20px rgba(6, 182, 212, 0.2),
+      0 0 0 1px rgba(51, 200, 138, 0.25),
+      0 0 30px -8px rgba(43, 190, 131, 0.25),
+      0 0 60px -20px rgba(233, 169, 59, 0.2),
       0 20px 50px -20px rgba(14, 14, 20, 0.18);
   }
 }
@@ -687,7 +708,7 @@ html.light {
 
 .step-number {
   color: var(--color-cyan);
-  text-shadow: 0 0 28px rgba(6, 182, 212, 0.45);
+  text-shadow: 0 0 28px rgba(233, 169, 59, 0.45);
   font-variant-numeric: tabular-nums;
 }
 

@@ -30,7 +30,7 @@ export function BlueprintGrid({ className }: { className?: string }) {
     let W = 0;
     let H = 0;
     let colLine = "rgba(148,163,184,0.16)";
-    let colHot = "#a78bfa";
+    let colHot = "#48d19a";
     const mouse = { x: -9999, y: -9999 };
     const eased = { x: -9999, y: -9999 };
     let raf = 0;

@@ -110,8 +110,8 @@ export function CodeWordmark({ className }: { className?: string }) {
     let displayFont = "system-ui, sans-serif";
     let monoFont = "monospace";
     let colFg = "#f1f5f9";
-    let colAccentA = "#a78bfa";
-    let colAccentB = "#06b6d4";
+    let colAccentA = "#48d19a";
+    let colAccentB = "#e9a93b";
     let texH = 0;
     let lineH = 0;
 

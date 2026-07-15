@@ -33,14 +33,15 @@ const N = 48;
 const OUT_LG = path.join("public", "sequence", "lg");
 const OUT_SM = path.join("public", "sequence", "sm");
 
+// Pine-Palette (Design-System 4.0): tiefes Grün + Bernstein.
 const C = {
-  bg: "#04040a",
-  fg: "#f1f5f9",
-  muted: "#94a3b8",
-  violet: "#7c3aed",
-  violet3: "#a78bfa",
-  cyan: "#06b6d4",
-  cyan2: "#22d3ee",
+  bg: "#060a08",
+  fg: "#eaf1ec",
+  muted: "#90a497",
+  violet: "#0e7a50", // Emerald-Fill
+  violet3: "#48d19a", // Emerald-Akzent
+  cyan: "#e9a93b", // Bernstein
+  cyan2: "#f0be5e", // Bernstein hell
 };
 
 function mulberry32(a) {

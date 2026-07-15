@@ -22,9 +22,9 @@ export function ConsoleSignature() {
     console.log(
       "%cGÜLER.DEV%c\ngüler (tr.) — der/die lacht.\n\n%c" +
         `${site.email}\n${site.github}`,
-      "font-family:monospace;font-size:28px;font-weight:900;letter-spacing:-1px;color:#7c3aed;",
+      "font-family:monospace;font-size:28px;font-weight:900;letter-spacing:-1px;color:#2bbe83;",
       "font-family:monospace;font-size:12px;color:#94a3b8;",
-      "font-family:monospace;font-size:12px;color:#22d3ee;",
+      "font-family:monospace;font-size:12px;color:#e9a93b;",
     );
   }, []);
 

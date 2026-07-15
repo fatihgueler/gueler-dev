@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const ACCENT = "#7c3aed";
+const ACCENT = "#0e7a50";
 
 /**
  * Güler.dev – Logo-System.

@@ -33,7 +33,7 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
         aria-hidden
       >
         <span className="absolute inset-0 rounded-full border border-cyan/40" />
-        <span className="size-1 rounded-full bg-cyan shadow-[0_0_6px_rgba(34,211,238,0.7)] motion-safe:[animation:signal-pulse_3s_ease-in-out_infinite]" />
+        <span className="size-1 rounded-full bg-cyan shadow-[0_0_6px_rgba(240,190,94,0.7)] motion-safe:[animation:signal-pulse_3s_ease-in-out_infinite]" />
       </span>
       <span className="font-mono text-xs font-medium tracking-[0.04em] text-muted">
         {children}
