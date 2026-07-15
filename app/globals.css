@@ -919,16 +919,16 @@ html.light {
   justify-content: center;
   background: var(--color-ink);
   will-change: clip-path;
-  /* Rein CSS-gesteuertes Ausblenden: kann NICHT hängen, unabhängig von JS/
-     Hydration. Nach der Fill-Phase wischt der Balken hart nach oben weg und
-     bleibt (forwards) vollständig weggeclippt — wegge­clippte Fläche empfängt
-     keine Pointer-Events mehr, der Content darunter ist normal bedienbar. */
-  animation: preloader-wipe 0.42s steps(6, end) 0.95s forwards;
+  /* CSS-Fallback-Wipe: Selbst wenn das Skript komplett ausfällt, wischt das
+     Overlay spätestens nach 4,5 s weg — kann nicht hängen. Der Normalfall
+     (intro-done, bei Load-Abschluss) überschreibt das mit sofortigem Wipe. */
+  animation: preloader-wipe 0.42s steps(6, end) 4.5s forwards;
 }
 
-/* Wiederholter Besuch (Session-Flag am <html>) → kein Intro. */
-html.intro-seen .preloader {
-  display: none;
+/* Ladefortschritt fertig (Skript setzt intro-done am <html>) → sofort wegwischen.
+   Höhere Spezifität als .preloader → gewinnt gegen den Fallback-Delay. */
+html.intro-done .preloader {
+  animation: preloader-wipe 0.42s steps(6, end) forwards;
 }
 
 @keyframes preloader-wipe {
@@ -957,18 +957,27 @@ html.intro-seen .preloader {
   animation: preloader-in 0.5s var(--ease-out-expo) 0.05s forwards;
 }
 
-.preloader-line {
+.preloader-track {
   display: block;
   height: 2px;
   width: min(240px, 60vw);
+  overflow: hidden;
+  background: var(--color-border-strong);
+}
+
+.preloader-line {
+  display: block;
+  height: 100%;
+  width: 100%;
   transform-origin: left center;
-  transform: scaleX(0);
+  /* Echter Ladefortschritt: das Skript setzt --gd-progress (0…1) am <html>. */
+  transform: scaleX(var(--gd-progress, 0.08));
+  transition: transform 0.2s linear;
   background: linear-gradient(
     90deg,
     var(--color-accent),
     var(--color-accent-warm)
   );
-  animation: preloader-fill 0.68s var(--ease-out-expo) 0.1s forwards;
 }
 
 @keyframes preloader-in {
@@ -979,12 +988,6 @@ html.intro-seen .preloader {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes preloader-fill {
-  to {
-    transform: scaleX(1);
   }
 }
 

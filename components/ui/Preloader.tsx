@@ -1,31 +1,40 @@
 import * as React from "react";
 
 /**
- * Preloader — kurzer, orchestrierter Load-Moment (Awwwards-Intro).
+ * Preloader — funktionaler Load-Moment mit echtem Fortschrittsbalken.
  *
- * WICHTIG (Hydration): Das Overlay-Element wird NIE per JS mutiert oder entfernt
- * — sonst bricht die Hydration (React erwartet den SSR-Knoten). Es blendet sich
- * REIN PER CSS aus (Animation mit `forwards`), also unabhängig von React/JS und
- * ohne jede Hänge-Gefahr, selbst wenn die Hydration scheitert.
+ * HYDRATION-SICHER: Der Overlay-Knoten (#gd-preloader) wird NIE per JS mutiert.
+ * Das Skript fasst ausschließlich das <html> an — die CSS-Variable
+ * `--gd-progress` (Balkenfüllung) und die Klasse `intro-done` (Abschluss). Da
+ * <html> `suppressHydrationWarning` trägt (wie bei next-themes), gibt es keinen
+ * Mismatch. Der Balken liest den Fortschritt via CSS (`scaleX(var(--gd-progress))`).
  *
- * Das Skript läuft vor dem Overlay und toggelt nur eine Klasse am <html>
- * (`intro-seen`) — das <html> trägt `suppressHydrationWarning`, daher ist eine
- * Klassen-Mutation vor der Hydration sicher (gleiches Prinzip wie next-themes).
- * Es fasst den Overlay-Knoten selbst nicht an.
+ * KANN NICHT HÄNGEN: Abschluss bei `window.load`, zusätzlich ein JS-Safety-Cap
+ * (3,5 s) UND ein reiner CSS-Fallback-Wipe (4,5 s) — selbst wenn das Skript
+ * komplett ausfällt, verschwindet das Overlay. prefers-reduced-motion: sofort
+ * fertig, kein Overlay.
  *
- * - Wiederholter Besuch (Session): `intro-seen` → CSS blendet das Overlay aus.
- * - prefers-reduced-motion: CSS blendet das Overlay aus (kein Skript nötig).
- * Theme-aware über CSS-Tokens (var(--color-ink)/(--color-foreground)).
+ * Der Balken zeigt echten Ladefortschritt: startet bei ~8 %, „trickled" während
+ * des Ladens Richtung 90 % und springt bei vollständigem Load auf 100 %.
  */
-const SKIP_SCRIPT = `(function(){try{
-  if(sessionStorage.getItem('gd-intro')){document.documentElement.classList.add('intro-seen');}
-  else{sessionStorage.setItem('gd-intro','1');}
-}catch(e){}})();`;
+const INTRO_SCRIPT = `(function(){
+  var root=document.documentElement;
+  var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+  if(reduce){root.classList.add('intro-done');return;}
+  var p=0.08,done=false;
+  function set(v){root.style.setProperty('--gd-progress',String(v));}
+  set(p);
+  function finish(){if(done)return;done=true;set(1);setTimeout(function(){root.classList.add('intro-done');},280);}
+  (function tick(){if(done)return;p+=(0.9-p)*0.05;set(p<0.9?p:0.9);requestAnimationFrame(tick);})();
+  if(document.readyState==='complete'){finish();}
+  else{window.addEventListener('load',finish,{once:true});}
+  setTimeout(finish,3500);
+})();`;
 
 export function Preloader() {
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: SKIP_SCRIPT }} />
+      <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
       <div
         id="gd-preloader"
         className="preloader"
@@ -34,7 +43,9 @@ export function Preloader() {
       >
         <div className="preloader-inner">
           <span className="preloader-word">GÜLER.DEV</span>
-          <span className="preloader-line" />
+          <span className="preloader-track">
+            <span className="preloader-line" />
+          </span>
         </div>
       </div>
     </>
