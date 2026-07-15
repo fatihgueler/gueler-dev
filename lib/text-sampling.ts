@@ -17,6 +17,13 @@ export interface Vec3 {
   z: number;
 }
 
+export interface SampleResult {
+  /** Zielpunkte (zentriert um den Ursprung, y nach oben). */
+  targets: Vec3[];
+  /** Rasterzellengröße in Welteinheiten — Tile-Größe für lückenlose Glyphen. */
+  cell: number;
+}
+
 export interface SampleTextOptions {
   /** Gewünschte Anzahl Zielpunkte (= Fragmentanzahl). */
   count: number;
@@ -65,26 +72,32 @@ function fallbackGrid(count: number, worldWidth: number): Vec3[] {
 }
 
 /**
- * Liefert exakt `count` 3D-Zielpunkte, die die Form von `text` nachzeichnen.
- * Zentriert um (0,0,0); x/y in Welteinheiten, z leicht gejittert für Tiefe.
+ * Liefert ~`count` 3D-Zielpunkte, die die Form von `text` als gleichmäßiges
+ * Raster nachzeichnen (lesbare Low-Res-Stencil-Wortmarke statt Punktwolke),
+ * plus die passende Tile-Größe. Zentriert um (0,0,0); x/y in Welteinheiten.
  */
 export function sampleTextTargets(
   text: string,
   opts: SampleTextOptions,
-): Vec3[] {
+): SampleResult {
   const count = Math.max(1, Math.floor(opts.count));
   const fontFamily = opts.fontFamily ?? DEFAULTS.fontFamily;
   const fontWeight = opts.fontWeight ?? DEFAULTS.fontWeight;
   const worldWidth = opts.worldWidth ?? DEFAULTS.worldWidth;
   const rand = mulberry32(opts.seed ?? DEFAULTS.seed);
 
-  if (typeof document === "undefined") return fallbackGrid(count, worldWidth);
+  const fallback = (): SampleResult => ({
+    targets: fallbackGrid(count, worldWidth),
+    cell: (worldWidth / Math.ceil(Math.sqrt(count * 4))) * 0.9,
+  });
+
+  if (typeof document === "undefined") return fallback();
 
   const W = 320;
   const probe = 140;
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  if (!ctx) return fallbackGrid(count, worldWidth);
+  if (!ctx) return fallback();
 
   // Schrift so skalieren, dass der Text ~92 % der Sampling-Breite füllt.
   ctx.font = `${fontWeight} ${probe}px ${fontFamily}`;
@@ -107,38 +120,65 @@ export function sampleTextTargets(
   ctx.fillText(text, W / 2, H / 2);
 
   const data = ctx.getImageData(0, 0, W, H).data;
-  const stride = 2;
-  const cand: { x: number; y: number }[] = [];
-  for (let y = 0; y < H; y += stride) {
-    for (let x = 0; x < W; x += stride) {
-      if (data[(y * W + x) * 4 + 3] > 140) cand.push({ x, y });
-    }
-  }
-  if (cand.length === 0) return fallbackGrid(count, worldWidth);
+  const inside = (x: number, y: number) => data[(y * W + x) * 4 + 3] > 140;
 
-  // Seeded Fisher–Yates → gleichmäßig verteilte Auswahl aus den Kandidaten.
-  for (let i = cand.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [cand[i], cand[j]] = [cand[j], cand[i]];
+  // Glyph-Fläche zählen → Rasterweite g, sodass ~count Zellen im Glyph liegen.
+  let area = 0;
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) if (inside(x, y)) area++;
+  if (area === 0) return fallback();
+
+  const collect = (g: number) => {
+    const pts: { x: number; y: number }[] = [];
+    const off = Math.floor(g / 2);
+    for (let y = off; y < H; y += g)
+      for (let x = off; x < W; x += g) if (inside(x, y)) pts.push({ x, y });
+    return pts;
+  };
+
+  let g = Math.max(2, Math.round(Math.sqrt(area / count)));
+  let pts = collect(g);
+  // g anpassen, bis die Zellenzahl nahe an count liegt.
+  let guard = 0;
+  while (pts.length > count * 1.15 && guard < 8) {
+    g += 1;
+    pts = collect(g);
+    guard++;
   }
-  const chosen = cand.slice(0, Math.min(count, cand.length));
+  while (pts.length < count * 0.85 && g > 2 && guard < 16) {
+    g -= 1;
+    pts = collect(g);
+    guard++;
+  }
+  if (pts.length === 0) return fallback();
+
+  // Raster ist bereits gleichmäßig → nur überzählige Zellen zufällig kürzen.
+  for (let i = pts.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [pts[i], pts[j]] = [pts[j], pts[i]];
+  }
+  const chosen = pts.slice(0, Math.min(count, pts.length));
 
   const scale = worldWidth / W;
-  const pts: Vec3[] = chosen.map((p) => ({
+  const targets: Vec3[] = chosen.map((p) => ({
     x: (p.x - W / 2) * scale,
     y: -(p.y - H / 2) * scale, // Canvas-y zeigt nach unten → invertieren
-    z: (rand() - 0.5) * 0.5,
+    z: (rand() - 0.5) * 0.12,
   }));
 
-  // Falls weniger Kandidaten als count: bestehende Punkte leicht jittern.
-  while (pts.length < count) {
-    const src = pts[Math.floor(rand() * pts.length)] ?? { x: 0, y: 0, z: 0 };
-    pts.push({
-      x: src.x + (rand() - 0.5) * 0.25,
-      y: src.y + (rand() - 0.5) * 0.25,
-      z: (rand() - 0.5) * 0.5,
+  // Falls weniger Zellen als count: bestehende Punkte leicht jittern.
+  while (targets.length < count) {
+    const src = targets[Math.floor(rand() * targets.length)] ?? {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
+    targets.push({
+      x: src.x + (rand() - 0.5) * 0.15,
+      y: src.y + (rand() - 0.5) * 0.15,
+      z: (rand() - 0.5) * 0.12,
     });
   }
 
-  return pts;
+  return { targets, cell: g * scale };
 }

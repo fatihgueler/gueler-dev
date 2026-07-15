@@ -56,7 +56,7 @@ interface FragData {
 function buildFragments(count: number, fontFamily: string): FragData[] {
   const seed = 20260714;
   const rand = mulberry32(seed);
-  const targets = sampleTextTargets("GÜLER.DEV", {
+  const { targets, cell } = sampleTextTargets("GÜLER.DEV", {
     count,
     worldWidth: WORLD_WIDTH,
     fontFamily,
@@ -80,20 +80,22 @@ function buildFragments(count: number, fontFamily: string): FragData[] {
         (rand() - 0.5) * Math.PI * 2,
       ),
     );
-    // Zielrotation: fast flach zur Kamera, minimaler brutalistischer Versatz.
+    // Zielrotation: nahezu koplanar & frontal — nur ein Hauch Versatz, damit
+    // die Tiles zusammen die Buchstaben von GÜLER.DEV als flache Stencil-Fläche
+    // lesbar formen (Rotation würde die Glyphenkanten zerreißen).
     const qTarget = new THREE.Quaternion().setFromEuler(
       new THREE.Euler(
-        (rand() - 0.5) * 0.16,
-        (rand() - 0.5) * 0.16,
-        (rand() - 0.5) * 0.16,
+        (rand() - 0.5) * 0.04,
+        (rand() - 0.5) * 0.04,
+        (rand() - 0.5) * 0.05,
       ),
     );
-    // Kantige, unterschiedlich lange Blöcke (Extrusionen), dünn in z.
-    const s = 0.26 + rand() * 0.2;
+    // Kantige Tiles ≈ Rasterzelle (dünn in z): füllen die Buchstaben-Striche
+    // fast lückenlos → GÜLER.DEV liest sich als Low-Res-Stencil.
     const scale = new THREE.Vector3(
-      s * (0.7 + rand() * 0.95),
-      s * (0.7 + rand() * 0.95),
-      0.1 + rand() * 0.2,
+      cell * (0.82 + rand() * 0.22),
+      cell * (0.82 + rand() * 0.22),
+      cell * (0.28 + rand() * 0.3),
     );
     frags.push({
       target,
@@ -175,7 +177,7 @@ function Fragments({
 function CameraRig({ progress }: { progress: MotionValue<number> }) {
   const camera = useThree((s) => s.camera);
   const from = React.useMemo(() => new THREE.Vector3(6.5, 3.4, 15), []);
-  const to = React.useMemo(() => new THREE.Vector3(0, 0, 9), []);
+  const to = React.useMemo(() => new THREE.Vector3(0, 0, 10.5), []);
   const tmp = React.useMemo(() => new THREE.Vector3(), []);
   useFrame(() => {
     const e = smoothstep(progress.get());
@@ -203,7 +205,7 @@ function InvalidateOnProgress({
 
 export function ExplodedWordmark({
   progress,
-  count = 64,
+  count = 80,
 }: {
   progress: MotionValue<number>;
   count?: number;
