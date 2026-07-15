@@ -163,7 +163,7 @@ export function sampleTextTargets(
   const targets: Vec3[] = chosen.map((p) => ({
     x: (p.x - W / 2) * scale,
     y: -(p.y - H / 2) * scale, // Canvas-y zeigt nach unten → invertieren
-    z: (rand() - 0.5) * 0.12,
+    z: 0, // koplanar → frontal klar lesbar
   }));
 
   // Falls weniger Zellen als count: bestehende Punkte leicht jittern.
@@ -176,7 +176,7 @@ export function sampleTextTargets(
     targets.push({
       x: src.x + (rand() - 0.5) * 0.15,
       y: src.y + (rand() - 0.5) * 0.15,
-      z: (rand() - 0.5) * 0.12,
+      z: 0, // koplanar → frontal klar lesbar
     });
   }
 

@@ -65,7 +65,7 @@ function HeroAssembly() {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
-    const apply = () => setCount(mq.matches ? 40 : 80);
+    const apply = () => setCount(mq.matches ? 70 : 140);
     apply();
     setMounted(true);
     mq.addEventListener("change", apply);

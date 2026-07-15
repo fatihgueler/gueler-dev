@@ -10,17 +10,20 @@ import { sampleTextTargets } from "@/lib/text-sampling";
 /**
  * ExplodedWordmark — Hero-Assembly (Feature A / Technik 2).
  *
- * 40–80 kantige, monochrome, flat-shaded Fragmente (prozedurale Boxen,
- * KEIN importiertes Modell) schweben chaotisch im Raum und fliegen beim
- * Scrollen mit Stagger + smoothstep-Easing an ihre Zielpositionen. Die Ziele
- * stammen aus Canvas-Text-Sampling von "GÜLER.DEV" (lib/text-sampling).
+ * Prozedurale, monochrome, flat-shaded Tiles (InstancedMesh, KEIN Modell)
+ * schweben chaotisch und fliegen beim Scrollen mit Stagger + smoothstep an
+ * ihre Zielzellen. Die Ziele stammen aus gleichmäßigem Canvas-Raster-Sampling
+ * von "GÜLER.DEV" (lib/text-sampling) — koplanar & frontal, sodass sich die
+ * Fragmente zu einer klar lesbaren Low-Res-Stencil-Wortmarke fügen.
  *
- * progressRef-Pattern: Der gepinnte Hero (framer-motion useScroll) schreibt
- * den Scroll-Fortschritt in einen MotionValue; useFrame LIEST ihn hier — die
- * r3f-Renderschleife ist damit von React-Re-Renders entkoppelt.
+ * Hover-Grin: Steht die Wortmarke (Scroll ~fertig) und fährt die Maus drüber,
+ * biegen sich die Tiles über eine unterdämpfte Feder in ein Lächeln (Mundwinkel
+ * hoch, Mitte wölbt sich vor, leichtes Lach-Wobble) und federn beim Verlassen
+ * mit Overshoot zurück — die 3D-Neuauflage des alten Joker-Grins.
  *
- * Performance: frameloop="demand" + invalidate() bei jeder Progress-Änderung,
- * dpr [1,2]. Im Ruhezustand (kein Scroll) rendert nichts.
+ * progressRef-Pattern: der gepinnte Hero schreibt den Scroll-Fortschritt in
+ * einen MotionValue; useFrame liest ihn. frameloop="demand": Frames kommen bei
+ * Scroll (invalidate on change) und während der Grin animiert (rAF-Loop).
  */
 
 const WORLD_WIDTH = 9;
@@ -28,11 +31,14 @@ const WORLD_WIDTH = 9;
 const STAGGER = 0.45;
 /** Maximale Gesamtrotation der Fragment-Gruppe (dezent, ≤ 0.35·π). */
 const MAX_GROUP_ROT = 0.3 * Math.PI;
+/** Ab diesem Fortschritt gilt die Wortmarke als „gesetzt" → Grin erlaubt. */
+const GRIN_READY = 0.55;
 
 const smoothstep = (t: number) => {
   const c = Math.max(0, Math.min(1, t));
   return c * c * (3 - 2 * c);
 };
+const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 
 function mulberry32(a: number) {
   return function () {
@@ -51,6 +57,18 @@ interface FragData {
   qScatter: THREE.Quaternion;
   scale: THREE.Vector3;
   delay: number;
+  /** Normierte x-Lage im Wort (−1 … 1) für die Grin-Kurve. */
+  u: number;
+}
+
+/** Geteilter Grin-Zustand zwischen DOM-Hover-Handlern und der r3f-Schleife. */
+interface GrinAnim {
+  hover: boolean;
+  grin: number;
+  vel: number;
+  invalidate: (() => void) | null;
+  raf: number;
+  running: boolean;
 }
 
 function buildFragments(count: number, fontFamily: string): FragData[] {
@@ -80,23 +98,11 @@ function buildFragments(count: number, fontFamily: string): FragData[] {
         (rand() - 0.5) * Math.PI * 2,
       ),
     );
-    // Zielrotation: nahezu koplanar & frontal — nur ein Hauch Versatz, damit
-    // die Tiles zusammen die Buchstaben von GÜLER.DEV als flache Stencil-Fläche
-    // lesbar formen (Rotation würde die Glyphenkanten zerreißen).
-    const qTarget = new THREE.Quaternion().setFromEuler(
-      new THREE.Euler(
-        (rand() - 0.5) * 0.04,
-        (rand() - 0.5) * 0.04,
-        (rand() - 0.5) * 0.05,
-      ),
-    );
-    // Kantige Tiles ≈ Rasterzelle (dünn in z): füllen die Buchstaben-Striche
-    // fast lückenlos → GÜLER.DEV liest sich als Low-Res-Stencil.
-    const scale = new THREE.Vector3(
-      cell * (0.82 + rand() * 0.22),
-      cell * (0.82 + rand() * 0.22),
-      cell * (0.28 + rand() * 0.3),
-    );
+    // Zielrotation: exakt frontal (Identität) → die Tiles kacheln die Glyphen
+    // sauber, kein Kanten-Zerreißen. Kantigkeit kommt aus der Assembly-Bewegung.
+    const qTarget = new THREE.Quaternion();
+    // Tile ≈ Rasterzelle (dünn in z): füllt die Buchstaben-Striche lückenlos.
+    const scale = new THREE.Vector3(cell * 0.98, cell * 0.98, cell * 0.34);
     frags.push({
       target,
       scattered,
@@ -104,6 +110,7 @@ function buildFragments(count: number, fontFamily: string): FragData[] {
       qScatter,
       scale,
       delay: rand() * STAGGER,
+      u: clamp(t.x / (WORLD_WIDTH * 0.5), -1, 1),
     });
   }
   return frags;
@@ -114,11 +121,13 @@ function Fragments({
   count,
   color,
   fontFamily,
+  anim,
 }: {
   progress: MotionValue<number>;
   count: number;
   color: string;
   fontFamily: string;
+  anim: React.RefObject<GrinAnim>;
 }) {
   const meshRef = React.useRef<THREE.InstancedMesh>(null);
   const groupRef = React.useRef<THREE.Group>(null);
@@ -133,16 +142,41 @@ function Fragments({
     meshRef.current?.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   }, []);
 
-  useFrame(() => {
+  useFrame((state) => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const p = progress.get();
+    const assembled = smoothstep(p);
+
+    // Grin als unterdämpfte Feder (Overshoot → „Nachlachen"). Nur wenn die
+    // Wortmarke steht und gehovert wird, sonst zieht es zurück auf 0.
+    const a = anim.current;
+    const grinTarget = a.hover && p > GRIN_READY ? 1 : 0;
+    a.vel += (grinTarget - a.grin) * 0.05;
+    a.vel *= 0.86;
+    a.grin += a.vel;
+    const grin = clamp(a.grin, 0, 1.15) * assembled;
+    const time = state.clock.elapsedTime;
+
     for (let i = 0; i < frags.length; i++) {
       const f = frags[i];
       const local = smoothstep((p - f.delay) / (1 - STAGGER));
       dummy.position.lerpVectors(f.scattered, f.target, local);
       q.copy(f.qScatter).slerp(f.qTarget, local);
       dummy.quaternion.copy(q);
+
+      if (grin > 0.0001) {
+        const u = f.u;
+        // Smile-Bogen: Mundwinkel hoch, Mitte runter (U-Form).
+        dummy.position.y += 0.8 * (u * u - 0.375) * grin;
+        // Mitte wölbt sich zur Kamera vor (Pseudo-3D).
+        dummy.position.z += 0.55 * (1 - u * u) * grin;
+        // Lach-Wobble, solange der Grin steht.
+        dummy.position.y += Math.sin(time * 7 + i * 0.6) * 0.03 * grin;
+        // Tiles kippen entlang der Smile-Tangente ein.
+        dummy.rotateZ(-0.5 * u * grin);
+      }
+
       dummy.scale.copy(f.scale);
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
@@ -151,7 +185,7 @@ function Fragments({
 
     if (groupRef.current) {
       // Dreht sich beim Zusammensetzen in die Frontale (0 bei p=1).
-      groupRef.current.rotation.y = (1 - smoothstep(p)) * MAX_GROUP_ROT;
+      groupRef.current.rotation.y = (1 - assembled) * MAX_GROUP_ROT;
     }
   });
 
@@ -203,9 +237,18 @@ function InvalidateOnProgress({
   return null;
 }
 
+/** Reicht die r3f-invalidate-Funktion an den DOM-getriebenen Grin-Loop weiter. */
+function InvalidateBridge({ anim }: { anim: React.RefObject<GrinAnim> }) {
+  const invalidate = useThree((s) => s.invalidate);
+  React.useEffect(() => {
+    anim.current.invalidate = invalidate;
+  }, [invalidate, anim]);
+  return null;
+}
+
 export function ExplodedWordmark({
   progress,
-  count = 80,
+  count = 140,
 }: {
   progress: MotionValue<number>;
   count?: number;
@@ -214,6 +257,35 @@ export function ExplodedWordmark({
   const [fontFamily, setFontFamily] = React.useState(
     "system-ui, sans-serif",
   );
+  const anim = React.useRef<GrinAnim>({
+    hover: false,
+    grin: 0,
+    vel: 0,
+    invalidate: null,
+    raf: 0,
+    running: false,
+  });
+
+  // Solange gehovert wird ODER der Grin noch nachfedert: Frames anfordern.
+  const startGrinLoop = React.useCallback(() => {
+    const a = anim.current;
+    if (a.running) return;
+    a.running = true;
+    const tick = () => {
+      a.invalidate?.();
+      if (a.hover || Math.abs(a.grin) > 0.002 || Math.abs(a.vel) > 0.002) {
+        a.raf = requestAnimationFrame(tick);
+      } else {
+        a.running = false;
+      }
+    };
+    a.raf = requestAnimationFrame(tick);
+  }, []);
+
+  React.useEffect(() => {
+    const a = anim.current;
+    return () => cancelAnimationFrame(a.raf);
+  }, []);
 
   React.useEffect(() => {
     const read = () => {
@@ -224,7 +296,6 @@ export function ExplodedWordmark({
       if (f) setFontFamily(f);
     };
     read();
-    // Theme-Wechsel: Farbe neu lesen (class-Toggle am <html>).
     const obs = new MutationObserver(read);
     obs.observe(document.documentElement, {
       attributes: true,
@@ -234,25 +305,39 @@ export function ExplodedWordmark({
   }, []);
 
   return (
-    <Canvas
-      dpr={[1, 2]}
-      frameloop="demand"
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      camera={{ fov: 42, position: [6.5, 3.4, 15], near: 0.1, far: 100 }}
+    <div
       style={{ position: "absolute", inset: 0 }}
+      onPointerEnter={() => {
+        anim.current.hover = true;
+        startGrinLoop();
+      }}
+      onPointerLeave={() => {
+        anim.current.hover = false;
+        startGrinLoop();
+      }}
     >
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[4, 6, 8]} intensity={1.5} />
-      <directionalLight position={[-6, -2, 4]} intensity={0.55} />
-      <Fragments
-        key={count}
-        progress={progress}
-        count={count}
-        color={color}
-        fontFamily={fontFamily}
-      />
-      <CameraRig progress={progress} />
-      <InvalidateOnProgress progress={progress} />
-    </Canvas>
+      <Canvas
+        dpr={[1, 2]}
+        frameloop="demand"
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        camera={{ fov: 42, position: [6.5, 3.4, 15], near: 0.1, far: 100 }}
+        style={{ position: "absolute", inset: 0 }}
+      >
+        <ambientLight intensity={0.65} />
+        <directionalLight position={[4, 6, 8]} intensity={1.5} />
+        <directionalLight position={[-6, -2, 4]} intensity={0.55} />
+        <Fragments
+          key={count}
+          progress={progress}
+          count={count}
+          color={color}
+          fontFamily={fontFamily}
+          anim={anim}
+        />
+        <CameraRig progress={progress} />
+        <InvalidateOnProgress progress={progress} />
+        <InvalidateBridge anim={anim} />
+      </Canvas>
+    </div>
   );
 }
