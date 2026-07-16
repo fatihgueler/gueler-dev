@@ -125,7 +125,8 @@ html.light {
   --color-surface-2: #eaefea;
   --color-foreground: #0b120e;
   --color-muted: #5c6a61;
-  --color-muted-2: #6f7a71;
+  /* A11y: auf ≥4.5:1 gegen alle Light-BGs nachgedunkelt (war #6f7a71 = 4.14:1). */
+  --color-muted-2: #626e66;
   --color-border: rgba(11, 18, 14, 0.1);
   --color-border-strong: rgba(11, 18, 14, 0.16);
 
@@ -135,7 +136,7 @@ html.light {
   --color-ink-3: #e4eae4;
   --color-paper: #0b120e;
   --color-paper-2: #5c6a61;
-  --color-paper-3: #6f7a71;
+  --color-paper-3: #626e66;
 
   /* Akzent-TEXT muss auf hellem Grund dunkler sein (WCAG AA). Der Fill
      (--color-violet = deep emerald) bleibt gleich, nur die Text-Varianten
@@ -987,10 +988,14 @@ html.light {
   justify-content: center;
   background: var(--color-ink);
   will-change: clip-path;
+  /* Overlay blockiert nie Klicks; nach dem Wipe (clip-path) ohnehin kein
+     Hit-Testing mehr — Defense in Depth gegen "Seite gesperrt". */
+  pointer-events: none;
   /* CSS-Fallback-Wipe: Selbst wenn das Skript komplett ausfällt, wischt das
-     Overlay spätestens nach 4,5 s weg — kann nicht hängen. Der Normalfall
-     (intro-done, bei Load-Abschluss) überschreibt das mit sofortigem Wipe. */
-  animation: preloader-wipe 0.42s steps(6, end) 4.5s forwards;
+     Overlay spätestens nach 3,8 s weg (< 4 s harter Timeout) — kann nicht
+     hängen. Der Normalfall (intro-done, bei Load-Abschluss) überschreibt das
+     mit sofortigem Wipe. */
+  animation: preloader-wipe 0.42s steps(6, end) 3.8s forwards;
 }
 
 /* Ladefortschritt fertig (Skript setzt intro-done am <html>) → sofort wegwischen.

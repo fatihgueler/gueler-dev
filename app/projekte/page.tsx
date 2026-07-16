@@ -10,6 +10,7 @@ import { CTA } from "@/components/sections/CTA";
 export const metadata: Metadata = {
   title: "Projekte",
   description: pages.projekte.subtitle,
+  alternates: { canonical: "/projekte" },
 };
 
 export default function ProjektePage() {

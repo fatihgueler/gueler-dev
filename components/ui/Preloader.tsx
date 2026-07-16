@@ -28,7 +28,7 @@ const INTRO_SCRIPT = `(function(){
   (function tick(){if(done)return;p+=(0.9-p)*0.05;set(p<0.9?p:0.9);requestAnimationFrame(tick);})();
   if(document.readyState==='complete'){finish();}
   else{window.addEventListener('load',finish,{once:true});}
-  setTimeout(finish,3500);
+  setTimeout(finish,3200);
 })();`;
 
 export function Preloader() {
