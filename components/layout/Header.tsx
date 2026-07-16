@@ -36,7 +36,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:h-20">
-        <Link href="/" aria-label="Güler.dev Startseite">
+        <Link href="/" aria-label="Güler.dev Startseite" className="tap inline-block">
           <Logo className="text-xl md:text-2xl" />
         </Link>
 
@@ -48,7 +48,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "group relative text-sm font-medium transition-colors duration-100",
+                  "group relative tap text-sm font-medium transition-colors duration-100",
                   // Aktive Route als harter Invert-Block statt Unterstrich
                   isActive
                     ? "bg-foreground px-2.5 py-1 text-background"
@@ -72,11 +72,11 @@ export function Header() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <div className="hidden items-center gap-3 md:flex">
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline" size="sm" className="tap">
               <Link href="/kontakt">Kontakt anfragen</Link>
             </Button>
             <Magnetic strength={0.4}>
-              <Button asChild size="sm">
+              <Button asChild size="sm" className="tap">
                 <Link href="/#kontakt">Erstgespräch</Link>
               </Button>
             </Magnetic>

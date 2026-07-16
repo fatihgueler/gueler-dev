@@ -73,13 +73,13 @@ export function ConsentBanner() {
               schmalen Screens rund 50px Höhe, die sonst leichter mit
               gestapeltem Hero-Content kollidiert. */}
           <div className="mt-3 flex gap-3 sm:mt-4">
-            <Button size="sm" className="flex-1 sm:flex-none" onClick={() => choose("accepted")}>
+            <Button size="sm" className="tap flex-1 sm:flex-none" onClick={() => choose("accepted")}>
               Einverstanden
             </Button>
             <Button
               size="sm"
               variant="outline"
-              className="flex-1 sm:flex-none"
+              className="tap flex-1 sm:flex-none"
               onClick={() => choose("declined")}
             >
               Nur notwendige

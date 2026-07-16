@@ -91,7 +91,7 @@ export function ProjectHighlight() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-violet-3 transition-colors hover:text-foreground"
+                    className="tap inline-flex items-center gap-1.5 text-sm font-medium text-violet-3 transition-colors hover:text-foreground"
                   >
                     Live ansehen
                     <ArrowUpRight className="size-4" aria-hidden />
@@ -101,7 +101,7 @@ export function ProjectHighlight() {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-cyan"
+                  className="tap inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-cyan"
                 >
                   <Github className="size-4" aria-hidden />
                   Code

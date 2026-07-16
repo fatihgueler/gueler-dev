@@ -36,7 +36,7 @@ export function ProjectsFilter() {
               type="button"
               onClick={() => setActive(category)}
               className={cn(
-                "border px-4 py-2 font-mono text-xs font-bold uppercase tracking-wide transition-colors duration-100",
+                "tap border px-4 py-2 font-mono text-xs font-bold uppercase tracking-wide transition-colors duration-100",
                 active === category
                   ? "border-foreground bg-foreground text-background"
                   : "border-border text-muted hover:bg-foreground hover:text-background",
@@ -77,14 +77,14 @@ export function ProjectsFilter() {
                       {project.title}
                     </h3>
                   </div>
-                  <div className="flex shrink-0 gap-2">
+                  <div className="flex shrink-0 gap-3">
                     {project.repoUrl && (
                       <a
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${project.title} auf GitHub`}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                        className="tap inline-flex h-11 w-11 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
                       >
                         <Github className="size-4" />
                       </a>
@@ -95,7 +95,7 @@ export function ProjectsFilter() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${project.title} live ansehen`}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
+                        className="tap inline-flex h-11 w-11 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-teal hover:text-teal"
                       >
                         <ArrowUpRight className="size-4" />
                       </a>

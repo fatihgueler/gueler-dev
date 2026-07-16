@@ -14,7 +14,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand */}
           <div>
-            <Link href="/" aria-label="Güler.dev Startseite">
+            <Link href="/" aria-label="Güler.dev Startseite" className="tap inline-block">
               <Logo className="text-2xl" />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
@@ -33,7 +33,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted transition-colors hover:text-violet-3"
+                    className="block py-3 text-sm text-muted transition-colors hover:text-violet-3"
                   >
                     {item.label}
                   </Link>
@@ -47,7 +47,7 @@ export function Footer() {
                 <li key={guide.slug}>
                   <Link
                     href={`/${guide.slug}`}
-                    className="text-sm text-muted transition-colors hover:text-violet-3"
+                    className="block py-3 text-sm text-muted transition-colors hover:text-violet-3"
                   >
                     {guide.label}
                   </Link>
@@ -66,7 +66,7 @@ export function Footer() {
                 <Mail className="size-4 text-violet" />
                 <a
                   href={`mailto:${site.email}`}
-                  className="transition-colors hover:text-violet-3"
+                  className="tap transition-colors hover:text-violet-3"
                 >
                   {site.email}
                 </a>
@@ -82,7 +82,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
+                className="tap inline-flex h-11 w-11 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
               >
                 <Github className="size-4" />
               </a>
@@ -92,7 +92,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
+                  className="tap inline-flex h-11 w-11 items-center justify-center rounded-none border border-border text-muted transition-all hover:border-violet-2 hover:text-violet-3"
                 >
                   <Linkedin className="size-4" />
                 </a>
@@ -127,12 +127,12 @@ export function Footer() {
             </span>
           </p>
           <div className="flex gap-6">
-            <Link href="/impressum" className="transition-colors hover:text-violet-3">
+            <Link href="/impressum" className="tap transition-colors hover:text-violet-3">
               Impressum
             </Link>
             <Link
               href="/datenschutz"
-              className="transition-colors hover:text-violet-3"
+              className="tap transition-colors hover:text-violet-3"
             >
               Datenschutz
             </Link>
