@@ -19,7 +19,7 @@ export const site = {
   location: "Hannover, Deutschland",
   url: "https://guelerdev.de",
   github: "https://github.com/fatihgueler",
-  linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler-0206a639a/",
+  linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler75/",
 };
 
 export const siteConfig = {
@@ -41,6 +41,7 @@ export const nav = [
   { label: "Projekte", href: "/projekte" },
   { label: "Pakete", href: "/leistungen" },
   { label: "Über mich", href: "/ueber" },
+  { label: "Jobsuche", href: "/jobsuche" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
