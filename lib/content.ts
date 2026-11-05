@@ -348,6 +348,17 @@ export const about = {
   ],
 };
 
+/** /ueber: offener Hinweis zu Umschulung und Erreichbarkeit ab 2027. */
+export const ausblick = {
+  eyebrow: "Ausblick",
+  title: "Wie geht es ab 2027 weiter?",
+  paragraphs: [
+    "Kurz und ehrlich: Im Januar 2027 schließe ich meine Umschulung zum Fachinformatiker für Anwendungsentwicklung ab.",
+    "Danach will ich zusätzlich angestellt als Entwickler arbeiten. Anfragen beantworte ich ab Februar 2027 innerhalb von 48 Stunden.",
+    "Und egal, wie es weitergeht: Code, Domain und alle Zugänge gehören dir.",
+  ],
+};
+
 export const contact = {
   eyebrow: "Kontakt",
   title: "Kostenloses Erstgespräch anfragen",

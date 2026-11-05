@@ -6,6 +6,7 @@ import { About } from "@/components/sections/About";
 import { Timeline } from "@/components/sections/Timeline";
 import { Skills } from "@/components/sections/Skills";
 import { Trust } from "@/components/sections/Trust";
+import { Ausblick } from "@/components/sections/Ausblick";
 import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function UeberPage() {
       <Timeline />
       <Skills />
       <Trust />
+      <Ausblick />
       <CTA />
     </>
   );

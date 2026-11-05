@@ -39,8 +39,8 @@ const proof = [
     text: "IHK-Abschlussprojekt mit Blazor (.NET 10): Kunden, Projekte, Timer, Dashboard, Excel-Export, Audit-Log. 39 automatisierte Unit-Tests. Im Betrieb im Einsatz.",
   },
   {
-    title: "Kundenprojekte mit Next.js",
-    text: "Weitblick Energieberatung (Fördercheck, SEO, WCAG AA), Relaunch der PComplett-Website mit Ticket-Anbindung und KI-Chatbot, diese Seite hier.",
+    title: "Projekte mit Next.js",
+    text: "Kundenprojekt Weitblick Energieberatung (Fördercheck, SEO, WCAG AA). In Arbeit: Relaunch der PComplett-Website mit Ticket-Anbindung und KI-Chatbot. Dazu diese Website.",
   },
   {
     title: "Eigene Produkte",
@@ -54,7 +54,7 @@ export default function JobsuchePage() {
       <PageHero
         eyebrow="Jobsuche"
         title="Junior-Entwickler gesucht? Hier bin ich."
-        subtitle="Ich schließe im Januar 2027 meine Umschulung zum Fachinformatiker für Anwendungsentwicklung ab und suche eine Stelle im Raum Hannover."
+        subtitle="Fachinformatiker für Anwendungsentwicklung (IHK-Abschluss Januar 2027). Ich suche eine Stelle als Junior-Entwickler im Raum Hannover, verfügbar ab 01.02.2027."
         stamp="07"
       >
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -114,8 +114,8 @@ export default function JobsuchePage() {
         </div>
         <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted">
           Davor: Kundenservice mit technischer Beratung und Fahrzeuglogistik. Ich arbeite
-          gern direkt mit Menschen und behalte unter Druck den Überblick. Gehaltsvorstellung:
-          45.000 € brutto im Jahr.
+          gern direkt mit Menschen und behalte unter Druck den Überblick. Meine
+          Freelance-Arbeit stimme ich offen mit dem Arbeitgeber ab.
         </p>
       </Section>
 
