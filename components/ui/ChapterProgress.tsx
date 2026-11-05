@@ -9,7 +9,6 @@ const CHAPTERS = [
   { id: "chapter-2", label: "Dein Weg" },
   { id: "projekte", label: "Der Beweis" },
   { id: "chapter-4", label: "Dein Erfolg" },
-  { id: "prozess", label: "Der Prozess" },
   { id: "chapter-5", label: "Dein Moment" },
 ];
 const LAST = CHAPTERS.length - 1;

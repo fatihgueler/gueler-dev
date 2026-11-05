@@ -12,7 +12,6 @@ import { ProjectHighlight } from "@/components/sections/ProjectHighlight";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Outcomes } from "@/components/sections/Outcomes";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import { ScrollSequence } from "@/components/sections/ScrollSequence";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Contact } from "@/components/sections/Contact";
 
@@ -51,9 +50,7 @@ export default function HomePage() {
       <HardCut chapter="04" title="Dein Erfolg" />
       <Outcomes />
       <FaqAccordion />
-      <HardCut chapter="05" title="Der Prozess" />
-      <ScrollSequence />
-      <HardCut chapter="06" title="Dein Moment" />
+      <HardCut chapter="05" title="Dein Moment" />
       <FinalCta />
       <Contact />
     </>
