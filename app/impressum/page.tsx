@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Section, Eyebrow } from '@/components/Section'
 
 export const metadata: Metadata = {
-  title: 'Impressum | Güler.dev',
+  title: 'Impressum',
   description:
     'Impressum von Güler.dev – Anbieterkennzeichnung nach § 5 TMG: Fatih Güler, Webentwickler aus Hannover.',
   alternates: { canonical: '/impressum' },

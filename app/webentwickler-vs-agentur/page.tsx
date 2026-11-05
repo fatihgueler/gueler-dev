@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     "Freelance Webentwickler oder Agentur – was lohnt sich für dein Unternehmen? Ehrlicher Vergleich von Preis, Kommunikation, Tempo und Betreuung. Wann sich welche Option lohnt.",
   alternates: { canonical: pageUrl },
   openGraph: {
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
     type: "article",
     title: "Webentwickler oder Agentur? Der ehrliche Vergleich",
     description:

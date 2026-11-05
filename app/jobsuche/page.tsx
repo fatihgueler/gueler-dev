@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/anim/Reveal";
 
 export const metadata: Metadata = {
-  title: "Jobsuche – Junior Softwareentwickler Hannover",
+  title: { absolute: "Junior-Entwickler Hannover ab 02/2027 | Fatih Güler" },
   description:
     "Fatih Güler, Fachinformatiker für Anwendungsentwicklung (IHK 01/2027), sucht eine Stelle als Junior Softwareentwickler im Raum Hannover. Verfügbar ab 01.02.2027.",
   alternates: { canonical: "/jobsuche" },

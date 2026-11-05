@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     "Was kostet eine Website? One-Pager ab 500 €, Business-Site ab 1.500 € – zum Festpreis, ohne Agentur-Aufschlag. Ehrliche Preisübersicht für KMU und was den Preis beeinflusst.",
   alternates: { canonical: pageUrl },
   openGraph: {
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
     type: "article",
     title: "Was kostet eine Website? Ehrliche Preise zum Festpreis",
     description:

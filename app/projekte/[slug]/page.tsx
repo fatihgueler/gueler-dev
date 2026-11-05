@@ -28,9 +28,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${study.title} – Case Study`,
-    description: study.tagline,
+    description: metaDescription(`${study.tagline} ${study.solution}`),
     alternates: { canonical: `/projekte/${slug}` },
   };
+}
+
+/** Auf ≤155 Zeichen an einer Wortgrenze kürzen (Snippet-Länge). */
+function metaDescription(text: string, max = 155) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
 }
 
 const NARRATIVE = [

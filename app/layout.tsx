@@ -132,28 +132,26 @@ const jsonLd = {
           {
             "@type": "Offer",
             name: "One Pager",
-            description: "Landing Page mit Kontaktformular und SEO-Basis – ab 500 €.",
+            description: "Eine Seite mit allen wichtigen Infos, Kontaktformular und SEO-Grundeinrichtung – ab 500 €, 5–7 Tage.",
             priceSpecification: {
               "@type": "PriceSpecification",
               price: 500,
               priceCurrency: "EUR",
-              valueAddedTaxIncluded: false,
             },
           },
           {
             "@type": "Offer",
-            name: "Business Website",
-            description: "Bis zu 6 Seiten, Premium-Design, vollständige SEO – ab 1.500 €.",
+            name: "Business-Website",
+            description: "Bis zu 5 Unterseiten, individuelles Design, SEO für lokale Sichtbarkeit – ab 1.500 €, 2–3 Wochen.",
             priceSpecification: {
               "@type": "PriceSpecification",
               price: 1500,
               priceCurrency: "EUR",
-              valueAddedTaxIncluded: false,
             },
           },
           {
             "@type": "Offer",
-            name: "Premium / Custom",
+            name: "KI & Web-App",
             description: "Individuelle Web-Apps und KI-Integrationen – Preis auf Anfrage.",
           },
         ],

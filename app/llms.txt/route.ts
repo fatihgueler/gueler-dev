@@ -1,4 +1,4 @@
-import { site, services, packages, projects, faq } from "@/lib/content";
+import { site, services, pakete, projects, faq } from "@/lib/content";
 
 /**
  * /llms.txt — Generative Engine Optimization (GEO).
@@ -36,10 +36,11 @@ export function GET() {
     ...services.items.map((s) => `- **${s.title}**: ${s.description}`),
     "",
     "## Pakete & Preise",
-    ...packages.map((p) => `- **${p.name}** (${p.price}): ${p.description}`),
+    ...pakete.items.map((p) => `- **${p.title}** (${p.price}${p.time ? `, ${p.time}` : ""}): ${p.description}`),
+    `- Zahlung: ${pakete.payment}`,
     "",
     "## Projekte",
-    ...projects.items.map((p) => `- **${p.title}** (${p.category}): ${p.description}`),
+    ...projects.items.map((p) => `- **${p.title}** (${p.kind}, ${p.category}): ${p.description}`),
     "",
     "## Häufige Fragen (FAQ)",
   ];

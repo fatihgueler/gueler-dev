@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     "Wie lange dauert es, eine Website erstellen zu lassen? One-Pager in 5–7 Tagen, Business-Website in 2–3 Wochen. Was den Zeitplan beeinflusst und wie der Ablauf aussieht.",
   alternates: { canonical: pageUrl },
   openGraph: {
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
     type: "article",
     title: "Wie lange dauert eine Website? Realistische Zeiten",
     description:

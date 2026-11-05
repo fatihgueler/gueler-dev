@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     "Was braucht eine gute Website für lokale Unternehmen? Klares Angebot, Kontakt & Öffnungszeiten, Mobile-first, lokale SEO und Vertrauen. Die Must-haves und häufige Fehler.",
   alternates: { canonical: pageUrl },
   openGraph: {
+    images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
     type: "article",
     title: "Website für lokale Unternehmen: Das braucht sie wirklich",
     description:
