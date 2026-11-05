@@ -18,7 +18,7 @@ export const site = {
   calendly: "https://calendly.com/fatih-gueler75",
   availability: "Frei für neue Projekte",
   location: "Hannover, Deutschland",
-  url: "https://guelerdev.de",
+  url: "https://www.guelerdev.de",
   github: "https://github.com/fatihgueler",
   linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler75/",
 };
