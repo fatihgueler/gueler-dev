@@ -68,6 +68,7 @@ export function BookingButton({ children, ...buttonProps }: BookingButtonProps) 
     <Button asChild {...buttonProps}>
       <a
         href={site.calendly}
+        data-umami-event="calendly"
         target="_blank"
         rel="noopener noreferrer"
         onPointerEnter={loadCalendly}

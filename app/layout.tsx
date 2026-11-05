@@ -14,6 +14,7 @@ import { Preloader } from "@/components/ui/Preloader";
 import { GrinFavicon } from "@/components/ui/GrinFavicon";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -195,6 +196,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Analytics />
         <ThemeProvider>
           <Preloader />
           <a

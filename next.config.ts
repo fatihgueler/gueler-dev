@@ -23,15 +23,16 @@ const stamp = buildStamp();
  *   → script-src 'unsafe-inline' (bewusst statt Nonce, damit statisches Rendering
  *   und damit die Performance erhalten bleiben); framer-motion/Next-Inline-Styles
  *   → style-src 'unsafe-inline' (dokumentierter Trade-off).
- * Keine Analytics geladen (Consent-Gate ist bislang nur Vorbereitung).
+ * Umami (cookielos): Skript von cloud.umami.is, Events an cloud.umami.is bzw.
+ *   api-gateway.umami.dev — lädt nur, wenn analytics.umamiWebsiteId gesetzt ist.
  */
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://assets.calendly.com",
+  "script-src 'self' 'unsafe-inline' https://assets.calendly.com https://cloud.umami.is",
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "img-src 'self' data: https://assets.calendly.com https://calendly.com",
   "font-src 'self' https://assets.calendly.com",
-  "connect-src 'self' https://calendly.com https://assets.calendly.com",
+  "connect-src 'self' https://calendly.com https://assets.calendly.com https://cloud.umami.is https://api-gateway.umami.dev",
   "frame-src https://calendly.com https://assets.calendly.com https://www.openstreetmap.org",
   "worker-src 'self' blob:",
   "object-src 'none'",

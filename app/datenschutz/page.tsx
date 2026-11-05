@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { analytics } from "@/lib/content";
 
 import { Section, Eyebrow } from '@/components/Section'
 
@@ -43,7 +44,9 @@ export default function Datenschutz() {
             <section>
               <h2 className="text-lg font-semibold text-foreground mb-3">3. Allgemeine Informationen zur Datenverarbeitung</h2>
               <p>
-                Diese Website nutzt nur technisch notwendige Daten. Wir speichern keine persönlichen Informationen durch Cookies oder Tracking-Technologien. Deine IP-Adresse wird nicht protokolliert.
+                {analytics.umamiWebsiteId
+                  ? "Diese Website setzt keine Cookies zu Tracking-Zwecken. Für eine anonyme Reichweitenmessung nutzen wir Umami (siehe Abschnitt 4a). Deine IP-Adresse wird dabei nicht gespeichert."
+                  : "Diese Website nutzt nur technisch notwendige Daten. Wir speichern keine persönlichen Informationen durch Cookies oder Tracking-Technologien. Deine IP-Adresse wird nicht protokolliert."}
               </p>
             </section>
 
@@ -58,6 +61,19 @@ export default function Datenschutz() {
                 <p><strong>Empfänger:</strong> Die Daten werden über Resend (Email-Service) verarbeitet. Resend speichert Emails zur Zustellung.</p>
               </div>
             </section>
+
+            {analytics.umamiWebsiteId && (
+              <section>
+                <h2 className="text-lg font-semibold text-foreground mb-3">4a. Reichweitenmessung mit Umami</h2>
+                <p className="mb-3">
+                  Um zu verstehen, welche Seiten und Buttons genutzt werden, verwenden wir Umami Cloud (umami.is). Umami setzt keine Cookies und speichert keine IP-Adressen. Erfasst werden zusammengefasste Angaben wie aufgerufene Seite, verweisende Seite, Browser, Betriebssystem, Gerätetyp und Land sowie Klicks auf ausgewählte Buttons.
+                </p>
+                <div className="pl-4 border-l-2 border-gold/30">
+                  <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 f) DSGVO (berechtigtes Interesse an einer datensparsamen Auswertung und Verbesserung dieser Website)</p>
+                  <p><strong>Empfänger:</strong> Betreiber von Umami Cloud als Auftragsverarbeiter.</p>
+                </div>
+              </section>
+            )}
 
             <section>
               <h2 className="text-lg font-semibold text-foreground mb-3">5. Externe Links</h2>

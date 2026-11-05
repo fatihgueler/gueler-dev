@@ -23,6 +23,19 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/fatih-g%C3%BCler75/",
 };
 
+/**
+ * Reichweitenmessung mit Umami Cloud (cookielos).
+ * Website-ID aus dem Umami-Dashboard hier eintragen → Messung ist aktiv,
+ * und der Abschnitt in der Datenschutzerklärung wird automatisch angezeigt.
+ * Leer lassen = keine Messung.
+ */
+export const analytics = {
+  umamiWebsiteId: "",
+  umamiScriptSrc: "https://cloud.umami.is/script.js",
+  /** Nur auf der echten Domain zählen, nicht lokal oder in Vorschauen. */
+  domains: "guelerdev.de,www.guelerdev.de",
+};
+
 export const siteConfig = {
   name: site.ownerName,
   title: "Webdesign Hannover & deutschlandweit | Fatih Güler",

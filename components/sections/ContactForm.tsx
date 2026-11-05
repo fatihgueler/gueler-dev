@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { trackEvent } from "@/components/Analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, "Bitte gib deinen Namen ein."),
@@ -64,6 +65,7 @@ export function ContactForm() {
     });
     if (result.status === "success") {
       setStatus("success");
+      trackEvent("formular-gesendet", { paket: values.package || "keine Angabe" });
       reset();
     } else {
       setStatus("error");

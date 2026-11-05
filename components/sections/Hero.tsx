@@ -259,6 +259,7 @@ function HeroCopy({ as = "p" }: { as?: "p" | "h1" }) {
       <div className="mt-6 flex w-full flex-col items-stretch gap-3 md:w-auto md:flex-row md:items-center md:gap-6">
         <a
           href={hero.cta.href}
+          data-umami-event="hero-erstgespraech"
           className="group inline-flex shrink-0 items-center justify-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {hero.cta.label}
@@ -266,6 +267,7 @@ function HeroCopy({ as = "p" }: { as?: "p" | "h1" }) {
         </a>
         <a
           href={hero.secondary.href}
+          data-umami-event="hero-preise"
           className="tap inline-flex items-center gap-2 py-2 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-foreground underline-offset-4 hover:text-violet-3 hover:underline"
         >
           {hero.secondary.label}

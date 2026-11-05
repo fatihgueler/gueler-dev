@@ -76,6 +76,7 @@ export function FinalCta() {
         <Reveal variant="fadeUp" delay={0.2}>
           <a
             href={cta.primary.href}
+            data-umami-event="cta-erstgespraech"
             className="group mt-10 flex w-full items-center justify-between gap-6 border border-foreground px-6 py-6 font-display font-bold uppercase tracking-tight text-foreground transition-colors duration-100 hover:bg-foreground hover:text-background md:px-10 md:py-8"
             style={{ fontSize: "clamp(1.25rem, 3vw, 2.25rem)" }}
           >

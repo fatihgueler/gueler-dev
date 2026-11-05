@@ -55,6 +55,7 @@ export function Contact() {
 
               <a
                 href={`tel:${site.phone}`}
+                data-umami-event="anrufen"
                 className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
               >
                 <Phone className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />

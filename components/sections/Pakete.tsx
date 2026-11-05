@@ -95,6 +95,8 @@ export function Pakete() {
 
                 <a
                   href="/kontakt"
+                  data-umami-event="paket-anfrage"
+                  data-umami-event-paket={item.title}
                   className={cn(
                     "mt-8 inline-flex items-center justify-center border px-6 py-3.5 font-mono text-sm font-bold uppercase tracking-[0.1em] transition-colors duration-100",
                     inverted
