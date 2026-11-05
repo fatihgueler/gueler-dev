@@ -3,16 +3,17 @@
 import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Github } from "lucide-react";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { projectHighlight, projects } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/animation/Reveal";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 export function ProjectHighlight() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section

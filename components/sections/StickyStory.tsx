@@ -4,7 +4,6 @@ import * as React from "react";
 import { Globe, Layers, Zap, type LucideIcon } from "lucide-react";
 import {
   m,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
@@ -12,6 +11,7 @@ import {
 
 import { services } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const ICONS: Record<string, LucideIcon> = {
   Globe,
@@ -104,7 +104,7 @@ function StoryPanel({
 
 export function StickyStory() {
   const sectionRef = React.useRef<HTMLElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

@@ -3,7 +3,6 @@
 import * as React from "react";
 import {
   m,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
@@ -12,6 +11,7 @@ import {
 import { storyPitch } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/animation/Reveal";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 type Word = { text: string; accent: boolean };
 
@@ -76,7 +76,7 @@ export function StoryPitch() {
   const sectionRef = React.useRef<HTMLElement>(null);
   // Fortschritt nur über die Aussage messen, nicht über die Schmerzpunkte darunter.
   const statementRef = React.useRef<HTMLParagraphElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   const { scrollYProgress } = useScroll({
     target: statementRef,

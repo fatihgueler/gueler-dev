@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { faq } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
@@ -11,12 +11,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 // FAQPage-JSON-LD wird serverseitig in app/page.tsx ausgegeben (zuverlässig
 // für Crawler + KI-Antwortmaschinen / GEO), nicht hier im Client-Component.
 
 export function FaqAccordion() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section id="faq" className="relative py-24 md:py-32">

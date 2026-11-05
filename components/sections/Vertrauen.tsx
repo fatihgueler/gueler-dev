@@ -4,10 +4,11 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { site, vertrauen } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 /**
  * Vertrauen ohne Kundenstimmen — nur prüfbare Fakten.
@@ -17,7 +18,7 @@ import { Reveal } from "@/components/animation/Reveal";
  * stanzen nacheinander ein, Hover invertiert hart.
  */
 export function Vertrauen() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section id="vertrauen" className="relative py-24 md:py-36">

@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { process } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
 import { Separator } from "@/components/ui/separator";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 type Step = (typeof process.steps)[number];
 
@@ -14,7 +15,7 @@ const stepsEase = (n: number) => (t: number) =>
   Math.min(1, Math.floor(t * n) / (n - 1));
 
 function ProcessRow({ step, index }: { step: Step; index: number }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <m.div

@@ -28,7 +28,8 @@ const stamp = buildStamp();
  */
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://assets.calendly.com https://cloud.umami.is",
+  // 'unsafe-eval' nur im Dev-Server (React-Refresh/Fehler-Overlay brauchen es).
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://assets.calendly.com https://cloud.umami.is`,
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "img-src 'self' data: https://assets.calendly.com https://calendly.com",
   "font-src 'self' https://assets.calendly.com",

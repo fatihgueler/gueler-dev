@@ -3,12 +3,12 @@
 import * as React from "react";
 import {
   m,
-  useReducedMotion,
   useScroll,
   useTransform,
   useMotionValueEvent,
   type MotionValue,
 } from "framer-motion";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 /**
  * ScrollSequence — Kapitel "Der Prozess" (Feature B / Technik 1).
@@ -45,7 +45,7 @@ const BEATS = [
 ] as const;
 
 export function ScrollSequence() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
   const [size, setSize] = React.useState<"lg" | "sm">("lg");
 
   React.useEffect(() => {

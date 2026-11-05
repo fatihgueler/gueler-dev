@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { outcomes } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 /**
  * Kapitel 04 — "Dein Erfolg" / Transformation.
@@ -17,7 +18,7 @@ import { Reveal } from "@/components/animation/Reveal";
  * Riesenindex als Outline-Ziffer, Hover invertiert die Zelle hart.
  */
 export function Outcomes() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   return (
     <section id="chapter-4" className="relative py-24 md:py-36">

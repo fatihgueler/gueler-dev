@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { m, useReducedMotion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 
 import { cn } from "@/lib/utils";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 /**
  * Wiederverwendbares Scroll-Reveal-System (Framer Motion, whileInView).
@@ -65,7 +66,7 @@ export function Reveal({
   delay = 0,
   className,
 }: RevealProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
   if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div
@@ -94,7 +95,7 @@ export function RevealGroup({
   className,
   stagger = 0.1,
 }: RevealGroupProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
   if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div
@@ -121,7 +122,7 @@ export function RevealItem({
   variant?: RevealVariant;
   className?: string;
 }) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
   if (shouldReduceMotion) return <StaticFallback className={className}>{children}</StaticFallback>;
   return (
     <m.div className={className} variants={VARIANTS[variant]}>
@@ -152,7 +153,7 @@ export function WordReveal({
   className,
   delay = 0,
 }: WordRevealProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
   const words = text.split(" ");
   if (shouldReduceMotion) {
     return <Tag className={cn(className)}>{text}</Tag>;

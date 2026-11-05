@@ -5,13 +5,13 @@ import dynamic from "next/dynamic";
 import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import {
   m,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
 
 import { hero } from "@/lib/content";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 // Die r3f/three-Schwergewichte erst clientseitig nachladen (kein SSR, aus dem
 // initialen Bundle raus) — schützt LCP/Lighthouse. Unter reduced-motion wird
@@ -45,7 +45,7 @@ const ExplodedWordmark = dynamic(
  * <768px: halbe Fragmentzahl.
  */
 export function Hero() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
   return reduceMotion ? <HeroStatic /> : <HeroAssembly />;
 }
 
