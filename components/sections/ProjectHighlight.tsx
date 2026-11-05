@@ -52,10 +52,10 @@ export function ProjectHighlight() {
 
         {/* Project grid */}
         <div className="grid gap-6 md:grid-cols-3">
-          {projects.items.map((project, i) => (
+          {projects.items.filter((p) => !("hideOnHome" in p && p.hideOnHome)).map((project, i) => (
             <m.div
               key={project.title}
-              className={cn("h-full", i === 0 && "md:col-span-2")}
+              className="h-full"
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-6%" }}
@@ -63,13 +63,25 @@ export function ProjectHighlight() {
             >
               {/* Sticker-Hover: Karte springt hart nach oben-links,
                   darunter erscheint ein solider Offset-Block (kein Soft-Shadow) */}
-              <div className="flex h-full flex-col border border-border bg-background p-7 transition-[transform,box-shadow,border-color] duration-100 hover:-translate-x-1 hover:-translate-y-1 hover:border-border-strong hover:shadow-[8px_8px_0_0_var(--color-violet)] md:p-8">
-              <p
-                className="font-mono text-xs tracking-[0.2em] text-cyan"
-                style={{ textTransform: "uppercase" }}
-              >
-                {project.category}
-              </p>
+              <div className={cn("flex h-full flex-col border bg-background p-7", project.kind === "Kundenprojekt" ? "border-violet-3" : "border-border", " transition-[transform,box-shadow,border-color] duration-100 hover:-translate-x-1 hover:-translate-y-1 hover:border-border-strong hover:shadow-[8px_8px_0_0_var(--color-violet)] md:p-8")}>
+              <div className="flex flex-wrap items-center gap-3">
+                <span
+                  className={cn(
+                    "border px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em]",
+                    project.kind === "Kundenprojekt"
+                      ? "border-violet bg-violet text-white"
+                      : "border-border-strong text-foreground",
+                  )}
+                >
+                  {project.kind}
+                </span>
+                <p
+                  className="font-mono text-xs tracking-[0.2em] text-cyan"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {project.category}
+                </p>
+              </div>
               <h3 className="mt-4 font-display text-2xl font-semibold text-foreground">
                 {project.title}
               </h3>

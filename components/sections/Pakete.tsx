@@ -54,6 +54,16 @@ export function Pakete() {
                 <p className="mt-4 font-mono text-[clamp(2.25rem,3.5vw,3rem)] font-black leading-none tracking-tight">
                   {item.price}
                 </p>
+                {item.time ? (
+                  <p
+                    className={cn(
+                      "mt-3 font-mono text-xs uppercase tracking-[0.15em]",
+                      inverted ? "text-background/70" : "text-violet-3",
+                    )}
+                  >
+                    {item.time}
+                  </p>
+                ) : null}
                 <p
                   className={cn(
                     "mt-5 leading-relaxed",
@@ -100,7 +110,10 @@ export function Pakete() {
         })}
       </div>
 
-      <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-muted">
+      <p className="mx-auto mt-10 max-w-2xl border border-border-strong px-6 py-4 text-center font-mono text-sm text-foreground">
+        {pakete.payment}
+      </p>
+      <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-muted">
         {pakete.note}
       </p>
     </Section>

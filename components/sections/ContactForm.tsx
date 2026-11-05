@@ -28,7 +28,7 @@ const formSchema = z.object({
   email: z.string().email("Bitte gib eine gültige E-Mail ein."),
   phone: z.string().max(50).optional(),
   package: z.string().optional(),
-  message: z.string().min(10, "Bitte beschreib dein Anliegen kurz."),
+  message: z.string().max(5000).optional(),
   privacy: z
     .boolean()
     .refine((v) => v === true, "Bitte akzeptiere die Datenschutzerklärung."),
@@ -190,10 +190,10 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="cf-message">Nachricht *</Label>
+        <Label htmlFor="cf-message">Nachricht (optional)</Label>
         <Textarea
           id="cf-message"
-          placeholder="Beschreib kurz dein Anliegen oder dein aktuelles Website-Problem…"
+          placeholder="z. B. Branche, Ort, vorhandene Website"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "cf-message-error" : undefined}
           {...register("message")}

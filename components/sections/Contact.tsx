@@ -65,7 +65,7 @@ export function Contact() {
                   >
                     Telefon
                   </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.phone}</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.phoneDisplay}</span>
                 </span>
               </a>
 

@@ -13,6 +13,7 @@ export const site = {
   ownerName: "Fatih Güler",
   email: "fatih.gueler75@gmail.com",
   phone: "+4915777688060",
+  phoneDisplay: "+49 1577 7688060",
   whatsapp: "https://wa.me/015777688060",
   calendly: "https://calendly.com/fatih-gueler75",
   availability: "Frei für neue Projekte",
@@ -41,9 +42,11 @@ export const nav = [
   { label: "Projekte", href: "/projekte" },
   { label: "Pakete", href: "/leistungen" },
   { label: "Über mich", href: "/ueber" },
-  { label: "Jobsuche", href: "/jobsuche" },
   { label: "Kontakt", href: "/kontakt" },
 ];
+
+/** Nur im Footer: Recruiter-Seite bewusst nicht in der Hauptnavigation. */
+export const footerExtra = [{ label: "Für Arbeitgeber", href: "/jobsuche" }];
 
 /**
  * Ratgeber-/Content-Seiten (GEO). Footer und Sitemap iterieren hierüber –
@@ -57,17 +60,24 @@ export const guides = [
 ];
 
 export const hero = {
-  lines: ["Kunden suchen dich.", "Finden sie dich auch?"],
+  overline: "Kunden suchen dich. Finden sie dich auch?",
+  lines: ["Websites, die dir Kunden bringen.", "Zum Festpreis."],
   subtitle:
-    "Aus Hannover für ganz Deutschland: moderne Websites zum Festpreis, in wenigen Wochen – ein fester Ansprechpartner statt Agentur.",
-  cta: { label: "Kostenloses Erstgespräch", href: "#kontakt" },
+    "Festpreis ab 500 €. Ein One Pager steht in 5–7 Tagen. Ein fester Ansprechpartner aus Hannover – ohne Agentur-Umweg.",
+  cta: { label: "Erstgespräch kostenlos anfragen", href: "#kontakt" },
+  secondary: { label: "Erst Preise ansehen", href: "#pakete" },
+  checks: [
+    "Festpreis, bevor es losgeht",
+    "Antwort meist innerhalb 24 Stunden",
+    "Code und Domain gehören dir",
+  ],
   scrollHint: "nach unten scrollen",
 };
 
 export const techStack = [
-  "Lieferzeit unter 4 Wochen",
+  "One Pager in 5–7 Tagen",
   "Festpreis – keine versteckten Kosten",
-  "Mobile-first & blitzschnell",
+  "Gebaut fürs Handy",
   "SEO von Anfang an",
   "Direkte Kommunikation, kein Agentur-Umweg",
   "Persönlicher Ansprechpartner",
@@ -84,7 +94,7 @@ export const services = {
       title: "Business-Websites",
       description:
         "Schnelle, suchmaschinenoptimierte Websites mit Next.js. Mobile-first, barrierearm und so gebaut, dass aus Besuchern Anfragen werden.",
-      points: ["SEO & lokale Sichtbarkeit", "Responsives Premium-Design", "Blitzschnelle Ladezeiten"],
+      points: ["SEO & lokale Sichtbarkeit", "Responsives Premium-Design", "Mobile-first umgesetzt"],
     },
     {
       icon: "Sparkles",
@@ -104,7 +114,7 @@ export const services = {
       icon: "LifeBuoy",
       title: "Betreuung & DSGVO",
       description:
-        "Auch nach dem Launch da: Updates, Performance-Monitoring und datenschutzkonforme Umsetzung nach deutschem Recht.",
+        "Wartung und Updates nach individueller Absprache – datenschutzkonform nach deutschem Recht umgesetzt.",
       points: ["Wartung & Updates", "Hosting-Beratung", "Datenschutz-Umsetzung"],
     },
   ],
@@ -113,20 +123,11 @@ export const services = {
 export const projects = {
   eyebrow: "Projekte",
   title: "Ausgewählte Arbeiten",
-  subtitle: "Echte Projekte, echter Code – live auf GitHub einsehbar.",
+  subtitle: "Ein Kundenprojekt und eigene Produkte – live ansehen, Code auf GitHub.",
   items: [
     {
-      title: "BüroBrücke",
-      category: "KI-Web-App",
-      description:
-        "KI-gestützte App, die deutsche Behördenbriefe analysiert und in der Muttersprache erklärt – mit OCR, Fristerkennung und Antwort-Generator in fünf Sprachen.",
-      tags: ["FastAPI", "React", "Claude API", "OCR", "JWT"],
-      liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
-      repoUrl: "https://github.com/fatihgueler/deBueroBruecke",
-      featured: true,
-    },
-    {
       title: "Weitblick",
+      kind: "Kundenprojekt",
       category: "Marketing-Website",
       description:
         "Marketing-Website für Energieberatung rund um energetische Sanierung, Förderung und Sanierungsplanung – mit geführtem Fördercheck-Funnel zur Lead-Generierung und durchdachter Kontaktstrecke.",
@@ -136,7 +137,19 @@ export const projects = {
       featured: false,
     },
     {
+      title: "BüroBrücke",
+      kind: "Eigenprojekt",
+      category: "KI-Web-App",
+      description:
+        "KI-gestützte App, die deutsche Behördenbriefe analysiert und in der Muttersprache erklärt – mit OCR, Fristerkennung und Antwort-Generator in fünf Sprachen.",
+      tags: ["FastAPI", "React", "Claude API", "OCR", "JWT"],
+      liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
+      repoUrl: "https://github.com/fatihgueler/deBueroBruecke",
+      featured: true,
+    },
+    {
       title: "VoxNote",
+      kind: "Eigenprojekt",
       category: "KI-SaaS",
       description:
         "KI-Dokumentationstool für Therapie- und Arztpraxen: gesprochene oder getippte Notizen nach der Sitzung werden automatisch in strukturierte SOAP-Notizen überführt – datenschutzfreundlich mit Feldverschlüsselung, pseudonymen Kürzeln und ohne Audio-Speicherung.",
@@ -147,6 +160,9 @@ export const projects = {
     },
     {
       title: "Lead-Finder",
+      kind: "Eigenprojekt",
+      /** Nicht auf der Startseite: richtet sich an Webentwickler, nicht an Kunden. */
+      hideOnHome: true,
       category: "Web-App",
       description:
         "Web-App zur B2B-Lead-Recherche: findet kleine und mittlere Betriebe ohne eigene Website – filterbar nach Stadt, Umkreis und Branche, mit Telefonnummern-Abgleich, Kartenansicht und CSV-Export. Datenbasis: OpenStreetMap.",
@@ -165,27 +181,33 @@ export const process = {
   steps: [
     {
       number: "01",
-      title: "Kennenlernen",
+      title: "Kostenloses Kennenlernen",
       description:
-        "Ein kurzes Gespräch über dein Vorhaben, deine Ziele und dein Budget. Du bekommst eine ehrliche Einschätzung — kostenlos und unverbindlich.",
+        "30 Minuten: Du erzählst von deinem Betrieb, ich sage dir ehrlich, was sich lohnt.",
     },
     {
       number: "02",
-      title: "Konzept & Festpreis",
+      title: "Festpreis vor Start",
       description:
-        "Ich entwerfe Struktur, Design-Richtung und einen klaren Festpreis. Du weißt vorher genau, was du bekommst — keine versteckten Kosten.",
+        "Im zweiten Gespräch bekommst du Konzept und Festpreis. Erst dann wird eine Anzahlung fällig.",
     },
     {
       number: "03",
-      title: "Entwicklung",
+      title: "Bauen mit Zwischenständen",
       description:
-        "Umsetzung mit modernem, sauberem Code. Next.js 15, TypeScript, Tailwind. Du siehst regelmäßig Zwischenstände und kannst jederzeit Feedback geben.",
+        "Du siehst regelmäßig den Stand und sagst, was passt. Die Technik übernehme ich.",
     },
     {
       number: "04",
-      title: "Launch & Support",
+      title: "Abnahme & Livegang",
       description:
-        "Wir gehen live, ich richte alles ein — Domain, Hosting, Analytics. Und bin auch danach für Wartung und Weiterentwicklung an deiner Seite.",
+        "Du prüfst alles und gibst es frei. Erst dann zahlst du den Rest. Domain und Hosting richte ich ein.",
+    },
+    {
+      number: "05",
+      title: "Danach nach Wunsch",
+      description:
+        "Wartung und Änderungen stimmen wir individuell ab – je nach Wunsch und Vorhaben.",
     },
   ],
 };
@@ -221,9 +243,9 @@ export const features = {
 };
 
 export const projectHighlight = {
-  title: "Sauberer Code. Echte Projekte.",
+  title: "Live ansehen statt nur glauben.",
   description:
-    "Vom KI-Tool bis zur Fullstack-App: Jedes Projekt wird mit demselben Anspruch gebaut — technisch sauber, visuell stark, auf Conversions ausgerichtet. Live und auf GitHub einsehbar.",
+    "Weitblick habe ich für eine Energieberatung gebaut. Die anderen sind eigene Produkte – klick rein und teste sie.",
   cta: { label: "Projekte ansehen", href: "/projekte" },
   highlights: [
     { name: "BüroBrücke", tag: "KI-Tool" },
@@ -238,8 +260,9 @@ export const pakete = {
     "Festpreise statt Stundenzettel – damit du von Anfang an weißt, woran du bist.",
   items: [
     {
-      title: "Onepager",
+      title: "One Pager",
       price: "ab 500 €",
+      time: "5–7 Tage",
       description: "Eine starke Seite, die dein Angebot auf den Punkt bringt.",
       features: [
         "Eine Seite mit allen wichtigen Infos",
@@ -252,6 +275,7 @@ export const pakete = {
     {
       title: "Business-Website",
       price: "ab 1.500 €",
+      time: "2–3 Wochen",
       description: "Mehrseitiger Auftritt für Unternehmen, die online überzeugen wollen.",
       features: [
         "Bis zu 5 Unterseiten",
@@ -266,16 +290,18 @@ export const pakete = {
     {
       title: "KI & Web-App",
       price: "auf Anfrage",
+      time: "Zeit nach Absprache",
       description: "Maßgeschneiderte Anwendungen mit KI-Funktionen oder eigener Logik.",
       features: [
         "Individuelle Konzeption & Architektur",
         "KI-Integration (Chatbots, Automatisierung, OCR)",
         "Datenbank- & Backend-Anbindung",
-        "Laufende Betreuung nach dem Launch",
+        "Betreuung nach Absprache",
       ],
       featured: false,
     },
   ],
+  payment: "Anzahlung erst nach dem zweiten Gespräch. Den Rest zahlst du nach Abnahme.",
   note: "Alle Preise verstehen sich als Richtwerte – das genaue Angebot richtet sich nach deinem Projekt und wird vorab gemeinsam festgelegt.",
 };
 
@@ -326,14 +352,14 @@ export const contact = {
   eyebrow: "Kontakt",
   title: "Kostenloses Erstgespräch anfragen",
   subtitle:
-    "Erzähl mir kurz von deinem Vorhaben – egal ob du schon eine Website hast oder bei null startest. Du bekommst eine ehrliche Einschätzung, kostenlos und unverbindlich.",
+    "Schreib mir kurz, was dein Betrieb macht – egal ob mit oder ohne Website. Du bekommst eine ehrliche Einschätzung, meist innerhalb von 24 Stunden.",
   successMessage: "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
   errorMessage:
     "❌ Etwas hat nicht geklappt. Bitte versuch es erneut oder schreib direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
-    { value: "one-pager", label: "One Pager (ab 500€)" },
-    { value: "business", label: "Business Website (ab 1.500€)" },
-    { value: "premium", label: "Premium / Custom" },
+    { value: "one-pager", label: "One Pager (ab 500 €)" },
+    { value: "business", label: "Business-Website (ab 1.500 €)" },
+    { value: "premium", label: "KI & Web-App (auf Anfrage)" },
     { value: "unsicher", label: "Bin noch unsicher" },
   ],
   budgetRanges: [
@@ -361,12 +387,12 @@ export const faq = {
     {
       question: "Was kostet eine professionelle Website?",
       answer:
-        "One Pager ab 500 €, Business-Site ab 1.500 €, Premium auf Anfrage. Immer zum Festpreis – keine versteckten Kosten, keine Überraschungen.",
+        "One Pager ab 500 €, Business-Website ab 1.500 €, KI & Web-App auf Anfrage. Immer zum Festpreis – keine versteckten Kosten, keine Überraschungen.",
     },
     {
       question: "Wie lange dauert die Entwicklung?",
       answer:
-        "One Pager: 5–7 Tage. Business-Site: 2–3 Wochen. Premium-Projekte: nach Absprache. Der genaue Zeitplan hängt davon ab, wie schnell Texte und Bilder vorliegen – dabei unterstütze ich dich gern.",
+        "One Pager: 5–7 Tage. Business-Website: 2–3 Wochen. KI & Web-App: nach Absprache. Der genaue Zeitplan hängt davon ab, wie schnell Texte und Bilder vorliegen – dabei unterstütze ich dich gern.",
     },
     {
       question: "Ich habe keine technischen Kenntnisse — ist das ein Problem?",
@@ -472,11 +498,17 @@ export const storyPitch = {
     { text: "Sondern weil deine Website" },
     { text: "nicht für dich arbeitet.", accent: true },
   ] as Array<{ text: string; accent?: boolean }>,
+  pains: [
+    "Deine Website ist online – aber das Telefon klingelt deswegen nicht öfter.",
+    "Wer in deiner Stadt nach dir sucht, findet zuerst die Konkurrenz.",
+    "Auf dem Handy muss man ewig scrollen, bis Nummer oder Kontakt kommt.",
+    "Die letzte Agentur war teuer – und du weißt bis heute nicht, wofür.",
+  ],
 };
 
 export const cta = {
-  title: "Bereit, online zu überzeugen?",
-  subtitle: "Erstgespräch kostenlos und unverbindlich.",
+  title: "Was würde deine Website kosten?",
+  subtitle: "Kostenlos und ohne Verkaufsdruck. Anzahlung erst nach dem zweiten Gespräch, der Rest nach Abnahme.",
   primary: { label: "Kostenloses Erstgespräch anfragen", href: "/#kontakt" },
   secondary: { label: "Projekte ansehen", href: "/projekte" },
 };
@@ -668,9 +700,9 @@ export const outcomes = {
         "Mit sauberer technischer SEO taucht dein Betrieb dort auf, wo deine Kunden suchen — in deiner Stadt, in deiner Branche.",
     },
     {
-      title: "Schnell auf jedem Gerät",
+      title: "Gebaut fürs Handy",
       description:
-        "Ladezeiten im Sekundenbruchteil, besonders auf dem Handy — dort, wo die meisten deiner Besucher herkommen.",
+        "Mobile-first umgesetzt – dort, wo die meisten deiner Besucher herkommen.",
     },
     {
       title: "Du besitzt deinen Auftritt",
@@ -678,6 +710,42 @@ export const outcomes = {
         "Eigener Code, eigene Domain, kein Baukasten-Abo. Die Seite gehört dir — heute und in fünf Jahren.",
     },
   ],
+};
+
+/**
+ * Vertrauen ohne Kundenstimmen: nur prüfbare Fakten (Preis, Zahlung,
+ * Person, ein echtes Kundenprojekt, live testbare Eigenprojekte, Eigentum).
+ */
+export const vertrauen = {
+  eyebrow: "Über mich",
+  title: "Warum du mir vertrauen kannst",
+  subtitle: "Ich habe noch keine lange Kundenliste. Deshalb kannst du alles selbst prüfen.",
+  items: [
+    {
+      title: "Du kennst den Preis vorher",
+      description: "One Pager ab 500 €, Business-Website ab 1.500 €. Der Festpreis steht, bevor ich anfange.",
+    },
+    {
+      title: "Wenig Risiko beim Einstieg",
+      description: "Das Erstgespräch kostet nichts. Anzahlung erst nach dem zweiten Gespräch, der Rest nach Abnahme.",
+    },
+    {
+      title: "Ein echtes Kundenprojekt",
+      description: "Für Weitblick, eine Energieberatung, habe ich die Website samt Fördercheck gebaut. Schau sie dir live an.",
+    },
+    {
+      title: "Teste meine Arbeit selbst",
+      description: "Meine Eigenprojekte laufen live. Probier sie aus, bevor du mir einen Auftrag gibst.",
+    },
+    {
+      title: "Alles gehört dir",
+      description: "Eigener Code, eigene Domain, kein Baukasten-Abo. Die Seite gehört dir – heute und in fünf Jahren.",
+    },
+  ],
+  person: {
+    line: "Du sprichst immer mit dem, der deine Website baut.",
+    link: { label: "Mehr über mich", href: "/ueber" },
+  },
 };
 
 // Platzhalter, bis echte, freigegebene Kundenstimmen vorliegen.

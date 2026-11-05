@@ -65,8 +65,20 @@ export function ProjectsFilter() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                      {project.category}
+                    <span className="flex flex-wrap items-center gap-3">
+                      <span
+                        className={cn(
+                          "border px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em]",
+                          project.kind === "Kundenprojekt"
+                            ? "border-violet bg-violet text-white"
+                            : "border-border-strong text-foreground",
+                        )}
+                      >
+                        {project.kind}
+                      </span>
+                      <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                        {project.category}
+                      </span>
                     </span>
                     <h3
                       className={cn(

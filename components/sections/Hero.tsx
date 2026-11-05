@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import {
   m,
   useReducedMotion,
@@ -33,7 +33,9 @@ const ExplodedWordmark = dynamic(
  * rotation (in ExplodedWordmark) und drei Story-Beats als Text-Overlays:
  *   0–30 %  "Aus Einzelteilen."
  *   35–65 % "wird Struktur."
- *   70–100% assembliert + echte Headline/Subline + CTA.
+ *   Headline/Subline + CTA stehen ab dem ersten Frame (Conversion: der
+ *   erste Bildschirm muss sagen, was es gibt und was es kostet). Die Beats
+ *   laufen nur ab md oben mit; auf dem Handy wäre dafür kein Platz.
  *
  * scrub-Charakter: scrollYProgress → useSpring (weiches, symmetrisches
  * Nachziehen, rückwärts identisch sauber). progressRef-Pattern: die Spring
@@ -83,12 +85,15 @@ function HeroAssembly() {
   // Story-Beats: kurze, harte-ish Cross-Cuts (Brand: harte Schnitte).
   const beat1 = useTransform(progress, [0, 0.28, 0.34], [1, 1, 0]);
   const beat2 = useTransform(progress, [0.34, 0.4, 0.62, 0.68], [0, 1, 1, 0]);
-  // Beat 3 (Wortmarke steht + CTA) im „Halte"-Fenster, blendet beim Zerfall aus.
+  // Opener: volle Headline + Preis + CTA ab dem ersten Frame, blendet aus,
+  // sobald sich der Schriftzug zusammensetzt (sonst Überlagerung).
+  const opener = useTransform(progress, [0, 0.24, 0.32], [1, 1, 0]);
+  const openerPE = useTransform(progress, (v) => (v < 0.3 ? "auto" : "none"));
+  // Beat 3: kompakte Headline + CTA unter dem fertigen Schriftzug (Original-Timing).
   const beat3 = useTransform(progress, [0.64, 0.7, 0.86, 0.98], [0, 1, 1, 0]);
   const beat3PE = useTransform(progress, (v) =>
     v > 0.68 && v < 0.94 ? "auto" : "none",
   );
-  const hintOpacity = useTransform(progress, [0, 0.08], [1, 0]);
 
   return (
     <section id="top" ref={sectionRef} className="relative h-[210vh]">
@@ -113,7 +118,7 @@ function HeroAssembly() {
         {/* Beat 1 — Narration oben */}
         <m.div
           style={{ opacity: beat1 }}
-          className="pointer-events-none absolute inset-x-0 top-[20%] z-10 flex flex-col items-center px-6 text-center"
+          className="pointer-events-none absolute inset-x-0 top-[20%] z-10 hidden flex-col items-center px-6 text-center md:flex"
           aria-hidden
         >
           <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-violet-3">
@@ -130,7 +135,7 @@ function HeroAssembly() {
         {/* Beat 2 — Narration oben */}
         <m.div
           style={{ opacity: beat2 }}
-          className="pointer-events-none absolute inset-x-0 top-[20%] z-10 flex flex-col items-center px-6 text-center"
+          className="pointer-events-none absolute inset-x-0 top-[20%] z-10 hidden flex-col items-center px-6 text-center md:flex"
           aria-hidden
         >
           <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-cyan">
@@ -144,52 +149,43 @@ function HeroAssembly() {
           </p>
         </m.div>
 
-        {/* Beat 3 — Headline + Subline + CTA unten */}
+        {/* Lesbarkeit: weicher Verlauf hinter dem Opener, Partikel bleiben sichtbar */}
+        <m.div
+          style={{ opacity: opener }}
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[78%] bg-gradient-to-t from-background from-55% via-background/90 to-transparent md:h-[65%] md:from-35%"
+        />
+
+        {/* Opener — ab dem ersten Frame sichtbar */}
+        <m.div
+          style={{ opacity: opener, pointerEvents: openerPE }}
+          className="absolute inset-x-0 bottom-[5%] z-10 mx-auto flex w-full max-w-3xl flex-col items-start px-6 text-left md:bottom-[8%] md:items-center md:text-center"
+        >
+          <HeroCopy />
+        </m.div>
+
+        {/* Beat 3 — kompakt unter dem fertigen Schriftzug */}
         <m.div
           style={{ opacity: beat3, pointerEvents: beat3PE }}
           className="absolute inset-x-0 bottom-[8%] z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center"
+          aria-hidden
         >
-          <p className="mb-4 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-violet-3">
-            GÜLER.DEV
-          </p>
           <p
             className="font-display font-bold leading-[1.05] tracking-tight text-foreground [text-wrap:balance]"
             style={{ fontSize: "clamp(1.5rem, 3.2vw, 2.5rem)" }}
           >
-            {hero.lines.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </p>
-          <p className="mt-4 max-w-xl font-mono text-sm leading-relaxed tracking-wide text-muted">
-            {hero.subtitle}
+            <span className="block">{hero.lines[0]}</span>
+            <span className="block text-violet-3">{hero.lines[1]}</span>
           </p>
           <a
             href={hero.cta.href}
-            className="group mt-8 inline-flex shrink-0 items-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            tabIndex={-1}
+            className="group mt-6 inline-flex shrink-0 items-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2"
           >
             {hero.cta.label}
             <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
           </a>
         </m.div>
-
-        {/* Scroll-Hinweis (blendet sofort beim Scrollen aus) */}
-        <m.a
-          href="#chapter-1"
-          aria-label="Nach unten scrollen"
-          style={{ opacity: hintOpacity }}
-          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted-2 transition-colors hover:text-cyan"
-        >
-          <span className="font-mono text-xs">{hero.scrollHint}</span>
-          <m.span
-            aria-hidden
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown className="size-4" />
-          </m.span>
-        </m.a>
       </div>
     </section>
   );
@@ -214,31 +210,56 @@ function HeroStatic() {
           GÜLER.DEV
         </p>
         <div className="mt-10 h-px w-full bg-border-strong md:mt-14" />
-        <div className="mt-10 flex flex-col gap-10 md:mt-12 md:flex-row md:items-end md:justify-between md:gap-16">
-          <div className="max-w-2xl">
-            <h1
-              className="font-display font-bold leading-[1.05] tracking-tight text-foreground [text-wrap:balance]"
-              style={{ fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)" }}
-            >
-              {hero.lines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h1>
-            <p className="mt-5 max-w-xl font-mono text-sm leading-relaxed tracking-wide text-muted">
-              {hero.subtitle}
-            </p>
-          </div>
-          <a
-            href={hero.cta.href}
-            className="group inline-flex shrink-0 items-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            {hero.cta.label}
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </a>
+        <div className="mt-10 max-w-3xl md:mt-12">
+          <HeroCopy as="h1" />
         </div>
       </div>
     </section>
+  );
+}
+
+/** Gemeinsamer Copy-Block für animierten und statischen Hero. */
+function HeroCopy({ as = "p" }: { as?: "p" | "h1" }) {
+  const Headline = as;
+  return (
+    <>
+      <p className="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-violet-3">
+        {hero.overline}
+      </p>
+      <Headline
+        className="font-display font-black leading-[1.0] tracking-tighter text-foreground [text-wrap:balance]"
+        style={{ fontSize: "clamp(2.35rem, 5vw, 4rem)" }}
+      >
+        <span className="block">{hero.lines[0]}</span>
+        <span className="block text-violet-3">{hero.lines[1]}</span>
+      </Headline>
+      <p className="mt-4 max-w-xl font-mono text-sm leading-relaxed tracking-wide text-muted">
+        {hero.subtitle}
+      </p>
+      <div className="mt-6 flex w-full flex-col items-stretch gap-3 md:w-auto md:flex-row md:items-center md:gap-6">
+        <a
+          href={hero.cta.href}
+          className="group inline-flex shrink-0 items-center justify-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          {hero.cta.label}
+          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+        </a>
+        <a
+          href={hero.secondary.href}
+          className="tap inline-flex items-center gap-2 py-2 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-foreground underline-offset-4 hover:text-violet-3 hover:underline"
+        >
+          {hero.secondary.label}
+          <ArrowDown className="size-3.5" aria-hidden />
+        </a>
+      </div>
+      <ul className="mt-6 flex flex-col gap-2 md:flex-row md:flex-wrap md:justify-center md:gap-x-6">
+        {hero.checks.map((item) => (
+          <li key={item} className="flex items-center gap-2 font-mono text-xs text-foreground/80">
+            <Check className="size-3.5 shrink-0 text-violet-3" aria-hidden />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

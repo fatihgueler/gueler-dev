@@ -6,7 +6,7 @@ import { Resend } from "resend";
 const contactSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
-  message: z.string().min(10).max(5000),
+  message: z.string().max(5000).optional().default(""),
   company: z.string().max(0).optional(), // honeypot – muss leer bleiben
   phone: z.string().max(50).optional(),
   packageChoice: z.string().max(50).optional(),
@@ -20,7 +20,7 @@ export type ContactState = {
 };
 
 export async function sendContactMessage(
-  data: z.infer<typeof contactSchema>,
+  data: z.input<typeof contactSchema>,
 ): Promise<ContactState> {
   const parsed = contactSchema.safeParse(data);
 
@@ -65,7 +65,7 @@ export async function sendContactMessage(
       packageChoice ? `Paket: ${packageChoice}` : null,
       ``,
       `Nachricht:`,
-      message,
+      message || "(keine Nachricht)",
     ]
       .filter((l) => l !== null)
       .join("\n");

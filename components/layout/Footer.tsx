@@ -2,7 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 
-import { nav, site, guides } from "@/lib/content";
+import { nav, footerExtra, site, guides } from "@/lib/content";
 import { Logo } from "@/components/Logo";
 
 export function Footer() {
@@ -29,7 +29,7 @@ export function Footer() {
               Navigation
             </h3>
             <ul className="mt-5 space-y-3">
-              {nav.map((item) => (
+              {[...nav, ...footerExtra].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

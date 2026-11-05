@@ -11,6 +11,7 @@ import {
 
 import { storyPitch } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/animation/Reveal";
 
 type Word = { text: string; accent: boolean };
 
@@ -73,10 +74,12 @@ function PitchWord({
  */
 export function StoryPitch() {
   const sectionRef = React.useRef<HTMLElement>(null);
+  // Fortschritt nur über die Aussage messen, nicht über die Schmerzpunkte darunter.
+  const statementRef = React.useRef<HTMLParagraphElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: statementRef,
     offset: ["start 0.85", "end 0.4"],
   });
 
@@ -89,7 +92,7 @@ export function StoryPitch() {
     >
       {/* Kapitel-Label steht jetzt im HardCut-Balken direkt über der Sektion */}
       <div className="mx-auto w-full max-w-5xl px-6">
-        <p className="font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl md:leading-[1.2]">
+        <p ref={statementRef} className="font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl md:leading-[1.2]">
           {shouldReduceMotion
             ? WORDS.map((word) => (
                 <span
@@ -114,6 +117,22 @@ export function StoryPitch() {
                 />
               ))}
         </p>
+
+        {/* Konkrete Schmerzpunkte in der Sprache des Betriebsinhabers */}
+        <ul className="mt-16 grid gap-px overflow-hidden border border-border bg-border md:mt-20 md:grid-cols-2">
+          {storyPitch.pains.map((pain, i) => (
+            <Reveal key={pain} variant="fadeIn" delay={i * 0.06}>
+              <li className="flex h-full gap-4 bg-background p-6 md:p-8">
+                <span aria-hidden className="font-mono text-xs font-bold text-violet-3">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-base leading-relaxed text-foreground/85 md:text-lg">
+                  {pain}
+                </span>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -4,7 +4,8 @@ import { HardCut } from "@/components/ui/HardCut";
 import { Hero } from "@/components/sections/Hero";
 import { StoryPitch } from "@/components/sections/StoryPitch";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { FeaturesGrid } from "@/components/sections/FeaturesGrid";
+import { Pakete } from "@/components/sections/Pakete";
+import { Vertrauen } from "@/components/sections/Vertrauen";
 import { TechStrip } from "@/components/sections/TechStrip";
 import { StickyStory } from "@/components/sections/StickyStory";
 import { ProjectHighlight } from "@/components/sections/ProjectHighlight";
@@ -40,11 +41,12 @@ export default function HomePage() {
       <StoryPitch />
       <HardCut chapter="02" title="Dein Weg" />
       <ProcessSteps />
-      <FeaturesGrid />
       <TechStrip />
       <StickyStory />
+      <Pakete />
       <HardCut chapter="03" title="Der Beweis" />
       <ProjectHighlight />
+      <Vertrauen />
       <Testimonials />
       <HardCut chapter="04" title="Dein Erfolg" />
       <Outcomes />

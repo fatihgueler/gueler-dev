@@ -14,9 +14,9 @@ export function CaseStudiesGrid() {
   return (
     <Section className="pt-0">
       <SectionHeading
-        eyebrow="Case Studies"
-        title="Projekte im Detail"
-        subtitle="Von der Herausforderung über die Lösung bis zum messbaren Ergebnis – ein genauer Blick auf ausgewählte Arbeiten."
+        eyebrow="Projekte im Detail"
+        title="Wie die Projekte gebaut sind"
+        subtitle="Von der Herausforderung bis zur Lösung – ein genauer Blick auf ein Kundenprojekt und meine eigenen Produkte."
       />
 
       <RevealGroup
