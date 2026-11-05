@@ -77,9 +77,29 @@ function HeroAssembly() {
       setCount(mobile ? (weak ? 900 : 1500) : weak ? 2800 : 6000);
     };
     apply();
-    setMounted(true);
+    // three.js erst laden, wenn der Seitenaufbau durch ist: konkurriert sonst
+    // mit Hydration und Text-Rendering (LCP/TBT). Die Partikel erscheinen
+    // ~einen Moment später, die Headline steht sofort.
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+    const start = () => setMounted(true);
+    const schedule = () => {
+      if (w.requestIdleCallback) idleId = w.requestIdleCallback(start, { timeout: 2000 });
+      else timeoutId = window.setTimeout(start, 600);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
     mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
+    return () => {
+      mq.removeEventListener("change", apply);
+      window.removeEventListener("load", schedule);
+      if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   // Story-Beats: kurze, harte-ish Cross-Cuts (Brand: harte Schnitte).

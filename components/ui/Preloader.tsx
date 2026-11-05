@@ -4,31 +4,31 @@ import * as React from "react";
  * Preloader — funktionaler Load-Moment mit echtem Fortschrittsbalken.
  *
  * HYDRATION-SICHER: Der Overlay-Knoten (#gd-preloader) wird NIE per JS mutiert.
- * Das Skript fasst ausschließlich das <html> an — die CSS-Variable
- * `--gd-progress` (Balkenfüllung) und die Klasse `intro-done` (Abschluss). Da
+ * Das Skript fasst ausschließlich das <html> an —
+ * die Klassen `intro-full` (Balken voll) und `intro-done` (Abschluss). Da
  * <html> `suppressHydrationWarning` trägt (wie bei next-themes), gibt es keinen
- * Mismatch. Der Balken liest den Fortschritt via CSS (`scaleX(var(--gd-progress))`).
+ * Mismatch. Der Balken animiert rein per CSS.
  *
  * KANN NICHT HÄNGEN: Abschluss bei `window.load`, zusätzlich ein JS-Safety-Cap
  * (3,5 s) UND ein reiner CSS-Fallback-Wipe (4,5 s) — selbst wenn das Skript
  * komplett ausfällt, verschwindet das Overlay. prefers-reduced-motion: sofort
  * fertig, kein Overlay.
  *
- * Der Balken zeigt echten Ladefortschritt: startet bei ~8 %, „trickled" während
- * des Ladens Richtung 90 % und springt bei vollständigem Load auf 100 %.
+ * Der Balken „trickled" per reiner CSS-Animation Richtung 90 % und springt
+ * beim Abschluss auf 100 %. Früher setzte ein rAF-Loop pro Frame eine
+ * CSS-Variable am <html> — das erzwang bei jedem Frame eine Style-Neuberechnung
+ * der ganzen Seite (Lighthouse: ~2,5 s „Style & Layout"). Jetzt fasst das Skript
+ * <html> nur noch zweimal an (Klassen), und das Overlay steht höchstens 1,2 s.
  */
 const INTRO_SCRIPT = `(function(){
   var root=document.documentElement;
   var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
   if(reduce){root.classList.add('intro-done');return;}
-  var p=0.08,done=false;
-  function set(v){root.style.setProperty('--gd-progress',String(v));}
-  set(p);
-  function finish(){if(done)return;done=true;set(1);setTimeout(function(){root.classList.add('intro-done');},280);}
-  (function tick(){if(done)return;p+=(0.9-p)*0.05;set(p<0.9?p:0.9);requestAnimationFrame(tick);})();
+  var done=false;
+  function finish(){if(done)return;done=true;root.classList.add('intro-full');setTimeout(function(){root.classList.add('intro-done');},200);}
   if(document.readyState==='complete'){finish();}
   else{window.addEventListener('load',finish,{once:true});}
-  setTimeout(finish,3200);
+  setTimeout(finish,1200);
 })();`;
 
 export function Preloader() {

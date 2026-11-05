@@ -3,7 +3,7 @@
 import * as React from "react";
 import Lenis from "lenis";
 
-import { prefersReducedMotion } from "@/lib/motion";
+import { isTouchDevice, prefersReducedMotion } from "@/lib/motion";
 
 declare global {
   interface Window {
@@ -21,7 +21,9 @@ declare global {
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
-    if (prefersReducedMotion()) return;
+    // Touch: Lenis glättet nur Mausrad-Scrollen; auf dem Handy wäre der
+    // rAF-Loop reine Last für den Main-Thread.
+    if (prefersReducedMotion() || isTouchDevice()) return;
 
     const lenis = new Lenis({
       duration: 1.2,
