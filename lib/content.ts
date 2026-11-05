@@ -142,7 +142,7 @@ export const projects = {
       category: "KI-Web-App",
       description:
         "KI-gestützte App, die deutsche Behördenbriefe analysiert und in der Muttersprache erklärt – mit OCR, Fristerkennung und Antwort-Generator in fünf Sprachen.",
-      tags: ["FastAPI", "React", "Claude API", "OCR", "JWT"],
+      tags: ["Next.js", "FastAPI", "Claude API", "OCR", "JWT"],
       liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",
       repoUrl: "https://github.com/fatihgueler/deBueroBruecke",
       featured: true,
@@ -606,7 +606,7 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "buerobuerke",
+    id: "buerobruecke",
     title: "BüroBrücke",
     category: "KI-Tool / SaaS",
     tagline: "Bürokratie einfach erklärt – für alle.",
@@ -616,11 +616,11 @@ export const caseStudies: CaseStudy[] = [
       "KI-gestütztes Tool, das Behördenbriefe in verständliches Deutsch übersetzt, erklärt was zu tun ist, und die nächsten Schritte aufzeigt.",
     result:
       "Barrierefreier Zugang zu deutschen Behördenprozessen. Einfaches, intuitives UI – für Menschen ohne IT-Kenntnisse.",
-    tags: ["Next.js", "TypeScript", "KI-Integration", "UX Design", "Accessibility"],
+    tags: ["Next.js", "TypeScript", "FastAPI", "Claude API", "OCR"],
     metrics: [
       { value: "5", label: "unterstützte Sprachen" },
-      { value: "0,9s", label: "durchschnittliche Analysezeit" },
-      { value: "96/100", label: "Lighthouse Accessibility" },
+      { value: "OCR", label: "Foto statt Abtippen" },
+      { value: "Fristen", label: "automatisch erkannt" },
     ],
     color: "indigo",
     liveUrl: "https://stunning-vibrancy-production-df28.up.railway.app/",

@@ -57,6 +57,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // Tippfehler im alten Slug — alte Links weiterleiten statt 404.
+      {
+        source: "/projekte/buerobuerke",
+        destination: "/projekte/buerobruecke",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
