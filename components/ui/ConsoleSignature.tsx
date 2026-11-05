@@ -18,7 +18,6 @@ export function ConsoleSignature() {
       /* Storage gesperrt → Signatur trotzdem zeigen */
     }
 
-    // eslint-disable-next-line no-console
     console.log(
       "%cGÜLER.DEV%c\ngüler (tr.) — der/die lacht.\n\n%c" +
         `${site.email}\n${site.github}`,

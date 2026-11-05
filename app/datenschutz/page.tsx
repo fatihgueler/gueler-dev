@@ -4,7 +4,7 @@ import { analytics } from "@/lib/content";
 import { Section, Eyebrow } from '@/components/Section'
 
 export const metadata: Metadata = {
-  title: 'Datenschutz | Güler.dev',
+  title: 'Datenschutz',
   description:
     'Datenschutzerklärung von Güler.dev – wie personenbezogene Daten auf dieser Website verarbeitet werden.',
   alternates: { canonical: '/datenschutz' },
@@ -36,8 +36,8 @@ export default function Datenschutz() {
                 Fatih Güler<br />
                 Fuchsgarten 10<br />
                 30823 Garbsen<br />
-                E-Mail: <a href="mailto:fatih.gueler75@gmail.com" className="text-gold hover:text-gold-bright transition">fatih.gueler75@gmail.com</a><br />
-                Telefon: <a href="tel:015777688060" className="text-gold hover:text-gold-bright transition">015777688060</a>
+                E-Mail: <a href="mailto:fatih.gueler75@gmail.com" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">fatih.gueler75@gmail.com</a><br />
+                Telefon: <a href="tel:015777688060" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">015777688060</a>
               </p>
             </section>
 
@@ -95,7 +95,7 @@ export default function Datenschutz() {
                 <li><strong>Beschwerde:</strong> Bei der zuständigen Datenschutzbehörde (Niedersächsischer Landesbeamte für Datenschutz)</li>
               </ul>
               <p className="mt-4">
-                Kontaktiere uns unter <a href="mailto:fatih.gueler75@gmail.com" className="text-gold hover:text-gold-bright transition">fatih.gueler75@gmail.com</a>, um diese Rechte auszuüben.
+                Kontaktiere uns unter <a href="mailto:fatih.gueler75@gmail.com" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">fatih.gueler75@gmail.com</a>, um diese Rechte auszuüben.
               </p>
             </section>
 

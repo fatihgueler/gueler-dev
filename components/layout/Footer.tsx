@@ -25,9 +25,9 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-xs font-semibold text-muted-2">
+            <h2 className="text-xs font-semibold text-muted-2">
               Navigation
-            </h3>
+            </h2>
             <ul className="mt-5 space-y-3">
               {[...nav, ...footerExtra].map((item) => (
                 <li key={item.href}>
@@ -41,7 +41,7 @@ export function Footer() {
               ))}
             </ul>
 
-            <h3 className="mt-8 text-xs font-semibold text-muted-2">Ratgeber</h3>
+            <h2 className="mt-8 text-xs font-semibold text-muted-2">Ratgeber</h2>
             <ul className="mt-5 space-y-3">
               {guides.map((guide) => (
                 <li key={guide.slug}>
@@ -58,9 +58,9 @@ export function Footer() {
 
           {/* Kontakt */}
           <div>
-            <h3 className="text-xs font-semibold text-muted-2">
+            <h2 className="text-xs font-semibold text-muted-2">
               Kontakt
-            </h3>
+            </h2>
             <ul className="mt-5 space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2.5">
                 <Mail className="size-4 text-violet" />
@@ -122,7 +122,7 @@ export function Footer() {
               © {year} {site.ownerName}. Alle Rechte vorbehalten.
             </span>
             {/* Build-Stempel: echter Commit-Hash, zur Build-Zeit injiziert */}
-            <span className="font-mono text-xs text-muted-2/70" title="Build">
+            <span className="font-mono text-xs text-muted" title="Build">
               {process.env.NEXT_PUBLIC_BUILD_HASH} · {process.env.NEXT_PUBLIC_BUILD_DATE}
             </span>
           </p>

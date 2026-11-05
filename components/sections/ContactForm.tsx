@@ -226,7 +226,7 @@ export function ContactForm() {
           <Label htmlFor="cf-privacy" className="cursor-pointer text-sm leading-relaxed">
             Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
             verarbeitet werden. Details in der{" "}
-            <a href="/datenschutz" className="text-cyan underline-offset-2 hover:underline">
+            <a href="/datenschutz" className="text-cyan underline underline-offset-2">
               Datenschutzerklärung
             </a>
             . *

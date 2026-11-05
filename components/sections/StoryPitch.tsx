@@ -121,16 +121,16 @@ export function StoryPitch() {
         {/* Konkrete Schmerzpunkte in der Sprache des Betriebsinhabers */}
         <ul className="mt-16 grid gap-px overflow-hidden border border-border bg-border md:mt-20 md:grid-cols-2">
           {storyPitch.pains.map((pain, i) => (
-            <Reveal key={pain} variant="fadeIn" delay={i * 0.06}>
-              <li className="flex h-full gap-4 bg-background p-6 md:p-8">
+            <li key={pain} className="bg-background">
+              <Reveal variant="fadeIn" delay={i * 0.06} className="flex h-full gap-4 p-6 md:p-8">
                 <span aria-hidden className="font-mono text-xs font-bold text-violet-3">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="text-base leading-relaxed text-foreground/85 md:text-lg">
                   {pain}
                 </span>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ul>
       </div>

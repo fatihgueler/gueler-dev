@@ -80,14 +80,14 @@ export function ProjectsFilter() {
                         {project.category}
                       </span>
                     </span>
-                    <h3
+                    <h2
                       className={cn(
                         "mt-2 font-display font-semibold text-foreground",
                         project.featured ? "text-3xl md:text-4xl" : "text-2xl",
                       )}
                     >
                       {project.title}
-                    </h3>
+                    </h2>
                   </div>
                   <div className="flex shrink-0 gap-3">
                     {project.repoUrl && (
