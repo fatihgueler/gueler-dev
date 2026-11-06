@@ -112,11 +112,16 @@ const jsonLd = {
       founder: { "@id": `${siteUrl}/#person` },
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Hannover",
+        // Identisch mit dem Impressum (NAP-Konsistenz für die lokale Suche)
+        postalCode: "30823",
+        addressLocality: "Garbsen",
         addressRegion: "Niedersachsen",
         addressCountry: "DE",
       },
-      areaServed: { "@type": "Country", name: "Deutschland" },
+      areaServed: [
+        { "@type": "City", name: "Hannover" },
+        { "@type": "Country", name: "Deutschland" },
+      ],
       priceRange: "ab 500 €",
       serviceType: ["Webentwicklung", "Webdesign", "KI-Integration", "Web-Apps"],
       openingHoursSpecification: {

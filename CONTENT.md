@@ -25,8 +25,8 @@ Suche nach `{{ ... }}` für alle noch offenen Stellen.
 - [ ] `{{ NAME_3_EINSETZEN }}`
 - [ ] `{{ FIRMA_3_EINSETZEN }}`
 
-**Tipp:** Solange keine echten Testimonials vorliegen, kann die
-`Testimonials`-Section in `app/page.tsx` temporär auskommentiert werden.
+**Hinweis:** Die Testimonials-Section blendet sich automatisch aus, solange
+Zitate in eckigen Klammern stehen. Nur echte, freigegebene Stimmen eintragen.
 
 ---
 
@@ -41,10 +41,10 @@ Suche nach `{{ ... }}` für alle noch offenen Stellen.
 
 ## Rechtliches (`lib/content.ts` → `legal.impressum`)
 
-- [ ] `{{ STRASSE_HAUSNUMMER }}` – vollständige Adresse
-- [ ] `{{ PLZ_ORT }}` – Postleitzahl + Ort
-- [ ] `{{ TELEFONNUMMER }}` – Telefon für Impressum
-- [ ] `{{ UST_IDNR_ODER_KLEINUNTERNEHMER_HINWEIS }}` – Steuernummer oder Hinweis auf § 19 UStG
+- [x] Adresse eingetragen (Fuchsgarten 10, Garbsen)
+- [x] PLZ + Ort eingetragen (30823 Garbsen)
+- [x] Telefon eingetragen
+- [ ] Umsatzsteuer-Angabe fehlt noch: USt-IdNr. (falls vorhanden) bzw. Hinweis auf § 19 UStG (Kleinunternehmer) – Angabe vom Betreiber nötig
 
 **Empfohlene Tools:**
 - Impressum: [e-recht24.de/impressum-generator.html](https://www.e-recht24.de/impressum-generator.html)
