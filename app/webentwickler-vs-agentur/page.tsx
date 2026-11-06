@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 const COMPARISON = [
-  { aspect: "Preis", freelancer: "Kein Agentur-Aufschlag, oft 30–50 % günstiger", agency: "Höher durch Overhead (Büro, Management, mehrere Rollen)" },
+  { aspect: "Preis", freelancer: "Kein Agentur-Aufschlag, dadurch meist günstiger", agency: "Höher durch Overhead (Büro, Management, mehrere Rollen)" },
   { aspect: "Ansprechpartner", freelancer: "Eine Person – die auch wirklich baut", agency: "Projektmanager als Mittelschicht, wechselnde Teams" },
   { aspect: "Tempo", freelancer: "Kurze Wege, schnelle Entscheidungen", agency: "Abstimmungsschleifen zwischen Abteilungen" },
   { aspect: "Persönlicher Bezug", freelancer: "Du sprichst direkt mit dem Macher", agency: "Distanzierter, standardisierter Prozess" },
@@ -38,7 +38,7 @@ const COMPARISON = [
 const GUIDE_FAQ = [
   {
     q: "Ist ein Freelancer günstiger als eine Agentur?",
-    a: "In der Regel ja. Bei einem Freelancer entfällt der Agentur-Overhead (Büro, Management, mehrere Zwischenrollen), wodurch dieselbe Website oft 30–50 % günstiger wird – bei gleicher oder höherer Qualität für KMU-Projekte.",
+    a: "In der Regel ja. Bei einem Freelancer entfällt der Agentur-Overhead (Büro, Management, mehrere Zwischenrollen), deshalb ist dieselbe Website meist günstiger. Wie viel, hängt vom Projekt und von der Agentur ab.",
   },
   {
     q: "Wann lohnt sich eine Agentur mehr?",

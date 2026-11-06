@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
-import { site, packages } from "@/lib/content";
+import { site, pakete } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { CTA } from "@/components/sections/CTA";
@@ -61,7 +61,7 @@ const GUIDE_FAQ = [
   },
   {
     q: "Was kostet eine mehrseitige Business-Website?",
-    a: "Eine Business-Website mit bis zu sechs Seiten, individuellem Design und vollständiger SEO beginnt bei 1.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
+    a: "Eine Business-Website mit bis zu 5 Unterseiten, individuellem Design und SEO für lokale Sichtbarkeit beginnt bei 1.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
   },
   {
     q: "Gibt es laufende Kosten?",
@@ -164,19 +164,22 @@ export default function WasKostetEineWebsitePage() {
           subtitle="Du weißt vorher genau, was du bekommst – ohne versteckte Kosten."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {packages.map((pkg) => (
+          {pakete.items.map((pkg) => (
             <div
-              key={pkg.id}
+              key={pkg.title}
               className="flex flex-col border border-border bg-surface p-7"
             >
               <h3 className="font-display text-xl font-semibold text-foreground">
-                {pkg.name}
+                {pkg.title}
               </h3>
               <p className="mt-2 font-display text-3xl font-semibold text-violet-3">
                 {pkg.price}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted">
                 {pkg.description}
+              </p>
+              <p className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-violet-3">
+                {pkg.time}
               </p>
               <ul className="mt-5 flex-1 space-y-2.5">
                 {pkg.features.map((feature) => (
@@ -192,6 +195,7 @@ export default function WasKostetEineWebsitePage() {
             </div>
           ))}
         </div>
+        <p className="mt-6 text-sm text-muted">{pakete.payment} {pakete.note}</p>
       </Section>
 
       {/* Was den Preis beeinflusst */}

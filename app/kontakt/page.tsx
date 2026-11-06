@@ -18,14 +18,14 @@ const channels = [
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    value: site.phone,
+    value: site.phoneDisplay,
     href: site.whatsapp,
     external: true,
   },
   {
     icon: Calendar,
     label: "Calendly",
-    value: "15-Min Gespräch buchen",
+    value: "30-Min-Gespräch buchen",
     href: site.calendly,
     external: true,
   },

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { caseStudies, type CaseStudy } from "@/lib/content";
+import { caseStudies, projects, type CaseStudy } from "@/lib/content";
 import { Section } from "@/components/Section";
 import { CTA } from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
@@ -133,6 +133,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   if (!study) {
     notFound();
   }
+  const kind = projects.items.find((p) => p.title === study.title)?.kind;
 
   return (
     <article className="relative">
@@ -154,7 +155,18 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </Reveal>
 
           <Reveal variant="fadeIn" className="mt-8">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
+            <p className="flex flex-wrap items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
+              {kind ? (
+                <span
+                  className={
+                    kind === "Kundenprojekt"
+                      ? "border border-violet bg-violet px-2.5 py-1 tracking-[0.15em] text-white"
+                      : "border border-border-strong px-2.5 py-1 tracking-[0.15em] text-foreground"
+                  }
+                >
+                  {kind}
+                </span>
+              ) : null}
               {study.category}
             </p>
           </Reveal>

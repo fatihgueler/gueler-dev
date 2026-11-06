@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const MUST_HAVES = [
   { title: "Klares Angebot in den ersten Sekunden", text: "Sofort erkennbar, was du anbietest und für wen – ohne Suchen." },
-  { title: "Kontakt, Adresse & Öffnungszeiten", text: "Telefon, Standort und Erreichbarkeit gut sichtbar, idealderweise mit Karte." },
+  { title: "Kontakt, Adresse & Öffnungszeiten", text: "Telefon, Standort und Erreichbarkeit gut sichtbar, idealerweise mit Karte." },
   { title: "Mobile-first & schnelle Ladezeit", text: "Die meisten lokalen Suchen passieren am Handy – unterwegs, mit wenig Geduld." },
   { title: "Lokale Suchmaschinen-Optimierung", text: "Damit du bei „[Dienstleistung] + [Ort]\" überhaupt auftauchst." },
   { title: "Vertrauen schaffen", text: "Echte Fotos, ein Gesicht zum Betrieb, ehrliche Inhalte – kein Stockfoto-Einerlei." },

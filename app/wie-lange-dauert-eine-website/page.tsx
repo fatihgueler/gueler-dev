@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 const TIMELINES = [
   { type: "One-Pager", duration: "5–7 Tage", note: "Alles Wichtige auf einer Seite, mit Kontaktformular und SEO-Basis." },
-  { type: "Business-Website", duration: "2–3 Wochen", note: "Bis zu sechs Seiten, individuelles Design, vollständige SEO." },
+  { type: "Business-Website", duration: "2–3 Wochen", note: "Bis zu 5 Unterseiten, individuelles Design, SEO für lokale Sichtbarkeit." },
   { type: "Web-App / KI-Lösung", duration: "Nach Absprache", note: "Individueller Funktionsumfang – Zeitplan ergibt sich aus dem Konzept." },
 ];
 
@@ -44,7 +44,7 @@ const GUIDE_FAQ = [
   },
   {
     q: "Wie lange dauert eine mehrseitige Business-Website?",
-    a: "Eine Business-Website mit bis zu sechs Seiten dauert üblicherweise 2–3 Wochen, je nach Umfang und wie schnell Feedback und Inhalte kommen.",
+    a: "Eine Business-Website mit bis zu 5 Unterseiten dauert üblicherweise 2–3 Wochen, je nach Umfang und wie schnell Feedback und Inhalte kommen.",
   },
   {
     q: "Was verzögert ein Website-Projekt am häufigsten?",

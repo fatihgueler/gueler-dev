@@ -14,7 +14,8 @@ export const site = {
   email: "fatih.gueler75@gmail.com",
   phone: "+4915777688060",
   phoneDisplay: "+49 1577 7688060",
-  whatsapp: "https://wa.me/015777688060",
+  // wa.me braucht die internationale Nummer ohne + und ohne führende 0.
+  whatsapp: "https://wa.me/4915777688060",
   calendly: "https://calendly.com/fatih-gueler75",
   availability: "Frei für neue Projekte",
   location: "Hannover, Deutschland",
@@ -377,7 +378,7 @@ export const contact = {
   title: "Kostenloses Erstgespräch anfragen",
   subtitle:
     "Schreib mir kurz, was dein Betrieb macht – egal ob mit oder ohne Website. Du bekommst eine ehrliche Einschätzung, meist innerhalb von 24 Stunden.",
-  successMessage: "✅ Nachricht gesendet! Ich melde mich innerhalb von 24 Stunden.",
+  successMessage: "✅ Nachricht gesendet! Ich melde mich meist innerhalb von 24 Stunden.",
   errorMessage:
     "❌ Etwas hat nicht geklappt. Bitte versuch es erneut oder schreib direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
@@ -487,7 +488,7 @@ export const pages = {
     eyebrow: "Leistungen",
     title: "Alles für deinen digitalen Auftritt",
     subtitle:
-      "Von der schnellen Business-Website bis zur massgeschneiderten KI-Anwendung – durchdacht, sauber umgesetzt und auf Ergebnisse ausgelegt.",
+      "Von der schnellen Business-Website bis zur maßgeschneiderten KI-Anwendung – durchdacht, sauber umgesetzt und auf Ergebnisse ausgelegt.",
   },
   projekte: {
     eyebrow: "Projekte",
@@ -539,60 +540,6 @@ export const cta = {
 
 // ── Portfolio-Upgrade v2.0 ─────────────────────────────────────
 
-export const packages = [
-  {
-    id: "one-pager",
-    name: "One Pager",
-    price: "ab 500€",
-    description: "Alles auf einer Seite – kompakt, modern, wirkungsvoll.",
-    features: [
-      "1 Landing Page",
-      "Responsive Design (Mobile First)",
-      "Kontaktformular",
-      "SEO Basis-Optimierung",
-      "Google Analytics Einrichtung",
-      "Lieferzeit: 5–7 Tage",
-    ],
-    highlighted: false,
-    badge: undefined as string | undefined,
-    cta: "Jetzt anfragen",
-  },
-  {
-    id: "business",
-    name: "Business Website",
-    price: "ab 1.500€",
-    description: "Der komplette professionelle Auftritt für dein Unternehmen.",
-    features: [
-      "Bis zu 6 Seiten",
-      "Premium Custom Design",
-      "Lead-optimierte Formulare",
-      "SEO vollständig optimiert",
-      "Google Analytics & Search Console",
-      "Impressum & Datenschutz",
-      "Lieferzeit: 2–3 Wochen",
-    ],
-    highlighted: true,
-    badge: "Beliebteste Wahl" as string | undefined,
-    cta: "Jetzt anfragen",
-  },
-  {
-    id: "premium",
-    name: "Premium / Custom",
-    price: "Auf Anfrage",
-    description: "Individuelle Lösungen ohne Kompromisse.",
-    features: [
-      "Unbegrenzte Seiten",
-      "Custom Animationen (Three.js, GSAP)",
-      "E-Commerce Integration",
-      "CMS für eigene Inhalte",
-      "Individuelle Features",
-      "Lieferzeit: nach Absprache",
-    ],
-    highlighted: false,
-    badge: undefined as string | undefined,
-    cta: "Projekt besprechen",
-  },
-];
 
 export type CaseStudyColor = "indigo" | "amber" | "violet" | "cyan";
 
