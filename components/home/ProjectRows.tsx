@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { caseStudies, projects } from "@/lib/content";
+import { CursorPreview } from "@/components/home/CursorPreview";
 
 type ProjectItem = (typeof projects.items)[number];
 
 /**
  * Projekte als große Tafeln. Hover/Fokus (Desktop): der echte Screenshot
- * springt als Live-Vorschau neben den Titel. Mobil steht er direkt in der Zeile.
+ * hängt als Live-Vorschau am Mauszeiger (CursorPreview). Mobil steht er direkt in der Zeile.
  * Live, Code und Case Study sind eigene Links (keine verschachtelten Anker).
  */
 export function ProjectRows({ items, startIndex = 1 }: { items: readonly ProjectItem[]; startIndex?: number }) {
@@ -101,10 +102,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
             </div>
 
             {/* Desktop: Live-Vorschau springt beim Hover/Fokus auf */}
-            <div
-              aria-hidden
-              className="preview-pop absolute right-[38%] top-6 z-20 hidden w-[min(30rem,32vw)] border-2 border-border bg-background shadow-[8px_8px_0_0_var(--color-signal)] md:block"
-            >
+            <CursorPreview>
               <div className="flex items-center justify-between border-b-2 border-border px-3 py-1.5">
                 <span className="label truncate">{host}</span>
                 <span className="label">● Live</span>
@@ -117,7 +115,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                 sizes="32vw"
                 className="block aspect-[16/10] w-full object-cover object-top"
               />
-            </div>
+            </CursorPreview>
           </li>
         );
       })}

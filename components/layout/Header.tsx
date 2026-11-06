@@ -32,7 +32,7 @@ export function Header() {
           className="ml-auto hidden items-stretch border-l-2 border-border md:flex"
           aria-label="Hauptnavigation"
         >
-          <ol className="flex items-stretch">
+          <ol className="hdr-drop flex items-stretch">
             {nav.map((item, i) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
@@ -62,7 +62,7 @@ export function Header() {
           <ThemeToggle />
           <Link
             href="/#kontakt"
-            className="hidden items-center border-l-2 border-border bg-signal px-5 font-mono text-[0.8125rem] font-bold uppercase tracking-[0.06em] text-on-signal transition-colors duration-[90ms] hover:bg-foreground hover:text-background lg:flex"
+            className="hdr-drop-item hidden items-center border-l-2 border-border bg-signal px-5 font-mono text-[0.8125rem] font-bold uppercase tracking-[0.06em] text-on-signal transition-colors duration-[90ms] hover:bg-foreground hover:text-background lg:flex"
           >
             Erstgespräch →
           </Link>

@@ -511,18 +511,64 @@ html {
 }
 
 /* Projekt-Vorschau (Hover-Tafel) */
+/* Position kommt per transform aus CursorPreview.tsx; das Auf-/Zuklappen
+   läuft über die eigenen Properties scale/opacity, damit sich nichts beißt. */
 .preview-pop {
   opacity: 0;
-  transform: translate(1rem, 1rem);
+  scale: 0.6;
+  transform-origin: 0 50%;
   transition:
-    opacity var(--dur-base) linear,
-    transform var(--dur-base) var(--ease-snap);
+    opacity var(--dur-fast) linear,
+    scale var(--dur-base) var(--ease-snap);
   pointer-events: none;
+  will-change: transform;
 }
 .group:hover .preview-pop,
 .group:focus-within .preview-pop {
   opacity: 1;
-  transform: none;
+  scale: 1;
+}
+
+/* ── Hero-Auftakt: Raster zeichnet sich in Stufen von oben ── */
+@media (prefers-reduced-motion: no-preference) {
+  .grid-draw {
+    animation: grid-draw 0.9s steps(9, end) both;
+  }
+  /* Kopfzeilen-Zellen fallen einmalig nacheinander ein */
+  .hdr-drop > li,
+  .hdr-drop-item {
+    animation: hdr-drop 0.4s var(--ease-snap) both;
+  }
+  .hdr-drop > li:nth-child(1) { animation-delay: 0.05s; }
+  .hdr-drop > li:nth-child(2) { animation-delay: 0.1s; }
+  .hdr-drop > li:nth-child(3) { animation-delay: 0.15s; }
+  .hdr-drop > li:nth-child(4) { animation-delay: 0.2s; }
+  .hdr-drop-item { animation-delay: 0.28s; }
+
+  /* Footer-Wortmarke: Buchstaben springen als Welle */
+  .wm-wave .wm-l {
+    display: inline-block;
+    transition: translate 0.22s var(--ease-snap);
+  }
+  .wm-wave:hover .wm-l {
+    translate: 0 -0.12em;
+  }
+  .wm-wave .wm-l:nth-child(2) { transition-delay: 30ms; }
+  .wm-wave .wm-l:nth-child(3) { transition-delay: 60ms; }
+  .wm-wave .wm-l:nth-child(4) { transition-delay: 90ms; }
+  .wm-wave .wm-l:nth-child(5) { transition-delay: 120ms; }
+  .wm-wave .wm-l:nth-child(6) { transition-delay: 150ms; }
+  .wm-wave .wm-l:nth-child(7) { transition-delay: 180ms; }
+  .wm-wave .wm-l:nth-child(8) { transition-delay: 210ms; }
+  .wm-wave .wm-l:nth-child(9) { transition-delay: 240ms; }
+}
+@keyframes grid-draw {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
+}
+@keyframes hdr-drop {
+  from { transform: translateY(-110%); }
+  to { transform: none; }
 }
 
 ::view-transition-old(root),

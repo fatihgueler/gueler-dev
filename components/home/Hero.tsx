@@ -16,7 +16,7 @@ export function Hero() {
       className="relative overflow-hidden border-b-2 border-border"
     >
       {/* Sichtbares 12er-Raster als Hilfslinien */}
-      <div aria-hidden className="grid-lines pointer-events-none absolute inset-0" />
+      <div aria-hidden className="grid-lines grid-draw pointer-events-none absolute inset-0" />
 
       <div className="frame relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">
         {/* Kopfzeile des Blatts */}
