@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 
 import { pages } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
-import { About } from "@/components/sections/About";
-import { Timeline } from "@/components/sections/Timeline";
-import { Skills } from "@/components/sections/Skills";
-import { Trust } from "@/components/sections/Trust";
-import { Ausblick } from "@/components/sections/Ausblick";
+import { About, Ausblick, Skills, Timeline, Trust } from "@/components/ueber/UeberSections";
 import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = {

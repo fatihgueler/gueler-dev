@@ -5,10 +5,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import { caseStudies, type CaseStudy } from "@/lib/content";
-import { Section } from "@/components/Section";
 import { CTA } from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
-import { Reveal, RevealGroup, RevealItem, WordReveal } from "@/components/animation/Reveal";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -48,8 +46,8 @@ const NARRATIVE = [
 ];
 
 /**
- * Live-Vorschaufenster — rahmt den Screenshot wie ein echtes Browserfenster
- * und macht ihn klickbar: ein Klick öffnet die Live-Website in neuem Tab.
+ * Live-Vorschaufenster — rahmt den Screenshot wie ein Browserfenster und
+ * macht ihn klickbar: ein Klick öffnet die Live-Website in neuem Tab.
  * Ohne liveUrl bleibt es ein statischer Rahmen.
  */
 function PreviewWindow({ study }: { study: CaseStudy }) {
@@ -57,33 +55,21 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
   const hasLink = Boolean(study.liveUrl);
 
   const figure = (
-    <figure className="group relative block overflow-hidden border border-border-strong bg-surface">
-      {/* Browser-Chrome-Leiste */}
-      <div className="flex items-center gap-3 border-b border-border-strong bg-background/60 px-4 py-3">
-        <span className="flex items-center gap-1.5" aria-hidden>
-          <span className="size-2.5 rounded-full bg-border-strong" />
-          <span className="size-2.5 rounded-full bg-border-strong" />
-          <span className="size-2.5 rounded-full bg-border-strong" />
+    <figure className="group relative block border-2 border-border bg-background">
+      {/* Browser-Leiste */}
+      <div className="flex items-center gap-3 border-b-2 border-border px-3 py-2">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="size-3 border-2 border-border" />
+          <span className="size-3 border-2 border-border" />
+          <span className="size-3 bg-signal" />
         </span>
-        {host && (
-          <span className="flex min-w-0 items-center gap-2 truncate font-mono text-xs text-muted">
-            <span
-              className="size-1.5 shrink-0 rounded-full bg-cyan motion-safe:animate-pulse"
-              aria-hidden
-            />
-            {host}
-          </span>
-        )}
+        {host && <span className="label min-w-0 truncate">{host}</span>}
         {hasLink && (
-          <span className="ml-auto hidden shrink-0 items-center gap-1.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-violet-3 transition-colors group-hover:text-violet-2 sm:flex">
-            Live ansehen
-            <ArrowUpRight className="size-3.5" aria-hidden />
+          <span className="label ml-auto hidden shrink-0 bg-foreground px-2 py-0.5 text-background group-hover:bg-signal group-hover:text-on-signal sm:inline">
+            Live ansehen ↗
           </span>
         )}
       </div>
-
-      {/* Screenshot. object-top + 16:10 zeigt sauber den Hero – auch bei
-          sehr hohen Vollseiten-Captures. */}
       <div className="relative overflow-hidden">
         <Image
           src={study.image ?? "/case-studies/placeholder.svg"}
@@ -94,25 +80,20 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
           }
           width={1200}
           height={750}
-          className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.02]"
+          sizes="(min-width: 1536px) 1400px, 100vw"
+          className="block aspect-[16/10] w-full object-cover object-top"
           priority
         />
-
         {hasLink && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 opacity-0 transition-all duration-300 group-hover:bg-background/40 group-hover:opacity-100">
-            <span className="inline-flex items-center gap-2 border border-violet-2/60 bg-background/80 px-5 py-2.5 font-mono text-sm font-medium text-foreground backdrop-blur-sm">
-              Website öffnen
-              <ArrowUpRight className="size-4 text-violet-2" aria-hidden />
-            </span>
-          </div>
+          <span className="pointer-events-none absolute bottom-4 left-4 border-2 border-ink bg-signal px-4 py-2 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal opacity-0 transition-opacity duration-[90ms] group-hover:opacity-100">
+            Website öffnen ↗
+          </span>
         )}
       </div>
     </figure>
   );
 
-  if (!hasLink) {
-    return figure;
-  }
+  if (!hasLink) return figure;
 
   return (
     <a
@@ -120,7 +101,7 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${study.title} live öffnen (neuer Tab)`}
-      className="block cursor-pointer transition-shadow duration-300 hover:shadow-[var(--shadow-teal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+      className="block shadow-[10px_10px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)]"
     >
       {figure}
     </a>
@@ -134,143 +115,96 @@ export default async function CaseStudyPage({ params }: PageProps) {
   if (!study) {
     notFound();
   }
-  const kind = study.kind;
+  const index = caseStudies.findIndex((s) => s.id === study.id);
 
   return (
-    <article className="relative">
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 pb-12 pt-36 md:pb-20 md:pt-44">
-        <div
-          className="bg-dot-grid pointer-events-none absolute inset-0 opacity-30 [mask-image:radial-gradient(ellipse_55%_55%_at_50%_25%,black,transparent)]"
-          aria-hidden
-        />
-        <div className="relative mx-auto w-full max-w-5xl">
-          <Reveal variant="fadeIn">
-            <Link
-              href="/projekte"
-              className="inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:text-violet-3"
-            >
-              <ArrowLeft className="size-4" aria-hidden />
-              Zurück zu Projekten
+    <article>
+      {/* Kopf: Index-Spalte + riesiger Projektname */}
+      <header className="border-b-2 border-border">
+        <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
+          <div className="flex items-center justify-between gap-4 border-b-2 border-border px-[var(--spacing-gutter)] py-4 md:col-span-3 md:flex-col md:items-start md:justify-start md:border-b-0 md:border-r-2 md:py-8">
+            <Link href="/projekte" className="label link inline-block py-2">
+              ← Zurück zu Projekten
             </Link>
-          </Reveal>
-
-          <Reveal variant="fadeIn" className="mt-8">
-            <p className="flex flex-wrap items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
-              {kind ? (
-                <span
-                  className={
-                    kind === "Kundenprojekt"
-                      ? "border border-violet bg-violet px-2.5 py-1 tracking-[0.15em] text-white"
-                      : "border border-border-strong px-2.5 py-1 tracking-[0.15em] text-foreground"
-                  }
-                >
-                  {kind}
-                </span>
-              ) : null}
-              {study.category}
+            <span aria-hidden className="display outline-text text-[clamp(2.5rem,8vw,9rem)] leading-[0.8] md:mt-auto">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="px-[var(--spacing-gutter)] pb-12 pt-10 md:col-span-9 md:pb-16 md:pt-14">
+            <p className="label flex flex-wrap items-center gap-3">
+              <span
+                className={
+                  study.kind === "Kundenprojekt"
+                    ? "border-2 border-ink bg-signal px-2 py-0.5 font-bold text-on-signal"
+                    : "border-2 border-border px-2 py-0.5"
+                }
+              >
+                {study.kind}
+              </span>
+              <span className="text-muted">{study.category}</span>
             </p>
-          </Reveal>
-
-          {/* Riesige, kantige Case-Study-Headline (Brutalist-Sprache) */}
-          <WordReveal
-            as="h1"
-            text={study.title}
-            className="mt-5 font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.95] tracking-[-0.03em] text-foreground"
-          />
-
-          <Reveal delay={0.2}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
+            <h1 className="display hero-line mt-6 text-[clamp(3.5rem,1.5rem+11vw,14rem)]">{study.title}</h1>
+            <p className="mt-8 max-w-2xl text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug">
               {study.tagline}
             </p>
-          </Reveal>
+          </div>
         </div>
-      </section>
+      </header>
 
-      {/* Live-Vorschaufenster: klickbarer Screenshot, der die echte
-          Website in neuem Tab öffnet. */}
-      <div className="px-6">
-        <Reveal variant="scaleIn" className="mx-auto w-full max-w-5xl">
-          <PreviewWindow study={study} />
-        </Reveal>
+      {/* Live-Vorschau */}
+      <div className="grid-lines border-b-2 border-border py-[clamp(2.5rem,6vw,6rem)]">
+        <div className="frame">
+          <div className="mx-auto max-w-6xl pr-3">
+            <PreviewWindow study={study} />
+          </div>
+        </div>
       </div>
 
-      {/* Metrics band */}
+      {/* Kennzahlen als Messleiste */}
       {study.metrics.length > 0 && (
-        <Section className="py-16 md:py-20">
-          <RevealGroup
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            stagger={0.1}
-          >
-            {study.metrics.map((metric) => (
-              <RevealItem key={metric.label} variant="fadeUp" className="h-full">
-                <div className="card-surface flex h-full flex-col items-center rounded-[var(--radius-lg)] p-8 text-center">
-                  <span className="font-display text-[clamp(2.75rem,5vw,4.5rem)] font-black leading-none tracking-tight text-violet-2">
-                    {metric.value}
-                  </span>
-                  <span className="mt-4 font-mono text-xs uppercase tracking-[0.15em] text-muted">
-                    {metric.label}
-                  </span>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </Section>
+        <dl className="frame-ruled grid border-b-2 border-border sm:grid-cols-3">
+          {study.metrics.map((metric, i) => (
+            <div
+              key={metric.label}
+              className={`flex flex-col-reverse justify-end border-b-2 border-border p-[var(--spacing-gutter)] py-8 last:border-b-0 sm:border-b-0 ${
+                i < study.metrics.length - 1 ? "sm:border-r-2" : ""
+              } ${i === 0 ? "bg-foreground text-background" : ""}`}
+            >
+              <dt className="label mt-3">{metric.label}</dt>
+              <dd className="display text-[clamp(3rem,2rem+4vw,6rem)]">{metric.value}</dd>
+            </div>
+          ))}
+        </dl>
       )}
 
-      {/* Herausforderung → Lösung → Ergebnis */}
-      <Section className="py-8 md:py-12">
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-          {NARRATIVE.map((block, i) => (
-            <Reveal key={block.key} delay={i * 0.1} className="h-full">
-              <div className="card-surface relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] p-8">
-                {/* Narrative-Stufe als Riesenstempel in der Ecke */}
-                <span
-                  aria-hidden
-                  className="text-outline-strong pointer-events-none absolute -right-2 -top-5 select-none font-mono text-[clamp(4.5rem,7vw,6.5rem)] font-black leading-none"
-                >
-                  {block.step}
-                </span>
-                <span className="font-mono text-xs font-semibold tracking-[0.2em] text-violet-3">
-                  {block.step}
-                </span>
-                <h2 className="mt-3 font-display text-xl font-bold text-foreground">
-                  {block.label}
-                </h2>
-                <p className="relative mt-4 flex-1 text-sm leading-relaxed text-muted">
-                  {study[block.key]}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* Herausforderung → Lösung → Ergebnis: Protokoll-Zeilen */}
+      <ol className="border-b-2 border-border">
+        {NARRATIVE.map((block) => (
+          <li key={block.key} className="border-b-2 border-border last:border-b-0">
+            <div className="frame grid gap-4 py-10 lg:grid-cols-12 lg:gap-6 lg:py-14">
+              <p className="label lg:col-span-2">
+                <span className="bg-foreground px-1.5 py-0.5 text-background">{block.step}</span>
+              </p>
+              <h2 className="display text-[clamp(2.25rem,1.2rem+2.6vw,3.75rem)] lg:col-span-5">{block.label}</h2>
+              <p className="max-w-2xl text-[length:var(--text-lead)] leading-relaxed lg:col-span-5">{study[block.key]}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
 
-      {/* Stack / Tags */}
-      <Section className="py-8 md:py-12">
-        <div className="mx-auto max-w-5xl">
-          <Reveal>
-            <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-violet-3">
-              Eingesetzte Technologien
-            </h2>
-            <ul className="mt-5 flex flex-wrap gap-2.5" aria-label="Technologien">
+      {/* Stack + Aktionen */}
+      <section className="py-[var(--spacing-section)]">
+        <div className="frame grid gap-8 md:grid-cols-12">
+          <h2 className="label md:col-span-3">Eingesetzte Technologien</h2>
+          <div className="md:col-span-9">
+            <ul className="flex flex-wrap gap-2" aria-label="Technologien">
               {study.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="rounded-none border border-border bg-surface px-4 py-1.5 font-mono text-xs font-medium text-muted"
-                >
+                <li key={tag} className="label border-2 border-border px-3 py-2 text-sm">
                   {tag}
                 </li>
               ))}
             </ul>
-
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Button asChild variant="outline" size="lg">
-                <Link href="/projekte">
-                  <ArrowLeft />
-                  Alle Projekte
-                </Link>
-              </Button>
+            <div className="mt-10 flex flex-wrap gap-4">
               {study.liveUrl && (
                 <Button asChild size="lg">
                   <a href={study.liveUrl} target="_blank" rel="noopener noreferrer">
@@ -279,10 +213,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   </a>
                 </Button>
               )}
+              <Button asChild variant="outline" size="lg">
+                <Link href="/projekte">
+                  <ArrowLeft />
+                  Alle Projekte
+                </Link>
+              </Button>
             </div>
-          </Reveal>
+          </div>
         </div>
-      </Section>
+      </section>
 
       <CTA />
     </article>

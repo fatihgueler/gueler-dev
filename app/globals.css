@@ -204,6 +204,7 @@ html {
     font-weight: 900;
     line-height: 0.86;
     letter-spacing: -0.015em;
+    word-spacing: 0.06em;
     text-transform: uppercase;
   }
 

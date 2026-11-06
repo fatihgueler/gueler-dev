@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Github, Clock, MessageCircle, Calendar } from "lucide-react";
 
 import { pages, site } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { ContactMap } from "@/components/sections/ContactMap";
-import { Reveal } from "@/components/anim/Reveal";
 
 export const metadata: Metadata = {
   title: "Kontakt",
@@ -16,37 +14,31 @@ export const metadata: Metadata = {
 
 const channels = [
   {
-    icon: MessageCircle,
     label: "WhatsApp",
     value: site.phoneDisplay,
     href: site.whatsapp,
     external: true,
   },
   {
-    icon: Calendar,
     label: "Calendly",
     value: "30-Min-Gespräch buchen",
     href: site.calendly,
     external: true,
   },
   {
-    icon: Mail,
     label: "E-Mail",
     value: site.email,
     href: `mailto:${site.email}`,
   },
   {
-    icon: Clock,
     label: "Verfügbarkeit",
     value: site.availability,
   },
   {
-    icon: MapPin,
     label: "Standort",
     value: site.location,
   },
   {
-    icon: Github,
     label: "GitHub",
     value: "@fatihgueler",
     href: site.github,
@@ -64,52 +56,51 @@ export default function KontaktPage() {
         stamp="04"
       />
 
-      <section className="px-6 pb-24 md:pb-32">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <Reveal className="space-y-8">
-            <div className="space-y-5">
+      <section aria-label="Kontaktwege und Formular" className="border-b-2 border-border">
+        <div className="mx-auto grid w-full max-w-[96rem] lg:grid-cols-12">
+          <div className="min-w-0 border-b-2 border-border p-[var(--spacing-gutter)] py-10 lg:col-span-5 lg:border-b-0 lg:border-r-2 lg:py-14">
+            <h2 className="label flex items-center gap-3">
+              <span className="bg-foreground px-1.5 py-0.5 text-background">A</span>
+              Direkte Wege
+            </h2>
+            <dl className="mt-6 border-t-2 border-border">
               {channels.map((channel) => {
-                const Icon = channel.icon;
                 const inner = (
                   <>
-                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius)] border border-border bg-surface text-teal transition-colors duration-100 group-hover:border-transparent group-hover:bg-background/10 group-hover:text-background">
-                      <Icon className="size-5" />
-                    </span>
-                    <span>
-                      <span className="block font-mono text-xs uppercase tracking-wider text-muted-2 transition-colors duration-100 group-hover:text-background/60">
-                        {channel.label}
-                      </span>
-                      <span className="text-foreground transition-colors duration-100 group-hover:text-background">
-                        {channel.value}
-                      </span>
-                    </span>
+                    <dt className="label muted-inv w-28 shrink-0 text-muted">{channel.label}</dt>
+                    <dd className="min-w-0 break-words text-lg font-semibold">{channel.value}</dd>
                   </>
                 );
                 return channel.href ? (
-                  // Datenblatt-Zeile: Hover invertiert hart
                   <a
                     key={channel.label}
                     href={channel.href}
                     target={channel.external ? "_blank" : undefined}
                     rel={channel.external ? "noopener noreferrer" : undefined}
-                    className="group -mx-3 flex items-center gap-4 px-3 py-1.5 transition-colors duration-100 hover:bg-foreground"
+                    className="row-invert flex items-baseline gap-4 border-b-2 border-border px-1 py-4"
                   >
                     {inner}
+                    <span aria-hidden className="ml-auto font-mono">{channel.external ? "↗" : "→"}</span>
                   </a>
                 ) : (
-                  <div key={channel.label} className="flex items-center gap-4 px-0 py-1.5">
+                  <div key={channel.label} className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
                     {inner}
                   </div>
                 );
               })}
+            </dl>
+            <div className="mt-10">
+              <ContactMap />
             </div>
+          </div>
 
-            <ContactMap />
-          </Reveal>
-
-          <Reveal delay={0.15}>
+          <div className="min-w-0 p-[var(--spacing-gutter)] py-10 lg:col-span-7 lg:px-10 lg:py-14">
+            <h2 className="label mb-6 flex items-center gap-3">
+              <span className="bg-foreground px-1.5 py-0.5 text-background">B</span>
+              Formular
+            </h2>
             <ContactForm />
-          </Reveal>
+          </div>
         </div>
       </section>
     </>

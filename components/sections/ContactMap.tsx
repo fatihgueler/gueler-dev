@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { MapPin } from "lucide-react";
 
 /**
  * DSGVO-freundliche Karte: OpenStreetMap wird erst nach Klick geladen,
@@ -15,30 +14,28 @@ export function ContactMap() {
   const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=52.4200,9.6000`;
 
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius-lg)] border border-border">
+    <div className="relative aspect-[16/10] w-full border-2 border-border">
       {loaded ? (
         <iframe
           title="Standort: Großraum Hannover"
           src={src}
           loading="lazy"
-          className="h-full w-full grayscale-[0.2]"
+          className="h-full w-full grayscale"
           style={{ border: 0 }}
         />
       ) : (
         <button
           type="button"
           onClick={() => setLoaded(true)}
-          className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface text-center"
+          className="grid-lines group absolute inset-0 flex flex-col items-start justify-end gap-2 p-5 text-left hover:bg-foreground hover:text-background"
         >
-          <div className="bg-dot-grid absolute inset-0 opacity-40" aria-hidden />
-          <div className="teal-glow absolute inset-0 opacity-60" aria-hidden />
-          <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-full border border-teal-deep bg-background text-teal transition-transform group-hover:scale-110">
-            <MapPin className="size-6" />
-          </span>
-          <span className="relative font-display text-lg font-semibold text-foreground">
+          {/* Fadenkreuz statt Pin-im-Kreis */}
+          <span aria-hidden className="absolute left-1/2 top-[40%] h-0.5 w-16 -translate-x-1/2 bg-signal" />
+          <span aria-hidden className="absolute left-1/2 top-[40%] h-16 w-0.5 -translate-x-1/2 -translate-y-1/2 bg-signal" />
+          <span className="display relative text-[clamp(1.5rem,1.2rem+1vw,2.25rem)]">
             Karte von OpenStreetMap laden
           </span>
-          <span className="relative max-w-xs text-xs text-muted-2">
+          <span className="relative max-w-sm text-sm">
             Erst beim Klick werden Daten an OpenStreetMap übertragen (DSGVO-konform).
           </span>
         </button>
