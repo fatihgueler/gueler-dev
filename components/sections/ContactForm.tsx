@@ -8,7 +8,6 @@ import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 import { contact } from "@/lib/content";
 import { sendContactMessage } from "@/app/actions";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -74,14 +73,14 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="card-surface flex flex-col items-center rounded-[var(--radius-lg)] p-10 text-center">
-        <div className="mb-5 inline-flex h-16 w-16 items-center justify-center border border-cyan/30 bg-cyan/10 text-cyan">
-          <CheckCircle2 className="size-8" aria-hidden />
+      <div role="status" className="border-2 border-border bg-background p-8 shadow-[8px_8px_0_0_var(--color-signal)] md:p-10">
+        <div className="mb-6 inline-flex size-14 items-center justify-center border-2 border-border bg-signal text-on-signal">
+          <CheckCircle2 className="size-7" aria-hidden />
         </div>
-        <h3 className="font-display text-2xl font-medium text-foreground">
+        <h3 className="display text-[clamp(2.25rem,5vw,3.5rem)]">
           Nachricht gesendet
         </h3>
-        <p className="mt-3 max-w-sm text-muted">{contact.successMessage}</p>
+        <p className="mt-4 max-w-sm text-lg">{contact.successMessage}</p>
         <Button
           variant="outline"
           className="mt-7"
@@ -96,7 +95,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="card-surface terminal-form space-y-5 rounded-[var(--radius-lg)] p-8 md:p-10"
+      className="relative space-y-6 border-2 border-border bg-background p-5 shadow-[8px_8px_0_0_var(--color-foreground)] sm:p-8 md:p-10 [&_label]:font-mono [&_label]:text-xs [&_label]:uppercase [&_label]:tracking-[0.06em]"
       noValidate
     >
       {/* Honeypot – komplett unsichtbar, kein verräterisches Label/Placeholder.
@@ -122,14 +121,14 @@ export function ContactForm() {
             {...register("name")}
           />
           {errors.name && (
-            <p id="cf-name-error" className="text-sm text-red-400" role="alert">
+            <p id="cf-name-error" className="text-sm font-medium text-error" role="alert">
               {errors.name.message}
             </p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cf-company">
-            Firmenname <span className="text-muted-2">(optional)</span>
+            Firmenname <span className="text-muted">(optional)</span>
           </Label>
           <Input
             id="cf-company"
@@ -151,14 +150,14 @@ export function ContactForm() {
             {...register("email")}
           />
           {errors.email && (
-            <p id="cf-email-error" className="text-sm text-red-400" role="alert">
+            <p id="cf-email-error" className="text-sm font-medium text-error" role="alert">
               {errors.email.message}
             </p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cf-phone">
-            Telefon <span className="text-muted-2">(optional)</span>
+            Telefon <span className="text-muted">(optional)</span>
           </Label>
           <Input
             id="cf-phone"
@@ -201,7 +200,7 @@ export function ContactForm() {
           {...register("message")}
         />
         {errors.message && (
-          <p id="cf-message-error" className="text-sm text-red-400" role="alert">
+          <p id="cf-message-error" className="text-sm font-medium text-error" role="alert">
             {errors.message.message}
           </p>
         )}
@@ -223,27 +222,27 @@ export function ContactForm() {
               />
             )}
           />
-          <Label htmlFor="cf-privacy" className="cursor-pointer text-sm leading-relaxed">
+          <Label htmlFor="cf-privacy" className="cursor-pointer !font-sans !text-sm !normal-case !tracking-normal leading-relaxed">
             Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
             verarbeitet werden. Details in der{" "}
-            <a href="/datenschutz" className="text-cyan underline underline-offset-2">
+            <a href="/datenschutz" className="link">
               Datenschutzerklärung
             </a>
             . *
           </Label>
         </div>
         {errors.privacy && (
-          <p id="cf-privacy-error" className="pl-7 text-sm text-red-400" role="alert">
+          <p id="cf-privacy-error" className="pl-9 text-sm font-medium text-error" role="alert">
             {errors.privacy.message}
           </p>
         )}
       </div>
 
       {status === "error" && (
-        <Alert variant="destructive">
-          <AlertCircle className="size-4" aria-hidden />
-          <AlertDescription>{contact.errorMessage}</AlertDescription>
-        </Alert>
+        <div role="alert" className="flex gap-3 border-2 border-error p-4 text-error">
+          <AlertCircle className="mt-0.5 size-5 shrink-0" aria-hidden />
+          <p className="font-medium">{contact.errorMessage}</p>
+        </div>
       )}
 
       <Button
@@ -259,7 +258,7 @@ export function ContactForm() {
           </>
         ) : (
           <>
-            Erstgespräch anfragen →
+            Erstgespräch anfragen
             <Send aria-hidden />
           </>
         )}

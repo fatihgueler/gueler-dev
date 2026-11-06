@@ -1,18 +1,16 @@
 import { faq } from "@/lib/content";
-import { ChapterProgress } from "@/components/ui/ChapterProgress";
-import { HardCut } from "@/components/ui/HardCut";
-import { Hero } from "@/components/sections/Hero";
-import { StoryPitch } from "@/components/sections/StoryPitch";
-import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { Pakete } from "@/components/sections/Pakete";
-import { Vertrauen } from "@/components/sections/Vertrauen";
-import { TechStrip } from "@/components/sections/TechStrip";
-import { StickyStory } from "@/components/sections/StickyStory";
-import { ProjectHighlight } from "@/components/sections/ProjectHighlight";
+import { Hero } from "@/components/home/Hero";
+import { Marquee } from "@/components/home/Marquee";
+import { Problem } from "@/components/home/Problem";
+import { Services } from "@/components/home/Services";
+import { ProcessStairs } from "@/components/home/ProcessStairs";
+import { PaketeRows } from "@/components/home/PaketeRows";
+import { Projects } from "@/components/home/Projects";
+import { Vertrauen } from "@/components/home/Vertrauen";
+import { Outcomes } from "@/components/home/Outcomes";
+import { Faq } from "@/components/home/Faq";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { Outcomes } from "@/components/sections/Outcomes";
-import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import { FinalCta } from "@/components/sections/FinalCta";
+import { CTA } from "@/components/sections/CTA";
 import { Contact } from "@/components/sections/Contact";
 
 // FAQPage-Schema serverseitig (SSR) für Rich Results + GEO: KI-Antwort-
@@ -34,24 +32,19 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ChapterProgress />
       <Hero />
-      <HardCut chapter="01" title="Dein Problem" />
-      <StoryPitch />
-      <HardCut chapter="02" title="Dein Weg" />
-      <ProcessSteps />
-      <TechStrip />
-      <StickyStory />
-      <Pakete />
-      <HardCut chapter="03" title="Der Beweis" />
-      <ProjectHighlight />
+      <Marquee />
+      <Problem />
+      <Services />
+      <ProcessStairs />
+      <PaketeRows />
+      <Projects />
       <Vertrauen />
+      {/* Blendet sich aus, solange nur Platzhalter-Stimmen hinterlegt sind */}
       <Testimonials />
-      <HardCut chapter="04" title="Dein Erfolg" />
       <Outcomes />
-      <FaqAccordion />
-      <HardCut chapter="05" title="Dein Moment" />
-      <FinalCta />
+      <Faq />
+      <CTA />
       <Contact />
     </>
   );

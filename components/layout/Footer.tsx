@@ -95,7 +95,7 @@ export function Footer() {
         </div>
 
         {/* Wortmarke, unten abgeschnitten */}
-        <div aria-hidden className="h-[17vw] max-h-[15rem] select-none overflow-hidden">
+        <div aria-hidden className="h-[21vw] max-h-[19rem] select-none overflow-hidden pt-[3vw] md:pt-[min(3vw,2.5rem)]">
           <p
             className="display whitespace-nowrap text-center text-signal"
             style={{ fontSize: "min(25vw, 22rem)", lineHeight: 0.8 }}

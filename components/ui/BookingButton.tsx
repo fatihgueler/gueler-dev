@@ -50,10 +50,10 @@ function loadCalendly(): Promise<void> {
 function themedCalendlyUrl(): string {
   const params = new URLSearchParams({
     hide_gdpr_banner: "1",
-    // Marken-Palette (app/globals.css): Surface, Foreground, Emerald
-    background_color: "0e1512",
-    text_color: "eaf1ec",
-    primary_color: "2bbe83",
+    // Marken-Palette (app/globals.css): Papier, Ink, Signal
+    background_color: "f2eee6",
+    text_color: "121110",
+    primary_color: "ff4d00",
   });
   return `${site.calendly}?${params.toString()}`;
 }

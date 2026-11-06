@@ -1,138 +1,81 @@
 import * as React from "react";
-import { Mail, MapPin, Github, Clock, Phone } from "lucide-react";
 
 import { booking, contact, site } from "@/lib/content";
-import { Reveal } from "@/components/animation/Reveal";
 import { ContactFormLazy } from "@/components/sections/ContactFormLazy";
 import { BookingButton } from "@/components/ui/BookingButton";
 
+const rows = [
+  { label: "E-Mail", value: site.email, href: `mailto:${site.email}` },
+  { label: "Telefon", value: site.phoneDisplay, href: `tel:${site.phone}`, event: "anrufen" },
+  { label: "Standort", value: site.location },
+  { label: "Antwortzeit", value: `meist innerhalb ${site.responseTime}` },
+  { label: "GitHub", value: "@fatihgueler", href: site.github, external: true },
+];
+
+/** Kontakt-Datenblatt: Zeilen mit Mono-Label, Hover invertiert. */
+export function ContactRows() {
+  return (
+    <dl className="border-t-2 border-border">
+      {rows.map((row) => {
+        const inner = (
+          <>
+            <dt className="label muted-inv w-28 shrink-0 text-muted">{row.label}</dt>
+            <dd className="min-w-0 break-words text-lg font-semibold">{row.value}</dd>
+          </>
+        );
+        return row.href ? (
+          <a
+            key={row.label}
+            href={row.href}
+            data-umami-event={row.event}
+            target={row.external ? "_blank" : undefined}
+            rel={row.external ? "noopener noreferrer" : undefined}
+            className="row-invert flex items-baseline gap-4 border-b-2 border-border px-1 py-4"
+          >
+            {inner}
+            <span aria-hidden className="ml-auto font-mono">{row.external ? "↗" : "→"}</span>
+          </a>
+        ) : (
+          <div key={row.label} className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
+            {inner}
+          </div>
+        );
+      })}
+    </dl>
+  );
+}
+
 export function Contact() {
   return (
-    <section id="kontakt" className="relative py-24 md:py-36">
-      <div className="mx-auto w-full max-w-7xl px-6">
-        <div className="relative grid gap-16 lg:grid-cols-[1fr_1.1fr]">
-          {/* Info column */}
-          <Reveal>
-            <div className="mb-12">
-              <p
-                className="mb-6 font-mono text-xs tracking-[0.3em] text-muted"
-                style={{ textTransform: "uppercase" }}
-              >
-                {contact.eyebrow}
-              </p>
-              <h2
-                className="font-display font-black tracking-tighter text-foreground"
-                style={{
-                  fontSize: "clamp(2.5rem, 6vw, 5rem)",
-                  lineHeight: 1.0,
-                  letterSpacing: "-0.03em",
-                  maxWidth: "16ch",
-                }}
-              >
-                {contact.title}
-              </h2>
-              <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted">
-                {contact.subtitle}
-              </p>
-            </div>
+    <section id="kontakt" aria-labelledby="kontakt-title" className="border-b-2 border-border py-[var(--spacing-section)]">
+      <div className="frame">
+        <div className="grid gap-6 md:grid-cols-12">
+          <p className="label flex items-center gap-3 self-start md:col-span-3">
+            <span className="bg-foreground px-1.5 py-0.5 text-background">09</span>
+            {contact.eyebrow}
+          </p>
+          <div className="md:col-span-9">
+            <h2 id="kontakt-title" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
+              {contact.title}
+            </h2>
+            <p className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{contact.subtitle}</p>
+          </div>
+        </div>
 
-            <div className="border-t border-border">
-              <a
-                href={`mailto:${site.email}`}
-                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
-              >
-                <Mail className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
-                <span>
-                  <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    E-Mail
-                  </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.email}</span>
-                </span>
-              </a>
-
-              <a
-                href={`tel:${site.phone}`}
-                data-umami-event="anrufen"
-                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
-              >
-                <Phone className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
-                <span>
-                  <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    Telefon
-                  </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.phoneDisplay}</span>
-                </span>
-              </a>
-
-              <div className="flex items-center gap-4 border-b border-border py-5">
-                <MapPin className="size-5 shrink-0 text-muted" aria-hidden />
-                <span>
-                  <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    Standort
-                  </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">{site.location}</span>
-                </span>
-              </div>
-
-              <div className="flex items-center gap-4 border-b border-border py-5">
-                <Clock className="size-5 shrink-0 text-muted" aria-hidden />
-                <span>
-                  <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    Antwortzeit
-                  </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">meist innerhalb {site.responseTime}</span>
-                </span>
-              </div>
-
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group -mx-3 flex items-center gap-4 border-b border-border px-3 py-5 transition-colors duration-100 hover:bg-foreground"
-              >
-                <Github className="size-5 shrink-0 text-muted transition-colors duration-100 group-hover:text-background" aria-hidden />
-                <span>
-                  <span
-                    className="block font-mono text-[0.65rem] tracking-[0.2em] text-muted-2 transition-colors duration-100 group-hover:text-background/60"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    GitHub
-                  </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">@fatihgueler</span>
-                </span>
-              </a>
-            </div>
-
-            {/* Booking */}
-            <div className="mt-10 border border-border p-7">
-              <h3 className="font-display text-xl font-semibold text-foreground">
-                {booking.title}
-              </h3>
-              <p className="mt-2 font-mono text-sm leading-relaxed text-muted">
-                {booking.subtitle}
-              </p>
-              <BookingButton className="mt-5 w-full sm:w-auto">
+        <div className="mt-16 grid gap-12 lg:grid-cols-12">
+          <div className="min-w-0 lg:col-span-5">
+            <ContactRows />
+            <div className="mt-10 border-2 border-border p-6">
+              <h3 className="display text-[clamp(1.75rem,1.3rem+1.5vw,2.5rem)]">{booking.title}</h3>
+              <p className="mt-3 text-muted">{booking.subtitle}</p>
+              <BookingButton variant="outline" className="mt-6 w-full whitespace-normal text-left sm:w-auto">
                 {booking.ctaLabel}
               </BookingButton>
             </div>
-          </Reveal>
-
-          {/* Form — lazy, lädt beim Heranscrollen */}
-          <Reveal delay={0.12}>
+          </div>
+          <div className="min-w-0 lg:col-span-7">
             <ContactFormLazy />
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>
