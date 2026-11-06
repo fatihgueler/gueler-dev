@@ -63,17 +63,18 @@ export default function KontaktPage() {
               <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">A</span>
               Direkte Wege
             </h2>
-            <dl className="mt-6 border-t-2 border-border">
+            <ul className="mt-6 border-t-2 border-border">
               {channels.map((channel) => {
                 const inner = (
                   <>
-                    <dt className="label muted-inv w-28 shrink-0 text-muted">{channel.label}</dt>
-                    <dd className="min-w-0 break-words text-lg font-semibold">{channel.value}</dd>
+                    <span className="label muted-inv w-28 shrink-0 text-muted">{channel.label}</span>
+                    <span className="min-w-0 break-words text-lg font-semibold">{channel.value}</span>
                   </>
                 );
-                return channel.href ? (
+                return (
+                  <li key={channel.label}>
+                  {channel.href ? (
                   <a
-                    key={channel.label}
                     href={channel.href}
                     target={channel.external ? "_blank" : undefined}
                     rel={channel.external ? "noopener noreferrer" : undefined}
@@ -86,9 +87,11 @@ export default function KontaktPage() {
                   <div key={channel.label} className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
                     {inner}
                   </div>
+                )}
+                </li>
                 );
               })}
-            </dl>
+            </ul>
             <div className="mt-10">
               <ContactMap />
             </div>

@@ -15,17 +15,18 @@ const rows = [
 /** Kontakt-Datenblatt: Zeilen mit Mono-Label, Hover invertiert. */
 export function ContactRows() {
   return (
-    <dl data-rv-stagger="70" className="border-t-2 border-border">
+    <ul data-rv-stagger="70" className="border-t-2 border-border">
       {rows.map((row) => {
         const inner = (
           <>
-            <dt className="label muted-inv w-28 shrink-0 text-muted">{row.label}</dt>
-            <dd className="min-w-0 break-words text-lg font-semibold">{row.value}</dd>
+            <span className="label muted-inv w-28 shrink-0 text-muted">{row.label}</span>
+            <span className="min-w-0 break-words text-lg font-semibold">{row.value}</span>
           </>
         );
-        return row.href ? (
+        return (
+          <li key={row.label}>
+          {row.href ? (
           <a
-            key={row.label}
             href={row.href}
             data-umami-event={row.event}
             target={row.external ? "_blank" : undefined}
@@ -40,9 +41,11 @@ export function ContactRows() {
           <div key={row.label} data-rv="left" className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
             {inner}
           </div>
+        )}
+        </li>
         );
       })}
-    </dl>
+    </ul>
   );
 }
 

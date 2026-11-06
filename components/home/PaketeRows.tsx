@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { pakete } from "@/lib/content";
 import { SectionHead } from "@/components/Section";
+import { CountUp } from "@/components/ui/CountUp";
 
 /**
  * Pakete als Preis-Zeilen über die volle Breite – keine drei gleichen Karten.
@@ -44,7 +45,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                     {item.title}
                   </h3>
                   <p className="display sp-grow mt-3 origin-left text-[clamp(3.5rem,2rem+6vw,8rem)]">
-                    {inv ? <span className="mark">{item.price}</span> : item.price}
+                    {inv ? <span className="mark"><CountUp text={item.price} /></span> : <CountUp text={item.price} />}
                   </p>
                 </div>
                 <div className="flex flex-col justify-between gap-6 md:col-span-3">

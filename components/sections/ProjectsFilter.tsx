@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { projects } from "@/lib/content";
-import { ProjectRows } from "@/components/home/ProjectRows";
+import { ProjectStack } from "@/components/home/ProjectStack";
 import { cn } from "@/lib/utils";
 
 const ALL = "Alle";
@@ -18,7 +18,8 @@ export function ProjectsFilter() {
   const filtered = active === ALL ? projects.items : projects.items.filter((p) => p.category === active);
 
   return (
-    <section aria-label="Projekte" className="border-b-2 border-border">
+    <section aria-labelledby="alle-projekte" className="border-b-2 border-border">
+      <h2 id="alle-projekte" className="sr-only">Alle Projekte</h2>
       <div className="frame flex flex-wrap items-stretch gap-0 py-6">
         <p className="label mr-4 flex items-center py-2 text-muted">Filter /</p>
         <div role="group" aria-label="Nach Kategorie filtern" className="flex flex-wrap">
@@ -46,7 +47,7 @@ export function ProjectsFilter() {
       <p className="sr-only" aria-live="polite">
         {filtered.length} Projekte angezeigt
       </p>
-      <ProjectRows items={filtered} />
+      <ProjectStack key={active} items={filtered} />
     </section>
   );
 }

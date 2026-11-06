@@ -22,10 +22,10 @@ export function Header() {
       <div className="mx-auto flex h-14 w-full max-w-[96rem] items-stretch md:h-16">
         <Link
           href="/"
-          aria-label="Güler.dev Startseite"
           className="flex items-center px-[var(--spacing-gutter)] hover:bg-foreground hover:text-background"
         >
           <Logo />
+          <span className="sr-only"> – Startseite</span>
         </Link>
 
         <nav

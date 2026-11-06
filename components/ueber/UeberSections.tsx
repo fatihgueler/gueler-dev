@@ -1,7 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
 
-import { about, ausblick, site, skills, timeline, trust } from "@/lib/content";
+import { about, ausblick, site, skills, trust } from "@/lib/content";
 import { SectionHead } from "@/components/Section";
 
 /** Über mich: Porträt als Steckbrief links, Text rechts – Zeitungsspalte. */
@@ -54,29 +54,8 @@ export function About() {
   );
 }
 
-/** Werdegang als Zeitleiste mit Jahres-Spalte. */
-export function Timeline() {
-  return (
-    <section aria-labelledby="timeline-title" className="border-b-2 border-border pt-[var(--spacing-section)]">
-      <div className="frame">
-        <SectionHead id="timeline-title" index="02" label={timeline.eyebrow} title={timeline.title} />
-      </div>
-      <ol data-sp data-rv-stagger="100" className="mt-16 border-t-2 border-border">
-        {timeline.steps.map((step) => (
-          <li key={step.title} data-rv="up" className="row-invert border-b-2 border-border last:border-b-0">
-            <div className="frame grid gap-3 py-8 md:grid-cols-12 md:gap-6">
-              <span className="display px-x text-[clamp(2rem,1.5rem+2vw,3.5rem)] md:col-span-3" style={{ "--speed": 180 } as React.CSSProperties}>{step.period}</span>
-              <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "86%" }}>
-                {step.title}
-              </h3>
-              <p className="muted-inv text-lg leading-snug text-muted md:col-span-5">{step.description}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
+/** Werdegang: gepinnte Zeitleiste (siehe TimelinePinned.tsx). */
+export { TimelinePinned as Timeline } from "@/components/ueber/TimelinePinned";
 
 /** Stack als dreispaltiges Datenblatt (ungleich breit). */
 export function Skills() {

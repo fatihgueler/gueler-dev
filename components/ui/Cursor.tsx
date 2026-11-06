@@ -30,7 +30,9 @@ export function Cursor() {
       const labelled = t?.closest<HTMLElement>("[data-cursor]");
       const interactive = t?.closest("a, button, summary, [role='button'], label");
       const field = t?.closest("input, textarea, select, [role='combobox']");
-      tsize = field ? 0 : labelled ? 96 : interactive ? 48 : 14;
+      tsize = field ? 0 : labelled ? 96 : interactive ? 46 : 14;
+      // Über Links/Buttons nur ein Ring – der Linktext bleibt lesbar
+      box.dataset.mode = labelled ? "label" : interactive ? "ring" : "dot";
       setLabel(labelled?.dataset.cursor ?? "");
     };
     const onDown = () => (box.style.scale = "0.8");

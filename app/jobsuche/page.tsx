@@ -4,6 +4,10 @@ import { Download, Mail } from "lucide-react";
 import { site } from "@/lib/content";
 import { PageHero } from "@/components/sections/PageHero";
 import { SectionHead } from "@/components/Section";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { Countdown } from "@/components/jobsuche/Countdown";
+import { StackBand } from "@/components/jobsuche/StackBand";
+import { CodeExcerpt } from "@/components/jobsuche/CodeExcerpt";
 
 export const metadata: Metadata = {
   title: { absolute: "Junior-Entwickler Hannover ab 02/2027 | Fatih Güler" },
@@ -55,13 +59,18 @@ export default function JobsuchePage() {
         subtitle="Fachinformatiker für Anwendungsentwicklung (IHK-Abschluss Januar 2027). Ich suche eine Stelle als Junior-Entwickler im Raum Hannover, verfügbar ab 01.02.2027."
         stamp="07"
       >
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+        <div className="mt-8">
+          <Countdown iso="2027-02-01" label="Verfügbar ab 01.02.2027" />
+        </div>
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <Magnetic strength={0.2}>
           <a
             href="/Lebenslauf_Fatih_Gueler.pdf"
             className="inline-flex min-h-14 items-center justify-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)] rounded-full"
           >
             <Download className="size-4" aria-hidden /> Lebenslauf als PDF
           </a>
+          </Magnetic>
           <a
             href={`mailto:${site.email}?subject=Stelle%20als%20Junior%20Entwickler`}
             className="inline-flex min-h-14 min-w-0 items-center justify-center gap-3 break-all border-2 border-foreground px-6 py-3 font-mono text-sm font-bold hover:bg-foreground hover:text-background rounded-full"
@@ -104,16 +113,11 @@ export default function JobsuchePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section aria-label="Stack" className="border-b-2 border-border">
+        <StackBand items={stack} />
         <div className="frame grid gap-8 py-12 md:grid-cols-12">
-          <h3 className="label md:col-span-3">Stack</h3>
-          <ul className="flex flex-wrap gap-x-5 gap-y-1 md:col-span-9" aria-label="Technologien">
-            {stack.map((item, i) => (
-              <li key={item} className="display text-[clamp(1.75rem,1.2rem+2vw,3rem)]">
-                {item}
-                {i < stack.length - 1 && <span aria-hidden className="ml-5 inline-block size-3 bg-signal align-middle sig-dot" />}
-              </li>
-            ))}
-          </ul>
           <p className="max-w-2xl text-lg leading-relaxed md:col-span-9 md:col-start-4">
             Davor: Kundenservice mit technischer Beratung und Fahrzeuglogistik. Ich arbeite
             gern direkt mit Menschen und behalte unter Druck den Überblick. Meine
@@ -122,9 +126,34 @@ export default function JobsuchePage() {
         </div>
       </section>
 
+      <section aria-labelledby="job-code" className="border-b-2 border-border py-[var(--spacing-section)]">
+        <div className="frame">
+          <SectionHead
+            id="job-code"
+            index="02"
+            label="Code"
+            title="Ein Blick in den Code"
+            subtitle="Auszug aus der Server Action dieser Website: Eingaben werden mit zod geprüft, Bots per Honeypot still aussortiert."
+          />
+          <div className="mt-14 grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-8 md:col-start-4">
+              <CodeExcerpt />
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="label link mt-8 inline-block py-2 text-sm"
+              >
+                Mehr Code auf GitHub ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="job-kontakt" className="border-b-2 border-border py-[var(--spacing-section)]">
         <div className="frame">
-          <SectionHead id="job-kontakt" index="02" label="Erreichbarkeit" title="Kontakt" />
+          <SectionHead id="job-kontakt" index="03" label="Erreichbarkeit" title="Kontakt" />
           <ul className="mt-12 border-t-2 border-border md:ml-[25%]">
             {[
               { label: "E-Mail", value: site.email, href: `mailto:${site.email}` },

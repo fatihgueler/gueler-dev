@@ -76,7 +76,7 @@
   --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
   --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
   --text-h2: clamp(2.75rem, 1.6rem + 6vw, 7.5rem);
-  --text-h1: clamp(3.25rem, 1.5rem + 9vw, 11rem);
+  --text-h1: clamp(3rem, 1.4rem + 6.4vw, 8.25rem);
   --text-mega: clamp(3.4rem, 15.5vw, 20vw);
 
   /* ── Spacing ─────────────────────────────────────────────── */
@@ -492,7 +492,8 @@ html {
   .hero-line:nth-child(4) { animation-delay: 0.18s; }
 }
 @keyframes line-in {
-  from { clip-path: inset(0 -100vw 100% -100vw); transform: translateY(0.3em); }
+  /* startet zu 2/3 sichtbar → zählt früh als größter Inhalt (LCP) */
+  from { clip-path: inset(0 -100vw 34% -100vw); transform: translateY(0.18em); }
   to { clip-path: inset(-0.2em -100vw -0.2em -100vw); transform: none; }
 }
 
@@ -619,7 +620,7 @@ html {
   }
 }
 @keyframes char-in {
-  from { opacity: 0; transform: translateY(0.55em) rotate(6deg); }
+  from { opacity: 0.02; transform: translateY(0.55em) rotate(6deg); }
   to { opacity: 1; transform: none; }
 }
 
@@ -714,25 +715,37 @@ html.has-cursor .cursor-box {
   }
 }
 
-/* Seitenwechsel-Blende (template.tsx) */
-.route-wipe {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  display: flex;
-  align-items: flex-end;
-  padding: var(--spacing-gutter);
-  background: var(--color-signal);
-  color: var(--color-on-signal);
-  pointer-events: none;
-  animation: route-wipe 0.6s steps(6, end) both;
+/* Seitenwechsel (template.tsx): Inhalt blendet ein, Ladebalken läuft durch */
+.page-enter {
+  animation: page-enter 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
-@keyframes route-wipe {
-  0%, 35% { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 0 100%); }
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+.route-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  height: 5px;
+  background: var(--color-signal);
+  border-bottom: 1.5px solid var(--color-ink);
+  transform-origin: 0 50%;
+  animation: route-bar 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  pointer-events: none;
+}
+@keyframes route-bar {
+  0% { transform: scaleX(0); opacity: 1; }
+  70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .route-wipe,
+  .page-enter {
+    animation: page-fade 0.4s linear both !important;
+  }
+  .route-bar,
   .cursor-box {
     display: none !important;
   }
@@ -771,8 +784,8 @@ html.has-cursor .cursor-box {
   }
   /* Blendet beim Verlassen nach oben aus und rückt zurück (Seitenköpfe) */
   .sp-leave {
-    opacity: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 2.4);
-    scale: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 0.15);
+    opacity: calc(1 - max(var(--p, 0.5) - 0.74, 0) * 3.5);
+    scale: calc(1 - max(var(--p, 0.5) - 0.74, 0) * 0.2);
     transform-origin: 50% 0;
   }
   /* Schräglage nach Scroll-Tempo (nur auf Wrappern einsetzen) */
@@ -880,4 +893,29 @@ html:not(.dark) .sig-dot {
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   :root { --sp-k: 0.65; }
+}
+
+@keyframes page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Cursor-Modi: Ring über Klickbarem (Text bleibt lesbar) */
+.cursor-box[data-mode="ring"] {
+  background: transparent;
+  outline: 2px solid var(--color-foreground);
+  box-shadow: inset 0 0 0 2px var(--color-signal);
+}
+
+/* Dunkelmodus: Footer ist hell (Inversion) → grüne Wortmarke mit Ink-Kontur */
+html.dark .footer-wm {
+  -webkit-text-stroke: 2px var(--color-ink);
+}
+
+/* Dekorative Riesen-Zahlen: Inhalt per CSS, damit sie kein „Text" sind
+   (Screenreader und Kontrast-Prüfungen ignorieren sie zu Recht). */
+.ghost-num::before,
+.hero-ghost::before,
+.ghost-glyph::before {
+  content: attr(data-num);
 }

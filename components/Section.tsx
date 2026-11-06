@@ -83,9 +83,8 @@ export function SectionHead({
         aria-hidden
         className="display ghost-num px-x pointer-events-none absolute -top-[0.35em] right-0 select-none text-[clamp(9rem,24vw,24rem)] leading-none"
         style={{ "--speed": 420 } as React.CSSProperties}
-      >
-        {index}
-      </span>
+        data-num={index}
+      />
       <div className="relative md:col-span-3">
         <p data-rv="wipe" className="label flex items-center gap-3">
           <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">{index}</span>

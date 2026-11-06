@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 
-import { hero, site } from "@/lib/content";
+import { footerExtra, hero, site } from "@/lib/content";
 import { SplitChars } from "@/components/ui/SplitChars";
 import { Magnetic } from "@/components/ui/Magnetic";
 
@@ -25,9 +25,8 @@ export function Hero() {
         aria-hidden
         className="display hero-ghost px-x pointer-events-none absolute -right-[4vw] bottom-[18%] select-none whitespace-nowrap text-[clamp(8rem,30vw,32rem)] leading-none"
         style={{ "--speed": -700 } as React.CSSProperties}
-      >
-        ab 1.000 €
-      </span>
+        data-num="ab 1.000 €"
+      />
 
       <div className="frame hero-recede relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">
         {/* Kopfzeile des Blatts */}
@@ -36,7 +35,16 @@ export function Hero() {
             <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">00</span>
             {hero.overline}
           </p>
-          <p className="label hidden text-muted sm:block">{site.location}</p>
+          <p className="label flex shrink-0 items-center gap-4">
+            <span className="hidden text-muted md:inline">{site.location}</span>
+            {/* Recruiter-Einstieg: sichtbar, aber bewusst nicht in der Hauptnavigation */}
+            <Link
+              href={footerExtra[0].href}
+              className="shrink-0 whitespace-nowrap rounded-full border-2 border-border px-3 py-1 font-bold hover:bg-foreground hover:text-background"
+            >
+              {footerExtra[0].label} <span aria-hidden className="nudge">→</span>
+            </Link>
+          </p>
         </div>
 
         <h1
@@ -45,7 +53,7 @@ export function Hero() {
         >
           <span className="hero-line block"><span className="px-x block" style={{ "--speed": 520 } as React.CSSProperties}><SplitChars text={hero.lines[0]} className="chars" /></span></span>
           <span className="hero-line px-x relative z-10 -mt-[0.06em] block" style={{ "--speed": -760 } as React.CSSProperties}>
-            <span className="stamp stamp-in inline-block origin-left border-2 border-ink bg-signal px-[0.08em] pb-[0.02em] pt-[0.1em] text-on-signal shadow-[0.06em_0.06em_0_0_var(--color-foreground)] rounded-[0.16em]">
+            <span className="stamp stamp-in ml-2 inline-block origin-left sm:ml-0 border-2 border-ink bg-signal px-[0.08em] pb-[0.02em] pt-[0.1em] text-on-signal shadow-[0.06em_0.06em_0_0_var(--color-foreground)] rounded-[0.16em]">
               {hero.lines[1]}
             </span>
           </span>
