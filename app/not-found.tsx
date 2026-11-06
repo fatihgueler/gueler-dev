@@ -13,7 +13,7 @@ export default function NotFound() {
           className="display select-none overflow-hidden text-[clamp(9rem,42vw,34rem)] leading-[0.78] md:col-span-12"
           style={{ height: "0.7em" }}
         >
-          4<span className="text-signal">0</span>4
+          4<span className="text-signal-text">0</span>4
         </p>
         <div className="md:col-span-5">
           <h1 className="display text-[clamp(2.5rem,1.5rem+4vw,5rem)]">Seite nicht gefunden</h1>
