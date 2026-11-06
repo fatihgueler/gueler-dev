@@ -21,13 +21,14 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
         />
       </div>
 
-      <div className="mt-16 border-t-2 border-border">
+      <div data-rv-stagger="110" className="mt-16 border-t-2 border-border">
         {pakete.items.map((item, i) => {
           const inv = item.featured;
           return (
             <article
               key={item.title}
               aria-labelledby={`paket-${i}`}
+              data-rv="up"
               className={`relative border-b-2 border-border ${inv ? "bg-foreground text-background" : ""}`}
             >
               <div className="frame grid gap-8 py-10 md:grid-cols-12 md:py-14">
@@ -55,7 +56,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                         : "border-foreground hover:bg-foreground hover:text-background"
                     }`}
                   >
-                    {item.title} anfragen <span aria-hidden>→</span>
+                    {item.title} anfragen <span aria-hidden className="nudge">→</span>
                   </Link>
                 </div>
                 <ul className="md:col-span-4">
@@ -71,7 +72,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                 </ul>
               </div>
               {item.badge && (
-                <span className="stamp label absolute right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal">
+                <span data-rv="stamp" className="stamp label absolute right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal">
                   ★ {item.badge}
                 </span>
               )}

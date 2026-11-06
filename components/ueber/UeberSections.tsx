@@ -10,7 +10,7 @@ export function About() {
     <section id="ueber" aria-labelledby="about-title" className="border-b-2 border-border">
       <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
         <div className="border-b-2 border-border p-[var(--spacing-gutter)] py-10 md:col-span-5 md:border-b-0 md:border-r-2 md:py-14">
-          <figure className="border-2 border-border shadow-[10px_10px_0_0_var(--color-signal)]">
+          <figure data-rv="up" className="border-2 border-border shadow-[10px_10px_0_0_var(--color-signal)]">
             <div className="relative aspect-[4/5]">
               <Image
                 src="/fatih.jpg"
@@ -32,7 +32,7 @@ export function About() {
             <span className="bg-foreground px-1.5 py-0.5 text-background">01</span>
             {about.eyebrow}
           </p>
-          <h2 id="about-title" className="display mt-6 text-[clamp(3rem,1.5rem+6vw,8rem)]">
+          <h2 id="about-title" data-rv="rise" className="display mt-6 text-[clamp(3rem,1.5rem+6vw,8rem)]">
             {about.title}
           </h2>
           <div className="mt-10 space-y-5 text-[length:var(--text-lead)] leading-relaxed md:columns-2 md:gap-10 md:space-y-0 [&>p]:mb-5 [&>p]:break-inside-avoid">
@@ -40,9 +40,9 @@ export function About() {
               <p key={p}>{p}</p>
             ))}
           </div>
-          <ul className="mt-10 border-t-2 border-border">
+          <ul data-rv-stagger="70" className="mt-10 border-t-2 border-border">
             {about.highlights.map((h) => (
-              <li key={h} className="flex gap-3 border-b-2 border-border py-3 font-medium">
+              <li key={h} data-rv="left" className="flex gap-3 border-b-2 border-border py-3 font-medium">
                 <span aria-hidden className="mt-[0.45em] size-2.5 shrink-0 bg-signal" />
                 {h}
               </li>
@@ -61,9 +61,9 @@ export function Timeline() {
       <div className="frame">
         <SectionHead id="timeline-title" index="02" label={timeline.eyebrow} title={timeline.title} />
       </div>
-      <ol className="mt-16 border-t-2 border-border">
+      <ol data-rv-stagger="100" className="mt-16 border-t-2 border-border">
         {timeline.steps.map((step) => (
-          <li key={step.title} className="row-invert border-b-2 border-border last:border-b-0">
+          <li key={step.title} data-rv="up" className="row-invert border-b-2 border-border last:border-b-0">
             <div className="frame grid gap-3 py-8 md:grid-cols-12 md:gap-6">
               <span className="display text-[clamp(2rem,1.5rem+2vw,3.5rem)] md:col-span-3">{step.period}</span>
               <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "80%" }}>
@@ -86,10 +86,11 @@ export function Skills() {
       <div className="frame">
         <SectionHead id="skills-title" index="03" label={skills.eyebrow} title={skills.title} subtitle={skills.subtitle} />
       </div>
-      <div className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
+      <div data-rv-stagger="120" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
         {skills.groups.map((group, i) => (
           <div
             key={group.label}
+            data-rv="up"
             className={`border-b-2 border-border p-[var(--spacing-gutter)] py-8 md:border-b-0 ${spans[i]} ${
               i < skills.groups.length - 1 ? "md:border-r-2" : ""
             }`}
@@ -115,10 +116,11 @@ export function Trust() {
     <section aria-labelledby="trust-title" className="border-b-2 border-border py-[var(--spacing-section)]">
       <div className="frame">
         <SectionHead id="trust-title" index="04" label={trust.eyebrow} title={trust.title} />
-        <ol className="mt-16 grid gap-0 border-t-2 border-border md:grid-cols-2">
+        <ol data-rv-stagger="90" className="mt-16 grid gap-0 border-t-2 border-border md:grid-cols-2">
           {trust.items.map((item, i) => (
             <li
               key={item.title}
+              data-rv="up"
               className={`border-b-2 border-border py-8 md:px-8 ${i % 2 === 0 ? "md:border-r-2 md:pl-0" : "md:mt-16"}`}
             >
               <span className="label text-signal-text">{String(i + 1).padStart(2, "0")} /</span>
@@ -144,11 +146,11 @@ export function Ausblick() {
             <span className="bg-foreground px-1.5 py-0.5 text-background">05</span>
             {ausblick.eyebrow}
           </p>
-          <h2 id="ausblick-title" className="display mt-6 text-[clamp(2.75rem,1.4rem+5vw,6.5rem)]">
+          <h2 id="ausblick-title" data-rv="rise" className="display mt-6 text-[clamp(2.75rem,1.4rem+5vw,6.5rem)]">
             {ausblick.title}
           </h2>
         </div>
-        <div className="border-2 border-border border-l-[var(--rule-heavy)] border-l-signal p-6 md:col-span-7 md:p-10">
+        <div data-rv="left" className="border-2 border-border border-l-[var(--rule-heavy)] border-l-signal p-6 md:col-span-7 md:p-10">
           {ausblick.paragraphs.map((p) => (
             <p key={p} className="mb-5 text-[length:var(--text-lead)] leading-relaxed last:mb-0">
               {p}

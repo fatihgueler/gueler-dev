@@ -13,13 +13,13 @@ type ProjectItem = (typeof projects.items)[number];
  */
 export function ProjectRows({ items, startIndex = 1 }: { items: readonly ProjectItem[]; startIndex?: number }) {
   return (
-    <ol className="border-t-2 border-border">
+    <ol data-rv-stagger="100" className="border-t-2 border-border">
       {items.map((project, i) => {
         const study = caseStudies.find((c) => c.title === project.title);
         const img = study?.image ?? "/case-studies/placeholder.svg";
         const host = new URL(project.liveUrl).host;
         return (
-          <li key={project.title} className="group relative border-b-2 border-border">
+          <li key={project.title} data-rv="up" className="group relative border-b-2 border-border">
             <div className="frame grid gap-6 py-8 md:grid-cols-12 md:py-12">
               <div className="md:col-span-1">
                 <span className="label">{String(startIndex + i).padStart(2, "0")}</span>

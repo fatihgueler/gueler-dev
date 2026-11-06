@@ -72,10 +72,11 @@ export default function JobsuchePage() {
       </PageHero>
 
       {/* Eckdaten als Datenzeile */}
-      <dl className="frame-ruled grid border-b-2 border-border md:grid-cols-12">
+      <dl data-rv-stagger="100" className="frame-ruled grid border-b-2 border-border md:grid-cols-12">
         {facts.map((f, i) => (
           <div
             key={f.label}
+            data-rv="up"
             className={`flex flex-col-reverse justify-end border-b-2 border-border p-[var(--spacing-gutter)] py-8 md:border-b-0 ${
               i === 0 ? "bg-signal text-on-signal md:col-span-3" : i === 1 ? "md:col-span-3" : "md:col-span-6"
             } ${i < facts.length - 1 ? "md:border-r-2" : ""}`}
@@ -90,9 +91,9 @@ export default function JobsuchePage() {
         <div className="frame">
           <SectionHead id="mitbringen" index="01" label="Profil" title="Was ich mitbringe" />
         </div>
-        <ol className="mt-16 border-t-2 border-border">
+        <ol data-rv-stagger="100" className="mt-16 border-t-2 border-border">
           {proof.map((p, i) => (
-            <li key={p.title} className="row-invert border-b-2 border-border">
+            <li key={p.title} data-rv="up" className="row-invert border-b-2 border-border">
               <div className="frame grid gap-3 py-8 md:grid-cols-12 md:gap-6">
                 <span className="label md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "80%" }}>

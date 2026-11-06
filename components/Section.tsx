@@ -23,7 +23,7 @@ export function Section({ id, className, children, ...props }: SectionProps) {
 /** Mono-Label mit Signal-Quadrat – ersetzt den alten „Signal-Tick". */
 export function Eyebrow({ children, index }: { children: React.ReactNode; index?: string }) {
   return (
-    <p className="label mb-5 flex items-center gap-3">
+    <p data-rv="wipe" className="label mb-5 flex items-center gap-3">
       {index ? (
         <span className="bg-foreground px-1.5 py-0.5 text-background">{index}</span>
       ) : (
@@ -52,8 +52,8 @@ export function SectionHeading({ eyebrow, title, subtitle, index, className }: S
   return (
     <div className={cn("max-w-5xl", className)}>
       {eyebrow && <Eyebrow index={index}>{eyebrow}</Eyebrow>}
-      <h2 className="display text-[clamp(2.5rem,1.4rem+5vw,6rem)]">{title}</h2>
-      {subtitle && <p className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{subtitle}</p>}
+      <h2 data-rv="rise" className="display text-[clamp(2.5rem,1.4rem+5vw,6rem)]">{title}</h2>
+      {subtitle && <p data-rv="up" className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{subtitle}</p>}
     </div>
   );
 }
@@ -79,17 +79,17 @@ export function SectionHead({
   return (
     <div className={cn("grid gap-6 md:grid-cols-12", className)}>
       <div className="md:col-span-3">
-        <p className="label flex items-center gap-3">
+        <p data-rv="wipe" className="label flex items-center gap-3">
           <span className="bg-foreground px-1.5 py-0.5 text-background">{index}</span>
           {label}
         </p>
       </div>
       <div className="md:col-span-9">
-        <h2 id={id} className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
+        <h2 id={id} data-rv="rise" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{subtitle}</p>
+          <p data-rv="up" className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{subtitle}</p>
         )}
       </div>
     </div>

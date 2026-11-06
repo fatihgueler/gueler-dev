@@ -27,9 +27,9 @@ export function CaseStudiesGrid() {
         <span className="label col-span-4 text-muted">Kurz gesagt</span>
         <span className="label col-span-3 text-muted">Kennzahl</span>
       </div>
-      <ol className="mt-10 border-t-2 border-border md:mt-0 md:border-t-0">
+      <ol data-rv-stagger="90" className="mt-10 border-t-2 border-border md:mt-0 md:border-t-0">
         {caseStudies.map((study, i) => (
-          <li key={study.id} className="border-b-2 border-border last:border-b-0">
+          <li key={study.id} data-rv="up" className="border-b-2 border-border last:border-b-0">
             <Link
               href={`/projekte/${study.id}`}
               className="row-invert group block"

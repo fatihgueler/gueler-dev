@@ -26,7 +26,7 @@ export function Projects() {
           href={projectHighlight.cta.href}
           className="display inline-flex items-center gap-4 text-[clamp(2rem,1.4rem+2.5vw,3.5rem)] hover:bg-signal hover:text-on-signal"
         >
-          {projectHighlight.cta.label} <span aria-hidden>→</span>
+          {projectHighlight.cta.label} <span aria-hidden className="nudge">→</span>
         </Link>
       </div>
     </section>

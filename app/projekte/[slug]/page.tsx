@@ -154,7 +154,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Live-Vorschau */}
       <div className="grid-lines border-b-2 border-border py-[clamp(2.5rem,6vw,6rem)]">
         <div className="frame">
-          <div className="mx-auto max-w-6xl pr-3">
+          <div data-rv="up" className="mx-auto max-w-6xl pr-3">
             <PreviewWindow study={study} />
           </div>
         </div>
@@ -162,10 +162,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
       {/* Kennzahlen als Messleiste */}
       {study.metrics.length > 0 && (
-        <dl className="frame-ruled grid border-b-2 border-border sm:grid-cols-3">
+        <dl data-rv-stagger="100" className="frame-ruled grid border-b-2 border-border sm:grid-cols-3">
           {study.metrics.map((metric, i) => (
             <div
               key={metric.label}
+              data-rv="up"
               className={`flex flex-col-reverse justify-end border-b-2 border-border p-[var(--spacing-gutter)] py-8 last:border-b-0 sm:border-b-0 ${
                 i < study.metrics.length - 1 ? "sm:border-r-2" : ""
               } ${i === 0 ? "bg-foreground text-background" : ""}`}
@@ -178,9 +179,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
       )}
 
       {/* Herausforderung → Lösung → Ergebnis: Protokoll-Zeilen */}
-      <ol className="border-b-2 border-border">
+      <ol data-rv-stagger="100" className="border-b-2 border-border">
         {NARRATIVE.map((block) => (
-          <li key={block.key} className="border-b-2 border-border last:border-b-0">
+          <li key={block.key} data-rv="up" className="border-b-2 border-border last:border-b-0">
             <div className="frame grid gap-4 py-10 lg:grid-cols-12 lg:gap-6 lg:py-14">
               <p className="label lg:col-span-2">
                 <span className="bg-foreground px-1.5 py-0.5 text-background">{block.step}</span>

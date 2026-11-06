@@ -13,9 +13,9 @@ export function Faq() {
       <div className="frame">
         <SectionHead id="faq-title" index="08" label={faq.eyebrow} title={faq.title} subtitle={faq.subtitle} />
         <div className="mt-16 grid md:grid-cols-12">
-          <div className="border-t-2 border-border md:col-span-9 md:col-start-4">
+          <div data-rv-stagger="70" className="border-t-2 border-border md:col-span-9 md:col-start-4">
             {faq.items.map((item, i) => (
-              <details key={item.question} className="group border-b-2 border-border">
+              <details key={item.question} data-rv="up" className="group border-b-2 border-border">
                 <summary className="flex cursor-pointer list-none items-start gap-5 py-6 hover:bg-foreground hover:text-background [&::-webkit-details-marker]:hidden">
                   <span className="label shrink-0 pt-1.5">F{String(i + 1).padStart(2, "0")}</span>
                   <span className="flex-1 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-bold leading-tight">

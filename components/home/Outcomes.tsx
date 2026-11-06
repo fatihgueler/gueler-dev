@@ -14,10 +14,11 @@ export function Outcomes() {
       <div className="frame">
         <SectionHead id="outcomes-title" index="07" label={outcomes.eyebrow} title={outcomes.title} />
       </div>
-      <ul className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
+      <ul data-rv-stagger="110" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
         {outcomes.items.map((item, i) => (
           <li
             key={item.title}
+            data-rv="up"
             className={`relative flex min-h-[18rem] flex-col md:min-h-[22rem] justify-end overflow-hidden border-b-2 border-border p-[var(--spacing-gutter)] md:p-8 ${spans[i]} ${
               i % 2 === 0 ? "md:border-r-2" : ""
             } ${i >= 2 ? "md:border-b-0" : ""} ${i === 0 ? "bg-signal text-on-signal" : ""}`}

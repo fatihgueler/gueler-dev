@@ -15,7 +15,7 @@ const rows = [
 /** Kontakt-Datenblatt: Zeilen mit Mono-Label, Hover invertiert. */
 export function ContactRows() {
   return (
-    <dl className="border-t-2 border-border">
+    <dl data-rv-stagger="70" className="border-t-2 border-border">
       {rows.map((row) => {
         const inner = (
           <>
@@ -30,13 +30,14 @@ export function ContactRows() {
             data-umami-event={row.event}
             target={row.external ? "_blank" : undefined}
             rel={row.external ? "noopener noreferrer" : undefined}
+            data-rv="left"
             className="row-invert flex items-baseline gap-4 border-b-2 border-border px-1 py-4"
           >
             {inner}
             <span aria-hidden className="ml-auto font-mono">{row.external ? "↗" : "→"}</span>
           </a>
         ) : (
-          <div key={row.label} className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
+          <div key={row.label} data-rv="left" className="flex items-baseline gap-4 border-b-2 border-border px-1 py-4">
             {inner}
           </div>
         );
@@ -55,7 +56,7 @@ export function Contact() {
             {contact.eyebrow}
           </p>
           <div className="md:col-span-9">
-            <h2 id="kontakt-title" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
+            <h2 id="kontakt-title" data-rv="rise" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
               {contact.title}
             </h2>
             <p className="mt-6 max-w-2xl text-[length:var(--text-lead)] text-muted">{contact.subtitle}</p>
@@ -73,7 +74,7 @@ export function Contact() {
               </BookingButton>
             </div>
           </div>
-          <div className="min-w-0 lg:col-span-7">
+          <div data-rv="up" className="min-w-0 lg:col-span-7">
             <ContactFormLazy />
           </div>
         </div>

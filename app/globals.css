@@ -378,29 +378,100 @@ html {
   animation-play-state: paused;
 }
 
-/* Scroll-getriebene Reveals (nur wo animation-timeline existiert) */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .rv {
-      animation: rv-in linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
-    }
-    .rv-x {
-      animation: rv-x linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 45%;
-    }
+/* ── Reveal-System (RevealObserver.tsx) ──────────────────────
+   Versteckt wird nur mit JS (html.anim-ready) und nur ohne
+   reduzierte Bewegung. Harte Kurven, teils steps() – kein Weichzeichnen. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim-ready [data-rv] {
+    transition:
+      opacity 0.5s var(--ease-snap),
+      transform 0.6s var(--ease-snap),
+      clip-path 0.6s var(--ease-snap);
+    transition-delay: var(--rv-delay, 0ms);
+  }
+  html.anim-ready [data-rv]:not(.is-in) {
+    opacity: 0;
+  }
+  html.anim-ready [data-rv="up"]:not(.is-in) {
+    transform: translateY(2.5rem);
+  }
+  html.anim-ready [data-rv="left"]:not(.is-in) {
+    transform: translateX(-2.5rem);
+  }
+  /* Harte Blende von links, abgehackt in 6 Stufen */
+  html.anim-ready [data-rv="wipe"] {
+    transition-timing-function: steps(6, end);
+  }
+  html.anim-ready [data-rv="wipe"]:not(.is-in) {
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+  }
+  /* Display-Zeilen steigen aus einer Kante auf */
+  html.anim-ready [data-rv="rise"]:not(.is-in) {
+    opacity: 1;
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(0.35em);
+  }
+  /* Stempel knallt auf */
+  html.anim-ready [data-rv="stamp"] {
+    transition-duration: 0.35s;
+  }
+  html.anim-ready [data-rv="stamp"]:not(.is-in) {
+    transform: rotate(-4deg) scale(1.8);
+  }
+  /* Linie zieht sich auf */
+  html.anim-ready [data-rv="line"] {
+    transform-origin: left center;
+  }
+  html.anim-ready [data-rv="line"]:not(.is-in) {
+    opacity: 1;
+    transform: scaleX(0);
+  }
+
+  /* Hero: Fußzeile staffelt nach den Headline-Zeilen ein */
+  .hero-foot > * {
+    animation: foot-in 0.5s var(--ease-snap) both;
+  }
+  .hero-foot > :nth-child(1) { animation-delay: 0.45s; }
+  .hero-foot > :nth-child(2) { animation-delay: 0.55s; }
+  .hero-foot > :nth-child(3) { animation-delay: 0.65s; }
+
+  /* Pfeile schubsen beim Hover */
+  .nudge {
+    display: inline-block;
+    transition: transform var(--dur-fast) linear;
+  }
+  :hover > .nudge,
+  :focus-visible > .nudge {
+    transform: translateX(0.3em);
+  }
+  :hover > .nudge-down,
+  :focus-visible > .nudge-down {
+    transform: translateY(0.25em);
   }
 }
-@keyframes rv-in {
-  from { opacity: 0; transform: translateY(2.5rem); }
+@keyframes foot-in {
+  from { opacity: 0; transform: translateY(1rem); }
   to { opacity: 1; transform: none; }
 }
-@keyframes rv-x {
-  from { transform: translateX(-12%); }
-  to { transform: none; }
+
+/* Scroll-Parallax der Hero-Headline (nur wo scroll-timelines existieren):
+   Zeile 1 driftet nach links, der Stempel nach rechts, während der Hero
+   aus dem Bild scrollt. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .drift-l,
+    .drift-r {
+      animation: linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+    .drift-l { animation-name: drift-l; }
+    .drift-r { animation-name: drift-r; }
+  }
 }
+@keyframes drift-l { to { translate: -12vw 0; } }
+@keyframes drift-r { to { translate: 14vw 0; } }
 
 /* Signature Moment: Festpreis-Stempel knallt einmal auf (Startseite) */
 @keyframes stamp {
@@ -423,8 +494,8 @@ html {
   .hero-line:nth-child(4) { animation-delay: 0.18s; }
 }
 @keyframes line-in {
-  from { clip-path: inset(0 0 100% 0); transform: translateY(0.3em); }
-  to { clip-path: inset(0 0 0 0); transform: none; }
+  from { clip-path: inset(0 -100vw 100% -100vw); transform: translateY(0.3em); }
+  to { clip-path: inset(-0.2em -100vw -0.2em -100vw); transform: none; }
 }
 
 /* Scroll-Fortschritt: 4px Signal-Balken unter dem Header */

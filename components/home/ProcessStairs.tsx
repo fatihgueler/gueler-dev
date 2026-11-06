@@ -19,10 +19,11 @@ export function ProcessStairs({ index = "03" }: { index?: string }) {
           subtitle={process.subtitle}
         />
       </div>
-      <ol className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-5">
+      <ol data-rv-stagger="120" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-5">
         {process.steps.map((step, i) => (
           <li
             key={step.number}
+            data-rv="up"
             className="border-b-2 border-border px-[var(--spacing-gutter)] pb-8 md:border-b-0 md:border-r-2 md:px-5 md:pb-12 md:last:border-r-0"
           >
             <div className="hidden md:block" style={{ height: `${i * 4}rem` }} aria-hidden />

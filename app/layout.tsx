@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { GrinFavicon } from "@/components/ui/GrinFavicon";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { RevealObserver } from "@/components/ui/RevealObserver";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
@@ -207,6 +208,7 @@ export default function RootLayout({
           <Header />
           <MotionProvider>
             <main id="main">{children}</main>
+            <RevealObserver />
             <Footer />
             <ConsentBanner />
             <Toaster />

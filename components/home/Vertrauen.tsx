@@ -18,12 +18,12 @@ export function Vertrauen() {
               <span className="bg-foreground px-1.5 py-0.5 text-background">06</span>
               {vertrauen.eyebrow}
             </p>
-            <h2 id="vertrauen-title" className="display mt-6 text-[clamp(2.75rem,1.4rem+5vw,6.5rem)]">
+            <h2 id="vertrauen-title" data-rv="rise" className="display mt-6 text-[clamp(2.75rem,1.4rem+5vw,6.5rem)]">
               {vertrauen.title}
             </h2>
             <p className="mt-6 max-w-md text-[length:var(--text-lead)] leading-snug">{vertrauen.subtitle}</p>
 
-            <figure className="mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)]">
+            <figure data-rv="up" className="mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)]">
               <div className="relative aspect-[4/5]">
                 <Image
                   src="/fatih.jpg"
@@ -45,11 +45,12 @@ export function Vertrauen() {
           </div>
         </div>
 
-        <ol className="md:col-span-7 md:pt-[var(--spacing-section)]">
+        <ol data-rv-stagger="90" className="md:col-span-7 md:pt-[var(--spacing-section)]">
           {vertrauen.items.map((item, i) => (
             <li
               key={item.title}
-              className="rv row-invert grid grid-cols-[auto_1fr] gap-x-5 border-t-2 border-border px-[var(--spacing-gutter)] py-8 last:border-b-0 md:px-10 md:py-10"
+              data-rv="left"
+              className="row-invert grid grid-cols-[auto_1fr] gap-x-5 border-t-2 border-border px-[var(--spacing-gutter)] py-8 last:border-b-0 md:px-10 md:py-10"
             >
               <span
                 aria-hidden

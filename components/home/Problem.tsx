@@ -17,6 +17,7 @@ export function Problem() {
           </p>
           <h2
             id="problem-title"
+            data-rv="up"
             className="font-display text-[clamp(2.1rem,1.2rem+4.2vw,5.5rem)] font-extrabold leading-[0.98] tracking-[-0.02em] md:col-span-9"
             style={{ fontStretch: "78%" }}
           >
@@ -28,11 +29,12 @@ export function Problem() {
           </h2>
         </div>
 
-        <ol className="mt-[var(--spacing-section)] grid border-t-2 border-border md:grid-cols-2">
+        <ol data-rv-stagger="90" className="mt-[var(--spacing-section)] grid border-t-2 border-border md:grid-cols-2">
           {storyPitch.pains.map((pain, i) => (
             <li
               key={pain}
-              className="rv flex gap-5 border-b-2 border-border py-6 md:px-6 md:even:border-l-2 md:[&:nth-child(odd)]:pl-0"
+              data-rv="up"
+              className="flex gap-5 border-b-2 border-border py-6 md:px-6 md:even:border-l-2 md:[&:nth-child(odd)]:pl-0"
             >
               <span className="label shrink-0 pt-1 text-signal-text">✕ {String(i + 1).padStart(2, "0")}</span>
               <p className="text-[length:var(--text-lead)] leading-snug">{pain}</p>
