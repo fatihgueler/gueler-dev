@@ -77,14 +77,22 @@ export function SectionHead({
   id?: string;
 }) {
   return (
-    <div className={cn("grid gap-6 md:grid-cols-12", className)}>
-      <div className="md:col-span-3">
+    <div data-sp className={cn("relative grid gap-6 md:grid-cols-12", className)}>
+      {/* Riesige Outline-Nummer, wandert beim Scrollen quer durch */}
+      <span
+        aria-hidden
+        className="display ghost-num px-x pointer-events-none absolute -top-[0.35em] right-0 select-none text-[clamp(9rem,24vw,24rem)] leading-none"
+        style={{ "--speed": 420 } as React.CSSProperties}
+      >
+        {index}
+      </span>
+      <div className="relative md:col-span-3">
         <p data-rv="wipe" className="label flex items-center gap-3">
           <span className="bg-foreground px-1.5 py-0.5 text-background">{index}</span>
           {label}
         </p>
       </div>
-      <div className="md:col-span-9">
+      <div className="sp-skew relative origin-left md:col-span-9">
         <h2 id={id} data-rv="rise" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
           {title}
         </h2>

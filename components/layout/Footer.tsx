@@ -11,7 +11,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t-2 border-border bg-foreground text-background">
+    <footer className="overflow-x-clip border-t-2 border-border bg-foreground text-background">
       <div className="mx-auto w-full max-w-[96rem]">
         <div className="grid md:grid-cols-12">
           {/* Spalte A: Aussage + Kontakt */}
@@ -95,10 +95,9 @@ export function Footer() {
         </div>
 
         {/* Wortmarke, unten abgeschnitten */}
-        <div aria-hidden className="h-[21vw] max-h-[19rem] select-none overflow-hidden pt-[3vw] md:pt-[min(3vw,2.5rem)]">
+        <div aria-hidden data-sp className="h-[21vw] max-h-[19rem] select-none overflow-hidden pt-[3vw] md:pt-[min(3vw,2.5rem)]">
           <p
-            data-rv="rise"
-            className="display wm-wave whitespace-nowrap text-center text-signal"
+            className="display wm-wave px-y whitespace-nowrap text-center text-signal"
             style={{ fontSize: "min(25vw, 22rem)", lineHeight: 0.8 }}
           >
             {Array.from("Güler.dev").map((ch, i) => (

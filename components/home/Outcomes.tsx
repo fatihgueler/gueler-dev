@@ -14,7 +14,7 @@ export function Outcomes() {
       <div className="frame">
         <SectionHead id="outcomes-title" index="07" label={outcomes.eyebrow} title={outcomes.title} />
       </div>
-      <ul data-rv-stagger="110" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
+      <ul data-sp data-rv-stagger="110" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
         {outcomes.items.map((item, i) => (
           <li
             key={item.title}
@@ -25,7 +25,8 @@ export function Outcomes() {
           >
             <span
               aria-hidden
-              className={`display pointer-events-none absolute right-3 top-3 select-none text-[clamp(6rem,10vw,10rem)] leading-[0.8] ${
+              style={{ "--speed": [240, -160, 320, -220][i] } as React.CSSProperties}
+              className={`display px-y pointer-events-none absolute right-3 top-3 select-none text-[clamp(6rem,10vw,10rem)] leading-[0.8] ${
                 i === 0 ? "text-transparent [-webkit-text-stroke:2px_var(--color-ink)]" : "outline-text"
               }`}
             >

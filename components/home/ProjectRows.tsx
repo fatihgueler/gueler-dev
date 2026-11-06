@@ -20,8 +20,15 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
         const img = study?.image ?? "/case-studies/placeholder.svg";
         const host = new URL(project.liveUrl).host;
         return (
-          <li key={project.title} data-rv="up" className="group relative border-b-2 border-border">
-            <div className="frame grid gap-6 py-8 md:grid-cols-12 md:py-12">
+          <li key={project.title} data-rv="up" data-sp className="group relative overflow-hidden border-b-2 border-border">
+            <span
+              aria-hidden
+              className="display ghost-num px-y pointer-events-none absolute -right-[2vw] top-0 select-none text-[clamp(10rem,28vw,26rem)] leading-[0.8]"
+              style={{ "--speed": 260 } as React.CSSProperties}
+            >
+              {String(startIndex + i).padStart(2, "0")}
+            </span>
+            <div className="frame relative grid gap-6 py-8 md:grid-cols-12 md:py-12">
               <div className="md:col-span-1">
                 <span className="label">{String(startIndex + i).padStart(2, "0")}</span>
               </div>
@@ -39,7 +46,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                   </span>
                   <span className="text-muted">{project.category}</span>
                 </p>
-                <h3 className="display mt-4 text-[clamp(3.25rem,2rem+6vw,9rem)] transition-transform duration-[180ms] ease-[var(--ease-snap)] md:group-hover:translate-x-4">
+                <h3 className="display px-x mt-4 text-[clamp(3.25rem,2rem+6vw,9rem)]" style={{ "--speed": i % 2 ? -220 : 220 } as React.CSSProperties}>
                   {project.title}
                 </h3>
 
@@ -50,7 +57,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                   rel="noopener noreferrer"
                   tabIndex={-1}
                   aria-hidden
-                  className="mt-6 block border-2 border-border md:hidden"
+                  className="sp-curtain mt-6 block overflow-hidden border-2 border-border md:hidden"
                 >
                   <Image
                     src={img}
@@ -58,7 +65,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                     width={1200}
                     height={750}
                     sizes="100vw"
-                    className="block aspect-[16/10] w-full object-cover object-top"
+                    className="sp-zoom block aspect-[16/10] w-full object-cover object-top"
                   />
                 </a>
               </div>

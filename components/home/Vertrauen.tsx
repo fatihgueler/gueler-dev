@@ -23,14 +23,14 @@ export function Vertrauen() {
             </h2>
             <p className="mt-6 max-w-md text-[length:var(--text-lead)] leading-snug">{vertrauen.subtitle}</p>
 
-            <figure data-rv="up" className="mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)]">
-              <div className="relative aspect-[4/5]">
+            <figure data-rv="up" data-sp className="sp-turn mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)]">
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src="/fatih.jpg"
                   alt="Fatih Güler – Freelance Webentwickler aus Hannover"
                   fill
                   sizes="(min-width: 768px) 24rem, 90vw"
-                  className="object-cover grayscale contrast-[1.1]"
+                  className="sp-zoom object-cover grayscale contrast-[1.1]"
                 />
               </div>
               <figcaption className="flex items-center justify-between gap-3 border-t-2 border-border bg-background px-3 py-2">
@@ -45,7 +45,7 @@ export function Vertrauen() {
           </div>
         </div>
 
-        <ol data-rv-stagger="90" className="md:col-span-7 md:pt-[var(--spacing-section)]">
+        <ol data-sp data-rv-stagger="90" className="md:col-span-7 md:pt-[var(--spacing-section)]">
           {vertrauen.items.map((item, i) => (
             <li
               key={item.title}

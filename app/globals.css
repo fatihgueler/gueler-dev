@@ -737,3 +737,63 @@ html.has-cursor .cursor-box {
     display: none !important;
   }
 }
+
+/* ═════════════════════════════════════════════════════════════
+   Scroll-Engine (ScrollEngine.tsx): Parallax als reines CSS über
+   --p (0…1 Fortschritt durchs Viewport) und --vel (Scroll-Tempo).
+   Ohne Engine/bei reduzierter Bewegung gilt --p: .5 = Ruhelage.
+   Eigene Properties translate/scale/rotate → kein Konflikt mit den
+   transform-basierten Reveals.
+   ═════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Vertikales Parallax: --speed in px über den ganzen Durchlauf */
+  .px-y {
+    translate: 0 calc((var(--p, 0.5) - 0.5) * var(--speed, 120) * -1px);
+    will-change: translate;
+  }
+  /* Horizontales Parallax */
+  .px-x {
+    translate: calc((var(--p, 0.5) - 0.5) * var(--speed, 200) * -1px) 0;
+    will-change: translate;
+  }
+  /* Bild zoomt beim Durchlauf von 1.25 auf 1.0 */
+  .sp-zoom {
+    scale: calc(1.25 - min(var(--p, 0.5), 1) * 0.25);
+    will-change: scale;
+  }
+  /* Element wächst beim Eintritt von 0.82 auf 1 */
+  .sp-grow {
+    scale: calc(0.82 + min(var(--p, 0.5) * 2.2, 1) * 0.18);
+  }
+  /* Dreht leicht mit dem Fortschritt */
+  .sp-turn {
+    rotate: calc((var(--p, 0.5) - 0.5) * var(--turn, 8) * 1deg);
+  }
+  /* Blendet beim Verlassen nach oben aus und rückt zurück (Seitenköpfe) */
+  .sp-leave {
+    opacity: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 2.4);
+    scale: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 0.15);
+    transform-origin: 50% 0;
+  }
+  /* Schräglage nach Scroll-Tempo (nur auf Wrappern einsetzen) */
+  .sp-skew {
+    transform: skewY(calc(var(--vel, 0) * -3deg));
+    transition: transform 0.08s linear;
+  }
+  /* Bild-Enthüllung: Vorhang fährt von unten auf */
+  .sp-curtain {
+    clip-path: inset(calc((1 - min(var(--p, 0.5) * 2.6, 1)) * 100%) 0 0 0);
+  }
+}
+
+/* Hero-Hintergrundzahl: haarfeine Outline, liegt hinter allem */
+.hero-ghost {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-foreground) 13%, transparent);
+  z-index: 0;
+}
+/* Riesige Abschnittsnummer hinter Abschnittsköpfen */
+.ghost-num {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-foreground) 12%, transparent);
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -81,7 +82,7 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
           width={1200}
           height={750}
           sizes="(min-width: 1536px) 1400px, 100vw"
-          className="block aspect-[16/10] w-full object-cover object-top"
+          className="sp-zoom block aspect-[16/10] w-full object-cover object-top"
           priority
         />
         {hasLink && (
@@ -121,7 +122,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   return (
     <article>
       {/* Kopf: Index-Spalte + riesiger Projektname */}
-      <header className="border-b-2 border-border">
+      <header data-sp className="overflow-hidden border-b-2 border-border">
         <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
           <div className="flex items-center justify-between gap-4 border-b-2 border-border px-[var(--spacing-gutter)] py-4 md:col-span-3 md:flex-col md:items-start md:justify-start md:border-b-0 md:border-r-2 md:py-8">
             <Link href="/projekte" className="label link inline-block py-2">
@@ -144,7 +145,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               </span>
               <span className="text-muted">{study.category}</span>
             </p>
-            <h1 className="display hero-line mt-6 text-[clamp(3.5rem,1.5rem+11vw,14rem)]">{study.title}</h1>
+            <h1 className="display hero-line mt-6 text-[clamp(3.5rem,1.5rem+11vw,14rem)]"><span className="px-x block" style={{ "--speed": 360 } as React.CSSProperties}>{study.title}</span></h1>
             <p className="mt-8 max-w-2xl text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug">
               {study.tagline}
             </p>
@@ -155,7 +156,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Live-Vorschau */}
       <div className="grid-lines border-b-2 border-border py-[clamp(2.5rem,6vw,6rem)]">
         <div className="frame">
-          <div data-rv="up" className="mx-auto max-w-6xl pr-3">
+          <div data-rv="up" data-sp className="sp-grow mx-auto max-w-6xl pr-3">
             <PreviewWindow study={study} />
           </div>
         </div>
@@ -180,14 +181,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
       )}
 
       {/* Herausforderung → Lösung → Ergebnis: Protokoll-Zeilen */}
-      <ol data-rv-stagger="100" className="border-b-2 border-border">
+      <ol data-sp data-rv-stagger="100" className="border-b-2 border-border">
         {NARRATIVE.map((block) => (
           <li key={block.key} data-rv="up" className="border-b-2 border-border last:border-b-0">
             <div className="frame grid gap-4 py-10 lg:grid-cols-12 lg:gap-6 lg:py-14">
               <p className="label lg:col-span-2">
                 <span className="bg-foreground px-1.5 py-0.5 text-background">{block.step}</span>
               </p>
-              <h2 className="display text-[clamp(2.25rem,1.2rem+2.6vw,3.75rem)] lg:col-span-5">{block.label}</h2>
+              <h2 className="display px-x text-[clamp(2.25rem,1.2rem+2.6vw,3.75rem)] lg:col-span-5" style={{ "--speed": 160 } as React.CSSProperties}>{block.label}</h2>
               <p className="max-w-2xl text-[length:var(--text-lead)] leading-relaxed lg:col-span-5">{study[block.key]}</p>
             </div>
           </li>

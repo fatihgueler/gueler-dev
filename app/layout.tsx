@@ -13,6 +13,7 @@ import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { Cursor } from "@/components/ui/Cursor";
+import { ScrollEngine } from "@/components/ui/ScrollEngine";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
@@ -209,8 +210,9 @@ export default function RootLayout({
           <ConsoleSignature />
           <Header />
           <MotionProvider>
-            <main id="main">{children}</main>
+            <main id="main" className="overflow-x-clip">{children}</main>
             <RevealObserver />
+            <ScrollEngine />
             <Footer />
             <ConsentBanner />
             <Toaster />

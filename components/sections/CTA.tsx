@@ -14,9 +14,9 @@ export function CTA() {
   return (
     <>
     <BigMarquee />
-    <section className="bg-signal text-on-signal">
+    <section data-sp className="overflow-hidden bg-signal text-on-signal">
       <div className="frame grid gap-10 py-[var(--spacing-section)] md:grid-cols-12">
-        <h2 data-rv="rise" className="display text-[clamp(3rem,1.5rem+7vw,9rem)] md:col-span-8">{cta.title}</h2>
+        <h2 data-rv="rise" className="display px-x text-[clamp(3rem,1.5rem+7vw,9rem)] md:col-span-8" style={{ "--speed": 260 } as React.CSSProperties}>{cta.title}</h2>
         <div data-rv="up" className="flex flex-col justify-end gap-6 md:col-span-4">
           <p className="text-lg font-medium leading-snug">{cta.subtitle}</p>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col">

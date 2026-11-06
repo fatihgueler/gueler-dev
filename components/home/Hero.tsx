@@ -15,10 +15,19 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
+      data-sp
       className="relative overflow-hidden border-b-2 border-border"
     >
       {/* Sichtbares 12er-Raster als Hilfslinien */}
-      <div aria-hidden className="grid-lines grid-draw pointer-events-none absolute inset-0" />
+      <div aria-hidden className="grid-lines grid-draw px-y pointer-events-none absolute -inset-y-40 inset-x-0" style={{ "--speed": 260 } as React.CSSProperties} />
+      {/* Hintergrund-Ebene: Preis als riesige Outline, wandert gegen die Headline */}
+      <span
+        aria-hidden
+        className="display hero-ghost px-x pointer-events-none absolute -right-[4vw] bottom-[18%] select-none whitespace-nowrap text-[clamp(8rem,30vw,32rem)] leading-none"
+        style={{ "--speed": -700 } as React.CSSProperties}
+      >
+        ab 500 €
+      </span>
 
       <div className="frame relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">
         {/* Kopfzeile des Blatts */}
@@ -34,8 +43,8 @@ export function Hero() {
           id="hero-title"
           className="display relative py-[clamp(1.5rem,4svh,3rem)] text-[clamp(3.1rem,min(15vw,19.5svh),20vw)]"
         >
-          <span className="hero-line block"><span className="drift-l block"><SplitChars text={hero.lines[0]} className="chars" /></span></span>
-          <span className="hero-line drift-r relative z-10 -mt-[0.06em] block">
+          <span className="hero-line block"><span className="px-x block" style={{ "--speed": 520 } as React.CSSProperties}><SplitChars text={hero.lines[0]} className="chars" /></span></span>
+          <span className="hero-line px-x relative z-10 -mt-[0.06em] block" style={{ "--speed": -760 } as React.CSSProperties}>
             <span className="stamp stamp-in inline-block origin-left border-2 border-ink bg-signal px-[0.08em] pb-[0.02em] pt-[0.1em] text-on-signal shadow-[0.06em_0.06em_0_0_var(--color-foreground)]">
               {hero.lines[1]}
             </span>
@@ -43,7 +52,7 @@ export function Hero() {
         </h1>
 
         {/* Fußzeile: Subline · CTAs · Checks im Raster */}
-        <div className="hero-foot mt-auto grid border-t-2 border-border md:grid-cols-12">
+        <div className="hero-foot relative z-10 mt-auto grid border-t-2 border-border bg-background md:grid-cols-12">
           <p className="py-5 text-[length:var(--text-lead)] leading-snug md:col-span-5 md:border-r-2 md:border-border md:py-6 md:pr-6">
             {hero.subtitle}
           </p>

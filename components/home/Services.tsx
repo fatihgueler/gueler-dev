@@ -19,7 +19,7 @@ export function Services({ index = "02", label = services.eyebrow }: { index?: s
           subtitle={services.subtitle}
         />
       </div>
-      <ol data-rv-stagger="90" className="mt-16 border-t-2 border-border">
+      <ol data-sp data-rv-stagger="90" className="mt-16 border-t-2 border-border">
         {services.items.map((item, i) => (
           <li key={item.title} data-rv="up" className="row-invert group relative overflow-hidden border-b-2 border-border last:border-b-0">
             <span
@@ -32,7 +32,7 @@ export function Services({ index = "02", label = services.eyebrow }: { index?: s
               <span className="label signal-inv text-signal-text md:col-span-1 md:pt-2">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="display text-[clamp(2.25rem,1.5rem+3vw,4.25rem)] md:col-span-4">{item.title}</h3>
+              <h3 className="display px-x text-[clamp(2.25rem,1.5rem+3vw,4.25rem)] md:col-span-4" style={{ "--speed": i % 2 ? -140 : 140 } as React.CSSProperties}>{item.title}</h3>
               <p className="muted-inv text-[length:var(--text-lead)] leading-snug text-muted md:col-span-4">
                 {item.description}
               </p>

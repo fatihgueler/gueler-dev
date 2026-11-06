@@ -15,7 +15,7 @@ interface PageHeroProps {
  */
 export function PageHero({ eyebrow, title, subtitle, stamp, children }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b-2 border-border">
+    <section data-sp className="relative overflow-hidden border-b-2 border-border">
       <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
         <div className="flex items-start justify-between gap-4 border-b-2 border-border px-[var(--spacing-gutter)] py-4 md:col-span-3 md:flex-col md:border-b-0 md:border-r-2 md:py-8">
           <p className="label flex items-center gap-3">
@@ -25,13 +25,14 @@ export function PageHero({ eyebrow, title, subtitle, stamp, children }: PageHero
           {stamp && (
             <span
               aria-hidden
-              className="display outline-text select-none text-[clamp(2.5rem,8vw,9rem)] leading-[0.8]"
+              className="display outline-text px-y select-none text-[clamp(2.5rem,8vw,9rem)] leading-[0.8]"
+              style={{ "--speed": 380 } as React.CSSProperties}
             >
               {stamp}
             </span>
           )}
         </div>
-        <div className="px-[var(--spacing-gutter)] pb-12 pt-10 md:col-span-9 md:pb-16 md:pt-14">
+        <div className="sp-leave px-[var(--spacing-gutter)] pb-12 pt-10 md:col-span-9 md:pb-16 md:pt-14">
           <h1 className="display hero-line text-[length:var(--text-h1)]">{title}</h1>
           {subtitle && (
             <p className="mt-8 max-w-2xl text-[length:var(--text-lead)] leading-relaxed text-muted">

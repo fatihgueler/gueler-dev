@@ -29,6 +29,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
               key={item.title}
               aria-labelledby={`paket-${i}`}
               data-rv="up"
+              data-sp
               className={`relative overflow-x-clip border-b-2 border-border ${inv ? "bg-foreground text-background" : ""}`}
             >
               <div className="frame grid gap-8 py-10 md:grid-cols-12 md:py-14">
@@ -39,10 +40,10 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                     </span>
                     {item.time}
                   </p>
-                  <h3 id={`paket-${i}`} className="display mt-4 text-[clamp(2.25rem,1.5rem+3vw,4rem)]">
+                  <h3 id={`paket-${i}`} className="display px-x mt-4 text-[clamp(2.25rem,1.5rem+3vw,4rem)]" style={{ "--speed": 120 } as React.CSSProperties}>
                     {item.title}
                   </h3>
-                  <p className="display mt-3 text-[clamp(3.5rem,2rem+6vw,8rem)]">
+                  <p className="display sp-grow mt-3 origin-left text-[clamp(3.5rem,2rem+6vw,8rem)]">
                     {inv ? <span className="mark">{item.price}</span> : item.price}
                   </p>
                 </div>

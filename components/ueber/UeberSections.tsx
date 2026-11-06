@@ -10,15 +10,15 @@ export function About() {
     <section id="ueber" aria-labelledby="about-title" className="border-b-2 border-border">
       <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
         <div className="border-b-2 border-border p-[var(--spacing-gutter)] py-10 md:col-span-5 md:border-b-0 md:border-r-2 md:py-14">
-          <figure data-rv="up" className="border-2 border-border shadow-[10px_10px_0_0_var(--color-signal)]">
-            <div className="relative aspect-[4/5]">
+          <figure data-rv="up" data-sp className="sp-turn border-2 border-border shadow-[10px_10px_0_0_var(--color-signal)]">
+            <div className="relative aspect-[4/5] overflow-hidden">
               <Image
                 src="/fatih.jpg"
                 alt="Fatih Güler – Freelance Webentwickler aus Hannover"
                 fill
                 priority
                 sizes="(min-width: 768px) 40vw, 92vw"
-                className="object-cover grayscale contrast-[1.1]"
+                className="sp-zoom object-cover grayscale contrast-[1.1]"
               />
             </div>
             <figcaption className="grid grid-cols-2 border-t-2 border-border bg-background">
@@ -61,11 +61,11 @@ export function Timeline() {
       <div className="frame">
         <SectionHead id="timeline-title" index="02" label={timeline.eyebrow} title={timeline.title} />
       </div>
-      <ol data-rv-stagger="100" className="mt-16 border-t-2 border-border">
+      <ol data-sp data-rv-stagger="100" className="mt-16 border-t-2 border-border">
         {timeline.steps.map((step) => (
           <li key={step.title} data-rv="up" className="row-invert border-b-2 border-border last:border-b-0">
             <div className="frame grid gap-3 py-8 md:grid-cols-12 md:gap-6">
-              <span className="display text-[clamp(2rem,1.5rem+2vw,3.5rem)] md:col-span-3">{step.period}</span>
+              <span className="display px-x text-[clamp(2rem,1.5rem+2vw,3.5rem)] md:col-span-3" style={{ "--speed": 180 } as React.CSSProperties}>{step.period}</span>
               <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "80%" }}>
                 {step.title}
               </h3>
@@ -86,7 +86,7 @@ export function Skills() {
       <div className="frame">
         <SectionHead id="skills-title" index="03" label={skills.eyebrow} title={skills.title} subtitle={skills.subtitle} />
       </div>
-      <div data-rv-stagger="120" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
+      <div data-sp data-rv-stagger="120" className="frame-ruled mt-16 grid border-t-2 border-border md:grid-cols-12">
         {skills.groups.map((group, i) => (
           <div
             key={group.label}
@@ -98,7 +98,7 @@ export function Skills() {
             <h3 className="label bg-foreground px-2 py-1 text-background inline-block">{group.label}</h3>
             <ul className="mt-6">
               {group.items.map((item) => (
-                <li key={item} className="display border-b-2 border-border py-2 text-[clamp(1.75rem,1.3rem+1.5vw,2.75rem)] last:border-b-0">
+                <li key={item} className="display px-x border-b-2 border-border py-2 text-[clamp(1.75rem,1.3rem+1.5vw,2.75rem)] last:border-b-0" style={{ "--speed": (i % 2 ? -1 : 1) * 70 } as React.CSSProperties}>
                   {item}
                 </li>
               ))}

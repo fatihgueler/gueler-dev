@@ -23,7 +23,7 @@ export function Problem() {
           />
         </div>
 
-        <ol data-rv-stagger="90" className="mt-[var(--spacing-section)] grid border-t-2 border-border md:grid-cols-2">
+        <ol data-sp data-rv-stagger="90" className="mt-[var(--spacing-section)] grid border-t-2 border-border md:grid-cols-2">
           {storyPitch.pains.map((pain, i) => (
             <li
               key={pain}
@@ -31,7 +31,7 @@ export function Problem() {
               className="flex gap-5 border-b-2 border-border py-6 md:px-6 md:even:border-l-2 md:[&:nth-child(odd)]:pl-0"
             >
               <span className="label shrink-0 pt-1 text-signal-text">✕ {String(i + 1).padStart(2, "0")}</span>
-              <p className="text-[length:var(--text-lead)] leading-snug">{pain}</p>
+              <p className="px-x text-[length:var(--text-lead)] leading-snug" style={{ "--speed": i % 2 ? -90 : 90 } as React.CSSProperties}>{pain}</p>
             </li>
           ))}
         </ol>

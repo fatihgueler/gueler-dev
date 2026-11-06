@@ -13,7 +13,7 @@ export function Faq() {
       <div className="frame">
         <SectionHead id="faq-title" index="08" label={faq.eyebrow} title={faq.title} subtitle={faq.subtitle} />
         <div className="mt-16 grid md:grid-cols-12">
-          <div data-rv-stagger="70" className="border-t-2 border-border md:col-span-9 md:col-start-4">
+          <div data-rv-stagger="70" className="sp-skew origin-left border-t-2 border-border md:col-span-9 md:col-start-4">
             {faq.items.map((item, i) => (
               <details key={item.question} data-rv="up" className="group border-b-2 border-border">
                 <summary className="flex cursor-pointer list-none items-start gap-5 py-6 hover:bg-foreground hover:text-background [&::-webkit-details-marker]:hidden">
