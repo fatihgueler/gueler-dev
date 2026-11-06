@@ -109,10 +109,16 @@ function HeroAssembly() {
   // sobald sich der Schriftzug zusammensetzt (sonst Überlagerung).
   const opener = useTransform(progress, [0, 0.24, 0.32], [1, 1, 0]);
   const openerPE = useTransform(progress, (v) => (v < 0.3 ? "auto" : "none"));
+  // visibility statt nur opacity: unsichtbare Links fallen aus Tab-Reihenfolge
+  // und Accessibility-Baum (sonst Fokus auf unsichtbaren Buttons).
+  const openerVis = useTransform(progress, (v) => (v < 0.32 ? "visible" : "hidden"));
   // Beat 3: kompakte Headline + CTA unter dem fertigen Schriftzug (Original-Timing).
   const beat3 = useTransform(progress, [0.64, 0.7, 0.86, 0.98], [0, 1, 1, 0]);
   const beat3PE = useTransform(progress, (v) =>
     v > 0.68 && v < 0.94 ? "auto" : "none",
+  );
+  const beat3Vis = useTransform(progress, (v) =>
+    v > 0.64 && v < 0.98 ? "visible" : "hidden",
   );
 
   return (
@@ -178,7 +184,7 @@ function HeroAssembly() {
 
         {/* Opener — ab dem ersten Frame sichtbar */}
         <m.div
-          style={{ opacity: opener, pointerEvents: openerPE }}
+          style={{ opacity: opener, pointerEvents: openerPE, visibility: openerVis }}
           className="absolute inset-x-0 bottom-[5%] z-10 mx-auto flex w-full max-w-3xl flex-col items-start px-6 text-left md:bottom-[8%] md:items-center md:text-center"
         >
           <HeroCopy />
@@ -186,9 +192,8 @@ function HeroAssembly() {
 
         {/* Beat 3 — kompakt unter dem fertigen Schriftzug */}
         <m.div
-          style={{ opacity: beat3, pointerEvents: beat3PE }}
+          style={{ opacity: beat3, pointerEvents: beat3PE, visibility: beat3Vis }}
           className="absolute inset-x-0 bottom-[8%] z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-6 text-center"
-          aria-hidden
         >
           <p
             className="font-display font-bold leading-[1.05] tracking-tight text-foreground [text-wrap:balance]"
@@ -199,7 +204,7 @@ function HeroAssembly() {
           </p>
           <a
             href={hero.cta.href}
-            tabIndex={-1}
+            data-umami-event="hero-erstgespraech"
             className="group mt-6 inline-flex shrink-0 items-center gap-3 border border-violet-3 bg-violet px-8 py-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-violet-2"
           >
             {hero.cta.label}

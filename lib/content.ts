@@ -14,6 +14,8 @@ export const site = {
   email: "fatih.gueler75@gmail.com",
   phone: "+4915777688060",
   phoneDisplay: "+49 1577 7688060",
+  /** Antwortzeit an EINER Stelle. Ab 01.02.2027 auf "48 Stunden" ändern. */
+  responseTime: "24 Stunden",
   // wa.me braucht die internationale Nummer ohne + und ohne führende 0.
   whatsapp: "https://wa.me/4915777688060",
   calendly: "https://calendly.com/fatih-gueler75",
@@ -82,7 +84,7 @@ export const hero = {
   secondary: { label: "Erst Preise ansehen", href: "#pakete" },
   checks: [
     "Festpreis, bevor es losgeht",
-    "Antwort meist innerhalb 24 Stunden",
+    `Antwort meist innerhalb ${site.responseTime}`,
     "Code und Domain gehören dir",
   ],
   scrollHint: "nach unten scrollen",
@@ -377,8 +379,8 @@ export const contact = {
   eyebrow: "Kontakt",
   title: "Kostenloses Erstgespräch anfragen",
   subtitle:
-    "Schreib mir kurz, was dein Betrieb macht – egal ob mit oder ohne Website. Du bekommst eine ehrliche Einschätzung, meist innerhalb von 24 Stunden.",
-  successMessage: "✅ Nachricht gesendet! Ich melde mich meist innerhalb von 24 Stunden.",
+    `Schreib mir kurz, was dein Betrieb macht – egal ob mit oder ohne Website. Du bekommst eine ehrliche Einschätzung, meist innerhalb von ${site.responseTime}.`,
+  successMessage: `✅ Nachricht gesendet! Ich melde mich meist innerhalb von ${site.responseTime}.`,
   errorMessage:
     "❌ Etwas hat nicht geklappt. Bitte versuch es erneut oder schreib direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
@@ -506,7 +508,7 @@ export const pages = {
     eyebrow: "Kontakt",
     title: "Lass uns dein Projekt besprechen",
     subtitle:
-      "Erzähl mir kurz, was du vorhast – ich melde mich in der Regel innerhalb von 24 Stunden zurück.",
+      `Erzähl mir kurz, was du vorhast – ich melde mich in der Regel innerhalb von ${site.responseTime} zurück.`,
   },
 };
 
@@ -556,6 +558,8 @@ export type CaseStudy = {
   challenge: string;
   solution: string;
   result: string;
+  /** Kundenauftrag oder eigenes Produkt — wird als Badge gezeigt. */
+  kind: "Kundenprojekt" | "Eigenprojekt";
   tags: string[];
   metrics: CaseStudyMetric[];
   color: CaseStudyColor;
@@ -568,6 +572,7 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "buerobruecke",
     title: "BüroBrücke",
+    kind: "Eigenprojekt",
     category: "KI-Tool / SaaS",
     tagline: "Bürokratie einfach erklärt – für alle.",
     challenge:
@@ -589,6 +594,7 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "voxnote",
     title: "VoxNote",
+    kind: "Eigenprojekt",
     category: "KI-SaaS / Praxis-Dokumentation",
     tagline: "Diktieren statt tippen – strukturierte SOAP-Notizen in Sekunden.",
     challenge:
@@ -610,6 +616,7 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "lead-finder",
     title: "Lead-Finder",
+    kind: "Eigenprojekt",
     category: "Web-App / Lead-Recherche",
     tagline: "Betriebe ohne Website finden – die ideale Zielgruppe für Webentwickler.",
     challenge:
@@ -631,6 +638,7 @@ export const caseStudies: CaseStudy[] = [
   {
     id: "weitblick",
     title: "Weitblick",
+    kind: "Kundenprojekt",
     category: "Marketing-Website / Lead-Funnel",
     tagline: "Energetische Sanierung verständlich machen – und Anfragen, die ankommen.",
     challenge:

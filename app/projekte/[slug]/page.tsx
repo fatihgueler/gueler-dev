@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { caseStudies, projects, type CaseStudy } from "@/lib/content";
+import { caseStudies, type CaseStudy } from "@/lib/content";
 import { Section } from "@/components/Section";
 import { CTA } from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function metaDescription(text: string, max = 155) {
   if (text.length <= max) return text;
   const cut = text.slice(0, max - 1);
-  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+  const space = cut.lastIndexOf(" ");
+  return `${space > 0 ? cut.slice(0, space) : cut}…`;
 }
 
 const NARRATIVE = [
@@ -133,7 +134,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   if (!study) {
     notFound();
   }
-  const kind = projects.items.find((p) => p.title === study.title)?.kind;
+  const kind = study.kind;
 
   return (
     <article className="relative">

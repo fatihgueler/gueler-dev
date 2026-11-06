@@ -3,12 +3,12 @@
 import * as React from "react";
 import { ArrowUpRight } from "lucide-react";
 
-import { cta } from "@/lib/content";
+import { cta, site } from "@/lib/content";
 import { Reveal } from "@/components/animation/Reveal";
 
 const TRUST_ITEMS = [
   "Kostenlos & unverbindlich",
-  "Antwort in 24h",
+  `Antwort in ${site.responseTime}`,
   "Fester Ansprechpartner statt Agentur",
 ];
 

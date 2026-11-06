@@ -92,7 +92,7 @@ export function Contact() {
                   >
                     Antwortzeit
                   </span>
-                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">meist innerhalb 24 Std.</span>
+                  <span className="text-sm text-foreground transition-colors duration-100 group-hover:text-background">meist innerhalb {site.responseTime}</span>
                 </span>
               </div>
 
