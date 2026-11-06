@@ -789,6 +789,14 @@ html.light {
   opacity: 0;
 }
 
+/* Nur sichtbar, wenn der Custom-Cursor wirklich läuft (Cursor.tsx setzt
+   html.has-cursor). Auf Touch-Geräten / bei reduzierter Bewegung blieb der
+   Rahmen sonst als Quadrat am Bildschirmrand bzw. auf dem Inhalt stehen. */
+html:not(.has-cursor) .cursor-core,
+html:not(.has-cursor) .cursor-frame {
+  display: none;
+}
+
 /* Kontext-Label am Rahmen (VIEW / OPEN / DRAG …) */
 .cursor-label {
   position: absolute;
