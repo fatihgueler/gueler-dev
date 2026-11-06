@@ -61,6 +61,13 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Apex-Domain → www (301), damit nur eine kanonische Adresse existiert.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "guelerdev.de" }],
+        destination: "https://www.guelerdev.de/:path*",
+        permanent: true,
+      },
       // Tippfehler im alten Slug — alte Links weiterleiten statt 404.
       {
         source: "/projekte/buerobuerke",
