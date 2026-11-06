@@ -114,7 +114,7 @@ export async function GET() {
           }}
         >
           <div style={{ display: "flex", padding: "18px 40px", borderRight: `4px solid ${INK}`, flex: 1 }}>
-            One Pager ab 500 € · Business ab 1.500 €
+            One Pager ab 1.000 € · Business ab 2.500 €
           </div>
           <div style={{ display: "flex", padding: "18px 40px", background: INK, color: PAPER }}>
             {site.url.replace("https://", "")}

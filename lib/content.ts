@@ -43,7 +43,7 @@ export const siteConfig = {
   name: site.ownerName,
   title: "Webdesign Hannover & deutschlandweit | Fatih Güler",
   description:
-    "Freelance Webentwickler aus Hannover – Websites für KMU in ganz Deutschland. Modern, schnell, conversion-optimiert. One Pager ab 500€.",
+    "Freelance Webentwickler aus Hannover – Websites für KMU in ganz Deutschland. Modern, schnell, conversion-optimiert. One Pager ab 1.000 €.",
   url: site.url,
   email: site.email,
   phone: site.phone,
@@ -79,7 +79,7 @@ export const hero = {
   overline: "Kunden suchen dich. Finden sie dich auch?",
   lines: ["Websites, die dir Kunden bringen.", "Zum Festpreis."],
   subtitle:
-    "Festpreis ab 500 €. Ein One Pager steht in 5–7 Tagen. Ein fester Ansprechpartner aus Hannover – ohne Agentur-Umweg.",
+    "Festpreis ab 1.000 €. Ein One Pager steht in 5–7 Tagen. Ein fester Ansprechpartner aus Hannover – ohne Agentur-Umweg.",
   cta: { label: "Erstgespräch kostenlos anfragen", href: "#kontakt" },
   secondary: { label: "Erst Preise ansehen", href: "#pakete" },
   checks: [
@@ -277,7 +277,7 @@ export const pakete = {
   items: [
     {
       title: "One Pager",
-      price: "ab 500 €",
+      price: "ab 1.000 €",
       time: "5–7 Tage",
       description: "Eine starke Seite, die dein Angebot auf den Punkt bringt.",
       features: [
@@ -290,7 +290,7 @@ export const pakete = {
     },
     {
       title: "Business-Website",
-      price: "ab 1.500 €",
+      price: "ab 2.500 €",
       time: "2–3 Wochen",
       description: "Mehrseitiger Auftritt für Unternehmen, die online überzeugen wollen.",
       features: [
@@ -384,14 +384,14 @@ export const contact = {
   errorMessage:
     "❌ Etwas hat nicht geklappt. Bitte versuch es erneut oder schreib direkt an: fatih.gueler75@gmail.com",
   packageOptions: [
-    { value: "one-pager", label: "One Pager (ab 500 €)" },
-    { value: "business", label: "Business-Website (ab 1.500 €)" },
+    { value: "one-pager", label: "One Pager (ab 1.000 €)" },
+    { value: "business", label: "Business-Website (ab 2.500 €)" },
     { value: "premium", label: "KI & Web-App (auf Anfrage)" },
     { value: "unsicher", label: "Bin noch unsicher" },
   ],
   budgetRanges: [
-    { value: "500-1500", label: "500 € – 1.500 €" },
-    { value: "1500-5000", label: "1.500 € – 5.000 €" },
+    { value: "1000-2500", label: "1.000 € – 2.500 €" },
+    { value: "2500-5000", label: "2.500 € – 5.000 €" },
     { value: "5000-10000", label: "5.000 € – 10.000 €" },
     { value: "10000+", label: "10.000 € und mehr" },
     { value: "unsure", label: "Bin mir unsicher" },
@@ -414,7 +414,7 @@ export const faq = {
     {
       question: "Was kostet eine professionelle Website?",
       answer:
-        "One Pager ab 500 €, Business-Website ab 1.500 €, KI & Web-App auf Anfrage. Immer zum Festpreis – keine versteckten Kosten, keine Überraschungen.",
+        "One Pager ab 1.000 €, Business-Website ab 2.500 €, KI & Web-App auf Anfrage. Immer zum Festpreis – keine versteckten Kosten, keine Überraschungen.",
     },
     {
       question: "Wie lange dauert die Entwicklung?",
@@ -702,7 +702,7 @@ export const vertrauen = {
   items: [
     {
       title: "Du kennst den Preis vorher",
-      description: "One Pager ab 500 €, Business-Website ab 1.500 €. Der Festpreis steht, bevor ich anfange.",
+      description: "One Pager ab 1.000 €, Business-Website ab 2.500 €. Der Festpreis steht, bevor ich anfange.",
     },
     {
       title: "Wenig Risiko beim Einstieg",

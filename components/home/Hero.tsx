@@ -26,7 +26,7 @@ export function Hero() {
         className="display hero-ghost px-x pointer-events-none absolute -right-[4vw] bottom-[18%] select-none whitespace-nowrap text-[clamp(8rem,30vw,32rem)] leading-none"
         style={{ "--speed": -700 } as React.CSSProperties}
       >
-        ab 500 €
+        ab 1.000 €
       </span>
 
       <div className="frame hero-recede relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">

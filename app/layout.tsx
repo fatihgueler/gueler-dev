@@ -67,13 +67,13 @@ export const metadata: Metadata = {
     siteName: `${site.ownerName} – Webdesign Hannover`,
     title: "Websites, die Kunden bringen – Fatih Güler",
     description:
-      "Freelance Webentwickler aus Hannover. KMU-Websites ab 500€. Modern, schnell, conversion-optimiert.",
+      "Freelance Webentwickler aus Hannover. KMU-Websites ab 1.000 €. Modern, schnell, conversion-optimiert.",
     images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.ownerName} – Webdesign Hannover`,
-    description: "Freelance Webentwickler. KMU-Websites ab 500€.",
+    description: "Freelance Webentwickler. KMU-Websites ab 1.000 €.",
     images: ["/og"],
   },
   robots: {
@@ -119,7 +119,7 @@ const jsonLd = {
         { "@type": "City", name: "Hannover" },
         { "@type": "Country", name: "Deutschland" },
       ],
-      priceRange: "ab 500 €",
+      priceRange: "ab 1.000 €",
       serviceType: ["Webentwicklung", "Webdesign", "KI-Integration", "Web-Apps"],
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
@@ -134,20 +134,20 @@ const jsonLd = {
           {
             "@type": "Offer",
             name: "One Pager",
-            description: "Eine Seite mit allen wichtigen Infos, Kontaktformular und SEO-Grundeinrichtung – ab 500 €, 5–7 Tage.",
+            description: "Eine Seite mit allen wichtigen Infos, Kontaktformular und SEO-Grundeinrichtung – ab 1.000 €, 5–7 Tage.",
             priceSpecification: {
               "@type": "PriceSpecification",
-              price: 500,
+              price: 1000,
               priceCurrency: "EUR",
             },
           },
           {
             "@type": "Offer",
             name: "Business-Website",
-            description: "Bis zu 5 Unterseiten, individuelles Design, SEO für lokale Sichtbarkeit – ab 1.500 €, 2–3 Wochen.",
+            description: "Bis zu 5 Unterseiten, individuelles Design, SEO für lokale Sichtbarkeit – ab 2.500 €, 2–3 Wochen.",
             priceSpecification: {
               "@type": "PriceSpecification",
-              price: 1500,
+              price: 2500,
               priceCurrency: "EUR",
             },
           },

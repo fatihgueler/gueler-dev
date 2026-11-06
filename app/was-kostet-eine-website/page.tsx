@@ -13,14 +13,14 @@ const pageUrl = `${baseUrl}/was-kostet-eine-website`;
 export const metadata: Metadata = {
   title: { absolute: "Was kostet eine Website? Preise & Festpreise | Fatih Güler" },
   description:
-    "Was kostet eine Website? One-Pager ab 500 €, Business-Site ab 1.500 € – zum Festpreis, ohne Agentur-Aufschlag. Ehrliche Preisübersicht für KMU und was den Preis beeinflusst.",
+    "Was kostet eine Website? One-Pager ab 1.000 €, Business-Site ab 2.500 € – zum Festpreis, ohne Agentur-Aufschlag. Ehrliche Preisübersicht für KMU und was den Preis beeinflusst.",
   alternates: { canonical: pageUrl },
   openGraph: {
     images: [{ url: "/og", width: 1200, height: 630, alt: "Fatih Güler – Webdesign Hannover" }],
     type: "article",
     title: "Was kostet eine Website? Ehrliche Preise zum Festpreis",
     description:
-      "One-Pager ab 500 €, Business-Website ab 1.500 € – Festpreis statt Stundensatz. Was den Preis wirklich beeinflusst.",
+      "One-Pager ab 1.000 €, Business-Website ab 2.500 € – Festpreis statt Stundensatz. Was den Preis wirklich beeinflusst.",
     url: pageUrl,
   },
 };
@@ -57,11 +57,11 @@ const PRICE_FACTORS = [
 const GUIDE_FAQ = [
   {
     q: "Was kostet eine einfache Website?",
-    a: "Ein One-Pager – alles Wichtige auf einer Seite, mit Kontaktformular und SEO-Basis – startet bei 500 € zum Festpreis und ist in 5–7 Tagen fertig.",
+    a: "Ein One-Pager – alles Wichtige auf einer Seite, mit Kontaktformular und SEO-Basis – startet bei 1.000 € zum Festpreis und ist in 5–7 Tagen fertig.",
   },
   {
     q: "Was kostet eine mehrseitige Business-Website?",
-    a: "Eine Business-Website mit bis zu 5 Unterseiten, individuellem Design und SEO für lokale Sichtbarkeit beginnt bei 1.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
+    a: "Eine Business-Website mit bis zu 5 Unterseiten, individuellem Design und SEO für lokale Sichtbarkeit beginnt bei 2.500 € zum Festpreis. Umsetzung in der Regel in 2–3 Wochen.",
   },
   {
     q: "Gibt es laufende Kosten?",
@@ -81,7 +81,7 @@ const jsonLd = {
       "@id": `${pageUrl}/#article`,
       headline: "Was kostet eine Website? Preise & Festpreise",
       description:
-        "Ehrliche Preisübersicht für Websites: One-Pager ab 500 €, Business-Website ab 1.500 € zum Festpreis – und was den Preis beeinflusst.",
+        "Ehrliche Preisübersicht für Websites: One-Pager ab 1.000 €, Business-Website ab 2.500 € zum Festpreis – und was den Preis beeinflusst.",
       inLanguage: "de-DE",
       author: { "@id": `${baseUrl}/#person` },
       publisher: { "@id": `${baseUrl}/#business` },
@@ -146,8 +146,8 @@ export default function WasKostetEineWebsitePage() {
           </p>
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
             Eine professionelle Website kostet bei mir zwischen{" "}
-            <strong className="font-semibold">500 €</strong> für einen One-Pager und{" "}
-            <strong className="font-semibold">ab 1.500 €</strong> für eine mehrseitige
+            <strong className="font-semibold">1.000 €</strong> für einen One-Pager und{" "}
+            <strong className="font-semibold">ab 2.500 €</strong> für eine mehrseitige
             Business-Website – jeweils zum <strong className="font-semibold">Festpreis</strong>.
             Individuelle Web-Apps und KI-Lösungen rechne ich projektbezogen ab. Was du am Ende
             zahlst, hängt vor allem vom Umfang und von individuellen Anforderungen ab – nicht
