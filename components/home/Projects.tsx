@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { projectHighlight, projects } from "@/lib/content";
 import { SectionHead } from "@/components/Section";
-import { ProjectRows } from "@/components/home/ProjectRows";
+import { ProjectStack } from "@/components/home/ProjectStack";
 
 export function Projects() {
   const items = projects.items.filter((p) => !("hideOnHome" in p && p.hideOnHome));
@@ -19,7 +19,7 @@ export function Projects() {
         />
       </div>
       <div className="mt-16">
-        <ProjectRows items={items} />
+        <ProjectStack items={items} />
       </div>
       <div className="frame py-8">
         <Link

@@ -797,3 +797,57 @@ html.has-cursor .cursor-box {
   color: transparent;
   -webkit-text-stroke: 2px color-mix(in srgb, var(--color-foreground) 12%, transparent);
 }
+
+/* ── Projekt-Stapel (ProjectStack.tsx) ───────────────────────── */
+@media (min-width: 768px) {
+  .stack-panel {
+    top: var(--stack-top);
+    height: var(--stack-h);
+  }
+  /* Die Reiterkante jeder Tafel trägt einen Signal-Streifen */
+  .stack-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: var(--color-signal);
+    z-index: 2;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stack-inner {
+    scale: calc(1 - var(--cover, 0) * 0.08);
+    opacity: calc(1 - var(--cover, 0) * 0.55);
+    transform-origin: 50% 0;
+    will-change: scale, opacity;
+  }
+  .stack-img {
+    scale: calc(1.04 - var(--cover, 0) * 0.04);
+    transform-origin: 50% 0;
+    transition: scale 0.1s linear;
+  }
+}
+
+/* ── Überschriften füllen sich beim Scrollen von Kontur zu Vollton ──
+   --p kommt von der Scroll-Engine; ohne Engine (reduzierte Bewegung,
+   kein JS) ist --p nicht gesetzt → Fallback 1.2 → voll gefüllt. */
+@media (prefers-reduced-motion: no-preference) {
+  .sp-fill {
+    --fc: var(--fill-color, var(--color-foreground));
+    --fill: calc(var(--p, 1.2) * 300% - 40%);
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fc);
+    background-image: linear-gradient(90deg, var(--fc) var(--fill), transparent var(--fill));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+/* Hero tritt beim Rausscrollen zurück (Fortschritt der Hero-Sektion) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-recede {
+    scale: calc(1 - max(var(--p, 0.5) - 0.5, 0) * 0.18);
+    opacity: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 1.6);
+    transform-origin: 50% 100%;
+  }
+}

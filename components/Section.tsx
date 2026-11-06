@@ -93,7 +93,7 @@ export function SectionHead({
         </p>
       </div>
       <div className="sp-skew relative origin-left md:col-span-9">
-        <h2 id={id} data-rv="rise" className="display text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
+        <h2 id={id} data-rv="rise" className="display sp-fill text-[clamp(2.75rem,1.2rem+6.5vw,8rem)]">
           {title}
         </h2>
         {subtitle && (

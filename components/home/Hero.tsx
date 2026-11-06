@@ -29,7 +29,7 @@ export function Hero() {
         ab 500 €
       </span>
 
-      <div className="frame relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">
+      <div className="frame hero-recede relative flex min-h-[calc(100svh-3.5rem)] flex-col md:min-h-[calc(100svh-4rem)]">
         {/* Kopfzeile des Blatts */}
         <div className="flex items-center justify-between gap-4 border-b-2 border-border py-3">
           <p className="label flex items-center gap-3">
