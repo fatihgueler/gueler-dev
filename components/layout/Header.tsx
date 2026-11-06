@@ -5,82 +5,67 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { nav } from "@/lib/content";
-import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/ui/MagneticButton";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { ScrambleText } from "@/components/ui/ScrambleText";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 
-const SCROLL_THRESHOLD = 50;
-
+/**
+ * Kopfleiste als Raster-Zeile: jede Zelle durch eine 2px-Linie getrennt.
+ * Navigation als nummerierter Index (01–04), aktive Seite = invertierte Zelle.
+ */
 export function Header() {
-  const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
 
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-all duration-300 ease-out",
-        scrolled
-          ? "border-b border-border bg-background/90 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent",
-      )}
-    >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:h-20">
-        <Link href="/" aria-label="Güler.dev Startseite" className="tap inline-block">
-          <Logo className="text-xl md:text-2xl" />
+    <header className="sticky top-0 z-40 border-b-2 border-border bg-background">
+      <div className="mx-auto flex h-14 w-full max-w-[96rem] items-stretch md:h-16">
+        <Link
+          href="/"
+          aria-label="Güler.dev Startseite"
+          className="flex items-center px-[var(--spacing-gutter)] hover:bg-foreground hover:text-background"
+        >
+          <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Hauptnavigation">
-          {nav.map((item) => {
-            const isActive = pathname === item.href.split("#")[0] && item.href.startsWith("/") && !item.href.startsWith("/#");
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "group relative tap text-sm font-medium transition-colors duration-100",
-                  // Aktive Route als harter Invert-Block statt Unterstrich
-                  isActive
-                    ? "bg-foreground px-2.5 py-1 text-background"
-                    : "text-muted hover:text-foreground",
-                )}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {/* Mono-Scramble beim Hover (Touch/Reduced-Motion: statisch) */}
-                <ScrambleText text={item.label} />
-                {!isActive && (
-                  <span
-                    className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-violet-3 transition-transform duration-300 ease-out group-hover:scale-x-100"
-                    aria-hidden
-                  />
-                )}
-              </Link>
-            );
-          })}
+        <nav
+          className="ml-auto hidden items-stretch border-l-2 border-border md:flex"
+          aria-label="Hauptnavigation"
+        >
+          <ol className="flex items-stretch">
+            {nav.map((item, i) => {
+              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <li key={item.href} className="flex border-r-2 border-border">
+                  <Link
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "flex items-center gap-2 px-4 font-mono text-[0.8125rem] font-medium uppercase tracking-[0.06em] transition-colors duration-[90ms] lg:px-6",
+                      isActive
+                        ? "bg-foreground text-background"
+                        : "hover:bg-signal hover:text-on-signal",
+                    )}
+                  >
+                    <span aria-hidden className={isActive ? "text-signal" : "text-muted"}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="ml-auto flex items-stretch border-l-2 border-border md:ml-0">
           <ThemeToggle />
-          <div className="hidden items-center gap-3 md:flex">
-            <Button asChild variant="outline" size="sm" className="tap">
-              <Link href="/kontakt">Kontakt anfragen</Link>
-            </Button>
-            <Magnetic strength={0.4}>
-              <Button asChild size="sm" className="tap">
-                <Link href="/#kontakt">Erstgespräch</Link>
-              </Button>
-            </Magnetic>
-          </div>
+          <Link
+            href="/#kontakt"
+            className="hidden items-center border-l-2 border-border bg-signal px-5 font-mono text-[0.8125rem] font-bold uppercase tracking-[0.06em] text-on-signal transition-colors duration-[90ms] hover:bg-foreground hover:text-background lg:flex"
+          >
+            Erstgespräch →
+          </Link>
           <MobileNav />
         </div>
       </div>

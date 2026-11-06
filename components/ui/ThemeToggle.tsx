@@ -7,7 +7,7 @@ import { Moon, Sun } from "lucide-react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 /**
- * ThemeToggle — wechselt zwischen dark (Default) und light.
+ * ThemeToggle — wechselt zwischen Papier (light, Default) und Inversion (dark).
  * Mounted-Guard verhindert Hydration-Mismatch (next-themes kennt das
  * aufgelöste Theme erst clientseitig).
  *
@@ -63,7 +63,7 @@ export function ThemeToggle() {
             : "Zu dunklem Design wechseln"
           : "Design wechseln"
       }
-      className="inline-flex h-11 w-11 items-center justify-center rounded-none text-muted transition-colors hover:text-violet-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="flex min-w-14 items-center justify-center px-4 transition-colors duration-[90ms] hover:bg-foreground hover:text-background"
     >
       {/* Beide Icons gerendert; nur das passende ist sichtbar — verhindert
           Layout-Shift und SSR/Client-Flacker vor dem Mount. */}

@@ -1,49 +1,33 @@
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { cta } from "@/lib/content";
 import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/ui/MagneticButton";
-import { Reveal } from "@/components/anim/Reveal";
 
 /**
- * Wiederverwendbarer Call-to-Action-Block (alle Unterseiten) —
- * Brutalist-Angleichung: Mesh-Glow raus, Haarlinie + riesige schwarze
- * Headline + Mono-Subline. Gleiche Sprache wie FinalCta auf der Startseite.
+ * Abschluss-Block aller Unterseiten: Signalfläche über volle Breite,
+ * Headline läuft asymmetrisch links, Buttons rechts unten.
  */
 export function CTA() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="hairline absolute inset-x-0 top-0" aria-hidden />
-
-      <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <Reveal>
-          <h2
-            className="font-display font-black leading-[1.02] tracking-tighter text-foreground"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", letterSpacing: "-0.03em" }}
-          >
-            {cta.title}
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl font-mono text-sm leading-relaxed text-muted md:text-base">
-            {cta.subtitle}
-          </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Magnetic strength={0.4}>
-              <Button asChild size="lg">
-                <Link href={cta.primary.href}>
-                  {cta.primary.label}
-                  <ArrowRight />
-                </Link>
-              </Button>
-            </Magnetic>
-            <Magnetic strength={0.3}>
-              <Button asChild variant="outline" size="lg">
-                <Link href={cta.secondary.href}>{cta.secondary.label}</Link>
-              </Button>
-            </Magnetic>
+    <section className="border-t-2 border-border bg-signal text-on-signal">
+      <div className="frame grid gap-10 py-[var(--spacing-section)] md:grid-cols-12">
+        <h2 className="display text-[clamp(3rem,1.5rem+7vw,9rem)] md:col-span-8">{cta.title}</h2>
+        <div className="flex flex-col justify-end gap-6 md:col-span-4">
+          <p className="text-lg font-medium leading-snug">{cta.subtitle}</p>
+          <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+            <Link
+              href={cta.primary.href}
+              className="flex min-h-14 items-center justify-between gap-3 border-2 border-ink bg-ink px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-paper transition-transform duration-[90ms] hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-paper)]"
+            >
+              {cta.primary.label}
+              <span aria-hidden>→</span>
+            </Link>
+            <Button asChild variant="outline" size="lg" className="border-ink text-ink hover:bg-ink hover:text-paper">
+              <Link href={cta.secondary.href}>{cta.secondary.label}</Link>
+            </Button>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

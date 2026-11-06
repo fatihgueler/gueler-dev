@@ -1,256 +1,142 @@
 @import "tailwindcss";
 
-/* ─────────────────────────────────────────────────────────────
-   Güler.dev – Design-System 4.0
-   Ink · Paper · Emerald · Bernstein
-   Palette-Richtung "Pine": tiefes Grün (primär) + Bernstein (Kontrast)
-   ───────────────────────────────────────────────────────────── */
+/* ═════════════════════════════════════════════════════════════
+   Güler.dev – Design-System 5.0 "Werkstattzettel"
+   Papier · Fast-Schwarz · Signalorange. Radius 0, harte Linien,
+   keine weichen Schatten. Light (Papier) ist Default, Dark ist
+   die exakte Inversion (next-themes setzt html.dark).
+
+   Schichten:
+     1. Primitive   --p-*         (rohe Werte, nie direkt in Komponenten)
+     2. Semantisch  --color-*     (Tailwind-Utilities: bg-background …)
+     3. Komponente  --btn-*, --row-*, --rule-*  (unten in @layer components)
+   ═════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 1. Primitive ────────────────────────────────────────── */
+  --p-paper: #f2eee6;
+  --p-paper-2: #e8e3d8;
+  --p-paper-3: #dcd5c6;
+  --p-ink: #121110;
+  --p-ink-2: #1c1a18;
+  --p-ink-3: #2a2724;
+  --p-stone-dark: #5a5650; /* 6.3:1 auf paper */
+  --p-stone-light: #a8a294; /* 6.8:1 auf ink-2 */
+  --p-signal: #ff4d00; /* Signalorange – Fill, Linien, große Flächen */
+  --p-signal-on-paper: #b83a00; /* gleiche Farbe, Text-Variante (4.98:1) */
+  --p-signal-on-ink: #ff5a14; /* Text-Variante auf dunkel (6.0:1) */
+  --p-error-on-paper: #a3001b;
+  --p-error-on-ink: #ff6b7d;
+}
 
 @theme {
-  /* ── Neutrale Flächen (grün-getönte Ink-Skala) ───────────── */
-  --color-ink: #060a08;
-  --color-ink-2: #0e1512;
-  --color-ink-3: #17201b;
-  --color-paper: #eaf1ec;
-  --color-paper-2: #90a497;
-  --color-paper-3: #6f8076;
+  /* ── 2. Semantisch (Light = Default) ─────────────────────── */
+  --color-background: #f2eee6;
+  --color-surface: #e8e3d8;
+  --color-surface-2: #dcd5c6;
+  --color-foreground: #121110;
+  --color-muted: #5a5650;
+  --color-muted-2: #5a5650;
+  --color-border: #121110; /* Linien sind tragend: volle Farbe */
+  --color-border-strong: #121110;
+  --color-hair: rgba(18, 17, 16, 0.18); /* nur für Hilfslinien des Rasters */
 
-  /* ── Akzent-Rollen (semantisch) ──────────────────────────── */
-  --color-accent: #33c88a;        /* Emerald – Akzent-Text auf dunkel */
-  --color-accent-strong: #2bbe83; /* Fill-Fläche */
-  --color-accent-deep: #0e7a50;   /* dunkle Variante / Fill mit hellem Text */
-  --color-accent-ink: #04140d;    /* Text auf Accent-Fill */
-  --color-accent-warm: #e9a93b;   /* Bernstein – wärmerer Kontrastakzent */
-  --color-accent-warm-2: #f0be5e;
+  --color-signal: #ff4d00; /* Fill – Text darauf IMMER ink */
+  --color-signal-text: #b83a00; /* Akzent als Text */
+  --color-on-signal: #121110;
+  --color-ink: #121110;
+  --color-paper: #f2eee6;
+  --color-error: #a3001b;
 
-  /* Legacy-Aliase auf die neuen Rollen. Bestehende Komponenten mit den
-     Namen violet, cyan, teal, gold erben so automatisch die Pine-Palette,
-     ohne dass eine einzige Komponente umbenannt werden muss. */
-  --color-violet: #0e7a50;   /* primärer Fill mit hellem Text → deep emerald */
-  --color-violet-2: #16915f;
-  --color-violet-3: #48d19a; /* Label-/Akzenttext auf dunkel (AAA auf Ink) */
-  --color-cyan: #e9a93b;     /* sekundär → Bernstein */
-  --color-cyan-2: #f0be5e;
+  /* Legacy-Aliase: ältere Bausteine (shadcn/ui, Ratgeber) erben die neue
+     Palette ohne Umbenennung. Es gibt nur EINE Akzentfarbe. */
+  --color-violet: #ff4d00;
+  --color-violet-2: #b83a00;
+  --color-violet-3: #b83a00;
+  --color-cyan: #b83a00;
+  --color-cyan-2: #b83a00;
+  --color-teal: #b83a00;
+  --color-teal-2: #b83a00;
+  --color-gold: #b83a00;
+  --color-gold-bright: #121110;
 
-  --color-teal: #16915f;
-  --color-teal-2: #48d19a;
-  --color-teal-bright: #48d19a;
-  --color-teal-deep: #0b6a45;
-  --color-gold: #e9a93b;
-  --color-gold-2: #f0be5e;
-  --color-gold-bright: #f0be5e;
-  --color-gold-deep: #c7871f;
+  /* ── Schriften (next/font, selbst gehostet) ──────────────── */
+  --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
-  --color-background: #060a08;
-  --color-surface: #0e1512;
-  --color-surface-2: #17201b;
-  --color-foreground: #eaf1ec;
-  --color-muted: #90a497;
-  --color-muted-2: #a7b3ab;
-  --color-border: rgba(234, 241, 236, 0.09);
-  --color-border-strong: rgba(234, 241, 236, 0.16);
-
-  /* ── Schriften (via next/font) ────────────────────────── */
-  --font-display: var(--font-bricolage), system-ui, sans-serif;
-  --font-sans: var(--font-hanken), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
-
-  /* ── Radius ──────────────────────────────────────────────── */
-  /* Eckig-editoriales System: scharfe Kanten global (matcht die Homepage).
-     Ein zentraler Hebel – alle rounded-[var(--radius*)]-Flächen werden eckig. */
+  /* ── Radius: überall 0 ───────────────────────────────────── */
   --radius: 0rem;
   --radius-lg: 0rem;
   --radius-xl: 0rem;
 
-  /* ── Spacing (fluid) ─────────────────────────────────────── */
-  --space-section: clamp(5rem, 3.5rem + 7vw, 11rem);
-  --space-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
-
-  /* ── Schriftskala (fluid) ────────────────────────────── */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
+  /* ── Typo-Skala (fluid) ──────────────────────────────────── */
+  --text-label: 0.75rem; /* Mono-Labels, nie Fließtext */
   --text-body: 1rem;
-  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
-  --text-h4: clamp(1.333rem, 1.2rem + 0.8vw, 1.5rem);
-  --text-h3: clamp(1.5rem, 1.333rem + 1vw, 2rem);
-  --text-h2: clamp(2rem, 1.75rem + 2vw, 2.667rem);
-  --text-h1: clamp(2.667rem, 2.25rem + 3vw, 3.5rem);
-  --text-display: clamp(3.5rem, 2.5rem + 5vw, 6rem);
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-h2: clamp(2.75rem, 1.6rem + 6vw, 7.5rem);
+  --text-h1: clamp(3.25rem, 1.5rem + 9vw, 11rem);
+  --text-mega: clamp(3.4rem, 15.5vw, 20vw);
 
-  /* ── Rhythmus ────────────────────────────────────────── */
-  --leading-tight: 1.1;
-  --leading-snug: 1.25;
-  /* Fließtext-Rhythmus: 1.6 (Audit-Zielbereich 1.5–1.6) statt vorher 1.75. */
-  --leading-body: 1.6;
-  --tracking-display: -0.02em;
-  --tracking-heading: -0.01em;
-  --tracking-body: 0.01em;
-  --tracking-caps: 0.08em;
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --spacing-gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  --spacing-section: clamp(4.5rem, 3rem + 7vw, 10rem);
 
-  /* ── Schatten ────────────────────────────────────────────── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 12px 30px -12px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, 0.7);
-  --shadow-teal: 0 18px 60px -22px rgba(43, 190, 131, 0.45);
-  --shadow-gold: 0 18px 60px -22px rgba(233, 169, 59, 0.4);
+  /* ── Linien ──────────────────────────────────────────────── */
+  --rule: 2px;
+  --rule-heavy: 6px;
 
-  /* ── Easing ──────────────────────────────────────────────── */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  /* ── Motion ──────────────────────────────────────────────── */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --dur-fast: 90ms;
+  --dur-base: 180ms;
 
-  /* ── Keyframes ────────────────────────────────────────────── */
-  --animate-fade-up: fade-up 0.8s var(--ease-out-expo) forwards;
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-aurora: aurora 22s ease-in-out infinite;
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
-:root {
+/* ── Dark = Inversion ─────────────────────────────────────── */
+html.dark {
   color-scheme: dark;
+  --color-background: #121110;
+  --color-surface: #1c1a18;
+  --color-surface-2: #2a2724;
+  --color-foreground: #f2eee6;
+  --color-muted: #a8a294;
+  --color-muted-2: #a8a294;
+  --color-border: #f2eee6;
+  --color-border-strong: #f2eee6;
+  --color-hair: rgba(242, 238, 230, 0.2);
+  --color-signal-text: #ff5a14;
+  --color-error: #ff6b7d;
+
+  --color-violet-2: #ff5a14;
+  --color-violet-3: #ff5a14;
+  --color-cyan: #ff5a14;
+  --color-cyan-2: #ff5a14;
+  --color-teal: #ff5a14;
+  --color-teal-2: #ff5a14;
+  --color-gold: #ff5a14;
+  --color-gold-bright: #f2eee6;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Light Mode – Token-Overrides
-   Akzent (violet/cyan) bleibt in beiden Themes identisch.
-   Nur die semantischen Flächen-/Text-/Border-Tokens kippen.
-   Die ink/paper-Aliase werden mitgespiegelt, damit abgeleitete
-   Utilities (Cards, Scrollbar, Hairline …) automatisch passen.
-   ───────────────────────────────────────────────────────────── */
-html.light {
+html {
   color-scheme: light;
-
-  --color-background: #f4f7f3;
-  --color-surface: #ffffff;
-  --color-surface-2: #eaefea;
-  --color-foreground: #0b120e;
-  --color-muted: #5c6a61;
-  /* A11y: auf ≥4.5:1 gegen alle Light-BGs nachgedunkelt (war #6f7a71 = 4.14:1). */
-  --color-muted-2: #626e66;
-  --color-border: rgba(11, 18, 14, 0.1);
-  --color-border-strong: rgba(11, 18, 14, 0.16);
-
-  /* ink/paper-Aliase fürs helle Theme spiegeln */
-  --color-ink: #f4f7f3;
-  --color-ink-2: #ffffff;
-  --color-ink-3: #e4eae4;
-  --color-paper: #0b120e;
-  --color-paper-2: #5c6a61;
-  --color-paper-3: #626e66;
-
-  /* Akzent-TEXT muss auf hellem Grund dunkler sein (WCAG AA). Der Fill
-     (--color-violet = deep emerald) bleibt gleich, nur die Text-Varianten
-     kippen. Behebt den grenzwertigen Akzent-Fließtext aus dem Audit. */
-  --color-violet-2: #0e7a50;
-  --color-violet-3: #0b7a50; /* Kapitel-Labels auf hell → AA */
-  --color-teal: #0e7a50;
-  --color-teal-2: #0b7a50;
-  --color-teal-bright: #0b7a50;
-  --color-cyan: #8a5a0f; /* Bernstein-Text auf hell → AA */
-  --color-cyan-2: #8a5a0f;
-  --color-gold: #8a5a0f;
-  --color-gold-2: #8a5a0f;
-  --color-accent: #0b7a50;
-  --color-accent-warm: #8a5a0f;
-
-  /* Etwas dezentere Schatten auf hellem Grund */
-  --shadow-md: 0 12px 30px -16px rgba(11, 18, 14, 0.18);
-  --shadow-lg: 0 30px 70px -34px rgba(11, 18, 14, 0.22);
-}
-
-/* Die 3D-Signalfeld-Szene ist jetzt theme-aware (liest die CSS-Tokens, Fog in
-   der Hintergrundfarbe) und läuft in BEIDEN Modi auf voller Stärke – kein
-   Dimm-Hack mehr nötig. */
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-@keyframes aurora {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(6%, -8%) scale(1.12);
-  }
-  66% {
-    transform: translate(-7%, 5%) scale(0.94);
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes beam-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Signal-Herzschlag: das "Dein Signal ist live"-Pulsieren des Marken-Ticks.
-   Greift den pulsierenden Signal-Knoten aus dem Hero auf – ein roter Faden
-   durch die ganze Seite. Bewusst ruhig (nur Glow + Opazität, kein Skalieren). */
-@keyframes signal-pulse {
-  0%,
-  100% {
-    opacity: 0.55;
-    box-shadow: 0 0 5px rgba(240, 190, 94, 0.55);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 12px rgba(240, 190, 94, 0.95);
-  }
 }
 
 @keyframes accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
 }
-
 @keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
 }
 
-/* ─────────────────────────────────────────────────────────────
+/* ═════════════════════════════════════════════════════════════
    Base
-   ───────────────────────────────────────────────────────────── */
-
+   ═════════════════════════════════════════════════════════════ */
 @layer base {
   * {
     border-color: var(--color-border);
@@ -262,325 +148,191 @@ html.light {
     }
   }
 
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
+  /* Sticky Header ist 3.5rem/4rem hoch */
+  :target,
   section[id] {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 5rem;
   }
 
   ::selection {
-    background-color: var(--color-violet);
-    color: var(--color-paper);
+    background-color: var(--color-signal);
+    color: var(--color-on-signal);
   }
 
-  ::-webkit-scrollbar {
-    width: 11px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--color-ink);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-ink-3);
-    border-radius: 999px;
-    border: 3px solid var(--color-ink);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-teal);
-  }
-
+  /* Sichtbarer, harter Fokus-Ring – überall gleich */
   :focus-visible {
-    outline: 2px solid var(--color-teal);
+    outline: 3px solid var(--color-signal);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 0;
   }
 
-  /* Entfernt das 300ms-Tap-Delay auf Touch-Geräten */
   a,
   button,
   [role="button"],
   input,
   select,
-  textarea {
+  textarea,
+  summary {
     touch-action: manipulation;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    html.has-cursor,
-    html.has-cursor * {
-      cursor: none;
-    }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Utilities
-   ───────────────────────────────────────────────────────────── */
-
-@layer utilities {
-  /* ── Akzent-Texte ────────────────────────────────────────── */
-  .text-gradient-teal {
-    color: var(--color-violet-2);
-  }
-
-  .text-gradient-gold {
-    color: var(--color-cyan-2);
-  }
-
-  /* ── Outline-Text ────────────────────────────────────────── */
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-ink-3);
-  }
-
-  /* ── Kräftigere Outline (Stempel auf Unterseiten) ─────────── */
-  .text-outline-strong {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-border-strong);
-  }
-
-  /* ── Harter Slice-Reveal für Headlines (CSS-only, on load) ── */
-  .hard-reveal {
-    animation: hard-reveal-wipe 0.45s steps(6, end) both;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hard-reveal {
-      animation: none;
-      clip-path: none;
-    }
-  }
-
-  /* ── Marquee-Begriffe (TechStrip): Outline, füllt sich on hover ── */
-  .marquee-term {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-border-strong);
-    transition: color 0.1s linear;
-  }
-  .marquee-term:hover {
-    color: var(--color-foreground);
-    -webkit-text-stroke-color: transparent;
-  }
-
-  /* ── Terminal-Form (Kontakt): Mono-Prompts, Mono-Eingaben ── */
-  .terminal-form .space-y-2 > label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
+/* ═════════════════════════════════════════════════════════════
+   3. Komponenten-Klassen
+   ═════════════════════════════════════════════════════════════ */
+@layer components {
+  /* Display-Schnitt: Archivo, maximal schmal, schwer, eng */
+  .display {
+    font-family: var(--font-display);
+    font-stretch: 62%;
+    font-weight: 900;
+    line-height: 0.86;
+    letter-spacing: -0.015em;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
   }
-  .terminal-form .space-y-2 > label::before {
-    content: "> ";
-    color: var(--color-violet-3);
-  }
-  .terminal-form input,
-  .terminal-form textarea,
-  .terminal-form button[role="combobox"] {
+
+  /* Mono-Label: Nummerierung, Meta, Navigation */
+  .label {
     font-family: var(--font-mono);
-    caret-color: var(--color-cyan);
-    /* Die Basis-Komponente nutzt border-border (10% Deckkraft) — im
-       Rest des Brutalist-Systems sind Rahmen sonst durchgehend kräftig
-       (border-strong oder voll). Im Terminal-Kontext sonst zu zaghaft. */
-    border-color: var(--color-border-strong);
-    /* A11y: Tap-Target ≥44px für Formular-Controls. */
-    min-height: 44px;
-  }
-  .terminal-form input:focus-visible,
-  .terminal-form textarea:focus-visible {
-    border-color: var(--color-violet-3);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
   }
 
-  /* ── Footer-Wortmarke: Outline, füllt sich beim Hover — und GRINST.
-        Per-Letter-Transforms auf derselben Mundwinkel-Kurve wie der Hero. */
-  .footer-wordmark {
+  /* Seitenbreite + sichtbare Spaltenlinien links/rechts */
+  .frame {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+  .frame-ruled {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    border-inline: var(--rule) solid var(--color-border);
+  }
+
+  .rule-t { border-top: var(--rule) solid var(--color-border); }
+  .rule-b { border-bottom: var(--rule) solid var(--color-border); }
+  .rule-l { border-left: var(--rule) solid var(--color-border); }
+  .rule-r { border-right: var(--rule) solid var(--color-border); }
+  .rule { border: var(--rule) solid var(--color-border); }
+
+  /* Raster-Hilfslinien (12 Spalten) als Hintergrund */
+  .grid-lines {
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-hair) 0 1px,
+      transparent 1px calc(100% / 12)
+    );
+  }
+
+  /* Marker-Hervorhebung in Signalfarbe (Text bleibt ink) */
+  .mark {
+    background: var(--color-signal);
+    color: var(--color-on-signal);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-inline: 0.12em;
+  }
+
+  /* Harter Offset-Schatten (einziger erlaubter Schatten) */
+  .shadow-hard {
+    box-shadow: 6px 6px 0 0 var(--color-foreground);
+  }
+  .shadow-hard-signal {
+    box-shadow: 8px 8px 0 0 var(--color-signal);
+  }
+
+  /* Outline-Schrift für Riesenziffern */
+  .outline-text {
     color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-border-strong);
-    transition: color 0.15s linear;
-  }
-  .footer-wordmark:hover {
-    color: var(--color-foreground);
-    -webkit-text-stroke-color: transparent;
-  }
-  .footer-wordmark .wm-l {
-    display: inline-block;
-    transform-origin: 50% 100%;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  /* Grin-Kurve: Ecken hoch + eingedreht, Mitte sackt ab (9 Buchstaben) */
-  .footer-wordmark:hover .wm-l:nth-child(1) { transform: translateY(-0.1em) rotate(-8deg); }
-  .footer-wordmark:hover .wm-l:nth-child(2) { transform: translateY(-0.05em) rotate(-5deg); }
-  .footer-wordmark:hover .wm-l:nth-child(3) { transform: translateY(0.01em) rotate(-2deg); }
-  .footer-wordmark:hover .wm-l:nth-child(4) { transform: translateY(0.05em); }
-  .footer-wordmark:hover .wm-l:nth-child(5) { transform: translateY(0.065em); }
-  .footer-wordmark:hover .wm-l:nth-child(6) { transform: translateY(0.05em); }
-  .footer-wordmark:hover .wm-l:nth-child(7) { transform: translateY(0.01em) rotate(2deg); }
-  .footer-wordmark:hover .wm-l:nth-child(8) { transform: translateY(-0.05em) rotate(5deg); }
-  .footer-wordmark:hover .wm-l:nth-child(9) { transform: translateY(-0.1em) rotate(8deg); }
-  @media (prefers-reduced-motion: reduce) {
-    .footer-wordmark .wm-l {
-      transition: none;
-    }
-    .footer-wordmark:hover .wm-l {
-      transform: none;
-    }
+    -webkit-text-stroke: 2px var(--color-foreground);
   }
 
-  /* ── Timeline-Jahreszahl: Outline invertiert mit der Zeile ── */
-  .group:hover .timeline-year {
-    -webkit-text-stroke-color: color-mix(
-      in srgb,
-      var(--color-background) 35%,
-      transparent
-    );
+  /* Link mit hartem Unterstrich */
+  .link {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .link:hover {
+    background: var(--color-signal);
+    color: var(--color-on-signal);
+    text-decoration-color: var(--color-on-signal);
   }
 
-  /* ── Outcome-Riesenindex: Outline, invertiert mit der Zelle ── */
-  .outcome-index {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-border-strong);
-    transition: -webkit-text-stroke-color 0.1s linear;
+  /* Fließtext-Prosa (Rechtstexte, Ratgeber) */
+  .prose-brut {
+    max-width: 68ch;
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
-  .group:hover .outcome-index {
-    -webkit-text-stroke-color: color-mix(
-      in srgb,
-      var(--color-background) 30%,
-      transparent
-    );
+  .prose-brut h2 {
+    font-family: var(--font-display);
+    font-stretch: 75%;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+  .prose-brut a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .prose-brut a:hover {
+    background: var(--color-signal);
+    color: var(--color-on-signal);
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════
+   Utilities
+   ═════════════════════════════════════════════════════════════ */
+@layer utilities {
+  /* Zeile/Tafel: Hover = harte Inversion */
+  .row-invert {
+    transition:
+      background-color var(--dur-fast) linear,
+      color var(--dur-fast) linear;
+  }
+  .row-invert:hover,
+  .row-invert:focus-within {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+  .row-invert:hover .muted-inv,
+  .row-invert:focus-within .muted-inv {
+    color: var(--color-background);
+  }
+  .row-invert:hover .signal-inv,
+  .row-invert:focus-within .signal-inv {
+    color: var(--color-signal);
   }
 
-  /* ── Grain ───────────────────────────────────────────────── */
-  .grain::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ── Glows ───────────────────────────────────────────────── */
-  .teal-glow {
-    background: radial-gradient(
-      ellipse 50% 45% at 50% 40%,
-      rgba(43, 190, 131, 0.18) 0%,
-      rgba(43, 190, 131, 0.06) 35%,
-      transparent 70%
-    );
-  }
-
-  .gold-glow {
-    background: radial-gradient(
-      ellipse 50% 45% at 50% 40%,
-      rgba(233, 169, 59, 0.14) 0%,
-      rgba(233, 169, 59, 0.05) 35%,
-      transparent 70%
-    );
-  }
-
-  /* ── Dot Grid ────────────────────────────────────────────── */
-  .bg-dot-grid {
-    background-image: radial-gradient(var(--color-ink-2) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-
-  /* ── Hairline ────────────────────────────────────────────── */
-  .hairline {
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-ink-3) 20%,
-      var(--color-teal) 50%,
-      var(--color-ink-3) 80%,
-      transparent
-    );
-  }
-
-  /* ── Glass ───────────────────────────────────────────────── */
-  .glass {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  /* ── Cards ───────────────────────────────────────────────── */
-  /* Brutalist: kein Soft-Lift, kein Glow — Hover-Verhalten definieren
-     die Komponenten selbst (harter Offset-Schatten o.ä.). */
-  .card-surface {
-    background: linear-gradient(180deg, var(--color-ink-2) 0%, var(--color-ink) 100%);
-    border: 1px solid var(--color-ink-2);
-    transition: border-color 0.1s linear;
-  }
-
-  .card-surface:hover {
-    border-color: var(--color-border-strong);
-  }
-
-  /* ── Reveal ──────────────────────────────────────────────── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-  }
-
-  .reveal[data-revealed="true"] {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* No-JS / Headless: Reveal darf Inhalt nicht verstecken, wenn der
-     IntersectionObserver nie feuert (a11y — Inhalt muss ohne JS sichtbar sein). */
-  @media (scripting: none) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* ── Marquee ─────────────────────────────────────────────── */
-  .animate-marquee {
-    animation: marquee 38s linear infinite;
-  }
-
-  /* ── Magnetic ────────────────────────────────────────────── */
-  .magnetic {
-    display: inline-flex;
-    will-change: transform;
-  }
-
-  /* ── Tap-Target (A11y) ───────────────────────────────────────
-     Vergrößert die klickbare Fläche eines Elements auf ≥44×44px, zentriert,
-     OHNE das sichtbare Layout zu ändern — ein transparentes ::before liegt
-     über/um das Element; Klicks darauf aktivieren das Eltern-Element. */
+  /* Tap-Target ≥44px ohne sichtbare Layout-Änderung */
   .tap {
     position: relative;
   }
@@ -596,561 +348,117 @@ html.light {
     transform: translate(-50%, -50%);
   }
 
-  /* ── Showcase: dunkle Premium-Sektion ───────────────────── */
-  .showcase-bg {
-    background-color: #070b09;
-    background-image:
-      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(43, 190, 131, 0.22), transparent 70%),
-      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(233, 169, 59, 0.16), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(43, 190, 131, 0.1), transparent 70%);
+  /* Legacy-Utilities, die Ratgeber/Rechtsseiten noch nutzen */
+  .card-surface {
+    background: var(--color-background);
+    border: var(--rule) solid var(--color-border);
   }
-
-  /* Rotierender Lichtstrahl (conic-gradient) hinter den Cards.
-     Bewusst kleiner Layer + moderater Blur + weiche Maske statt
-     Riesen-Blur – sonst frisst die Ebene GPU-Speicher und ruckelt. */
-  .showcase-beam {
-    position: absolute;
-    inset: -10%;
-    pointer-events: none;
-    background: conic-gradient(
-      from 0deg at 50% 50%,
-      transparent 0deg,
-      rgba(43, 190, 131, 0.2) 55deg,
-      transparent 115deg,
-      transparent 175deg,
-      rgba(233, 169, 59, 0.14) 235deg,
-      transparent 300deg
-    );
-    filter: blur(36px);
-    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 78%);
-    animation: beam-spin 22s linear infinite;
-    will-change: transform;
-  }
-
-  /* Dunkle Glassmorphism-Card mit Glow-Ring.
-     Der Hover-Glow liegt auf einem ::after-Layer und wird nur per
-     opacity eingeblendet – box-shadow-Transitions erzwingen Repaints. */
-  .glow-card {
-    position: relative;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(72, 209, 154, 0.18);
-    box-shadow:
-      0 0 0 1px rgba(43, 190, 131, 0.06),
-      0 20px 50px -25px rgba(0, 0, 0, 0.8);
-    transition: border-color 0.4s ease;
-  }
-
-  .glow-card::after {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    box-shadow:
-      0 0 0 1px rgba(51, 200, 138, 0.35),
-      0 0 45px -8px rgba(43, 190, 131, 0.5),
-      0 0 90px -20px rgba(233, 169, 59, 0.35),
-      0 30px 70px -25px rgba(0, 0, 0, 0.85);
-  }
-
-  .glow-card:hover {
-    border-color: rgba(72, 209, 154, 0.55);
-  }
-
-  .glow-card:hover::after {
-    opacity: 1;
-  }
-
-  /* ── Light-Mode-Korrekturen für dunkel gedachte Flächen ──── */
-  html.light .card-surface {
-    background: var(--color-surface);
-    border-color: var(--color-ink-3);
-    box-shadow:
-      0 1px 2px rgba(14, 14, 20, 0.04),
-      0 10px 30px -20px rgba(14, 14, 20, 0.12);
-  }
-
-  html.light .card-surface:hover {
-    border-color: var(--color-violet);
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: var(--shadow-teal);
-  }
-
-  html.light .glass {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.92) 0%,
-      rgba(255, 255, 255, 0.72) 100%
-    );
-    border-color: var(--color-border);
-  }
-
-  html.light .bg-dot-grid {
-    background-image: radial-gradient(
-      rgba(14, 14, 20, 0.08) 1px,
-      transparent 1px
-    );
-  }
-
-  html.light .showcase-bg {
-    background-color: #eef3ee;
-    background-image:
-      radial-gradient(ellipse 45% 40% at 18% 22%, rgba(43, 190, 131, 0.1), transparent 70%),
-      radial-gradient(ellipse 40% 38% at 85% 75%, rgba(233, 169, 59, 0.08), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 50% 105%, rgba(43, 190, 131, 0.05), transparent 70%);
-  }
-
-  html.light .glow-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-    border-color: rgba(43, 190, 131, 0.15);
-    box-shadow:
-      0 0 0 1px rgba(43, 190, 131, 0.06),
-      0 8px 30px -12px rgba(14, 14, 20, 0.14);
-  }
-
-  html.light .glow-card:hover {
-    border-color: rgba(43, 190, 131, 0.4);
-  }
-
-  html.light .glow-card::after {
-    box-shadow:
-      0 0 0 1px rgba(51, 200, 138, 0.25),
-      0 0 30px -8px rgba(43, 190, 131, 0.25),
-      0 0 60px -20px rgba(233, 169, 59, 0.2),
-      0 20px 50px -20px rgba(14, 14, 20, 0.18);
+  .text-outline-strong {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-foreground);
   }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Prozess-Steps (01–04)
-   ───────────────────────────────────────────────────────────── */
+/* ═════════════════════════════════════════════════════════════
+   Motion – sparsam, CSS-only, progressive enhancement.
+   Ohne Unterstützung / ohne JS: alles sofort sichtbar.
+   ═════════════════════════════════════════════════════════════ */
 
-.step-number {
-  color: var(--color-cyan);
-  text-shadow: 0 0 28px rgba(233, 169, 59, 0.45);
-  font-variant-numeric: tabular-nums;
+/* Marquee-Band */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
-
-/* ─────────────────────────────────────────────────────────────
-   Custom Cursor (Brutalist: Fadenkreuz + Rahmen, difference-Blend)
-   ───────────────────────────────────────────────────────────── */
-
-.cursor-core,
-.cursor-frame {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 90;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  transition: opacity 0.2s ease;
-}
-
-/* Fadenkreuz: Punkt + zwei Haarlinien, weiß → invertiert den Untergrund */
-.cursor-core {
-  width: 5px;
-  height: 5px;
-  background: #fff;
-}
-.cursor-core::before,
-.cursor-core::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  background: #fff;
-}
-.cursor-core::before {
-  width: 17px;
-  height: 1px;
-  transform: translate(-50%, -50%);
-}
-.cursor-core::after {
-  width: 1px;
-  height: 17px;
-  transform: translate(-50%, -50%);
-}
-
-/* Rahmen: kantiges Quadrat, Größe/Position laufen im RAF-Loop (Cursor.tsx) */
-.cursor-frame {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #fff;
-  will-change: transform, width, height;
-}
-
-.cursor-core[data-hidden="true"],
-.cursor-frame[data-hidden="true"] {
-  opacity: 0;
-}
-
-/* Nur sichtbar, wenn der Custom-Cursor wirklich läuft (Cursor.tsx setzt
-   html.has-cursor). Auf Touch-Geräten / bei reduzierter Bewegung blieb der
-   Rahmen sonst als Quadrat am Bildschirmrand bzw. auf dem Inhalt stehen. */
-html:not(.has-cursor) .cursor-core,
-html:not(.has-cursor) .cursor-frame {
-  display: none;
-}
-
-/* Kontext-Label am Rahmen (VIEW / OPEN / DRAG …) */
-.cursor-label {
-  position: absolute;
-  left: calc(100% + 8px);
-  bottom: -4px;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #fff;
-  white-space: nowrap;
-}
-.cursor-label:empty {
-  display: none;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   HardCut — harte Kapitel-Transition (invertierter Marquee-Balken)
-   ───────────────────────────────────────────────────────────── */
-
-.hardcut {
-  overflow: hidden;
-}
-
-.hardcut-bar {
-  display: flex;
-  align-items: center;
-  height: 4rem;
-  background: var(--color-foreground);
-  color: var(--color-background);
-  overflow: hidden;
-  /* Vor dem Cut unsichtbar — der Wipe schneidet den Balken hart auf */
-  clip-path: inset(0 100% 0 0);
-}
-@media (min-width: 768px) {
-  .hardcut-bar {
-    height: 5rem;
-  }
-}
-
-.hardcut-bar.is-cut {
-  /* steps() = absichtlich abgehackter Wipe, kein Easing */
-  animation: hardcut-wipe 0.4s steps(5, end) forwards;
-}
-
-@keyframes hardcut-wipe {
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-.hardcut-track {
+.marquee-track {
   display: flex;
   width: max-content;
-  animation: hardcut-marquee 22s linear infinite;
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
-.hardcut-half {
-  display: flex;
-  flex-shrink: 0;
-}
-
-.hardcut-item {
-  display: flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.hardcut-sep {
-  margin: 0 1.75rem;
-  letter-spacing: 0;
-}
-
-@keyframes hardcut-marquee {
-  to {
-    transform: translateX(-50%);
+/* Scroll-getriebene Reveals (nur wo animation-timeline existiert) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rv {
+      animation: rv-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+    .rv-x {
+      animation: rv-x linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
   }
 }
+@keyframes rv-in {
+  from { opacity: 0; transform: translateY(2.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rv-x {
+  from { transform: translateX(-12%); }
+  to { transform: none; }
+}
 
-@keyframes hard-reveal-wipe {
-  from {
-    clip-path: inset(0 100% 0 0);
+/* Signature Moment: Festpreis-Stempel knallt einmal auf (Startseite) */
+@keyframes stamp {
+  0% { transform: rotate(-4deg) scale(1.9); opacity: 0; }
+  55% { transform: rotate(-4deg) scale(0.94); opacity: 1; }
+  100% { transform: rotate(-4deg) scale(1); opacity: 1; }
+}
+.stamp {
+  transform: rotate(-4deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stamp-in {
+    animation: stamp 0.5s var(--ease-snap) 0.35s both;
   }
-  to {
-    clip-path: inset(0 0 0 0);
+  .hero-line {
+    animation: line-in 0.55s var(--ease-snap) both;
   }
+  .hero-line:nth-child(2) { animation-delay: 0.06s; }
+  .hero-line:nth-child(3) { animation-delay: 0.12s; }
+  .hero-line:nth-child(4) { animation-delay: 0.18s; }
+}
+@keyframes line-in {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(0.3em); }
+  to { clip-path: inset(0 0 0 0); transform: none; }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Route-Wipe — harter Schnitt beim Seitenwechsel (template.tsx)
-   ───────────────────────────────────────────────────────────── */
-
-.route-wipe {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  pointer-events: none;
-  background: var(--color-foreground);
-  animation: route-wipe-out 0.45s steps(5, end) forwards;
-}
-
-@keyframes route-wipe-out {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 100%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .route-wipe {
-    display: none;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Route-Loader — Ladebalken-Look beim Client-Seitenwechsel (template.tsx)
-   ───────────────────────────────────────────────────────────── */
-
-.route-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-ink);
-  will-change: clip-path;
-}
-
-.route-loader.is-leaving {
-  animation: preloader-wipe 0.4s steps(6, end) forwards;
-}
-
-.rl-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
-}
-
-.rl-word {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  color: var(--color-foreground);
-}
-
-.rl-track {
-  display: block;
-  height: 2px;
-  width: min(240px, 60vw);
-  overflow: hidden;
-  background: var(--color-border-strong);
-}
-
-.rl-line {
-  display: block;
-  height: 100%;
-  width: 100%;
-  transform-origin: left center;
-  transform: scaleX(0);
-  background: linear-gradient(
-    90deg,
-    var(--color-accent),
-    var(--color-accent-warm)
-  );
-  animation: route-loader-fill 0.48s var(--ease-out-expo) forwards;
-}
-
-@keyframes route-loader-fill {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .route-loader {
-    display: none;
-  }
-}
-
-/* FinalCta-Headline-Marquee (nutzt dieselben Keyframes, langsamer) */
-.cta-track {
-  animation: hardcut-marquee 36s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hardcut-bar,
-  .hardcut-bar.is-cut {
-    clip-path: none;
-    animation: none;
-  }
-  .hardcut-track,
-  .cta-track {
-    animation: none;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Preloader — orchestrierter Load-Moment (Preloader.tsx)
-   ───────────────────────────────────────────────────────────── */
-
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-ink);
-  will-change: clip-path;
-  /* Overlay blockiert nie Klicks; nach dem Wipe (clip-path) ohnehin kein
-     Hit-Testing mehr — Defense in Depth gegen "Seite gesperrt". */
-  pointer-events: none;
-  /* CSS-Fallback-Wipe: Selbst wenn das Skript komplett ausfällt, wischt das
-     Overlay spätestens nach 3,8 s weg (< 4 s harter Timeout) — kann nicht
-     hängen. Der Normalfall (intro-done, bei Load-Abschluss) überschreibt das
-     mit sofortigem Wipe. */
-  animation: preloader-wipe 0.42s steps(6, end) 2s forwards;
-}
-
-/* Ladefortschritt fertig (Skript setzt intro-done am <html>) → sofort wegwischen.
-   Höhere Spezifität als .preloader → gewinnt gegen den Fallback-Delay. */
-html.intro-done .preloader {
-  animation: preloader-wipe 0.42s steps(6, end) forwards;
-}
-
-@keyframes preloader-wipe {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
-.preloader-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
-}
-
-.preloader-word {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  color: var(--color-foreground);
-  opacity: 0;
-  animation: preloader-in 0.5s var(--ease-out-expo) 0.05s forwards;
-}
-
-.preloader-track {
-  display: block;
-  height: 2px;
-  width: min(240px, 60vw);
-  overflow: hidden;
-  background: var(--color-border-strong);
-}
-
-.preloader-line {
-  display: block;
-  height: 100%;
-  width: 100%;
-  transform-origin: left center;
-  /* Fortschritt rein per CSS (kein JS pro Frame): 8 % → 90 %, bei
-     html.intro-full springt der Balken auf 100 %. */
-  transform: scaleX(0.08);
-  animation: preloader-trickle 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: transform 0.2s linear;
-  background: linear-gradient(
-    90deg,
-    var(--color-accent),
-    var(--color-accent-warm)
-  );
-}
-
-html.intro-full .preloader-line {
-  animation: none;
-  transform: scaleX(1);
-}
-
-@keyframes preloader-trickle {
-  from {
-    transform: scaleX(0.08);
-  }
-  to {
-    transform: scaleX(0.9);
-  }
-}
-
-@keyframes preloader-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .preloader {
-    display: none;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Scroll Progress
-   ───────────────────────────────────────────────────────────── */
-
+/* Scroll-Fortschritt: 4px Signal-Balken unter dem Header */
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  z-index: 80;
+  height: 4px;
+  z-index: 60;
   transform-origin: 0 50%;
-  background: linear-gradient(90deg, var(--color-teal), var(--color-teal-2), var(--color-gold));
+  background: var(--color-signal);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Theme-Crossfade — View Transitions (ThemeToggle)
-   ───────────────────────────────────────────────────────────── */
+/* Projekt-Vorschau (Hover-Tafel) */
+.preview-pop {
+  opacity: 0;
+  transform: translate(1rem, 1rem);
+  transition:
+    opacity var(--dur-base) linear,
+    transform var(--dur-base) var(--ease-snap);
+  pointer-events: none;
+}
+.group:hover .preview-pop,
+.group:focus-within .preview-pop {
+  opacity: 1;
+  transform: none;
+}
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.4s;
-  animation-timing-function: var(--ease-out-expo);
+  animation-duration: 0.25s;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Reduced Motion
-   ───────────────────────────────────────────────────────────── */
-
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
-
   *,
   *::before,
   *::after {
@@ -1159,14 +467,17 @@ html.intro-full .preloader-line {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
   }
-
-  .cursor-core,
-  .cursor-frame {
+  .marquee-dup {
     display: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
