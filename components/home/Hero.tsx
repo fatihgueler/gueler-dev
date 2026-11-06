@@ -2,6 +2,8 @@ import * as React from "react";
 import Link from "next/link";
 
 import { hero, site } from "@/lib/content";
+import { SplitChars } from "@/components/ui/SplitChars";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 /**
  * Startseiten-Hero. Typografie ist das Bild: die Kernaussage in schmaler,
@@ -32,7 +34,7 @@ export function Hero() {
           id="hero-title"
           className="display relative py-[clamp(1.5rem,4svh,3rem)] text-[clamp(3.1rem,min(15vw,19.5svh),20vw)]"
         >
-          <span className="hero-line block"><span className="drift-l block">{hero.lines[0]}</span></span>
+          <span className="hero-line block"><span className="drift-l block"><SplitChars text={hero.lines[0]} className="chars" /></span></span>
           <span className="hero-line drift-r relative z-10 -mt-[0.06em] block">
             <span className="stamp stamp-in inline-block origin-left border-2 border-ink bg-signal px-[0.08em] pb-[0.02em] pt-[0.1em] text-on-signal shadow-[0.06em_0.06em_0_0_var(--color-foreground)]">
               {hero.lines[1]}
@@ -46,6 +48,7 @@ export function Hero() {
             {hero.subtitle}
           </p>
           <div className="flex flex-col gap-3 border-t-2 border-border py-5 sm:flex-row md:col-span-4 md:flex-col md:border-r-2 md:border-t-0 md:px-6 md:py-6">
+            <Magnetic strength={0.25}>
             <Link
               href={hero.cta.href}
               data-umami-event="hero-cta"
@@ -54,6 +57,7 @@ export function Hero() {
               {hero.cta.label}
               <span aria-hidden className="nudge">→</span>
             </Link>
+            </Magnetic>
             <Link
               href={hero.secondary.href}
               className="flex min-h-12 items-center justify-between gap-4 border-2 border-foreground px-5 font-mono text-sm font-bold uppercase tracking-[0.06em] transition-colors duration-[90ms] hover:bg-foreground hover:text-background"

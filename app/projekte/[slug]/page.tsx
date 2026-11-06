@@ -101,6 +101,7 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${study.title} live öffnen (neuer Tab)`}
+      data-cursor="Live ↗"
       className="block shadow-[10px_10px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)]"
     >
       {figure}

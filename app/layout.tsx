@@ -12,6 +12,7 @@ import { GrinFavicon } from "@/components/ui/GrinFavicon";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { RevealObserver } from "@/components/ui/RevealObserver";
+import { Cursor } from "@/components/ui/Cursor";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
@@ -203,6 +204,7 @@ export default function RootLayout({
             Zum Inhalt springen
           </a>
           <ScrollProgress />
+          <Cursor />
           <GrinFavicon />
           <ConsoleSignature />
           <Header />

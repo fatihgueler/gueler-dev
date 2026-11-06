@@ -21,8 +21,14 @@ export function Services({ index = "02", label = services.eyebrow }: { index?: s
       </div>
       <ol data-rv-stagger="90" className="mt-16 border-t-2 border-border">
         {services.items.map((item, i) => (
-          <li key={item.title} data-rv="up" className="row-invert border-b-2 border-border last:border-b-0">
-            <div className="frame grid gap-4 py-8 md:grid-cols-12 md:gap-6 md:py-10">
+          <li key={item.title} data-rv="up" className="row-invert group relative overflow-hidden border-b-2 border-border last:border-b-0">
+            <span
+              aria-hidden
+              className="svc-num display pointer-events-none absolute -bottom-[0.18em] right-[var(--spacing-gutter)] hidden select-none text-[clamp(8rem,14vw,14rem)] leading-none md:block"
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="frame relative grid gap-4 py-8 md:grid-cols-12 md:gap-6 md:py-10">
               <span className="label signal-inv text-signal-text md:col-span-1 md:pt-2">
                 {String(i + 1).padStart(2, "0")}
               </span>

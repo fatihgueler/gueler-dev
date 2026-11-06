@@ -29,7 +29,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
               key={item.title}
               aria-labelledby={`paket-${i}`}
               data-rv="up"
-              className={`relative border-b-2 border-border ${inv ? "bg-foreground text-background" : ""}`}
+              className={`relative overflow-x-clip border-b-2 border-border ${inv ? "bg-foreground text-background" : ""}`}
             >
               <div className="frame grid gap-8 py-10 md:grid-cols-12 md:py-14">
                 <div className="md:col-span-5">
@@ -72,7 +72,7 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                 </ul>
               </div>
               {item.badge && (
-                <span data-rv="stamp" className="stamp label absolute right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal">
+                <span data-rv="stamp" className="stamp label absolute origin-right right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal">
                   ★ {item.badge}
                 </span>
               )}

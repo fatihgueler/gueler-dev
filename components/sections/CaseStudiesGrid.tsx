@@ -32,6 +32,7 @@ export function CaseStudiesGrid() {
           <li key={study.id} data-rv="up" className="border-b-2 border-border last:border-b-0">
             <Link
               href={`/projekte/${study.id}`}
+              data-cursor="Case öffnen"
               className="row-invert group block"
               aria-label={`Case Study ansehen: ${study.title}`}
             >

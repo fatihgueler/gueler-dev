@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { storyPitch } from "@/lib/content";
+import { ScrubText } from "@/components/home/ScrubText";
 
 /**
  * Problem: der Pitch als ein großer Satzblock (keine Karten), Akzente als
@@ -15,18 +16,11 @@ export function Problem() {
             <span className="bg-foreground px-1.5 py-0.5 text-background">01</span>
             Dein Problem
           </p>
-          <h2
+          <ScrubText
             id="problem-title"
-            data-rv="up"
+            segments={storyPitch.segments}
             className="font-display text-[clamp(2.1rem,1.2rem+4.2vw,5.5rem)] font-extrabold leading-[0.98] tracking-[-0.02em] md:col-span-9"
-            style={{ fontStretch: "78%" }}
-          >
-            {storyPitch.segments.map((seg, i) => (
-              <React.Fragment key={i}>
-                {seg.accent ? <span className="mark">{seg.text}</span> : seg.text}{" "}
-              </React.Fragment>
-            ))}
-          </h2>
+          />
         </div>
 
         <ol data-rv-stagger="90" className="mt-[var(--spacing-section)] grid border-t-2 border-border md:grid-cols-2">
