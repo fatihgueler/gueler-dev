@@ -7,10 +7,9 @@ import { site } from "@/lib/content";
 import { Button, type ButtonProps } from "@/components/ui/button";
 
 /**
- * Calendly-Popup-Button. Lädt das Calendly-Widget erst im Browser-Leerlauf
- * bzw. bei Interaktion (Performance-Budget schonen) und übergibt die Farben
- * des aktuell aktiven Site-Themes an das Popup.
- * Fallback ohne JS / vor dem Laden: normaler Link in neuem Tab.
+ * Calendly-Popup-Button. Lädt das Calendly-Widget erst beim Klick (keine
+ * Daten an Calendly vorher) und übergibt die Markenfarben an das Popup.
+ * Fallback ohne JS / wenn das Laden scheitert: normaler Link in neuem Tab.
  */
 declare global {
   interface Window {
@@ -23,29 +22,38 @@ declare global {
 const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js";
 const CALENDLY_CSS = "https://assets.calendly.com/assets/external/widget.css";
 
-let calendlyLoading = false;
+let calendlyPromise: Promise<void> | null = null;
 
-function loadCalendly() {
-  if (calendlyLoading || typeof window === "undefined" || window.Calendly) return;
-  calendlyLoading = true;
+/** Lädt Calendly einmalig — erst nach einem Klick (keine Daten vorab an Calendly). */
+function loadCalendly(): Promise<void> {
+  if (window.Calendly) return Promise.resolve();
+  if (calendlyPromise) return calendlyPromise;
+  calendlyPromise = new Promise<void>((resolve, reject) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = CALENDLY_CSS;
+    document.head.appendChild(link);
 
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = CALENDLY_CSS;
-  document.head.appendChild(link);
-
-  const script = document.createElement("script");
-  script.src = CALENDLY_SCRIPT;
-  script.async = true;
-  document.head.appendChild(script);
+    const script = document.createElement("script");
+    script.src = CALENDLY_SCRIPT;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => {
+      calendlyPromise = null;
+      reject(new Error("Calendly konnte nicht geladen werden"));
+    };
+    document.head.appendChild(script);
+  });
+  return calendlyPromise;
 }
 
 function themedCalendlyUrl(): string {
   const params = new URLSearchParams({
     hide_gdpr_banner: "1",
-    background_color: "0d0d18",
-    text_color: "f1f5f9",
-    primary_color: "7c3aed",
+    // Marken-Palette (app/globals.css): Surface, Foreground, Emerald
+    background_color: "0e1512",
+    text_color: "eaf1ec",
+    primary_color: "2bbe83",
   });
   return `${site.calendly}?${params.toString()}`;
 }
@@ -55,13 +63,15 @@ interface BookingButtonProps extends Pick<ButtonProps, "variant" | "size" | "cla
 }
 
 export function BookingButton({ children, ...buttonProps }: BookingButtonProps) {
-  // KEIN Idle-Preload mehr: Calendly setzt Third-Party-Cookies (__cf_bm) —
-  // Assets laden erst bei echter Interaktions-Absicht (Hover/Focus).
-  // Kommt der Klick schneller als das Script, greift der Link-Fallback.
+  // Calendly setzt Third-Party-Cookies (__cf_bm) und bekommt die IP —
+  // deshalb lädt das Widget erst beim Klick (nicht bei Hover/Fokus).
+  // Lädt es nicht, öffnet sich Calendly als normaler Link im neuen Tab.
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!window.Calendly) return; // Fallback: Link öffnet Calendly im neuen Tab
     event.preventDefault();
-    window.Calendly.initPopupWidget({ url: themedCalendlyUrl() });
+    const url = themedCalendlyUrl();
+    loadCalendly()
+      .then(() => window.Calendly?.initPopupWidget({ url }))
+      .catch(() => window.open(site.calendly, "_blank", "noopener,noreferrer"));
   };
 
   return (
@@ -71,8 +81,6 @@ export function BookingButton({ children, ...buttonProps }: BookingButtonProps) 
         data-umami-event="calendly"
         target="_blank"
         rel="noopener noreferrer"
-        onPointerEnter={loadCalendly}
-        onFocus={loadCalendly}
         onClick={handleClick}
       >
         <CalendarDays aria-hidden />

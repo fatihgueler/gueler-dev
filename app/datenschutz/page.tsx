@@ -76,6 +76,28 @@ export default function Datenschutz() {
             )}
 
             <section>
+              <h2 className="text-lg font-semibold text-foreground mb-3">4b. Terminbuchung über Calendly</h2>
+              <p className="mb-3">
+                Für Erstgespräche kannst du einen Termin über Calendly buchen. Das Calendly-Fenster wird erst geladen, wenn du auf den Buchungs-Button klickst – vorher werden keine Daten an Calendly übertragen. Ab dem Klick erhält Calendly technische Daten wie deine IP-Adresse und Browserinformationen, setzt eigene Cookies und verarbeitet die Angaben, die du bei der Buchung eingibst (z. B. Name, E-Mail, Wunschtermin). Calendly verarbeitet Daten auch in den USA.
+              </p>
+              <div className="pl-4 border-l-2 border-gold/30">
+                <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 a) DSGVO (Einwilligung durch deinen Klick) und Artikel 6 Abs. 1 b) DSGVO (Vereinbarung des Termins)</p>
+                <p><strong>Anbieter:</strong> Calendly LLC. Details: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">Datenschutzerklärung von Calendly</a></p>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-lg font-semibold text-foreground mb-3">4c. Karte (OpenStreetMap)</h2>
+              <p className="mb-3">
+                Auf der Kontaktseite kann eine Karte von OpenStreetMap eingeblendet werden. Sie wird erst geladen, wenn du auf „Karte von OpenStreetMap laden“ klickst. Dann werden technische Daten wie deine IP-Adresse an die Server von OpenStreetMap übertragen.
+              </p>
+              <div className="pl-4 border-l-2 border-gold/30">
+                <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 a) DSGVO (Einwilligung durch deinen Klick)</p>
+                <p><strong>Anbieter:</strong> OpenStreetMap Foundation. Details: <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">Datenschutzerklärung der OSM Foundation</a></p>
+              </div>
+            </section>
+
+            <section>
               <h2 className="text-lg font-semibold text-foreground mb-3">5. Externe Links</h2>
               <p>
                 Diese Website enthält Links zu externen Websites. Für deren Datenschutzpraktiken sind wir nicht verantwortlich. Bitte lies die Datenschutzerklärungen der verlinkten Seiten.
