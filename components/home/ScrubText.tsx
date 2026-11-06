@@ -2,21 +2,20 @@
 
 import * as React from "react";
 
-import { prefersReducedMotion } from "@/lib/motion";
 
 type Segment = { text: string; accent?: boolean };
 
 /**
  * Satz, der sich beim Scrollen Wort für Wort einfärbt. Akzent-Segmente
  * bekommen ihren Signal-Marker erst, wenn sie „erreicht" sind.
- * Ohne JS bzw. bei reduzierter Bewegung: alles sofort eingefärbt.
+ * Ohne JS: alles sofort eingefärbt.
  */
 export function ScrubText({ segments, className, id }: { segments: Segment[]; className?: string; id?: string }) {
   const ref = React.useRef<HTMLHeadingElement>(null);
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el) return; // Farbwechsel, keine Bewegung → auch bei reduzierter Bewegung
     const words = Array.from(el.querySelectorAll<HTMLElement>("[data-w]"));
     el.classList.add("scrub-on");
     let raf = 0;
@@ -45,7 +44,7 @@ export function ScrubText({ segments, className, id }: { segments: Segment[]; cl
   }, []);
 
   return (
-    <h2 ref={ref} id={id} className={className} style={{ fontStretch: "78%" }}>
+    <h2 ref={ref} id={id} className={className} style={{ fontStretch: "86%" }}>
       {segments.map((seg, s) => (
         <React.Fragment key={s}>
           {seg.accent ? (

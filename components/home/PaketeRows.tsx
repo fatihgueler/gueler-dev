@@ -66,14 +66,14 @@ export function PaketeRows({ index = "04" }: { index?: string }) {
                       key={f}
                       className={`flex gap-3 border-b-2 py-3 first:border-t-2 ${inv ? "border-background/40" : "border-border"}`}
                     >
-                      <span aria-hidden className="mt-[0.45em] size-2.5 shrink-0 bg-signal" />
+                      <span aria-hidden className="mt-[0.45em] size-2.5 shrink-0 bg-signal sig-dot" />
                       {f}
                     </li>
                   ))}
                 </ul>
               </div>
               {item.badge && (
-                <span data-rv="stamp" className="stamp label absolute origin-right right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal">
+                <span data-rv="stamp" className="stamp label absolute origin-right right-[var(--spacing-gutter)] top-0 -translate-y-1/2 border-2 border-ink bg-signal px-3 py-1.5 text-sm font-bold text-on-signal rounded-full">
                   ★ {item.badge}
                 </span>
               )}

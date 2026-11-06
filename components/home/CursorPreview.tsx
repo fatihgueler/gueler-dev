@@ -67,7 +67,7 @@ export function CursorPreview({ children }: { children: React.ReactNode }) {
     <div
       ref={ref}
       aria-hidden
-      className="preview-pop absolute right-[38%] top-6 z-20 hidden w-[min(30rem,32vw)] border-2 border-border bg-background shadow-[8px_8px_0_0_var(--color-signal)] md:block"
+      className="preview-pop absolute right-[38%] top-6 z-20 hidden w-[min(30rem,32vw)] border-2 border-border bg-background shadow-[8px_8px_0_0_var(--color-signal)] md:block overflow-hidden rounded-[1.25rem]"
     >
       {children}
     </div>

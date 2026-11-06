@@ -14,50 +14,50 @@
 
 :root {
   /* ── 1. Primitive ────────────────────────────────────────── */
-  --p-paper: #f2eee6;
-  --p-paper-2: #e8e3d8;
-  --p-paper-3: #dcd5c6;
+  --p-paper: #f3f2ed;
+  --p-paper-2: #e9e8e1;
+  --p-paper-3: #dddbd2;
   --p-ink: #121110;
   --p-ink-2: #1c1a18;
   --p-ink-3: #2a2724;
-  --p-stone-dark: #5a5650; /* 6.3:1 auf paper */
-  --p-stone-light: #a8a294; /* 6.8:1 auf ink-2 */
-  --p-signal: #ff4d00; /* Signalorange – Fill, Linien, große Flächen */
-  --p-signal-on-paper: #b83a00; /* gleiche Farbe, Text-Variante (4.98:1) */
-  --p-signal-on-ink: #ff5a14; /* Text-Variante auf dunkel (6.0:1) */
+  --p-stone-dark: #57544e; /* 6.7:1 auf paper */
+  --p-stone-light: #a9a69c; /* 7.1:1 auf ink-2 */
+  --p-signal: #c6ff00; /* Säuregrün – nur als Fläche, Text darauf immer ink */
+  --p-signal-on-paper: #3f5f00; /* Text-Variante auf hell (6.6:1) */
+  --p-signal-on-ink: #c6ff00; /* auf dunkel direkt nutzbar (15.9:1) */
   --p-error-on-paper: #a3001b;
   --p-error-on-ink: #ff6b7d;
 }
 
 @theme {
   /* ── 2. Semantisch (Light = Default) ─────────────────────── */
-  --color-background: #f2eee6;
-  --color-surface: #e8e3d8;
-  --color-surface-2: #dcd5c6;
+  --color-background: #f3f2ed;
+  --color-surface: #e9e8e1;
+  --color-surface-2: #dddbd2;
   --color-foreground: #121110;
-  --color-muted: #5a5650;
-  --color-muted-2: #5a5650;
+  --color-muted: #57544e;
+  --color-muted-2: #57544e;
   --color-border: #121110; /* Linien sind tragend: volle Farbe */
   --color-border-strong: #121110;
   --color-hair: rgba(18, 17, 16, 0.18); /* nur für Hilfslinien des Rasters */
 
-  --color-signal: #ff4d00; /* Fill – Text darauf IMMER ink */
-  --color-signal-text: #b83a00; /* Akzent als Text */
+  --color-signal: #c6ff00; /* Säuregrün: Fill – Text darauf IMMER ink */
+  --color-signal-text: #3f5f00; /* Akzent als Text auf hell */
   --color-on-signal: #121110;
   --color-ink: #121110;
-  --color-paper: #f2eee6;
+  --color-paper: #f3f2ed;
   --color-error: #a3001b;
 
   /* Legacy-Aliase: ältere Bausteine (shadcn/ui, Ratgeber) erben die neue
      Palette ohne Umbenennung. Es gibt nur EINE Akzentfarbe. */
-  --color-violet: #ff4d00;
-  --color-violet-2: #b83a00;
-  --color-violet-3: #b83a00;
-  --color-cyan: #b83a00;
-  --color-cyan-2: #b83a00;
-  --color-teal: #b83a00;
-  --color-teal-2: #b83a00;
-  --color-gold: #b83a00;
+  --color-violet: #c6ff00;
+  --color-violet-2: #3f5f00;
+  --color-violet-3: #3f5f00;
+  --color-cyan: #3f5f00;
+  --color-cyan-2: #3f5f00;
+  --color-teal: #3f5f00;
+  --color-teal-2: #3f5f00;
+  --color-gold: #3f5f00;
   --color-gold-bright: #121110;
 
   /* ── Schriften (next/font, selbst gehostet) ──────────────── */
@@ -65,10 +65,10 @@
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
-  /* ── Radius: überall 0 ───────────────────────────────────── */
-  --radius: 0rem;
-  --radius-lg: 0rem;
-  --radius-xl: 0rem;
+  /* ── Radius: weich (Pillen für Buttons/Tags, Karten 20px) ── */
+  --radius: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
 
   /* ── Typo-Skala (fluid) ──────────────────────────────────── */
   --text-label: 0.75rem; /* Mono-Labels, nie Fließtext */
@@ -100,25 +100,25 @@
 html.dark {
   color-scheme: dark;
   --color-background: #121110;
-  --color-surface: #1c1a18;
+  --color-surface: #1c1b19;
   --color-surface-2: #2a2724;
-  --color-foreground: #f2eee6;
-  --color-muted: #a8a294;
-  --color-muted-2: #a8a294;
-  --color-border: #f2eee6;
-  --color-border-strong: #f2eee6;
-  --color-hair: rgba(242, 238, 230, 0.2);
-  --color-signal-text: #ff5a14;
+  --color-foreground: #f3f2ed;
+  --color-muted: #a9a69c;
+  --color-muted-2: #a9a69c;
+  --color-border: #f3f2ed;
+  --color-border-strong: #f3f2ed;
+  --color-hair: rgba(243, 242, 237, 0.2);
+  --color-signal-text: #c6ff00;
   --color-error: #ff6b7d;
 
-  --color-violet-2: #ff5a14;
-  --color-violet-3: #ff5a14;
-  --color-cyan: #ff5a14;
-  --color-cyan-2: #ff5a14;
-  --color-teal: #ff5a14;
-  --color-teal-2: #ff5a14;
-  --color-gold: #ff5a14;
-  --color-gold-bright: #f2eee6;
+  --color-violet-2: #c6ff00;
+  --color-violet-3: #c6ff00;
+  --color-cyan: #c6ff00;
+  --color-cyan-2: #c6ff00;
+  --color-teal: #c6ff00;
+  --color-teal-2: #c6ff00;
+  --color-gold: #c6ff00;
+  --color-gold-bright: #f3f2ed;
 }
 
 html {
@@ -171,7 +171,7 @@ html {
 
   /* Sichtbarer, harter Fokus-Ring – überall gleich */
   :focus-visible {
-    outline: 3px solid var(--color-signal);
+    outline: 3px solid var(--color-foreground);
     outline-offset: 3px;
     border-radius: 0;
   }
@@ -200,12 +200,11 @@ html {
   /* Display-Schnitt: Archivo, maximal schmal, schwer, eng */
   .display {
     font-family: var(--font-display);
-    font-stretch: 62%;
-    font-weight: 900;
-    line-height: 0.86;
-    letter-spacing: -0.015em;
-    word-spacing: 0.06em;
-    text-transform: uppercase;
+    font-stretch: 84%;
+    font-weight: 760;
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    word-spacing: 0.05em;
   }
 
   /* Mono-Label: Nummerierung, Meta, Navigation */
@@ -290,9 +289,8 @@ html {
   }
   .prose-brut h2 {
     font-family: var(--font-display);
-    font-stretch: 75%;
-    font-weight: 800;
-    text-transform: uppercase;
+    font-stretch: 88%;
+    font-weight: 760;
     font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
     line-height: 1;
     letter-spacing: -0.01em;
@@ -504,10 +502,11 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px;
   z-index: 60;
   transform-origin: 0 50%;
   background: var(--color-signal);
+  border-bottom: 1.5px solid var(--color-ink);
 }
 
 /* Projekt-Vorschau (Hover-Tafel) */
@@ -616,7 +615,7 @@ html {
   }
   .chars .char:hover {
     translate: 0 -0.07em;
-    color: var(--color-signal);
+    color: var(--color-signal-text);
   }
 }
 @keyframes char-in {
@@ -627,7 +626,7 @@ html {
 /* Problem: Wörter färben sich beim Scrollen ein (nur mit JS: .scrub-on) */
 .scrub-on [data-w] {
   transition: color 0.12s linear;
-  color: color-mix(in srgb, var(--color-foreground) 22%, transparent);
+  color: color-mix(in srgb, var(--color-foreground) 52%, transparent); /* Großtext ≥ 3:1 auch im Ausgangszustand */
 }
 .scrub-on [data-w][data-lit] {
   color: inherit;
@@ -687,6 +686,7 @@ html {
   pointer-events: none;
   background: var(--color-signal);
   outline: 2px solid var(--color-ink);
+  border-radius: 999px;
   display: none;
   align-items: center;
   justify-content: center;
@@ -748,12 +748,12 @@ html.has-cursor .cursor-box {
 @media (prefers-reduced-motion: no-preference) {
   /* Vertikales Parallax: --speed in px über den ganzen Durchlauf */
   .px-y {
-    translate: 0 calc((var(--p, 0.5) - 0.5) * var(--speed, 120) * -1px);
+    translate: 0 calc((var(--p, 0.5) - 0.5) * var(--speed, 120) * var(--sp-k, 1) * -1px);
     will-change: translate;
   }
   /* Horizontales Parallax */
   .px-x {
-    translate: calc((var(--p, 0.5) - 0.5) * var(--speed, 200) * -1px) 0;
+    translate: calc((var(--p, 0.5) - 0.5) * var(--speed, 200) * var(--sp-k, 1) * -1px) 0;
     will-change: translate;
   }
   /* Bild zoomt beim Durchlauf von 1.25 auf 1.0 */
@@ -809,8 +809,9 @@ html.has-cursor .cursor-box {
     content: "";
     position: absolute;
     inset: 0 0 auto 0;
-    height: 6px;
+    height: 7px;
     background: var(--color-signal);
+    border-bottom: 1.5px solid var(--color-ink);
     z-index: 2;
   }
 }
@@ -831,7 +832,8 @@ html.has-cursor .cursor-box {
 /* ── Überschriften füllen sich beim Scrollen von Kontur zu Vollton ──
    --p kommt von der Scroll-Engine; ohne Engine (reduzierte Bewegung,
    kein JS) ist --p nicht gesetzt → Fallback 1.2 → voll gefüllt. */
-@media (prefers-reduced-motion: no-preference) {
+/* Farb-Füllung ist keine Bewegung → läuft auch bei reduzierter Bewegung */
+@media all {
   .sp-fill {
     --fc: var(--fill-color, var(--color-foreground));
     --fill: calc(var(--p, 1.2) * 300% - 40%);
@@ -850,4 +852,32 @@ html.has-cursor .cursor-box {
     opacity: calc(1 - max(var(--p, 0.5) - 0.55, 0) * 1.6);
     transform-origin: 50% 100%;
   }
+}
+
+
+/* ── Säuregrün auf hell ─────────────────────────────────────
+   Grün hat auf Papier kaum Helligkeitskontrast. Kleine Signal-
+   Markierungen (Quadrate, Linien) bekommen deshalb einen Ink-Rand. */
+html:not(.dark) .sig-dot {
+  box-shadow: inset 0 0 0 1.5px var(--color-ink);
+}
+
+/* Reduzierte Bewegung: große Bewegungen bleiben aus, aber sanfte
+   Einblendungen (nur Deckkraft) laufen weiter – WCAG-konform. */
+@media (prefers-reduced-motion: reduce) {
+  html.anim-ready [data-rv] {
+    transition: opacity 0.45s linear !important;
+    transition-delay: var(--rv-delay, 0ms) !important;
+  }
+  html.anim-ready [data-rv]:not(.is-in) {
+    opacity: 0;
+  }
+}
+
+/* Parallax-Wege auf kleinen Bildschirmen verkürzen */
+@media (max-width: 767px) {
+  :root { --sp-k: 0.3; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root { --sp-k: 0.65; }
 }

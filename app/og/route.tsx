@@ -4,9 +4,9 @@ import { hero, site } from "@/lib/content";
 
 export const runtime = "edge";
 
-const PAPER = "#f2eee6";
+const PAPER = "#f3f2ed";
 const INK = "#121110";
-const SIGNAL = "#ff4d00";
+const SIGNAL = "#c6ff00";
 
 /**
  * OG-Bild im Werkstattzettel-System: Papier, sichtbares 12er-Raster,
@@ -78,7 +78,6 @@ export async function GET() {
               fontWeight: 900,
               lineHeight: 0.92,
               letterSpacing: -4,
-              textTransform: "uppercase",
               maxWidth: 1080,
             }}
           >
@@ -95,7 +94,6 @@ export async function GET() {
                 fontWeight: 900,
                 letterSpacing: -3,
                 padding: "4px 22px 0",
-                textTransform: "uppercase",
                 transform: "rotate(-3deg)",
               }}
             >

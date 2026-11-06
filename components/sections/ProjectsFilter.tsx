@@ -29,7 +29,7 @@ export function ProjectsFilter() {
               aria-pressed={active === category}
               onClick={() => setActive(category)}
               className={cn(
-                "-ml-[2px] -mt-[2px] min-h-11 border-2 border-border px-4 font-mono text-xs font-bold uppercase tracking-[0.06em] transition-colors duration-[90ms] first:ml-0",
+                "mb-2 mr-2 min-h-11 rounded-full border-2 border-border px-4 font-mono text-xs font-bold uppercase tracking-[0.06em] transition-colors duration-[90ms] first:ml-0",
                 active === category ? "bg-foreground text-background" : "hover:bg-signal hover:text-on-signal",
               )}
             >

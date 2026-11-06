@@ -140,7 +140,7 @@ export default function WasKostetEineWebsitePage() {
 
       {/* Kurz-Antwort: der extrahierbare Kern für Suche + KI-Antwortmaschinen */}
       <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
-        <div className="max-w-4xl border-2 border-border border-l-[length:var(--rule-heavy)] border-l-signal bg-surface p-6 shadow-[8px_8px_0_0_var(--color-foreground)] md:p-10">
+        <div className="max-w-4xl border-2 border-border border-l-[length:var(--rule-heavy)] border-l-signal bg-surface p-6 shadow-[8px_8px_0_0_var(--color-foreground)] md:p-10 rounded-[1.25rem]">
           <p className="label font-bold">
             Die kurze Antwort
           </p>

@@ -49,7 +49,7 @@ export function ConsentBanner() {
           // Bottom-left statt zentriert: die Hero-CTA sitzt rechtsbündig
           // (md:justify-between) — zentriert/breit überlappte der Banner bei
           // gängigen Laptop-Höhen (768-900px) deren untere linke Ecke.
-          className="fixed inset-x-4 bottom-4 z-[80] mx-auto max-w-xl border-2 border-border bg-background p-4 shadow-[6px_6px_0_0_var(--color-foreground)] sm:inset-x-auto sm:left-4 sm:right-auto sm:max-w-sm sm:p-5 md:p-6"
+          className="fixed inset-x-4 bottom-4 z-[80] mx-auto max-w-xl border-2 border-border bg-background p-4 shadow-[6px_6px_0_0_var(--color-foreground)] sm:inset-x-auto sm:left-4 sm:right-auto sm:max-w-sm sm:p-5 md:p-6 rounded-[1.25rem]"
         >
           {/* Kurzform auf Mobile (schmalste Höhe, geringste Kollisionsfläche
               mit gestapeltem Hero-Content), volle Erklärung ab sm. */}

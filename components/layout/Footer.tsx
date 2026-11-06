@@ -16,7 +16,7 @@ export function Footer() {
         <div className="grid md:grid-cols-12">
           {/* Spalte A: Aussage + Kontakt */}
           <div className="border-b-2 border-background/80 p-[var(--spacing-gutter)] py-10 md:col-span-5 md:border-r-2 md:py-12">
-            <p className="label flex items-center gap-2"><span aria-hidden className="size-2.5 bg-signal" />Güler.dev / {site.location}</p>
+            <p className="label flex items-center gap-2"><span aria-hidden className="size-2.5 bg-signal sig-dot" />Güler.dev / {site.location}</p>
             <p className="mt-5 max-w-sm text-lg leading-snug">
               Freelance Webentwickler aus {site.location.split(",")[0]} — moderne
               Websites &amp; KI-Tools für kleine Unternehmen.

@@ -96,12 +96,12 @@ export function ProcessStairs({ index = "03" }: { index?: string }) {
           {/* Fortschritt: oben (Desktop), links (mobil) */}
           <span
             aria-hidden
-            className="absolute left-0 top-0 z-10 hidden h-[6px] w-full origin-left bg-signal md:block"
+            className="absolute left-0 top-0 z-10 hidden h-[6px] w-full origin-left bg-signal md:block sig-dot"
             style={{ transform: `scaleX(${progress})` }}
           />
           <span
             aria-hidden
-            className="absolute left-0 top-0 z-10 h-full w-[6px] origin-top bg-signal md:hidden"
+            className="absolute left-0 top-0 z-10 h-full w-[6px] origin-top bg-signal md:hidden sig-dot"
             style={{ transform: `scaleY(${progress})` }}
           />
           {pinned && (
@@ -131,8 +131,8 @@ export function ProcessStairs({ index = "03" }: { index?: string }) {
                   </div>
                   <div className="mt-4 md:mt-0">
                     <h3
-                      className="font-display text-2xl font-black uppercase leading-[0.9] tracking-[-0.01em] md:text-[clamp(2.5rem,1.5rem+2.5vw,4.5rem)]"
-                      style={{ fontStretch: "62%" }}
+                      className="font-display text-2xl font-bold leading-[0.95] tracking-[-0.03em] md:text-[clamp(2.25rem,1.4rem+2.2vw,4rem)]"
+                      style={{ fontStretch: "84%" }}
                     >
                       {step.title}
                     </h3>

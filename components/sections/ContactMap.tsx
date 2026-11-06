@@ -14,7 +14,7 @@ export function ContactMap() {
   const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=52.4200,9.6000`;
 
   return (
-    <div className="relative aspect-[16/10] w-full border-2 border-border">
+    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[1.25rem] border-2 border-border">
       {loaded ? (
         <iframe
           title="Standort: Großraum Hannover"

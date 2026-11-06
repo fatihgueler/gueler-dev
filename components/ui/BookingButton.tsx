@@ -51,9 +51,9 @@ function themedCalendlyUrl(): string {
   const params = new URLSearchParams({
     hide_gdpr_banner: "1",
     // Marken-Palette (app/globals.css): Papier, Ink, Signal
-    background_color: "f2eee6",
+    background_color: "f3f2ed",
     text_color: "121110",
-    primary_color: "ff4d00",
+    primary_color: "3f5f00",
   });
   return `${site.calendly}?${params.toString()}`;
 }

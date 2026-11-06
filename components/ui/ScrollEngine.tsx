@@ -3,7 +3,6 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 
-import { prefersReducedMotion } from "@/lib/motion";
 
 /**
  * Zentrale Scroll-Engine: EINE rAF-Schleife für alle Parallax-Effekte.
@@ -12,14 +11,15 @@ import { prefersReducedMotion } from "@/lib/motion";
  *   oben) als CSS-Variable; die Effekte selbst sind reines CSS (globals.css).
  * - <html> bekommt --vel (geglättetes Scroll-Tempo, −1…1) für Schräglagen.
  * - Nur sichtbare Elemente werden gerechnet (IntersectionObserver).
- * - Bei „Bewegung reduzieren" läuft nichts; die CSS-Defaults (--p: .5)
- *   ergeben dann die neutrale Ruheposition.
+ * - Bei „Bewegung reduzieren" greifen nur die Farb-Effekte; alle
+ *   Bewegungs-Regeln stehen in CSS hinter prefers-reduced-motion.
  */
 export function ScrollEngine() {
   const pathname = usePathname();
 
   React.useEffect(() => {
-    if (prefersReducedMotion()) return;
+    // Läuft immer: Bewegungs-Effekte sind in CSS an prefers-reduced-motion
+    // gebunden, reine Farb-Effekte (sp-fill) dürfen weiterlaufen.
     const root = document.documentElement;
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-sp]"));
     const visible = new Set<HTMLElement>();

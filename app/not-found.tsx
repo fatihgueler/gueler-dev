@@ -23,7 +23,7 @@ export default function NotFound() {
           </p>
           <Link
             href="/"
-            className="mt-8 inline-flex min-h-14 items-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)]"
+            className="mt-8 inline-flex min-h-14 items-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)] rounded-full"
           >
             ← Zur Startseite
           </Link>

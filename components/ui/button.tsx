@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  * Hover = Verschiebung + Inversion, nie Glow.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-none border-2 border-foreground font-mono text-sm font-bold uppercase tracking-[0.06em] transition-[transform,box-shadow,background-color,color] duration-[90ms] ease-linear disabled:pointer-events-none disabled:opacity-60 [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-full border-2 border-foreground font-mono text-sm font-bold uppercase tracking-[0.06em] transition-[transform,box-shadow,background-color,color] duration-[90ms] ease-linear disabled:pointer-events-none disabled:opacity-60 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

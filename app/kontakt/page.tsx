@@ -60,7 +60,7 @@ export default function KontaktPage() {
         <div className="mx-auto grid w-full max-w-[96rem] lg:grid-cols-12">
           <div className="min-w-0 border-b-2 border-border p-[var(--spacing-gutter)] py-10 lg:col-span-5 lg:border-b-0 lg:border-r-2 lg:py-14">
             <h2 className="label flex items-center gap-3">
-              <span className="bg-foreground px-1.5 py-0.5 text-background">A</span>
+              <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">A</span>
               Direkte Wege
             </h2>
             <dl className="mt-6 border-t-2 border-border">
@@ -96,7 +96,7 @@ export default function KontaktPage() {
 
           <div className="min-w-0 p-[var(--spacing-gutter)] py-10 lg:col-span-7 lg:px-10 lg:py-14">
             <h2 className="label mb-6 flex items-center gap-3">
-              <span className="bg-foreground px-1.5 py-0.5 text-background">B</span>
+              <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">B</span>
               Formular
             </h2>
             <ContactForm />

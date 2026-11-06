@@ -19,7 +19,7 @@ export function PageHero({ eyebrow, title, subtitle, stamp, children }: PageHero
       <div className="mx-auto grid w-full max-w-[96rem] md:grid-cols-12">
         <div className="flex items-start justify-between gap-4 border-b-2 border-border px-[var(--spacing-gutter)] py-4 md:col-span-3 md:flex-col md:border-b-0 md:border-r-2 md:py-8">
           <p className="label flex items-center gap-3">
-            <span aria-hidden className="size-2.5 bg-signal" />
+            <span aria-hidden className="size-2.5 bg-signal sig-dot" />
             {eyebrow}
           </p>
           {stamp && (

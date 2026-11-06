@@ -25,9 +25,9 @@ export function Eyebrow({ children, index }: { children: React.ReactNode; index?
   return (
     <p data-rv="wipe" className="label mb-5 flex items-center gap-3">
       {index ? (
-        <span className="bg-foreground px-1.5 py-0.5 text-background">{index}</span>
+        <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">{index}</span>
       ) : (
-        <span aria-hidden className="size-2.5 shrink-0 bg-signal" />
+        <span aria-hidden className="size-2.5 shrink-0 bg-signal sig-dot" />
       )}
       <span>{children}</span>
     </p>
@@ -88,7 +88,7 @@ export function SectionHead({
       </span>
       <div className="relative md:col-span-3">
         <p data-rv="wipe" className="label flex items-center gap-3">
-          <span className="bg-foreground px-1.5 py-0.5 text-background">{index}</span>
+          <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">{index}</span>
           {label}
         </p>
       </div>

@@ -15,7 +15,7 @@ export function Vertrauen() {
         <div className="px-[var(--spacing-gutter)] py-[var(--spacing-section)] md:col-span-5 md:border-r-2 md:border-border">
           <div className="md:sticky md:top-24">
             <p className="label flex items-center gap-3">
-              <span className="bg-foreground px-1.5 py-0.5 text-background">06</span>
+              <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">06</span>
               {vertrauen.eyebrow}
             </p>
             <h2 id="vertrauen-title" data-rv="rise" className="display mt-6 text-[clamp(2.75rem,1.4rem+5vw,6.5rem)]">
@@ -23,7 +23,7 @@ export function Vertrauen() {
             </h2>
             <p className="mt-6 max-w-md text-[length:var(--text-lead)] leading-snug">{vertrauen.subtitle}</p>
 
-            <figure data-rv="up" data-sp className="sp-turn mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)]">
+            <figure data-rv="up" data-sp className="sp-turn mt-10 w-full max-w-sm border-2 border-border shadow-[8px_8px_0_0_var(--color-signal)] rounded-[1.25rem] overflow-hidden">
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src="/fatih.jpg"
@@ -60,7 +60,7 @@ export function Vertrauen() {
               </span>
               <div>
                 <p className="label muted-inv text-muted">Prüfpunkt {String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-2 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)] font-extrabold leading-tight" style={{ fontStretch: "80%" }}>
+                <h3 className="mt-2 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)] font-extrabold leading-tight" style={{ fontStretch: "86%" }}>
                   {item.title}
                 </h3>
                 <p className="muted-inv mt-3 max-w-xl text-lg leading-snug text-muted">{item.description}</p>

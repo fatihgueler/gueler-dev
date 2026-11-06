@@ -65,7 +65,7 @@ export function ProjectStack({ items }: { items: readonly ProjectItem[] }) {
         return (
           <li
             key={project.title}
-            className="stack-panel border-b-2 border-border bg-background md:sticky md:overflow-hidden md:border-b-0 md:border-t-2"
+            className="stack-panel border-b-2 border-border bg-background md:sticky md:overflow-hidden md:rounded-t-[1.75rem] md:border-x-2 md:border-b-0 md:border-t-2"
             style={
               {
                 "--stack-top": `calc(4rem + ${i * TAB}px)`,
@@ -78,7 +78,7 @@ export function ProjectStack({ items }: { items: readonly ProjectItem[] }) {
               {/* Text */}
               <div className="flex min-w-0 flex-col md:col-span-5 md:justify-center">
                 <p className="label flex flex-wrap items-center gap-3">
-                  <span className="bg-foreground px-1.5 py-0.5 text-background">
+                  <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">
                     {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
                   </span>
                   <span
@@ -96,7 +96,7 @@ export function ProjectStack({ items }: { items: readonly ProjectItem[] }) {
                 <p className="mt-4 text-[length:var(--text-lead)] leading-snug md:text-[clamp(1rem,0.6rem+0.9svh,1.25rem)]">{project.description}</p>
                 <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologien">
                   {project.tags.map((tag) => (
-                    <li key={tag} className="label border-2 border-border px-2 py-1">
+                    <li key={tag} className="label border-2 border-border px-2 py-1 rounded-full">
                       {tag}
                     </li>
                   ))}
@@ -106,14 +106,14 @@ export function ProjectStack({ items }: { items: readonly ProjectItem[] }) {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-12 items-center gap-2 border-2 border-foreground bg-signal px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)]"
+                    className="inline-flex min-h-12 items-center gap-2 border-2 border-foreground bg-signal px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)] rounded-full"
                   >
                     Live ansehen ↗<span className="sr-only"> – {project.title} (neuer Tab)</span>
                   </a>
                   {study && (
                     <Link
                       href={`/projekte/${study.id}`}
-                      className="inline-flex min-h-12 items-center gap-2 border-2 border-foreground px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] hover:bg-foreground hover:text-background"
+                      className="inline-flex min-h-12 items-center gap-2 border-2 border-foreground px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] hover:bg-foreground hover:text-background rounded-full"
                     >
                       Case Study <span aria-hidden className="nudge">→</span>
                       <span className="sr-only"> {project.title}</span>
@@ -139,13 +139,13 @@ export function ProjectStack({ items }: { items: readonly ProjectItem[] }) {
                   tabIndex={-1}
                   aria-hidden
                   data-cursor="Live ↗"
-                  className="block w-full border-2 border-border bg-background shadow-[10px_10px_0_0_var(--color-signal)] transition-[translate,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)]"
+                  className="block w-full overflow-hidden border-2 border-border bg-background shadow-[10px_10px_0_0_var(--color-signal)] transition-[translate,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)] rounded-[1.25rem]"
                 >
                   <span className="flex items-center gap-3 border-b-2 border-border px-3 py-2">
                     <span className="flex gap-1.5">
                       <span className="size-3 border-2 border-border" />
                       <span className="size-3 border-2 border-border" />
-                      <span className="size-3 bg-signal" />
+                      <span className="size-3 bg-signal sig-dot" />
                     </span>
                     <span className="label min-w-0 truncate">{host}</span>
                   </span>

@@ -52,7 +52,7 @@ export function Contact() {
       <div className="frame">
         <div className="grid gap-6 md:grid-cols-12">
           <p className="label flex items-center gap-3 self-start md:col-span-3">
-            <span className="bg-foreground px-1.5 py-0.5 text-background">09</span>
+            <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">09</span>
             {contact.eyebrow}
           </p>
           <div className="md:col-span-9">
@@ -66,7 +66,7 @@ export function Contact() {
         <div className="mt-16 grid gap-12 lg:grid-cols-12">
           <div className="min-w-0 lg:col-span-5">
             <ContactRows />
-            <div className="mt-10 border-2 border-border p-6">
+            <div className="mt-10 rounded-[1.25rem] border-2 border-border p-6">
               <h3 className="display text-[clamp(1.75rem,1.3rem+1.5vw,2.5rem)]">{booking.title}</h3>
               <p className="mt-3 text-muted">{booking.subtitle}</p>
               <BookingButton variant="outline" className="mt-6 w-full whitespace-normal text-left sm:w-auto">

@@ -56,13 +56,13 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
   const hasLink = Boolean(study.liveUrl);
 
   const figure = (
-    <figure className="group relative block border-2 border-border bg-background">
+    <figure className="group relative block overflow-hidden rounded-[1.25rem] border-2 border-border bg-background">
       {/* Browser-Leiste */}
       <div className="flex items-center gap-3 border-b-2 border-border px-3 py-2">
         <span className="flex gap-1.5" aria-hidden>
           <span className="size-3 border-2 border-border" />
           <span className="size-3 border-2 border-border" />
-          <span className="size-3 bg-signal" />
+          <span className="size-3 bg-signal sig-dot" />
         </span>
         {host && <span className="label min-w-0 truncate">{host}</span>}
         {hasLink && (
@@ -86,7 +86,7 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
           priority
         />
         {hasLink && (
-          <span className="pointer-events-none absolute bottom-4 left-4 border-2 border-ink bg-signal px-4 py-2 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal opacity-0 transition-opacity duration-[90ms] group-hover:opacity-100">
+          <span className="pointer-events-none absolute bottom-4 left-4 rounded-full border-2 border-ink bg-signal px-4 py-2 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal opacity-0 transition-opacity duration-[90ms] group-hover:opacity-100">
             Website öffnen ↗
           </span>
         )}
@@ -103,7 +103,7 @@ function PreviewWindow({ study }: { study: CaseStudy }) {
       rel="noopener noreferrer"
       aria-label={`${study.title} live öffnen (neuer Tab)`}
       data-cursor="Live ↗"
-      className="block shadow-[10px_10px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)]"
+      className="block rounded-[1.25rem] shadow-[10px_10px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-signal)]"
     >
       {figure}
     </a>
@@ -186,7 +186,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <li key={block.key} data-rv="up" className="border-b-2 border-border last:border-b-0">
             <div className="frame grid gap-4 py-10 lg:grid-cols-12 lg:gap-6 lg:py-14">
               <p className="label lg:col-span-2">
-                <span className="bg-foreground px-1.5 py-0.5 text-background">{block.step}</span>
+                <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">{block.step}</span>
               </p>
               <h2 className="display px-x text-[clamp(2.25rem,1.2rem+2.6vw,3.75rem)] lg:col-span-5" style={{ "--speed": 160 } as React.CSSProperties}>{block.label}</h2>
               <p className="max-w-2xl text-[length:var(--text-lead)] leading-relaxed lg:col-span-5">{study[block.key]}</p>
@@ -202,7 +202,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <div className="md:col-span-9">
             <ul className="flex flex-wrap gap-2" aria-label="Technologien">
               {study.tags.map((tag) => (
-                <li key={tag} className="label border-2 border-border px-3 py-2 text-sm">
+                <li key={tag} className="label border-2 border-border px-3 py-2 text-sm rounded-full">
                   {tag}
                 </li>
               ))}

@@ -13,7 +13,7 @@ export function Problem() {
       <div className="frame">
         <div className="grid gap-6 md:grid-cols-12">
           <p className="label flex items-center gap-3 self-start md:col-span-3">
-            <span className="bg-foreground px-1.5 py-0.5 text-background">01</span>
+            <span className="bg-foreground px-1.5 py-0.5 text-background rounded-full">01</span>
             Dein Problem
           </p>
           <ScrubText

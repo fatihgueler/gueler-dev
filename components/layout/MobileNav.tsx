@@ -33,7 +33,7 @@ export function MobileNav() {
           >
             <span aria-hidden className="grid grid-cols-2 gap-[3px]">
               <span className="size-[5px] bg-current" />
-              <span className="size-[5px] bg-signal" />
+              <span className="size-[5px] bg-signal sig-dot" />
               <span className="size-[5px] bg-current" />
               <span className="size-[5px] bg-current" />
             </span>
@@ -90,7 +90,7 @@ export function MobileNav() {
             <Link
               href="/#kontakt"
               onClick={close}
-              className="flex min-h-14 items-center justify-between border-2 border-border bg-signal px-5 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)]"
+              className="flex min-h-14 items-center justify-between border-2 border-border bg-signal px-5 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] rounded-full"
             >
               Kostenloses Erstgespräch anfragen
               <span aria-hidden>→</span>

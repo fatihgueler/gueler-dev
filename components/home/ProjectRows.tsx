@@ -74,7 +74,7 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                 <p className="text-[length:var(--text-lead)] leading-snug">{project.description}</p>
                 <ul className="flex flex-wrap gap-2" aria-label="Technologien">
                   {project.tags.map((tag) => (
-                    <li key={tag} className="label border-2 border-border px-2 py-1">
+                    <li key={tag} className="label border-2 border-border px-2 py-1 rounded-full">
                       {tag}
                     </li>
                   ))}
@@ -84,14 +84,14 @@ export function ProjectRows({ items, startIndex = 1 }: { items: readonly Project
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative z-10 inline-flex min-h-12 items-center gap-2 border-2 border-foreground bg-signal px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)]"
+                    className="relative z-10 inline-flex min-h-12 items-center gap-2 border-2 border-foreground bg-signal px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)] rounded-full"
                   >
                     Live ansehen ↗<span className="sr-only"> – {project.title} (neuer Tab)</span>
                   </a>
                   {study && (
                     <Link
                       href={`/projekte/${study.id}`}
-                      className="relative z-10 inline-flex min-h-12 items-center gap-2 border-2 border-foreground px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] hover:bg-foreground hover:text-background"
+                      className="relative z-10 inline-flex min-h-12 items-center gap-2 border-2 border-foreground px-4 font-mono text-sm font-bold uppercase tracking-[0.06em] hover:bg-foreground hover:text-background rounded-full"
                     >
                       Case Study →<span className="sr-only"> {project.title}</span>
                     </Link>

@@ -32,7 +32,7 @@ export function Outcomes() {
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="relative text-[clamp(1.75rem,1.2rem+2vw,3rem)] font-extrabold leading-[1] tracking-tight" style={{ fontStretch: "75%" }}>
+            <h3 className="relative text-[clamp(1.75rem,1.2rem+2vw,3rem)] font-extrabold leading-[1] tracking-tight" style={{ fontStretch: "86%" }}>
               {item.title}
             </h3>
             <p className={`relative mt-4 max-w-lg text-lg leading-snug ${i === 0 ? "" : "text-muted"}`}>

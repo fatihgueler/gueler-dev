@@ -23,7 +23,7 @@ export function CTA() {
             <Magnetic strength={0.2}>
             <Link
               href={cta.primary.href}
-              className="flex min-h-14 items-center justify-between gap-3 border-2 border-ink bg-ink px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-paper transition-transform duration-[90ms] hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-paper)]"
+              className="flex min-h-14 items-center justify-between gap-3 border-2 border-ink bg-ink px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-paper transition-transform duration-[90ms] hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_var(--color-paper)] rounded-full"
             >
               {cta.primary.label}
               <span aria-hidden className="nudge">→</span>

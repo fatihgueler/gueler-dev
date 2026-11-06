@@ -73,8 +73,8 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div role="status" className="border-2 border-border bg-background p-8 shadow-[8px_8px_0_0_var(--color-signal)] md:p-10">
-        <div className="mb-6 inline-flex size-14 items-center justify-center border-2 border-border bg-signal text-on-signal">
+      <div role="status" className="border-2 border-border bg-background p-8 shadow-[8px_8px_0_0_var(--color-signal)] md:p-10 rounded-[1.25rem]">
+        <div className="mb-6 inline-flex size-14 items-center justify-center rounded-full border-2 border-border bg-signal text-on-signal sig-dot">
           <CheckCircle2 className="size-7" aria-hidden />
         </div>
         <h3 className="display text-[clamp(2.25rem,5vw,3.5rem)]">
@@ -95,7 +95,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative space-y-6 border-2 border-border bg-background p-5 shadow-[8px_8px_0_0_var(--color-foreground)] sm:p-8 md:p-10 [&_label]:font-mono [&_label]:text-xs [&_label]:uppercase [&_label]:tracking-[0.06em]"
+      className="relative space-y-6 border-2 border-border bg-background p-5 shadow-[8px_8px_0_0_var(--color-foreground)] sm:p-8 md:p-10 [&_label]:font-mono [&_label]:text-xs [&_label]:uppercase [&_label]:tracking-[0.06em] rounded-[1.25rem]"
       noValidate
     >
       {/* Honeypot – komplett unsichtbar, kein verräterisches Label/Placeholder.
@@ -239,7 +239,7 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <div role="alert" className="flex gap-3 border-2 border-error p-4 text-error">
+        <div role="alert" className="flex gap-3 rounded-xl border-2 border-error p-4 text-error">
           <AlertCircle className="mt-0.5 size-5 shrink-0" aria-hidden />
           <p className="font-medium">{contact.errorMessage}</p>
         </div>

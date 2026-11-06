@@ -58,13 +58,13 @@ export default function JobsuchePage() {
         <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
           <a
             href="/Lebenslauf_Fatih_Gueler.pdf"
-            className="inline-flex min-h-14 items-center justify-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)]"
+            className="inline-flex min-h-14 items-center justify-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] transition-[transform,box-shadow] duration-[90ms] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)] rounded-full"
           >
             <Download className="size-4" aria-hidden /> Lebenslauf als PDF
           </a>
           <a
             href={`mailto:${site.email}?subject=Stelle%20als%20Junior%20Entwickler`}
-            className="inline-flex min-h-14 min-w-0 items-center justify-center gap-3 break-all border-2 border-foreground px-6 py-3 font-mono text-sm font-bold hover:bg-foreground hover:text-background"
+            className="inline-flex min-h-14 min-w-0 items-center justify-center gap-3 break-all border-2 border-foreground px-6 py-3 font-mono text-sm font-bold hover:bg-foreground hover:text-background rounded-full"
           >
             <Mail className="size-4 shrink-0" aria-hidden /> {site.email}
           </a>
@@ -96,7 +96,7 @@ export default function JobsuchePage() {
             <li key={p.title} data-rv="up" className="row-invert border-b-2 border-border">
               <div className="frame grid gap-3 py-8 md:grid-cols-12 md:gap-6">
                 <span className="label md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "80%" }}>
+                <h3 className="text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-extrabold leading-tight md:col-span-4" style={{ fontStretch: "86%" }}>
                   {p.title}
                 </h3>
                 <p className="text-lg leading-snug md:col-span-7">{p.text}</p>
@@ -110,7 +110,7 @@ export default function JobsuchePage() {
             {stack.map((item, i) => (
               <li key={item} className="display text-[clamp(1.75rem,1.2rem+2vw,3rem)]">
                 {item}
-                {i < stack.length - 1 && <span aria-hidden className="ml-5 inline-block size-3 bg-signal align-middle" />}
+                {i < stack.length - 1 && <span aria-hidden className="ml-5 inline-block size-3 bg-signal align-middle sig-dot" />}
               </li>
             ))}
           </ul>
