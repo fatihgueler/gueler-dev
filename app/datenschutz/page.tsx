@@ -13,36 +13,38 @@ export const metadata: Metadata = {
 
 export default function Datenschutz() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="grain" />
-      <Section className="py-32">
-        <div className="max-w-2xl">
+    <div className="bg-background">
+      <Section className="!pt-10 md:!pt-14">
+        <div className="grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-3">
           <Eyebrow>Rechtliches</Eyebrow>
-          <h1 className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-foreground [text-wrap:balance] md:text-5xl">
+        </div>
+        <div className="min-w-0 md:col-span-9">
+          <h1 className="display break-words text-[clamp(3rem,1.5rem+7vw,9rem)]" lang="de" style={{ hyphens: "auto" }}>
             Datenschutzerklärung
           </h1>
 
-          <div className="mt-12 space-y-8 text-foreground/80 leading-relaxed">
+          <div className="prose-brut mt-14 space-y-10">
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">1. Datenschutz auf einen Blick</h2>
+              <h2 className="border-t-2 border-border pt-4">1. Datenschutz auf einen Blick</h2>
               <p>
                 Diese Website wird betrieben von Fatih Güler. Der Schutz deiner Daten ist uns wichtig. Diese Datenschutzerklärung erklärt, wie wir deine personenbezogenen Daten verarbeiten.
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">2. Verantwortlicher</h2>
+              <h2 className="border-t-2 border-border pt-4">2. Verantwortlicher</h2>
               <p>
                 Fatih Güler<br />
                 Fuchsgarten 10<br />
                 30823 Garbsen<br />
-                E-Mail: <a href="mailto:fatih.gueler75@gmail.com" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">fatih.gueler75@gmail.com</a><br />
-                Telefon: <a href="tel:015777688060" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">015777688060</a>
+                E-Mail: <a href="mailto:fatih.gueler75@gmail.com" className="link">fatih.gueler75@gmail.com</a><br />
+                Telefon: <a href="tel:015777688060" className="link">015777688060</a>
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">3. Allgemeine Informationen zur Datenverarbeitung</h2>
+              <h2 className="border-t-2 border-border pt-4">3. Allgemeine Informationen zur Datenverarbeitung</h2>
               <p>
                 {analytics.umamiWebsiteId
                   ? "Diese Website setzt keine Cookies zu Tracking-Zwecken. Für eine anonyme Reichweitenmessung nutzen wir Umami (siehe Abschnitt 4a). Deine IP-Adresse wird dabei nicht gespeichert."
@@ -51,11 +53,11 @@ export default function Datenschutz() {
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">4. Kontaktformular</h2>
+              <h2 className="border-t-2 border-border pt-4">4. Kontaktformular</h2>
               <p className="mb-3">
                 Wenn du das Kontaktformular nutzt, werden die von dir eingegebenen Daten (Name, E-Mail, Nachricht) zur Verarbeitung deiner Anfrage verwendet.
               </p>
-              <div className="pl-4 border-l-2 border-gold/30">
+              <div className="border-l-[length:var(--rule-heavy)] border-signal pl-4">
                 <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 f) DSGVO (berechtigtes Interesse an der Beantwortung deiner Anfrage)</p>
                 <p className="mb-2"><strong>Speicherdauer:</strong> Deine Daten werden bis zur Beantwortung der Anfrage gespeichert, danach gelöscht. Geschäftliche Korrespondenz wird ggf. archiviert.</p>
                 <p><strong>Empfänger:</strong> Die Daten werden über Resend (Email-Service) verarbeitet. Resend speichert Emails zur Zustellung.</p>
@@ -64,11 +66,11 @@ export default function Datenschutz() {
 
             {analytics.umamiWebsiteId && (
               <section>
-                <h2 className="text-lg font-semibold text-foreground mb-3">4a. Reichweitenmessung mit Umami</h2>
+                <h2 className="border-t-2 border-border pt-4">4a. Reichweitenmessung mit Umami</h2>
                 <p className="mb-3">
                   Um zu verstehen, welche Seiten und Buttons genutzt werden, verwenden wir Umami Cloud (umami.is). Umami setzt keine Cookies und speichert keine IP-Adressen. Erfasst werden zusammengefasste Angaben wie aufgerufene Seite, verweisende Seite, Browser, Betriebssystem, Gerätetyp und Land sowie Klicks auf ausgewählte Buttons.
                 </p>
-                <div className="pl-4 border-l-2 border-gold/30">
+                <div className="border-l-[length:var(--rule-heavy)] border-signal pl-4">
                   <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 f) DSGVO (berechtigtes Interesse an einer datensparsamen Auswertung und Verbesserung dieser Website)</p>
                   <p><strong>Empfänger:</strong> Betreiber von Umami Cloud als Auftragsverarbeiter.</p>
                 </div>
@@ -76,36 +78,36 @@ export default function Datenschutz() {
             )}
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">4b. Terminbuchung über Calendly</h2>
+              <h2 className="border-t-2 border-border pt-4">4b. Terminbuchung über Calendly</h2>
               <p className="mb-3">
                 Für Erstgespräche kannst du einen Termin über Calendly buchen. Das Calendly-Fenster wird erst geladen, wenn du auf den Buchungs-Button klickst – vorher werden keine Daten an Calendly übertragen. Ab dem Klick erhält Calendly technische Daten wie deine IP-Adresse und Browserinformationen, setzt eigene Cookies und verarbeitet die Angaben, die du bei der Buchung eingibst (z. B. Name, E-Mail, Wunschtermin). Calendly verarbeitet Daten auch in den USA.
               </p>
-              <div className="pl-4 border-l-2 border-gold/30">
+              <div className="border-l-[length:var(--rule-heavy)] border-signal pl-4">
                 <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 a) DSGVO (Einwilligung durch deinen Klick) und Artikel 6 Abs. 1 b) DSGVO (Vereinbarung des Termins)</p>
-                <p><strong>Anbieter:</strong> Calendly LLC. Details: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">Datenschutzerklärung von Calendly</a></p>
+                <p><strong>Anbieter:</strong> Calendly LLC. Details: <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" className="link">Datenschutzerklärung von Calendly</a></p>
               </div>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">4c. Karte (OpenStreetMap)</h2>
+              <h2 className="border-t-2 border-border pt-4">4c. Karte (OpenStreetMap)</h2>
               <p className="mb-3">
                 Auf der Kontaktseite kann eine Karte von OpenStreetMap eingeblendet werden. Sie wird erst geladen, wenn du auf „Karte von OpenStreetMap laden“ klickst. Dann werden technische Daten wie deine IP-Adresse an die Server von OpenStreetMap übertragen.
               </p>
-              <div className="pl-4 border-l-2 border-gold/30">
+              <div className="border-l-[length:var(--rule-heavy)] border-signal pl-4">
                 <p className="mb-2"><strong>Rechtsgrundlage:</strong> Artikel 6 Abs. 1 a) DSGVO (Einwilligung durch deinen Klick)</p>
-                <p><strong>Anbieter:</strong> OpenStreetMap Foundation. Details: <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">Datenschutzerklärung der OSM Foundation</a></p>
+                <p><strong>Anbieter:</strong> OpenStreetMap Foundation. Details: <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer" className="link">Datenschutzerklärung der OSM Foundation</a></p>
               </div>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">5. Externe Links</h2>
+              <h2 className="border-t-2 border-border pt-4">5. Externe Links</h2>
               <p>
                 Diese Website enthält Links zu externen Websites. Für deren Datenschutzpraktiken sind wir nicht verantwortlich. Bitte lies die Datenschutzerklärungen der verlinkten Seiten.
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">6. Deine Rechte</h2>
+              <h2 className="border-t-2 border-border pt-4">6. Deine Rechte</h2>
               <p>
                 Du hast das Recht auf:
               </p>
@@ -117,30 +119,31 @@ export default function Datenschutz() {
                 <li><strong>Beschwerde:</strong> Bei der zuständigen Datenschutzbehörde (Niedersächsischer Landesbeamte für Datenschutz)</li>
               </ul>
               <p className="mt-4">
-                Kontaktiere uns unter <a href="mailto:fatih.gueler75@gmail.com" className="text-gold underline underline-offset-4 hover:text-gold-bright transition">fatih.gueler75@gmail.com</a>, um diese Rechte auszuüben.
+                Kontaktiere uns unter <a href="mailto:fatih.gueler75@gmail.com" className="link">fatih.gueler75@gmail.com</a>, um diese Rechte auszuüben.
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">7. Sicherheit</h2>
+              <h2 className="border-t-2 border-border pt-4">7. Sicherheit</h2>
               <p>
                 Wir setzen technische und organisatorische Maßnahmen ein, um deine Daten zu schützen. Das Kontaktformular wird über HTTPS verschlüsselt übertragen.
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-foreground mb-3">8. Änderungen dieser Datenschutzerklärung</h2>
+              <h2 className="border-t-2 border-border pt-4">8. Änderungen dieser Datenschutzerklärung</h2>
               <p>
                 Wir können diese Datenschutzerklärung jederzeit aktualisieren. Die aktuelle Version findest du auf dieser Seite.
               </p>
             </section>
 
-            <section className="pt-8 border-t border-foreground/10">
+            <section className="border-t-2 border-border pt-6">
               <p className="text-sm">
                 <strong>Letzte Aktualisierung:</strong> Juni 2026
               </p>
             </section>
           </div>
+        </div>
         </div>
       </Section>
     </div>

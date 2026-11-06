@@ -12,7 +12,7 @@ export function Section({ id, className, children, ...props }: SectionProps) {
   return (
     <section
       id={id}
-      className={cn("border-t-2 border-border py-[var(--spacing-section)]", className)}
+      className={cn("border-b-2 border-border py-[var(--spacing-section)]", className)}
       {...props}
     >
       <div className="frame">{children}</div>

@@ -104,7 +104,7 @@ export default function WieLangeDauertEineWebsitePage() {
         <nav aria-label="Brotkrumen" className="mt-8">
           <ol className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
             <li>
-              <Link href="/" className="transition-colors hover:text-violet-3">
+              <Link href="/" className="link">
                 Startseite
               </Link>
             </li>
@@ -114,9 +114,9 @@ export default function WieLangeDauertEineWebsitePage() {
         </nav>
       </PageHero>
 
-      <Section className="!pt-0">
-        <div className="max-w-3xl border border-violet-3/30 bg-violet/5 p-7 md:p-9">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-3">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
+        <div className="max-w-4xl border-2 border-border border-l-[length:var(--rule-heavy)] border-l-signal bg-surface p-6 shadow-[8px_8px_0_0_var(--color-foreground)] md:p-10">
+          <p className="label font-bold">
             Die kurze Antwort
           </p>
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
@@ -130,19 +130,19 @@ export default function WieLangeDauertEineWebsitePage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Zeitrahmen"
           title="Dauer nach Projekttyp"
           subtitle="Richtwerte, wenn die Inhalte bereitstehen."
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border md:grid-cols-3">
           {TIMELINES.map((item) => (
-            <div key={item.type} className="border border-border bg-surface p-7">
-              <h3 className="font-display text-lg font-semibold text-foreground">
+            <div key={item.type} className="border-b-2 border-r-2 border-border p-7">
+              <h3 className="text-xl font-bold leading-tight">
                 {item.type}
               </h3>
-              <p className="mt-2 font-display text-2xl font-semibold text-violet-3">
+              <p className="display mt-3 text-[2.75rem]">
                 {item.duration}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted">{item.note}</p>
@@ -151,15 +151,15 @@ export default function WieLangeDauertEineWebsitePage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Einflussfaktoren"
           title="Was den Zeitplan beeinflusst"
         />
-        <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border sm:grid-cols-2">
           {TIMELINE_FACTORS.map((factor) => (
-            <div key={factor.title} className="bg-background p-7">
-              <h3 className="font-display text-lg font-semibold text-foreground">
+            <div key={factor.title} className="border-b-2 border-r-2 border-border p-7">
+              <h3 className="text-xl font-bold leading-tight">
                 {factor.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{factor.text}</p>
@@ -168,19 +168,19 @@ export default function WieLangeDauertEineWebsitePage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Ablauf"
           title="So läuft ein Projekt ab"
           subtitle="Von der ersten Nachricht bis zum Launch."
         />
-        <ol className="mt-12 grid gap-6 md:grid-cols-2">
+        <ol className="mt-12 grid border-l-2 border-t-2 border-border md:grid-cols-2">
           {processContent.steps.map((step) => (
-            <li key={step.number} className="border border-border bg-surface p-7">
+            <li key={step.number} className="border-b-2 border-r-2 border-border p-7">
               <span className="font-mono text-sm font-semibold text-violet-3">
                 {step.number}
               </span>
-              <h3 className="mt-2 font-display text-lg font-semibold text-foreground">
+              <h3 className="mt-2 text-xl font-bold leading-tight">
                 {step.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{step.description}</p>
@@ -189,12 +189,12 @@ export default function WieLangeDauertEineWebsitePage() {
         </ol>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading eyebrow="FAQ" title="Häufige Fragen zur Dauer" />
-        <dl className="mt-10 max-w-3xl divide-y divide-border border-t border-border">
+        <dl className="mt-10 max-w-3xl divide-y-2 divide-border border-y-2 border-border">
           {GUIDE_FAQ.map((item) => (
             <div key={item.q} className="py-6">
-              <dt className="font-display text-lg font-semibold text-foreground">{item.q}</dt>
+              <dt className="text-xl font-bold leading-tight">{item.q}</dt>
               <dd className="mt-3 text-base leading-relaxed text-muted">{item.a}</dd>
             </div>
           ))}

@@ -1,27 +1,18 @@
 import { ImageResponse } from "next/og";
 
-import { CODE_LINES } from "@/lib/hero-code";
+import { hero, site } from "@/lib/content";
 
 export const runtime = "edge";
 
+const PAPER = "#f2eee6";
+const INK = "#121110";
+const SIGNAL = "#ff4d00";
+
 /**
- * OG-Image im Brutalist-System der Seite: Zeilen aus echtem, kuratiertem
- * Code (lib/hero-code.ts) als Hintergrund, darüber die Wortmarke + Gloss.
- * Jeder geteilte Link trägt so das Signature-Piece nach draußen.
+ * OG-Bild im Werkstattzettel-System: Papier, sichtbares 12er-Raster,
+ * Kernaussage riesig, „Zum Festpreis." als gedrehter Signal-Stempel.
  */
 export async function GET() {
-  // 14 Code-Zeilen, deterministisch versetzt — Akzente in Violett/Cyan
-  const rows = Array.from({ length: 14 }, (_, i) => {
-    const text = CODE_LINES[(i * 3) % CODE_LINES.length];
-    const color =
-      i % 9 === 3
-        ? "rgba(72,209,154,0.35)"
-        : i % 7 === 5
-          ? "rgba(240,190,94,0.28)"
-          : "rgba(234,241,236,0.13)";
-    return { text: `${text}  ${text}`, color, shift: -((i * 53) % 140) };
-  });
-
   return new ImageResponse(
     (
       <div
@@ -30,142 +21,107 @@ export async function GET() {
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#060a08",
+          backgroundColor: PAPER,
+          color: INK,
           position: "relative",
-          overflow: "hidden",
+          border: `12px solid ${INK}`,
         }}
       >
-        {/* Code-Zeilen-Hintergrund */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            padding: "20px 0",
-          }}
-        >
-          {rows.map((row, i) => (
+        {/* Raster-Hilfslinien */}
+        <div style={{ position: "absolute", inset: 0, display: "flex" }}>
+          {Array.from({ length: 12 }, (_, i) => (
             <div
               key={i}
               style={{
-                display: "flex",
-                whiteSpace: "nowrap",
-                fontSize: 22,
-                color: row.color,
-                marginLeft: row.shift,
+                flex: 1,
+                borderLeft: i === 0 ? "none" : "1px solid rgba(18,17,16,0.15)",
               }}
-            >
-              {row.text}
-            </div>
+            />
           ))}
         </div>
 
-        {/* Content */}
+        {/* Kopfzeile */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: `4px solid ${INK}`,
+            padding: "18px 40px",
+            fontSize: 22,
+            letterSpacing: 3,
+            position: "relative",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ width: 22, height: 22, background: SIGNAL, marginRight: 14 }} />
+            GÜLER.DEV
+          </div>
+          <div style={{ display: "flex" }}>WEBDESIGN HANNOVER · DEUTSCHLANDWEIT</div>
+        </div>
+
+        {/* Kernaussage */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            justifyContent: "space-between",
-            padding: "48px 72px",
+            justifyContent: "center",
+            padding: "0 40px",
             position: "relative",
           }}
         >
-          {/* Top bar */}
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              fontSize: 104,
+              fontWeight: 900,
+              lineHeight: 0.92,
+              letterSpacing: -4,
+              textTransform: "uppercase",
+              maxWidth: 1080,
             }}
           >
-            <span
-              style={{
-                color: "rgba(234,241,236,0.6)",
-                fontSize: 22,
-                letterSpacing: 4,
-              }}
-            >
-              WEBDESIGN HANNOVER · DEUTSCHLANDWEIT
-            </span>
-            <span
-              style={{
-                color: "#48d19a",
-                fontSize: 22,
-                letterSpacing: 2,
-              }}
-            >
-              fatih.gueler75@gmail.com
-            </span>
+            {hero.lines[0]}
           </div>
-
-          {/* Wortmarke */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", marginTop: 18 }}>
             <div
               style={{
                 display: "flex",
-                color: "#eaf1ec",
-                fontSize: 164,
-                fontWeight: 800,
-                letterSpacing: -8,
-                lineHeight: 1,
+                background: SIGNAL,
+                border: `4px solid ${INK}`,
+                boxShadow: `10px 10px 0 0 ${INK}`,
+                fontSize: 92,
+                fontWeight: 900,
+                letterSpacing: -3,
+                padding: "4px 22px 0",
+                textTransform: "uppercase",
+                transform: "rotate(-3deg)",
               }}
             >
-              GÜLER.DEV
-            </div>
-            <div
-              style={{
-                display: "flex",
-                color: "#48d19a",
-                fontSize: 26,
-                marginTop: 14,
-                letterSpacing: 3,
-              }}
-            >
-              güler (tr.) — der/die lacht.
+              {hero.lines[1]}
             </div>
           </div>
+        </div>
 
-          {/* Bottom bar: harter Invert-Block */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div
-              style={{
-                display: "flex",
-                background: "#f1f5f9",
-                color: "#04040a",
-                fontSize: 30,
-                fontWeight: 800,
-                padding: "14px 28px",
-                letterSpacing: 1,
-              }}
-            >
-              Websites, die Kunden bringen.
-            </div>
-            <div
-              style={{
-                display: "flex",
-                border: "2px solid rgba(234,241,236,0.4)",
-                color: "rgba(234,241,236,0.8)",
-                fontSize: 24,
-                fontWeight: 600,
-                padding: "14px 24px",
-                marginLeft: 16,
-              }}
-            >
-              One Pager ab 500€ · Business ab 1.500€
-            </div>
+        {/* Fußzeile */}
+        <div
+          style={{
+            display: "flex",
+            borderTop: `4px solid ${INK}`,
+            fontSize: 24,
+            position: "relative",
+          }}
+        >
+          <div style={{ display: "flex", padding: "18px 40px", borderRight: `4px solid ${INK}`, flex: 1 }}>
+            One Pager ab 500 € · Business ab 1.500 €
+          </div>
+          <div style={{ display: "flex", padding: "18px 40px", background: INK, color: PAPER }}>
+            {site.url.replace("https://", "")}
           </div>
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-    },
+    { width: 1200, height: 630 },
   );
 }

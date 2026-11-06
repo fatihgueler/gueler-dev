@@ -126,7 +126,7 @@ export default function WasKostetEineWebsitePage() {
         <nav aria-label="Brotkrumen" className="mt-8">
           <ol className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
             <li>
-              <Link href="/" className="transition-colors hover:text-violet-3">
+              <Link href="/" className="link">
                 Startseite
               </Link>
             </li>
@@ -139,9 +139,9 @@ export default function WasKostetEineWebsitePage() {
       </PageHero>
 
       {/* Kurz-Antwort: der extrahierbare Kern für Suche + KI-Antwortmaschinen */}
-      <Section className="!pt-0">
-        <div className="max-w-3xl border border-violet-3/30 bg-violet/5 p-7 md:p-9">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-3">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
+        <div className="max-w-4xl border-2 border-border border-l-[length:var(--rule-heavy)] border-l-signal bg-surface p-6 shadow-[8px_8px_0_0_var(--color-foreground)] md:p-10">
+          <p className="label font-bold">
             Die kurze Antwort
           </p>
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
@@ -157,35 +157,35 @@ export default function WasKostetEineWebsitePage() {
       </Section>
 
       {/* Preisübersicht aus den echten Paketen */}
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Preise im Überblick"
           title="Drei Pakete, ein Festpreis"
           subtitle="Du weißt vorher genau, was du bekommst – ohne versteckte Kosten."
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border md:grid-cols-3">
           {pakete.items.map((pkg) => (
             <div
               key={pkg.title}
-              className="flex flex-col border border-border bg-surface p-7"
+              className="flex flex-col border-b-2 border-r-2 border-border p-7"
             >
-              <h3 className="font-display text-xl font-semibold text-foreground">
+              <h3 className="display text-[2.25rem]">
                 {pkg.title}
               </h3>
-              <p className="mt-2 font-display text-3xl font-semibold text-violet-3">
+              <p className="display mt-3 text-[3.25rem]">
                 {pkg.price}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted">
                 {pkg.description}
               </p>
-              <p className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-violet-3">
+              <p className="label mt-2">
                 {pkg.time}
               </p>
               <ul className="mt-5 flex-1 space-y-2.5">
                 {pkg.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-start gap-2.5 text-sm text-foreground/80"
+                    className="flex items-start gap-2.5 text-sm text-foreground"
                   >
                     <Check className="mt-0.5 size-4 shrink-0 text-cyan" aria-hidden />
                     {feature}
@@ -199,16 +199,16 @@ export default function WasKostetEineWebsitePage() {
       </Section>
 
       {/* Was den Preis beeinflusst */}
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Preistreiber"
           title="Was den Preis beeinflusst"
           subtitle="Diese Faktoren entscheiden, wo dein Projekt in der Spanne landet."
         />
-        <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border sm:grid-cols-2">
           {PRICE_FACTORS.map((factor) => (
-            <div key={factor.title} className="bg-background p-7">
-              <h3 className="font-display text-lg font-semibold text-foreground">
+            <div key={factor.title} className="border-b-2 border-r-2 border-border p-7">
+              <h3 className="text-xl font-bold leading-tight">
                 {factor.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{factor.text}</p>
@@ -218,7 +218,7 @@ export default function WasKostetEineWebsitePage() {
       </Section>
 
       {/* Einmalige vs. laufende Kosten */}
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <div className="max-w-3xl">
           <SectionHeading
             eyebrow="Einmalig & laufend"
@@ -241,12 +241,12 @@ export default function WasKostetEineWebsitePage() {
       </Section>
 
       {/* FAQ – sichtbar + als FAQPage-Schema */}
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading eyebrow="FAQ" title="Häufige Fragen zu Website-Kosten" />
-        <dl className="mt-10 max-w-3xl divide-y divide-border border-t border-border">
+        <dl className="mt-10 max-w-3xl divide-y-2 divide-border border-y-2 border-border">
           {GUIDE_FAQ.map((item) => (
             <div key={item.q} className="py-6">
-              <dt className="font-display text-lg font-semibold text-foreground">
+              <dt className="text-xl font-bold leading-tight">
                 {item.q}
               </dt>
               <dd className="mt-3 text-base leading-relaxed text-muted">{item.a}</dd>

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
  */
 export function CTA() {
   return (
-    <section className="border-t-2 border-border bg-signal text-on-signal">
+    <section className="bg-signal text-on-signal">
       <div className="frame grid gap-10 py-[var(--spacing-section)] md:grid-cols-12">
         <h2 className="display text-[clamp(3rem,1.5rem+7vw,9rem)] md:col-span-8">{cta.title}</h2>
         <div className="flex flex-col justify-end gap-6 md:col-span-4">

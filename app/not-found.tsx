@@ -1,47 +1,47 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { nav } from "@/lib/content";
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-[80svh] items-center justify-center overflow-hidden px-6">
-      <div
-        className="bg-dot-grid pointer-events-none absolute inset-0 opacity-25 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]"
-        aria-hidden
-      />
-      <div className="relative text-center">
-        {/* 404 mit Grin-Baseline (Ecken hoch, Mitte runter) + Scramble je Ziffer */}
+    <section className="relative overflow-hidden border-b-2 border-border">
+      <div aria-hidden className="grid-lines pointer-events-none absolute inset-0" />
+      <div className="frame relative grid min-h-[80svh] gap-10 py-12 md:grid-cols-12">
+        {/* 404 riesig, unten angeschnitten */}
         <p
           aria-label="404"
-          className="cursor-default font-mono font-black leading-none text-foreground"
-          style={{ fontSize: "clamp(8rem, 26vw, 16rem)", letterSpacing: "-0.04em" }}
+          className="display select-none overflow-hidden text-[clamp(9rem,42vw,34rem)] leading-[0.78] md:col-span-12"
+          style={{ height: "0.7em" }}
         >
-          <span className="inline-block" style={{ transform: "translateY(-0.05em) rotate(-7deg)" }}>
-            <ScrambleText text="4" />
-          </span>
-          <span className="inline-block" style={{ transform: "translateY(0.06em)" }}>
-            <ScrambleText text="0" />
-          </span>
-          <span className="inline-block" style={{ transform: "translateY(-0.05em) rotate(7deg)" }}>
-            <ScrambleText text="4" />
-          </span>
+          4<span className="text-signal">0</span>4
         </p>
-        <h1 className="mt-2 font-display text-3xl font-bold text-foreground">
-          Seite nicht gefunden
-        </h1>
-        <p className="mx-auto mt-4 max-w-md font-mono text-sm text-muted">
-          Diese Seite existiert nicht (mehr). Vielleicht findest du auf der
-          Startseite, was du suchst.
-        </p>
-        <Button asChild size="lg" className="mt-8">
-          <Link href="/">
-            <ArrowLeft />
-            Zur Startseite
+        <div className="md:col-span-5">
+          <h1 className="display text-[clamp(2.5rem,1.5rem+4vw,5rem)]">Seite nicht gefunden</h1>
+          <p className="mt-6 max-w-md text-lg">
+            Diese Seite existiert nicht (mehr). Vielleicht findest du auf der
+            Startseite, was du suchst.
+          </p>
+          <Link
+            href="/"
+            className="mt-8 inline-flex min-h-14 items-center gap-3 border-2 border-foreground bg-signal px-6 font-mono text-sm font-bold uppercase tracking-[0.06em] text-on-signal shadow-[4px_4px_0_0_var(--color-foreground)] hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--color-foreground)]"
+          >
+            ← Zur Startseite
           </Link>
-        </Button>
+        </div>
+        <nav aria-label="Weitere Seiten" className="md:col-span-6 md:col-start-7">
+          <p className="label">Index</p>
+          <ol className="mt-4 border-t-2 border-border">
+            {nav.map((item, i) => (
+              <li key={item.href}>
+                <Link href={item.href} className="row-invert flex items-baseline gap-4 border-b-2 border-border px-1 py-3">
+                  <span className="label w-6">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="display text-[2rem]">{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </nav>
       </div>
-    </div>
+    </section>
   );
 }

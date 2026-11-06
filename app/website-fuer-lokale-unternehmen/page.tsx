@@ -115,7 +115,7 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         <nav aria-label="Brotkrumen" className="mt-8">
           <ol className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
             <li>
-              <Link href="/" className="transition-colors hover:text-violet-3">
+              <Link href="/" className="link">
                 Startseite
               </Link>
             </li>
@@ -125,9 +125,9 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         </nav>
       </PageHero>
 
-      <Section className="!pt-0">
-        <div className="max-w-3xl border border-violet-3/30 bg-violet/5 p-7 md:p-9">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-3">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
+        <div className="max-w-4xl border-2 border-border border-l-[length:var(--rule-heavy)] border-l-signal bg-surface p-6 shadow-[8px_8px_0_0_var(--color-foreground)] md:p-10">
+          <p className="label font-bold">
             Die kurze Antwort
           </p>
           <p className="mt-4 text-lg leading-relaxed text-foreground md:text-xl">
@@ -142,16 +142,16 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Must-haves"
           title="Das braucht jede lokale Website"
         />
-        <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border sm:grid-cols-2 lg:grid-cols-3">
           {MUST_HAVES.map((item) => (
-            <div key={item.title} className="bg-background p-7">
+            <div key={item.title} className="border-b-2 border-r-2 border-border p-7">
               <Check className="size-5 text-cyan" aria-hidden />
-              <h3 className="mt-3 font-display text-lg font-semibold text-foreground">
+              <h3 className="mt-3 text-xl font-bold leading-tight">
                 {item.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
@@ -160,16 +160,16 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading
           eyebrow="Lokale SEO"
           title="So wirst du vor Ort gefunden"
           subtitle="Die vier Hebel für lokale Sichtbarkeit."
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid border-l-2 border-t-2 border-border md:grid-cols-2">
           {LOCAL_SEO.map((item) => (
-            <div key={item.title} className="border border-border bg-surface p-7">
-              <h3 className="font-display text-lg font-semibold text-foreground">
+            <div key={item.title} className="border-b-2 border-r-2 border-border p-7">
+              <h3 className="text-xl font-bold leading-tight">
                 {item.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{item.text}</p>
@@ -178,14 +178,14 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <div className="max-w-3xl">
           <SectionHeading eyebrow="Vermeiden" title="Häufige Fehler" />
           <ul className="mt-8 space-y-4">
             {COMMON_MISTAKES.map((mistake) => (
               <li
                 key={mistake}
-                className="border border-border bg-surface/60 px-5 py-4 text-base leading-relaxed text-muted"
+                className="border-2 border-border px-5 py-4 text-base leading-relaxed text-muted"
               >
                 {mistake}
               </li>
@@ -194,12 +194,12 @@ export default function WebsiteFuerLokaleUnternehmenPage() {
         </div>
       </Section>
 
-      <Section className="!pt-0">
+      <Section className="!py-[clamp(3rem,2rem+4vw,6rem)]">
         <SectionHeading eyebrow="FAQ" title="Häufige Fragen" />
-        <dl className="mt-10 max-w-3xl divide-y divide-border border-t border-border">
+        <dl className="mt-10 max-w-3xl divide-y-2 divide-border border-y-2 border-border">
           {GUIDE_FAQ.map((item) => (
             <div key={item.q} className="py-6">
-              <dt className="font-display text-lg font-semibold text-foreground">{item.q}</dt>
+              <dt className="text-xl font-bold leading-tight">{item.q}</dt>
               <dd className="mt-3 text-base leading-relaxed text-muted">{item.a}</dd>
             </div>
           ))}
